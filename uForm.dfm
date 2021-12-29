@@ -26,6 +26,7 @@ object FMenu: TFMenu
       end
       object Supplier1: TMenuItem
         Caption = 'Satuan Obat'
+        OnClick = Supplier1Click
       end
       object Obat1: TMenuItem
         Caption = 'Obat'

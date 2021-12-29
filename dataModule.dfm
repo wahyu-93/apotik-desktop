@@ -63,4 +63,30 @@ object dm: Tdm
       BlobType = ftMemo
     end
   end
+  object dsSatuan: TDataSource
+    DataSet = qrySatuan
+    Left = 112
+    Top = 224
+  end
+  object qrySatuan: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from tbl_satuan')
+    Left = 64
+    Top = 240
+    object qrySatuanid: TAutoIncField
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object qrySatuankode: TStringField
+      FieldName = 'kode'
+    end
+    object qrySatuansatuan: TStringField
+      FieldName = 'satuan'
+      Size = 100
+    end
+  end
 end

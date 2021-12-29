@@ -1,9 +1,9 @@
-object fJenisObat: TfJenisObat
-  Left = 244
-  Top = 165
+object FSatuan: TFSatuan
+  Left = 1027
+  Top = 160
   Width = 616
-  Height = 563
-  Caption = 'fJenisObat'
+  Height = 567
+  Caption = 'FSatuan'
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -24,9 +24,9 @@ object fJenisObat: TfJenisObat
     object lbl1: TLabel
       Left = 224
       Top = 16
-      Width = 116
+      Width = 140
       Height = 27
-      Caption = 'Jenis Obat'
+      Caption = 'Jenis Satuan'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -24
@@ -44,9 +44,9 @@ object fJenisObat: TfJenisObat
     object lbl2: TLabel
       Left = 8
       Top = 16
-      Width = 108
+      Width = 84
       Height = 17
-      Caption = 'Kode Jenis Obat'
+      Caption = 'Kode Satuan'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -57,22 +57,9 @@ object fJenisObat: TfJenisObat
     object lbl3: TLabel
       Left = 8
       Top = 48
-      Width = 70
+      Width = 84
       Height = 17
-      Caption = 'Jenis Obat'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
-    end
-    object lbl4: TLabel
-      Left = 8
-      Top = 80
-      Width = 75
-      Height = 17
-      Caption = 'Keterangan'
+      Caption = 'Jenis Satuan'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -81,7 +68,7 @@ object fJenisObat: TfJenisObat
       ParentFont = False
     end
     object edtKode: TEdit
-      Left = 120
+      Left = 96
       Top = 16
       Width = 185
       Height = 25
@@ -94,10 +81,10 @@ object fJenisObat: TfJenisObat
       TabOrder = 0
       Text = 'edtKode'
     end
-    object edtJenis: TEdit
-      Left = 120
+    object edtSatuan: TEdit
+      Left = 96
       Top = 48
-      Width = 457
+      Width = 481
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -108,29 +95,20 @@ object fJenisObat: TfJenisObat
       TabOrder = 1
       Text = 'edtKode'
     end
-    object mmoKet: TMemo
-      Left = 120
-      Top = 80
-      Width = 457
-      Height = 65
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = []
-      Lines.Strings = (
-        'mmoKet')
-      ParentFont = False
-      TabOrder = 2
-    end
     object dbgrd1: TDBGrid
       Left = 8
-      Top = 152
+      Top = 80
       Width = 569
-      Height = 209
-      DataSource = dm.dsJenis
+      Height = 281
+      DataSource = dm.dsSatuan
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = []
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
-      TabOrder = 3
+      ParentFont = False
+      TabOrder = 2
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -11
@@ -141,70 +119,29 @@ object fJenisObat: TfJenisObat
         item
           Expanded = False
           FieldName = 'id'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = []
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -13
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'kode'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = []
           Title.Alignment = taCenter
-          Title.Caption = 'Kode'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 137
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'jenis'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = []
+          FieldName = 'satuan'
           Title.Alignment = taCenter
-          Title.Caption = 'Jenis'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 216
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'keterangan'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Caption = 'Keterangan'
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -13
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Width = 183
+          Width = 406
           Visible = True
         end>
     end
@@ -219,7 +156,7 @@ object fJenisObat: TfJenisObat
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      TabOrder = 4
+      TabOrder = 3
       Text = 'edtKode'
       OnKeyUp = edtpencarianKeyUp
     end
@@ -235,7 +172,7 @@ object fJenisObat: TfJenisObat
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      TabOrder = 5
+      TabOrder = 4
       OnClick = btnTambahClick
     end
     object btnSimpan: TBitBtn
@@ -250,7 +187,7 @@ object fJenisObat: TfJenisObat
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      TabOrder = 6
+      TabOrder = 5
       OnClick = btnSimpanClick
     end
     object btnHapus: TBitBtn
@@ -265,7 +202,7 @@ object fJenisObat: TfJenisObat
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      TabOrder = 7
+      TabOrder = 6
       OnClick = btnHapusClick
     end
     object btnKeluar: TBitBtn
@@ -280,7 +217,7 @@ object fJenisObat: TfJenisObat
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      TabOrder = 8
+      TabOrder = 7
       OnClick = btnKeluarClick
     end
   end

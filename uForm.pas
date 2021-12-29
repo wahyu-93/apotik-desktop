@@ -22,6 +22,7 @@ type
     Supplier2: TMenuItem;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
+    procedure Supplier1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -34,7 +35,7 @@ var
 implementation
 
 uses
-  uJenisObat;
+  uJenisObat, uSatuan;
 
 {$R *.dfm}
 
@@ -46,6 +47,11 @@ end;
 procedure TFMenu.Barang1Click(Sender: TObject);
 begin
   fJenisObat.ShowModal;
+end;
+
+procedure TFMenu.Supplier1Click(Sender: TObject);
+begin
+  FSatuan.ShowModal;
 end;
 
 end.

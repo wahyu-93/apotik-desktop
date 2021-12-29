@@ -17,6 +17,11 @@ type
     qryJeniskode: TStringField;
     qryJenisjenis: TStringField;
     qryJenisketerangan: TMemoField;
+    dsSatuan: TDataSource;
+    qrySatuan: TADOQuery;
+    qrySatuanid: TAutoIncField;
+    qrySatuankode: TStringField;
+    qrySatuansatuan: TStringField;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
   private
