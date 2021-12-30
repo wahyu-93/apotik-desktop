@@ -1,9 +1,9 @@
-object FSatuan: TFSatuan
-  Left = 1027
-  Top = 160
-  Width = 616
-  Height = 567
-  Caption = 'FSatuan'
+object Fsupplier: TFsupplier
+  Left = 781
+  Top = 141
+  Width = 743
+  Height = 662
+  Caption = 'Fsupplier'
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,15 +18,15 @@ object FSatuan: TFSatuan
   object grp1: TGroupBox
     Left = 8
     Top = 8
-    Width = 585
+    Width = 713
     Height = 57
     TabOrder = 0
     object lbl1: TLabel
-      Left = 192
+      Left = 272
       Top = 16
-      Width = 203
+      Width = 153
       Height = 27
-      Caption = 'Form Jenis Satuan'
+      Caption = 'Form Supplier'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -24
@@ -38,15 +38,15 @@ object FSatuan: TFSatuan
   object grp2: TGroupBox
     Left = 8
     Top = 72
-    Width = 585
-    Height = 449
+    Width = 713
+    Height = 545
     TabOrder = 1
     object lbl2: TLabel
       Left = 8
       Top = 16
-      Width = 84
+      Width = 91
       Height = 17
-      Caption = 'Kode Satuan'
+      Caption = 'Kode Supplier'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -57,9 +57,35 @@ object FSatuan: TFSatuan
     object lbl3: TLabel
       Left = 8
       Top = 48
-      Width = 84
+      Width = 56
       Height = 17
-      Caption = 'Jenis Satuan'
+      Caption = 'Suplplier'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lbl4: TLabel
+      Left = 8
+      Top = 80
+      Width = 45
+      Height = 17
+      Caption = 'Alamat'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lbl5: TLabel
+      Left = 8
+      Top = 152
+      Width = 52
+      Height = 17
+      Caption = 'No. Telp'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -68,7 +94,7 @@ object FSatuan: TFSatuan
       ParentFont = False
     end
     object edtKode: TEdit
-      Left = 96
+      Left = 104
       Top = 16
       Width = 185
       Height = 25
@@ -81,10 +107,10 @@ object FSatuan: TFSatuan
       TabOrder = 0
       Text = 'edtKode'
     end
-    object edtSatuan: TEdit
-      Left = 96
+    object edtName: TEdit
+      Left = 104
       Top = 48
-      Width = 481
+      Width = 593
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -97,14 +123,14 @@ object FSatuan: TFSatuan
     end
     object dbgrd1: TDBGrid
       Left = 8
-      Top = 80
-      Width = 569
-      Height = 281
-      DataSource = dm.dsSatuan
+      Top = 192
+      Width = 697
+      Height = 265
+      DataSource = dm.dsSupplier
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Arial'
+      Font.Height = -13
+      Font.Name = 'Arial Narrow'
       Font.Style = []
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
       ParentFont = False
@@ -125,30 +151,59 @@ object FSatuan: TFSatuan
           Expanded = False
           FieldName = 'kode'
           Title.Alignment = taCenter
+          Title.Caption = 'Kode Supplier'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = 93
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'satuan'
+          FieldName = 'nama_supplier'
           Title.Alignment = taCenter
+          Title.Caption = 'Supplier'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 406
+          Width = 205
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'alamat_supplier'
+          Title.Alignment = taCenter
+          Title.Caption = 'Alamat'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = 246
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'telp_suplier'
+          Title.Alignment = taCenter
+          Title.Caption = 'No Hp/ Telp'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = 144
           Visible = True
         end>
     end
     object edtpencarian: TEdit
       Left = 8
-      Top = 368
-      Width = 569
+      Top = 464
+      Width = 697
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -162,7 +217,7 @@ object FSatuan: TFSatuan
     end
     object btnTambah: TBitBtn
       Left = 8
-      Top = 408
+      Top = 504
       Width = 89
       Height = 33
       Caption = 'Tambah'
@@ -177,7 +232,7 @@ object FSatuan: TFSatuan
     end
     object btnSimpan: TBitBtn
       Left = 104
-      Top = 408
+      Top = 504
       Width = 89
       Height = 33
       Caption = 'Simpan'
@@ -192,7 +247,7 @@ object FSatuan: TFSatuan
     end
     object btnHapus: TBitBtn
       Left = 200
-      Top = 408
+      Top = 504
       Width = 89
       Height = 33
       Caption = 'Hapus'
@@ -206,8 +261,8 @@ object FSatuan: TFSatuan
       OnClick = btnHapusClick
     end
     object btnKeluar: TBitBtn
-      Left = 488
-      Top = 408
+      Left = 616
+      Top = 504
       Width = 89
       Height = 33
       Caption = 'Keluar'
@@ -219,6 +274,37 @@ object FSatuan: TFSatuan
       ParentFont = False
       TabOrder = 7
       OnClick = btnKeluarClick
+    end
+    object mmoAlamat: TMemo
+      Left = 104
+      Top = 80
+      Width = 593
+      Height = 65
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      Lines.Strings = (
+        'mmoKet')
+      ParentFont = False
+      TabOrder = 8
+    end
+    object edtTelp: TEdit
+      Left = 104
+      Top = 152
+      Width = 593
+      Height = 25
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      MaxLength = 12
+      ParentFont = False
+      TabOrder = 9
+      Text = 'edtKode'
+      OnKeyPress = edtTelpKeyPress
     end
   end
 end

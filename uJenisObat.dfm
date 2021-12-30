@@ -22,11 +22,11 @@ object fJenisObat: TfJenisObat
     Height = 57
     TabOrder = 0
     object lbl1: TLabel
-      Left = 224
+      Left = 200
       Top = 16
-      Width = 116
+      Width = 179
       Height = 27
-      Caption = 'Jenis Obat'
+      Caption = 'Form Jenis Obat'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -24

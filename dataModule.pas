@@ -22,8 +22,17 @@ type
     qrySatuanid: TAutoIncField;
     qrySatuankode: TStringField;
     qrySatuansatuan: TStringField;
+    qrySupplier: TADOQuery;
+    dsSupplier: TDataSource;
+    qrySupplierid: TAutoIncField;
+    qrySupplierkode: TStringField;
+    qrySuppliernama_supplier: TStringField;
+    qrySupplieralamat_supplier: TMemoField;
+    qrySuppliertelp_suplier: TStringField;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
+    procedure qrySupplieralamat_supplierGetText(Sender: TField;
+      var Text: String; DisplayText: Boolean);
   private
     { Private declarations }
   public
@@ -39,6 +48,12 @@ implementation
 
 procedure Tdm.qryJenisketeranganGetText(Sender: TField; var Text: String;
   DisplayText: Boolean);
+begin
+  Text:= TField(Sender).AsString;
+end;
+
+procedure Tdm.qrySupplieralamat_supplierGetText(Sender: TField;
+  var Text: String; DisplayText: Boolean);
 begin
   Text:= TField(Sender).AsString;
 end;

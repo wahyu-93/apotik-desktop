@@ -23,6 +23,7 @@ type
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
+    procedure Supplier2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -35,7 +36,7 @@ var
 implementation
 
 uses
-  uJenisObat, uSatuan;
+  uJenisObat, uSatuan, uSupplier;
 
 {$R *.dfm}
 
@@ -52,6 +53,11 @@ end;
 procedure TFMenu.Supplier1Click(Sender: TObject);
 begin
   FSatuan.ShowModal;
+end;
+
+procedure TFMenu.Supplier2Click(Sender: TObject);
+begin
+  Fsupplier.Show;
 end;
 
 end.

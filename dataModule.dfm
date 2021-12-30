@@ -2,7 +2,7 @@ object dm: Tdm
   OldCreateOrder = False
   Left = 192
   Top = 125
-  Height = 378
+  Height = 506
   Width = 527
   object XPManifest1: TXPManifest
     Left = 128
@@ -88,5 +88,40 @@ object dm: Tdm
       FieldName = 'satuan'
       Size = 100
     end
+  end
+  object qrySupplier: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from tbl_supplier')
+    Left = 56
+    Top = 328
+    object qrySupplierid: TAutoIncField
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object qrySupplierkode: TStringField
+      FieldName = 'kode'
+    end
+    object qrySuppliernama_supplier: TStringField
+      FieldName = 'nama_supplier'
+      Size = 100
+    end
+    object qrySupplieralamat_supplier: TMemoField
+      FieldName = 'alamat_supplier'
+      OnGetText = qrySupplieralamat_supplierGetText
+      BlobType = ftMemo
+    end
+    object qrySuppliertelp_suplier: TStringField
+      FieldName = 'telp_suplier'
+      Size = 15
+    end
+  end
+  object dsSupplier: TDataSource
+    DataSet = qrySupplier
+    Left = 112
+    Top = 336
   end
 end

@@ -33,6 +33,7 @@ object FMenu: TFMenu
       end
       object Supplier2: TMenuItem
         Caption = 'Supplier'
+        OnClick = Supplier2Click
       end
     end
     object ransaksi1: TMenuItem
