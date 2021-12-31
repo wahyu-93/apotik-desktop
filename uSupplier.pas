@@ -253,7 +253,7 @@ end;
 
 procedure TFsupplier.btnHapusClick(Sender: TObject);
 begin
-   if MessageDlg('Yakin Data Akan Dihapus ?',mtConfirmation,[mbYes,mbNo],0)=mryes then
+  if MessageDlg('Yakin Data Akan Dihapus ?',mtConfirmation,[mbYes,mbNo],0)=mryes then
     begin
       dm.qrySupplier.Delete;
 

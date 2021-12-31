@@ -3,7 +3,7 @@ object FMenu: TFMenu
   Top = 71
   Width = 1440
   Height = 900
-  Caption = 'pdate da'
+  Caption = 'Kasir Apotik'
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -30,6 +30,7 @@ object FMenu: TFMenu
       end
       object Obat1: TMenuItem
         Caption = 'Obat'
+        OnClick = Obat1Click
       end
       object Supplier2: TMenuItem
         Caption = 'Supplier'

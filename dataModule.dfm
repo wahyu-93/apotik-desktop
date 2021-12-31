@@ -97,7 +97,7 @@ object dm: Tdm
     SQL.Strings = (
       'select * from tbl_supplier')
     Left = 56
-    Top = 328
+    Top = 296
     object qrySupplierid: TAutoIncField
       FieldName = 'id'
       ReadOnly = True
@@ -121,7 +121,37 @@ object dm: Tdm
   end
   object dsSupplier: TDataSource
     DataSet = qrySupplier
-    Left = 112
-    Top = 336
+    Left = 104
+    Top = 288
+  end
+  object qryObat: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from tbl_obat')
+    Left = 64
+    Top = 360
+  end
+  object dsObat: TDataSource
+    DataSet = qryObatRelasi
+    Left = 120
+    Top = 352
+  end
+  object qryObatRelasi: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_' +
+        'jenis, b.kode_satuan, a.id as id_jenis, a.kode as jenisKode, a.j' +
+        'enis, c.id as id_satuan, c.kode as satuanKode, c.satuan from tbl' +
+        '_jenis a left join tbl_obat b on a.id = b.kode_jenis INNER join ' +
+        'tbl_satuan c on c.id = b.kode_satuan order by b.id;')
+    Left = 56
+    Top = 416
   end
 end

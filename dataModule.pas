@@ -29,6 +29,9 @@ type
     qrySuppliernama_supplier: TStringField;
     qrySupplieralamat_supplier: TMemoField;
     qrySuppliertelp_suplier: TStringField;
+    qryObat: TADOQuery;
+    dsObat: TDataSource;
+    qryObatRelasi: TADOQuery;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;
