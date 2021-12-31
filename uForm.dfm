@@ -1,6 +1,6 @@
 object FMenu: TFMenu
   Left = 259
-  Top = 71
+  Top = 147
   Width = 1440
   Height = 900
   Caption = 'Kasir Apotik'
@@ -15,6 +15,54 @@ object FMenu: TFMenu
   Position = poDesktopCenter
   PixelsPerInch = 96
   TextHeight = 13
+  object dbgrd1: TDBGrid
+    Left = 48
+    Top = 328
+    Width = 320
+    Height = 120
+    TabOrder = 0
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object dbgrd2: TDBGrid
+    Left = 56
+    Top = 496
+    Width = 320
+    Height = 120
+    TabOrder = 1
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object pnl1: TPanel
+    Left = 104
+    Top = 88
+    Width = 185
+    Height = 41
+    Caption = 'pnl1'
+    TabOrder = 2
+  end
+  object pnl2: TPanel
+    Left = 368
+    Top = 80
+    Width = 185
+    Height = 41
+    Caption = 'pnl2'
+    TabOrder = 3
+  end
+  object pnl3: TPanel
+    Left = 656
+    Top = 88
+    Width = 185
+    Height = 41
+    Caption = 'pnl3'
+    TabOrder = 4
+  end
   object mm1: TMainMenu
     Left = 96
     Top = 64
@@ -41,9 +89,16 @@ object FMenu: TFMenu
       Caption = 'Transaksi'
       object Pembelian1: TMenuItem
         Caption = 'Pembelian'
+        OnClick = Pembelian1Click
       end
       object Penjualan1: TMenuItem
         Caption = 'Penjualan'
+      end
+      object SettingHargaJual1: TMenuItem
+        Caption = 'Set Harga Jual'
+      end
+      object SetTanggalExpired1: TMenuItem
+        Caption = 'Set Tanggal Expired'
       end
     end
     object Laporan1: TMenuItem

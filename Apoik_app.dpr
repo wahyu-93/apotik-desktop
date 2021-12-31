@@ -7,7 +7,9 @@ uses
   uJenisObat in 'uJenisObat.pas' {fJenisObat},
   uSatuan in 'uSatuan.pas' {FSatuan},
   uSupplier in 'uSupplier.pas' {Fsupplier},
-  uObat in 'uObat.pas' {Fobat};
+  uObat in 'uObat.pas' {Fobat},
+  uPenjualan in 'uPenjualan.pas' {Fpenjualan},
+  uPembelian in 'uPembelian.pas' {fPembelian};
 
 {$R *.res}
 
@@ -19,5 +21,7 @@ begin
   Application.CreateForm(TFSatuan, FSatuan);
   Application.CreateForm(TFsupplier, Fsupplier);
   Application.CreateForm(TFobat, Fobat);
+  Application.CreateForm(TFpenjualan, Fpenjualan);
+  Application.CreateForm(TfPembelian, fPembelian);
   Application.Run;
 end.

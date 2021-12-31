@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus;
+  Dialogs, Menus, ExtCtrls, Grids, DBGrids;
 
 type
   TFMenu = class(TForm)
@@ -20,11 +20,19 @@ type
     Penjualan1: TMenuItem;
     Obat1: TMenuItem;
     Supplier2: TMenuItem;
+    dbgrd1: TDBGrid;
+    dbgrd2: TDBGrid;
+    pnl1: TPanel;
+    pnl2: TPanel;
+    pnl3: TPanel;
+    SettingHargaJual1: TMenuItem;
+    SetTanggalExpired1: TMenuItem;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
     procedure Supplier2Click(Sender: TObject);
     procedure Obat1Click(Sender: TObject);
+    procedure Pembelian1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -37,7 +45,7 @@ var
 implementation
 
 uses
-  uJenisObat, uSatuan, uSupplier, uObat;
+  uJenisObat, uSatuan, uSupplier, uObat, uPembelian;
 
 {$R *.dfm}
 
@@ -64,6 +72,11 @@ end;
 procedure TFMenu.Obat1Click(Sender: TObject);
 begin
   Fobat.ShowModal;
+end;
+
+procedure TFMenu.Pembelian1Click(Sender: TObject);
+begin
+  fPembelian.ShowModal;
 end;
 
 end.
