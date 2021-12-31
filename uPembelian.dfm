@@ -406,37 +406,12 @@ object fPembelian: TfPembelian
         end
         item
           Expanded = False
-          FieldName = 'supplier_id'
-          Visible = True
-        end
-        item
-          Expanded = False
           FieldName = 'jumlah_item'
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'total'
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'user_id'
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'status'
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'id_1'
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'pembelian_id'
           Visible = True
         end
         item
@@ -456,11 +431,6 @@ object fPembelian: TfPembelian
         end
         item
           Expanded = False
-          FieldName = 'id_2'
-          Visible = True
-        end
-        item
-          Expanded = False
           FieldName = 'kode'
           Visible = True
         end
@@ -476,27 +446,12 @@ object fPembelian: TfPembelian
         end
         item
           Expanded = False
-          FieldName = 'kode_jenis'
+          FieldName = 'jenis'
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'kode_satuan'
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'tgl_obat'
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'tgl_exp'
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'status_1'
+          FieldName = 'satuan'
           Visible = True
         end>
     end

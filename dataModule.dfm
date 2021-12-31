@@ -181,8 +181,12 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       
-        'select * from tbl_pembelian a left join tbl_detail_pembelian b o' +
-        'n b.pembelian_id = a.id left join tbl_obat c on c.id = b.obat_id')
+        'select a.id, a.no_faktur, a.tgl_pembelian, a.jumlah_item, a.tota' +
+        'l, b.obat_id, b.jumlah_beli, b.harga_beli, c.kode, c.barcode, c.' +
+        'nama_obat, d.jenis, e.satuan from tbl_pembelian a left join tbl_' +
+        'detail_pembelian b on b.pembelian_id = a.id left join tbl_obat c' +
+        ' on c.id = b.obat_id left join tbl_jenis d on d.id=c.kode_jenis ' +
+        'left join tbl_satuan e on e.id = c.kode_satuan ')
     Left = 264
     Top = 144
   end
