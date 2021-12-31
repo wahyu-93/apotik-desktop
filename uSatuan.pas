@@ -153,31 +153,29 @@ begin
 
       if status='tambah' then
         begin
-          begin
-            if Trim(edtSatuan.Text) = dm.qrySatuan.FieldByName('satuan').AsString then
-              begin
-                MessageDlg('Jenis Satuan Sudah Ada',mtError,[mbok],0);
-                edtSatuan.Clear; edtSatuan.SetFocus;
-                Exit;
-              end;
+          if dm.qrySatuan.Locate('satuan',edtSatuan.Text,[]) then
+            begin
+              MessageDlg('Jenis Satuan Sudah Ada',mtError,[mbok],0);
+              edtSatuan.Clear; edtSatuan.SetFocus;
+              Exit;
+            end;
 
-            with dm.qrySatuan do
-              begin
-                Append;
-                FieldByName('kode').AsString := edtKode.Text;
-                FieldByName('satuan').AsString := trim(edtSatuan.Text);
-                Post;
-              end;
+          with dm.qrySatuan do
+            begin
+              Append;
+              FieldByName('kode').AsString := edtKode.Text;
+              FieldByName('satuan').AsString := trim(edtSatuan.Text);
+              Post;
+            end;
 
-            MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
-            FormCreate(Sender);
-          end;
+          MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
+          FormCreate(Sender);
         end
       else
         begin
           if oldSatuan <> edtSatuan.Text then
             begin
-              if Trim(edtSatuan.Text) = dm.qrySatuan.FieldByName('satuan').AsString then
+              if dm.qrySatuan.Locate('satuan',edtSatuan.Text,[]) then
                 begin
                   MessageDlg('Satuan Sudah Ada',mtError,[mbok],0);
                   edtSatuan.Clear; edtSatuan.SetFocus;
@@ -185,11 +183,14 @@ begin
                 end;
 
                //simpan perubaan
-               with dm.qrySatuan do
+              if dm.qrySatuan.Locate('kode',edtKode.Text,[]) then
                 begin
-                  Edit;
-                  FieldByName('satuan').AsString := trim(edtSatuan.Text);
-                  Post;
+                  with dm.qrySatuan do
+                    begin
+                      Edit;
+                      FieldByName('satuan').AsString := trim(edtSatuan.Text);
+                      Post;
+                    end;
                 end;
             end
           else

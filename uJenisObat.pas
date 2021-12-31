@@ -132,32 +132,30 @@ begin
 
       if status='tambah' then
         begin
-          begin
-            if Trim(edtJenis.Text) = dm.qryJenis.FieldByName('jenis').AsString then
-              begin
-                MessageDlg('Jenis Obat Sudah Ada',mtError,[mbok],0);
-                edtJenis.Clear; edtJenis.SetFocus;
-                Exit;
-              end;
+          if dm.qryJenis.Locate('jenis', edtJenis.Text,[]) then
+            begin
+              MessageDlg('Jenis Obat Sudah Ada',mtError,[mbok],0);
+              edtJenis.Clear; edtJenis.SetFocus;
+              Exit;
+            end;
 
-            with dm.qryJenis do
-              begin
-                Append;
-                FieldByName('kode').AsString := edtKode.Text;
-                FieldByName('jenis').AsString := trim(edtJenis.Text);
-                FieldByName('keterangan').AsString := Trim(mmoKet.Text);
-                Post;
-              end;
+          with dm.qryJenis do
+            begin
+              Append;
+              FieldByName('kode').AsString := edtKode.Text;
+              FieldByName('jenis').AsString := trim(edtJenis.Text);
+              FieldByName('keterangan').AsString := Trim(mmoKet.Text);
+              Post;
+            end;
 
-            MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
-            FormCreate(Sender);
-          end;
+          MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
+          FormCreate(Sender);
         end
       else
         begin
           if oldJenis <> edtJenis.Text then
             begin
-              if Trim(edtJenis.Text) = dm.qryJenis.FieldByName('jenis').AsString then
+              if dm.qryJenis.Locate('jenis', edtJenis.Text,[]) then
                 begin
                   MessageDlg('Jenis Obat Sudah Ada',mtError,[mbok],0);
                   edtJenis.Clear; edtJenis.SetFocus;
@@ -165,13 +163,17 @@ begin
                 end;
 
                //simpan perubaan
-               with dm.qryJenis do
+               if dm.qryJenis.Locate('kode',edtKode.Text,[]) then
                 begin
-                  Edit;
-                  FieldByName('jenis').AsString := trim(edtJenis.Text);
-                  FieldByName('keterangan').AsString := Trim(mmoKet.Text);
-                  Post;
+                  with dm.qryJenis do
+                    begin
+                      Edit;
+                      FieldByName('jenis').AsString := trim(edtJenis.Text);
+                      FieldByName('keterangan').AsString := Trim(mmoKet.Text);
+                      Post;
+                    end;
                 end;
+
             end
           else
             begin

@@ -1,6 +1,6 @@
 object Fsupplier: TFsupplier
-  Left = 781
-  Top = 141
+  Left = 446
+  Top = 150
   Width = 743
   Height = 662
   Caption = 'Fsupplier'
@@ -120,6 +120,7 @@ object Fsupplier: TFsupplier
       ParentFont = False
       TabOrder = 1
       Text = 'edtKode'
+      OnKeyPress = edtNameKeyPress
     end
     object dbgrd1: TDBGrid
       Left = 8

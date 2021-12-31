@@ -3,7 +3,7 @@ object FMenu: TFMenu
   Top = 71
   Width = 1440
   Height = 900
-  Caption = 'FMenu'
+  Caption = 'pdate da'
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

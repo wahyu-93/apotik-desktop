@@ -34,6 +34,7 @@ type
     procedure btnSimpanClick(Sender: TObject);
     procedure btnHapusClick(Sender: TObject);
     procedure edtTelpKeyPress(Sender: TObject; var Key: Char);
+    procedure edtNameKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -42,7 +43,7 @@ type
 
 var
   Fsupplier: TFsupplier;
-  kode, status : string;
+  kode, status, oldName, oldAlamat, oldTelp : string;
   
 implementation
 
@@ -97,6 +98,10 @@ begin
           mmoAlamat.Text  := Fields[3].AsString;
           edtTelp.Text    := Fields[4].AsString;
         end;
+
+      oldName := edtName.Text;
+      oldAlamat := mmoAlamat.Text;
+      oldTelp := edtTelp.Text;
 
       btnTambah.Enabled := False;
       btnSimpan.Caption := 'Edit'; btnSimpan.Enabled := True;
@@ -161,7 +166,7 @@ begin
     begin
       if Trim(edtName.Text)='' then
         begin
-          MessageDlg('Jenis Obat Tidak Boleh Kosong',mtInformation,[mbok],0);
+          MessageDlg('Nama Supplier Tidak Boleh Kosong',mtInformation,[mbok],0);
           edtName.SetFocus;
           Exit;
         end;
@@ -182,32 +187,54 @@ begin
 
       if status='tambah' then
         begin
-          begin
-            if Trim(edtName.Text) = dm.qrySupplier.FieldByName('nama_supplier').AsString then
-              begin
-                MessageDlg('Jenis Obat Sudah Ada',mtError,[mbok],0);
-                edtName.Clear; edtName.SetFocus;
-                Exit;
-              end;
+          if dm.qrySupplier.Locate('nama_supplier',edtName.Text,[]) then
+            begin
+              MessageDlg('Nama Supplier Sudah Ada',mtError,[mbok],0);
+              edtName.Clear; edtName.SetFocus;
+              Exit;
+            end;
 
-            with dm.qrySupplier do
-              begin
-                Append;
-                FieldByName('kode').AsString := edtKode.Text;
-                FieldByName('nama_supplier').AsString := trim(edtName.Text);
-                FieldByName('alamat_supplier').AsString := Trim(mmoAlamat.Text);
-                FieldByName('telp_suplier').AsString := Trim(edtTelp.Text);
-                Post;
-              end;
-
-            MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
-            FormCreate(Sender);
-          end;
+          with dm.qrySupplier do
+            begin
+              Append;
+              FieldByName('kode').AsString := edtKode.Text;
+              FieldByName('nama_supplier').AsString := trim(edtName.Text);
+              FieldByName('alamat_supplier').AsString := Trim(mmoAlamat.Text);
+              FieldByName('telp_suplier').AsString := Trim(edtTelp.Text);
+              Post;
+            end;
         end
+
       else
         begin
           // edit perubahan
+          if (edtName.Text <> oldName) or (mmoAlamat.Text <> oldAlamat) or (edtTelp.Text <> oldTelp) then
+            begin
+              if dm.qrySupplier.Locate('nama_supplier',edtName.Text,[]) then
+                begin
+                  MessageDlg('Nama Supplier Sudah Ada', mtError,[mbok],0);
+                  edtName.SetFocus;
+                  Exit;
+                end;
+
+
+              if dm.qrySupplier.Locate('kode',edtKode.Text,[]) then
+                begin
+                  with dm.qrySupplier do
+                    begin
+                      edit;
+                      FieldByName('kode').AsString := edtKode.Text;
+                      FieldByName('nama_supplier').AsString := trim(edtName.Text);
+                      FieldByName('alamat_supplier').AsString := Trim(mmoAlamat.Text);
+                      FieldByName('telp_suplier').AsString := Trim(edtTelp.Text);
+                      Post;
+                    end;
+                end;
+            end;
         end;
+        
+      MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
+      FormCreate(Sender);
     end
   else
     begin
@@ -238,6 +265,11 @@ end;
 procedure TFsupplier.edtTelpKeyPress(Sender: TObject; var Key: Char);
 begin
   if not (Key in ['0'..'9', #8, #9]) then Key := #0
+end;
+
+procedure TFsupplier.edtNameKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key=#13 then mmoAlamat.SetFocus;
 end;
 
 end.
