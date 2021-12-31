@@ -189,6 +189,54 @@ object dm: Tdm
         'left join tbl_satuan e on e.id = c.kode_satuan ')
     Left = 264
     Top = 144
+    object qryRelasiPembelianid: TAutoIncField
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object qryRelasiPembelianno_faktur: TStringField
+      FieldName = 'no_faktur'
+      Size = 50
+    end
+    object qryRelasiPembeliantgl_pembelian: TDateField
+      FieldName = 'tgl_pembelian'
+    end
+    object qryRelasiPembelianjumlah_item: TIntegerField
+      FieldName = 'jumlah_item'
+    end
+    object qryRelasiPembeliantotal: TFloatField
+      FieldName = 'total'
+    end
+    object qryRelasiPembelianobat_id: TIntegerField
+      FieldName = 'obat_id'
+    end
+    object qryRelasiPembelianjumlah_beli: TIntegerField
+      FieldName = 'jumlah_beli'
+      DisplayFormat = '#,#0;(#,#0);#,#0;'
+    end
+    object qryRelasiPembelianharga_beli: TFloatField
+      FieldName = 'harga_beli'
+      DisplayFormat = '#,#0;(#,#0);#,#0;'
+    end
+    object qryRelasiPembeliankode: TStringField
+      FieldName = 'kode'
+      Size = 30
+    end
+    object qryRelasiPembelianbarcode: TStringField
+      FieldName = 'barcode'
+      Size = 100
+    end
+    object qryRelasiPembeliannama_obat: TStringField
+      FieldName = 'nama_obat'
+      Size = 150
+    end
+    object qryRelasiPembelianjenis: TStringField
+      FieldName = 'jenis'
+      Size = 100
+    end
+    object qryRelasiPembeliansatuan: TStringField
+      FieldName = 'satuan'
+      Size = 100
+    end
   end
   object dsRelasiPembelian: TDataSource
     DataSet = qryRelasiPembelian

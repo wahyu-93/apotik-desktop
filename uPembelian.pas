@@ -50,6 +50,10 @@ type
     procedure edtHargaKeyPress(Sender: TObject; var Key: Char);
     procedure edtJumlahBeliKeyPress(Sender: TObject; var Key: Char);
     procedure btnSimpanClick(Sender: TObject);
+    procedure dbgrd1DblClick(Sender: TObject);
+    procedure btnHapusClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
 
   private
     { Private declarations }
@@ -59,7 +63,7 @@ type
 
 var
   fPembelian: TfPembelian;
-  kode, status : string;
+  kode, status, id_pembelian : string;
 
 implementation
 
@@ -107,6 +111,20 @@ begin
 
 end;
 
+procedure konek(id_pembelian : string = 'kosong');
+begin
+  with dm.qryRelasiPembelian do
+    begin
+      close;
+      sql.Clear;
+      SQL.Text := 'select a.id, a.no_faktur, a.tgl_pembelian, a.jumlah_item, a.total, b.obat_id, b.jumlah_beli, b.harga_beli, '+
+                  'c.kode, c.barcode, c.nama_obat, d.jenis, e.satuan from tbl_pembelian a left join ' +
+                  'tbl_detail_pembelian b on b.pembelian_id = a.id left join tbl_obat c on c.id = b.obat_id left join tbl_jenis d on d.id=c.kode_jenis '+
+                  'left join tbl_satuan e on e.id = c.kode_satuan where a.no_faktur='+QuotedStr(id_pembelian)+'';
+      Open;
+    end;
+end;
+
 procedure TfPembelian.btnKeluarClick(Sender: TObject);
 begin
   close;
@@ -135,6 +153,8 @@ begin
   lblItem.Caption := '0'; lblTotalHarga.Caption := '0';
   btnTambah.Enabled := True; btnTambah.Caption := 'Tambah';
   btnKeluar.Enabled := True;
+
+  konek;
 end;
 
 procedure TfPembelian.btnTambahClick(Sender: TObject);
@@ -176,7 +196,29 @@ begin
     end
   else
     begin
-      FormCreate(Sender);
+      if MessageDlg('Apakah Transaksi Akan Dibatalkan ?',mtConfirmation,[mbyes,mbno],0)=mryes then
+        begin
+          // hapus detail transaksi
+          with dm.qryDetailPembelian do
+            begin
+              Close;
+              SQL.Clear;
+              SQL.Text := 'delete from tbl_detail_pembelian where pembelian_id = '+QuotedStr(id_pembelian)+'';
+              ExecSQL;
+            end;
+
+          // hapus pembelian
+          with dm.qryPembelian do
+            begin
+              close;
+              SQL.Clear;
+              SQL.Text := 'delete from tbl_pembelian where id='+QuotedStr(id_pembelian)+'';
+              ExecSQL;
+            end;
+
+          MessageDlg('Transaksi Dibatalkan',mtInformation,[mbOk],0);
+          FormCreate(Sender);
+        end;
     end;
 end;
 
@@ -197,7 +239,6 @@ begin
 end;
 
 procedure TfPembelian.btnSimpanClick(Sender: TObject);
-var id_pembelian : string;
 begin
   if dblkcbbSupplier.KeyValue = null then
     begin
@@ -260,12 +301,56 @@ begin
           Post;
         end;
 
+      // clear entitas barang
+      edtKode.Clear;
+      edtNama.Clear;
+      edtJenis.Clear;
+      edtSatuan.Clear;
+      dtpTanggalKadaluarsa.Date := Now;
+      edtHarga.Clear;
+      edtJumlahBeli.Clear;
+
+      konek(edtFaktur.Text);
       lblItem.Caption := IntToStr(hitungItem(id_pembelian));
       lblTotalHarga.Caption := FormatFloat('Rp. ###,###,###', hitungTotal(id_pembelian));
 
       lblItem.Alignment := taCenter;
       lblTotalHarga.Alignment := taCenter;
+
+      btnSelesai.Enabled := True;
+      btnTambah.Caption := 'Batal';
     end;
+end;
+
+procedure TfPembelian.dbgrd1DblClick(Sender: TObject);
+begin
+  edtKode.Text := dbgrd1.Fields[6].AsString + ' - ' + dbgrd1.Fields[7].AsString;
+  edtNama.Text := dbgrd1.Fields[8].AsString;
+  edtSatuan.Text := dbgrd1.Fields[10].AsString;
+  edtJenis.Text := dbgrd1.Fields[9].AsString;
+  edtHarga.Text := dbgrd1.Fields[12].AsString;
+  edtJenis.Text := dbgrd1.Fields[11].AsString;
+  edtIdObat.Text := dbgrd1.Fields[5].AsString;
+
+  btnSimpan.Caption := 'Edit';
+  btnHapus.Enabled := True;
+  btnSelesai.Enabled := false;
+end;
+
+procedure TfPembelian.btnHapusClick(Sender: TObject);
+begin
+  if MessageDlg('Yakin Item Akan Dihapus ?', mtConfirmation,[mbyes,mbNo],0)=mryes then
+    begin
+    
+    end;
+end;
+
+procedure TfPembelian.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  case Key of
+    VK_F2: fBantuObat.ShowModal;
+  end;
 end;
 
 end.

@@ -10,9 +10,11 @@ object fPembelian: TfPembelian
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poDesktopCenter
   OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
   PixelsPerInch = 96
   TextHeight = 13
   object grp1: TGroupBox
@@ -217,7 +219,7 @@ object fPembelian: TfPembelian
       Top = 96
       Width = 41
       Height = 25
-      Caption = '...'
+      Caption = 'F2'
       TabOrder = 4
       OnClick = btnBantuObatClick
     end
@@ -339,6 +341,7 @@ object fPembelian: TfPembelian
       Font.Style = []
       ParentFont = False
       TabOrder = 12
+      OnClick = btnHapusClick
     end
     object btnSelesai: TBitBtn
       Left = 1296
@@ -382,76 +385,235 @@ object fPembelian: TfPembelian
       Width = 1385
       Height = 345
       DataSource = dm.dsRelasiPembelian
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnDblClick = dbgrd1DblClick
       Columns = <
         item
           Expanded = False
           FieldName = 'id'
-          Visible = True
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Visible = False
         end
         item
           Expanded = False
           FieldName = 'no_faktur'
-          Visible = True
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Visible = False
         end
         item
           Expanded = False
           FieldName = 'tgl_pembelian'
-          Visible = True
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Visible = False
         end
         item
           Expanded = False
           FieldName = 'jumlah_item'
-          Visible = True
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Visible = False
         end
         item
           Expanded = False
           FieldName = 'total'
-          Visible = True
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Visible = False
         end
         item
           Expanded = False
           FieldName = 'obat_id'
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'jumlah_beli'
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'harga_beli'
-          Visible = True
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Visible = False
         end
         item
           Expanded = False
           FieldName = 'kode'
-          Visible = True
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Visible = False
         end
         item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'barcode'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Caption = 'Barcode'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = 160
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'nama_obat'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Caption = 'Nama Obat'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = 514
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'jenis'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Caption = 'Jenis Obat'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = 301
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'satuan'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Caption = 'Satuan'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = 185
+          Visible = True
+        end
+        item
+          Alignment = taCenter
+          Expanded = False
+          FieldName = 'jumlah_beli'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Caption = 'Jumlah Beli'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = 93
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'harga_beli'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Caption = 'Harga Beli'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = 86
           Visible = True
         end>
     end
@@ -501,7 +663,7 @@ object fPembelian: TfPembelian
       object lblItem: TLabel
         Left = 8
         Top = 32
-        Width = 97
+        Width = 78
         Height = 33
         Alignment = taCenter
         Caption = '999999'
@@ -529,7 +691,7 @@ object fPembelian: TfPembelian
       object lblTotalHarga: TLabel
         Left = 8
         Top = 32
-        Width = 217
+        Width = 177
         Height = 33
         Alignment = taCenter
         Caption = 'Rp. 200.000.000'

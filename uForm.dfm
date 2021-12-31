@@ -1,6 +1,6 @@
 object FMenu: TFMenu
-  Left = 259
-  Top = 147
+  Left = 240
+  Top = 53
   Width = 1440
   Height = 900
   Caption = 'Kasir Apotik'
