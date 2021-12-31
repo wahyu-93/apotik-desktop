@@ -9,7 +9,8 @@ uses
   uSupplier in 'uSupplier.pas' {Fsupplier},
   uObat in 'uObat.pas' {Fobat},
   uPenjualan in 'uPenjualan.pas' {Fpenjualan},
-  uPembelian in 'uPembelian.pas' {fPembelian};
+  uPembelian in 'uPembelian.pas' {fPembelian},
+  uBantuObat in 'uBantuObat.pas' {fBantuObat};
 
 {$R *.res}
 
@@ -23,5 +24,6 @@ begin
   Application.CreateForm(TFobat, Fobat);
   Application.CreateForm(TFpenjualan, Fpenjualan);
   Application.CreateForm(TfPembelian, fPembelian);
+  Application.CreateForm(TfBantuObat, fBantuObat);
   Application.Run;
 end.

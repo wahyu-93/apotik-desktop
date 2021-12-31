@@ -1,9 +1,9 @@
 object fPembelian: TfPembelian
-  Left = 247
-  Top = 191
+  Left = 226
+  Top = 174
   Width = 1432
-  Height = 792
-  Caption = 'fPembelian'
+  Height = 766
+  Caption = '.:: Form Pembelian ::.'
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,6 +12,7 @@ object fPembelian: TfPembelian
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object grp1: TGroupBox
@@ -170,6 +171,7 @@ object fPembelian: TfPembelian
       Top = 40
       Width = 361
       Height = 25
+      Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -189,6 +191,9 @@ object fPembelian: TfPembelian
       Font.Height = -15
       Font.Name = 'Arial'
       Font.Style = []
+      KeyField = 'id'
+      ListField = 'nama_supplier'
+      ListSource = dm.dsSupplier
       ParentFont = False
       TabOrder = 2
     end
@@ -197,6 +202,7 @@ object fPembelian: TfPembelian
       Top = 96
       Width = 313
       Height = 25
+      Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -213,12 +219,14 @@ object fPembelian: TfPembelian
       Height = 25
       Caption = '...'
       TabOrder = 4
+      OnClick = btnBantuObatClick
     end
     object edtNama: TEdit
       Left = 376
       Top = 96
       Width = 409
       Height = 25
+      Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -233,6 +241,7 @@ object fPembelian: TfPembelian
       Top = 96
       Width = 281
       Height = 25
+      Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -247,6 +256,7 @@ object fPembelian: TfPembelian
       Top = 96
       Width = 305
       Height = 25
+      Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -284,6 +294,7 @@ object fPembelian: TfPembelian
       ParentFont = False
       TabOrder = 9
       Text = 'edtFaktur'
+      OnKeyPress = edtHargaKeyPress
     end
     object edtJumlahBeli: TEdit
       Left = 800
@@ -298,13 +309,14 @@ object fPembelian: TfPembelian
       ParentFont = False
       TabOrder = 10
       Text = 'edtFaktur'
+      OnKeyPress = edtJumlahBeliKeyPress
     end
-    object btnTambah: TBitBtn
+    object btnSimpan: TBitBtn
       Left = 1104
       Top = 144
       Width = 89
       Height = 33
-      Caption = 'Tambah'
+      Caption = 'Simpan'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -312,13 +324,14 @@ object fPembelian: TfPembelian
       Font.Style = []
       ParentFont = False
       TabOrder = 11
+      OnClick = btnSimpanClick
     end
-    object btn1: TBitBtn
+    object btnHapus: TBitBtn
       Left = 1200
       Top = 144
       Width = 89
       Height = 33
-      Caption = 'Tambah'
+      Caption = 'Hapus'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -327,12 +340,12 @@ object fPembelian: TfPembelian
       ParentFont = False
       TabOrder = 12
     end
-    object btn3: TBitBtn
+    object btnSelesai: TBitBtn
       Left = 1296
       Top = 144
       Width = 89
       Height = 33
-      Caption = 'Tambah'
+      Caption = 'Selesai'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -341,16 +354,25 @@ object fPembelian: TfPembelian
       ParentFont = False
       TabOrder = 13
     end
+    object edtIdObat: TEdit
+      Left = 176
+      Top = 104
+      Width = 121
+      Height = 21
+      TabOrder = 14
+      Text = 'edtIdObat'
+      Visible = False
+    end
   end
   object grp2: TGroupBox
     Left = 8
     Top = 208
     Width = 1401
-    Height = 537
+    Height = 513
     TabOrder = 1
     object bvl1: TBevel
       Left = 8
-      Top = 472
+      Top = 464
       Width = 1385
       Height = 2
     end
@@ -359,16 +381,128 @@ object fPembelian: TfPembelian
       Top = 16
       Width = 1385
       Height = 345
+      DataSource = dm.dsRelasiPembelian
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'id'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'no_faktur'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'tgl_pembelian'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'supplier_id'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'jumlah_item'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'total'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'user_id'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'status'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'id_1'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'pembelian_id'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'obat_id'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'jumlah_beli'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'harga_beli'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'id_2'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'kode'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'barcode'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'nama_obat'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'kode_jenis'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'kode_satuan'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'tgl_obat'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'tgl_exp'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'status_1'
+          Visible = True
+        end>
     end
-    object btn2: TBitBtn
+    object btnTambah: TBitBtn
       Left = 8
-      Top = 488
+      Top = 472
       Width = 89
       Height = 33
       Caption = 'Tambah'
@@ -379,13 +513,14 @@ object fPembelian: TfPembelian
       Font.Style = []
       ParentFont = False
       TabOrder = 1
+      OnClick = btnTambahClick
     end
-    object btn4: TBitBtn
+    object btnKeluar: TBitBtn
       Left = 1304
-      Top = 488
+      Top = 472
       Width = 89
       Height = 33
-      Caption = 'Tambah'
+      Caption = 'Keluar'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -393,6 +528,7 @@ object fPembelian: TfPembelian
       Font.Style = []
       ParentFont = False
       TabOrder = 2
+      OnClick = btnKeluarClick
     end
     object grp3: TGroupBox
       Left = 1032
@@ -407,12 +543,13 @@ object fPembelian: TfPembelian
       Font.Style = []
       ParentFont = False
       TabOrder = 3
-      object lbl11: TLabel
-        Left = 24
+      object lblItem: TLabel
+        Left = 8
         Top = 32
-        Width = 52
+        Width = 97
         Height = 33
-        Caption = '9999'
+        Alignment = taCenter
+        Caption = '999999'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -29
@@ -434,11 +571,12 @@ object fPembelian: TfPembelian
       Font.Style = []
       ParentFont = False
       TabOrder = 4
-      object lbl12: TLabel
-        Left = 16
+      object lblTotalHarga: TLabel
+        Left = 8
         Top = 32
-        Width = 177
+        Width = 217
         Height = 33
+        Alignment = taCenter
         Caption = 'Rp. 200.000.000'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText

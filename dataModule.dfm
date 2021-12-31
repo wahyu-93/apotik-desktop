@@ -1,9 +1,9 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 192
-  Top = 125
-  Height = 506
-  Width = 527
+  Left = 328
+  Top = 245
+  Height = 537
+  Width = 710
   object XPManifest1: TXPManifest
     Left = 128
     Top = 32
@@ -153,5 +153,42 @@ object dm: Tdm
         'tbl_satuan c on c.id = b.kode_satuan order by b.id;')
     Left = 56
     Top = 416
+  end
+  object qryPembelian: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from tbl_pembelian')
+    Left = 264
+    Top = 96
+  end
+  object qryDetailPembelian: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from tbl_detail_pembelian')
+    Left = 352
+    Top = 104
+  end
+  object qryRelasiPembelian: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select * from tbl_pembelian a left join tbl_detail_pembelian b o' +
+        'n b.pembelian_id = a.id left join tbl_obat c on c.id = b.obat_id')
+    Left = 264
+    Top = 144
+  end
+  object dsRelasiPembelian: TDataSource
+    DataSet = qryRelasiPembelian
+    Left = 352
+    Top = 160
   end
 end

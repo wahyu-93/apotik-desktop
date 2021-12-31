@@ -32,6 +32,10 @@ type
     qryObat: TADOQuery;
     dsObat: TDataSource;
     qryObatRelasi: TADOQuery;
+    qryPembelian: TADOQuery;
+    qryDetailPembelian: TADOQuery;
+    qryRelasiPembelian: TADOQuery;
+    dsRelasiPembelian: TDataSource;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;
