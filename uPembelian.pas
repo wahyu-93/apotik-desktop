@@ -43,6 +43,8 @@ type
     lblItem: TLabel;
     lblTotalHarga: TLabel;
     edtIdObat: TEdit;
+    edtIdPembelian: TEdit;
+    procedure clearEntitasBarang;
     procedure btnKeluarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnTambahClick(Sender: TObject);
@@ -54,6 +56,7 @@ type
     procedure btnHapusClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure btnSelesaiClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -117,12 +120,23 @@ begin
     begin
       close;
       sql.Clear;
-      SQL.Text := 'select a.id, a.no_faktur, a.tgl_pembelian, a.jumlah_item, a.total, b.obat_id, b.jumlah_beli, b.harga_beli, '+
-                  'c.kode, c.barcode, c.nama_obat, d.jenis, e.satuan from tbl_pembelian a left join ' +
-                  'tbl_detail_pembelian b on b.pembelian_id = a.id left join tbl_obat c on c.id = b.obat_id left join tbl_jenis d on d.id=c.kode_jenis '+
-                  'left join tbl_satuan e on e.id = c.kode_satuan where a.no_faktur='+QuotedStr(id_pembelian)+'';
+      sql.Text := 'select a.id as id_pembelian, a.no_faktur, a.tgl_pembelian, a.jumlah_item, a.total, b.id as id_detail_pembelian, '+
+                  'b.obat_id, b.jumlah_beli, b.harga_beli, c.kode, c.barcode, c.nama_obat, c.tgl_obat, c.tgl_exp, d.jenis, e.satuan '+
+                  'from tbl_pembelian a left join tbl_detail_pembelian b on b.pembelian_id = a.id left join tbl_obat c on c.id = b.obat_id left join '+
+                  'tbl_jenis d on d.id=c.kode_jenis left join tbl_satuan e on e.id = c.kode_satuan where a.no_faktur='+QuotedStr(id_pembelian)+'';
       Open;
     end;
+end;
+
+procedure TfPembelian.clearEntitasBarang;
+begin
+  edtKode.Clear;
+  edtNama.Clear;
+  edtJenis.Clear;
+  edtSatuan.Clear;
+  dtpTanggalKadaluarsa.Date := Now;
+  edtHarga.Clear;
+  edtJumlahBeli.Clear;
 end;
 
 procedure TfPembelian.btnKeluarClick(Sender: TObject);
@@ -147,11 +161,11 @@ begin
   edtJumlahBeli.Enabled := false; edtJumlahBeli.Clear;
 
   btnSimpan.Enabled := False;
-  btnHapus.Enabled := False;
+  btnHapus.Enabled := False; btnHapus.Caption := 'Hapus';
   btnSelesai.Enabled := False;
 
   lblItem.Caption := '0'; lblTotalHarga.Caption := '0';
-  btnTambah.Enabled := True; btnTambah.Caption := 'Tambah';
+  btnTambah.Enabled := True; btnTambah.Caption := 'Tambah[F1]';
   btnKeluar.Enabled := True;
 
   konek;
@@ -159,7 +173,7 @@ end;
 
 procedure TfPembelian.btnTambahClick(Sender: TObject);
 begin
-  if btnTambah.Caption='Tambah' then
+  if btnTambah.Caption='Tambah[F1]' then
     begin
       dtpTanggalBeli.Enabled := True;
       dblkcbbSupplier.Enabled := True;
@@ -193,27 +207,41 @@ begin
         edtFaktur.Text := FormatDateTime('ddmmyyyy',Now) + FormatFloat('00000',StrToInt(kode));
         btnSimpan.Caption := 'Simpan';
         status:='tambah';
+        btnTambah.Caption := 'Batal';
+
+        btnKeluar.Enabled := false;
     end
   else
     begin
       if MessageDlg('Apakah Transaksi Akan Dibatalkan ?',mtConfirmation,[mbyes,mbno],0)=mryes then
         begin
-          // hapus detail transaksi
-          with dm.qryDetailPembelian do
-            begin
-              Close;
-              SQL.Clear;
-              SQL.Text := 'delete from tbl_detail_pembelian where pembelian_id = '+QuotedStr(id_pembelian)+'';
-              ExecSQL;
-            end;
-
-          // hapus pembelian
           with dm.qryPembelian do
             begin
               close;
-              SQL.Clear;
-              SQL.Text := 'delete from tbl_pembelian where id='+QuotedStr(id_pembelian)+'';
-              ExecSQL;
+              sql.Clear;
+              SQL.Text := 'select * from tbl_pembelian where id='+QuotedStr(id_pembelian)+'';
+              Open;
+            end;
+
+          if dm.qryPembelian.RecordCount > 0 then
+            begin
+              // hapus detail transaksi
+              with dm.qryDetailPembelian do
+                begin
+                  Close;
+                  SQL.Clear;
+                  SQL.Text := 'delete from tbl_detail_pembelian where pembelian_id = '+QuotedStr(id_pembelian)+'';
+                  ExecSQL;
+                end;
+
+              // hapus pembelian
+              with dm.qryPembelian do
+                begin
+                  close;
+                  SQL.Clear;
+                  SQL.Text := 'delete from tbl_pembelian where id='+QuotedStr(id_pembelian)+'';
+                  ExecSQL;
+                end;
             end;
 
           MessageDlg('Transaksi Dibatalkan',mtInformation,[mbOk],0);
@@ -293,22 +321,37 @@ begin
       //simpan ke tabel detail pembelian
       with dm.qryDetailPembelian do
         begin
-          Append;
-          FieldByName('pembelian_id').AsString := id_pembelian;
-          FieldByName('obat_id').AsString := edtIdObat.Text;
-          FieldByName('jumlah_beli').AsString := edtJumlahBeli.Text;
-          FieldByName('harga_beli').AsString := edtHarga.Text;
-          Post;
+          close;
+          sql.Clear;
+          SQL.Text := 'select * from tbl_detail_pembelian where obat_id = '+QuotedStr(edtIdObat.Text)+' and pembelian_id = '+QuotedStr(id_pembelian)+'';
+          Open;
+
+          if IsEmpty then
+            begin
+              Append;
+              FieldByName('pembelian_id').AsString := id_pembelian;
+              FieldByName('obat_id').AsString := edtIdObat.Text;
+              FieldByName('jumlah_beli').AsString := edtJumlahBeli.Text;
+              FieldByName('harga_beli').AsString := edtHarga.Text;
+              Post;
+            end
+          else
+            begin
+              Edit;
+              FieldByName('harga_beli').AsString := edtHarga.Text;
+
+              if status = 'tambahLagi' then
+                FieldByName('jumlah_beli').AsString := IntToStr(StrToInt(edtJumlahBeli.Text) + fieldbyname('jumlah_beli').AsInteger)
+              else
+                FieldByName('jumlah_beli').AsString := edtJumlahBeli.Text;
+              Post;
+
+              status := 'tambahLagi';
+            end;
         end;
 
       // clear entitas barang
-      edtKode.Clear;
-      edtNama.Clear;
-      edtJenis.Clear;
-      edtSatuan.Clear;
-      dtpTanggalKadaluarsa.Date := Now;
-      edtHarga.Clear;
-      edtJumlahBeli.Clear;
+      clearEntitasBarang;
 
       konek(edtFaktur.Text);
       lblItem.Caption := IntToStr(hitungItem(id_pembelian));
@@ -319,38 +362,101 @@ begin
 
       btnSelesai.Enabled := True;
       btnTambah.Caption := 'Batal';
+      btnHapus.enabled := false;
+    end
+  else
+    begin
+      edtHarga.Enabled := True;
+      edtJumlahBeli.Enabled := True;
+
+      btnSimpan.Caption := 'Simpan';
+      btnHapus.Caption := 'Batal';
+      status := 'edit';
     end;
 end;
 
 procedure TfPembelian.dbgrd1DblClick(Sender: TObject);
 begin
-  edtKode.Text := dbgrd1.Fields[6].AsString + ' - ' + dbgrd1.Fields[7].AsString;
-  edtNama.Text := dbgrd1.Fields[8].AsString;
-  edtSatuan.Text := dbgrd1.Fields[10].AsString;
-  edtJenis.Text := dbgrd1.Fields[9].AsString;
-  edtHarga.Text := dbgrd1.Fields[12].AsString;
-  edtJenis.Text := dbgrd1.Fields[11].AsString;
-  edtIdObat.Text := dbgrd1.Fields[5].AsString;
+  edtKode.Text := dbgrd1.Fields[9].AsString + ' - ' + dbgrd1.Fields[10].AsString;
+  edtNama.Text := dbgrd1.Fields[11].AsString;
+  edtSatuan.Text := dbgrd1.Fields[13].AsString;
+  edtJenis.Text := dbgrd1.Fields[12].AsString;
+  edtHarga.Text := dbgrd1.Fields[15].AsString;
+  edtJumlahBeli.Text := dbgrd1.Fields[14].AsString;
+  edtIdObat.Text := dbgrd1.Fields[6].AsString;
+  dtpTanggalKadaluarsa.Date := dbgrd1.Fields[10].AsDateTime;
+  edtIdPembelian.Text := dbgrd1.Fields[5].AsString;
 
   btnSimpan.Caption := 'Edit';
   btnHapus.Enabled := True;
   btnSelesai.Enabled := false;
+
+  edtHarga.Enabled := False;
+  edtJumlahBeli.Enabled := false;
 end;
 
 procedure TfPembelian.btnHapusClick(Sender: TObject);
 begin
-  if MessageDlg('Yakin Item Akan Dihapus ?', mtConfirmation,[mbyes,mbNo],0)=mryes then
+  if btnHapus.Caption = 'Hapus' then
     begin
-    
+      if MessageDlg('Yakin Item Akan Dihapus ?', mtConfirmation,[mbyes,mbNo],0)=mryes then
+        begin
+          with dm.qryDetailPembelian do
+            begin
+              with dm.qryDetailPembelian do
+                begin
+                  Locate('id',edtIdPembelian.Text,[]);
+                  Delete;
+                end;
+            end;
+
+            konek(edtFaktur.Text);
+            clearEntitasBarang;
+
+            btnSimpan.Caption := 'Simpan';
+            btnHapus.Enabled := false;
+            btnSelesai.Enabled := True;
+            MessageDlg('item Berhasil dihapus',mtInformation,[mbOK],0);
+
+          with dm.qryDetailPembelian do
+            begin
+              close;
+              SQL.Clear;
+              SQL.Text := 'select * from tbl_detail_pembelian where pembelian_id = '+QuotedStr(id_pembelian)+'';
+              Open;
+
+              if IsEmpty then btnSelesai.Enabled := False else btnSelesai.Enabled := True;
+            end
+        end;
+    end
+  else
+    begin
+      //batal
+      clearEntitasBarang;
+      btnSimpan.Caption := 'Simpan';
+      btnHapus.Caption := 'Hapus'; btnHapus.Enabled := False;
+      btnSelesai.Enabled := True;
     end;
+
 end;
 
 procedure TfPembelian.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   case Key of
+    VK_F1: btnTambah.Click;
     VK_F2: fBantuObat.ShowModal;
+    VK_F10 : btnKeluar.Click;
   end;
+end;
+
+procedure TfPembelian.btnSelesaiClick(Sender: TObject);
+begin
+  if MessageDlg('Apakah Transaksi Akan Diselesaikan ?',mtConfirmation,[mbYes,mbno],0)=mryes then
+    begin
+      MessageDlg('Transaki Berhasil Disimpan', mtInformation, [mbok],0);
+      FormCreate(Sender);
+    end;
 end;
 
 end.

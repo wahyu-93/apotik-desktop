@@ -55,12 +55,14 @@ uses
 
 procedure konek;
 begin
-  with dm.qryObat do
+  with dm.qryObatRelasi do
     begin
       DisableControls;
       Close;
       sql.Clear;
-      SQL.Text := 'select * from tbl_obat a left join tbl_jenis b on a.kode_jenis = b.id left join tbl_satuan c on a.kode_satuan = a.id order by a.id';
+      SQL.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, a.id as id_jenis, '+
+                  'a.kode as jenisKode, a.jenis, c.id as id_satuan, c.kode as satuanKode, c.satuan from tbl_jenis a left join '+
+                  'tbl_obat b on a.id = b.kode_jenis INNER join tbl_satuan c on c.id = b.kode_satuan order by b.id';
       Open;
       EnableControls;
     end;
@@ -131,11 +133,13 @@ end;
 procedure TFobat.edtpencarianKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  with dm.qryObat do
+  with dm.qryObatRelasi do
     begin
       DisableControls;
       SQL.Clear;
-      SQL.Text := 'select * from tbl_obat where nama_obat like ''%'+edtpencarian.Text+'%''';
+      SQL.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, a.id as id_jenis, '+
+                  'a.kode as jenisKode, a.jenis, c.id as id_satuan, c.kode as satuanKode, c.satuan from tbl_jenis a left join '+
+                  'tbl_obat b on a.id = b.kode_jenis INNER join tbl_satuan c on c.id = b.kode_satuan where b.nama_obat like ''%'+edtpencarian.Text+'%'' order by b.id';
       Open;
       EnableControls;
     end;

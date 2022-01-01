@@ -71,6 +71,12 @@ begin
   fPembelian.edtJenis.Text := dbgrd1.Fields[8].AsString;
   fPembelian.edtSatuan.Text := dbgrd1.Fields[11].AsString;
 
+  fPembelian.btnSimpan.Enabled := True; fPembelian.btnSimpan.Caption := 'Simpan';
+  fPembelian.btnHapus.Enabled := false;
+
+  fPembelian.edtHarga.Enabled := True;
+  fPembelian.edtJumlahBeli.Enabled := True;
+
   Close;
 end;
 

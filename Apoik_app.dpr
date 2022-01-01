@@ -10,7 +10,8 @@ uses
   uObat in 'uObat.pas' {Fobat},
   uPenjualan in 'uPenjualan.pas' {Fpenjualan},
   uPembelian in 'uPembelian.pas' {fPembelian},
-  uBantuObat in 'uBantuObat.pas' {fBantuObat};
+  uBantuObat in 'uBantuObat.pas' {fBantuObat},
+  uPembayaranPembelian in 'uPembayaranPembelian.pas' {fPembayaranPembelian};
 
 {$R *.res}
 
@@ -25,5 +26,6 @@ begin
   Application.CreateForm(TFpenjualan, Fpenjualan);
   Application.CreateForm(TfPembelian, fPembelian);
   Application.CreateForm(TfBantuObat, fBantuObat);
+  Application.CreateForm(TfPembayaranPembelian, fPembayaranPembelian);
   Application.Run;
 end.

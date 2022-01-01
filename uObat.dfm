@@ -310,7 +310,7 @@ object Fobat: TFobat
       Font.Style = []
       ParentFont = False
       TabOrder = 3
-      Text = 'edtKode'
+      Text = ' '
       OnKeyUp = edtpencarianKeyUp
     end
     object btnTambah: TBitBtn

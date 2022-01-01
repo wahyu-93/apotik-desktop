@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 328
-  Top = 245
+  Left = 953
+  Top = 246
   Height = 537
   Width = 710
   object XPManifest1: TXPManifest
@@ -133,6 +133,38 @@ object dm: Tdm
       'select * from tbl_obat')
     Left = 64
     Top = 360
+    object qryObatid: TAutoIncField
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object qryObatkode: TStringField
+      FieldName = 'kode'
+      Size = 30
+    end
+    object qryObatbarcode: TStringField
+      FieldName = 'barcode'
+      Size = 100
+    end
+    object qryObatnama_obat: TStringField
+      FieldName = 'nama_obat'
+      Size = 150
+    end
+    object qryObatkode_jenis: TIntegerField
+      FieldName = 'kode_jenis'
+    end
+    object qryObatkode_satuan: TIntegerField
+      FieldName = 'kode_satuan'
+    end
+    object qryObattgl_obat: TDateField
+      FieldName = 'tgl_obat'
+    end
+    object qryObattgl_exp: TDateField
+      FieldName = 'tgl_exp'
+    end
+    object qryObatstatus: TStringField
+      FieldName = 'status'
+      Size = 100
+    end
   end
   object dsObat: TDataSource
     DataSet = qryObatRelasi
@@ -153,6 +185,47 @@ object dm: Tdm
         'tbl_satuan c on c.id = b.kode_satuan order by b.id;')
     Left = 56
     Top = 416
+    object qryObatRelasiid: TIntegerField
+      FieldName = 'id'
+    end
+    object qryObatRelasikodeObat: TStringField
+      FieldName = 'kodeObat'
+      Size = 30
+    end
+    object qryObatRelasibarcode: TStringField
+      FieldName = 'barcode'
+      Size = 100
+    end
+    object qryObatRelasinama_obat: TStringField
+      FieldName = 'nama_obat'
+      Size = 150
+    end
+    object qryObatRelasikode_jenis: TIntegerField
+      FieldName = 'kode_jenis'
+    end
+    object qryObatRelasikode_satuan: TIntegerField
+      FieldName = 'kode_satuan'
+    end
+    object qryObatRelasiid_jenis: TIntegerField
+      FieldName = 'id_jenis'
+    end
+    object qryObatRelasijenisKode: TStringField
+      FieldName = 'jenisKode'
+    end
+    object qryObatRelasijenis: TStringField
+      FieldName = 'jenis'
+      Size = 100
+    end
+    object qryObatRelasiid_satuan: TIntegerField
+      FieldName = 'id_satuan'
+    end
+    object qryObatRelasisatuanKode: TStringField
+      FieldName = 'satuanKode'
+    end
+    object qryObatRelasisatuan: TStringField
+      FieldName = 'satuan'
+      Size = 100
+    end
   end
   object qryPembelian: TADOQuery
     Active = True
@@ -181,16 +254,17 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       
-        'select a.id, a.no_faktur, a.tgl_pembelian, a.jumlah_item, a.tota' +
-        'l, b.obat_id, b.jumlah_beli, b.harga_beli, c.kode, c.barcode, c.' +
-        'nama_obat, d.jenis, e.satuan from tbl_pembelian a left join tbl_' +
-        'detail_pembelian b on b.pembelian_id = a.id left join tbl_obat c' +
-        ' on c.id = b.obat_id left join tbl_jenis d on d.id=c.kode_jenis ' +
-        'left join tbl_satuan e on e.id = c.kode_satuan ')
+        'select a.id as id_pembelian, a.no_faktur, a.tgl_pembelian, a.jum' +
+        'lah_item, a.total, b.id as id_detail_pembelian, b.obat_id, b.jum' +
+        'lah_beli, b.harga_beli, c.kode, c.barcode, c.nama_obat, c.tgl_ob' +
+        'at, c.tgl_exp, d.jenis, e.satuan from tbl_pembelian a left join ' +
+        'tbl_detail_pembelian b on b.pembelian_id = a.id left join tbl_ob' +
+        'at c on c.id = b.obat_id left join tbl_jenis d on d.id=c.kode_je' +
+        'nis left join tbl_satuan e on e.id = c.kode_satuan '#10)
     Left = 264
     Top = 144
-    object qryRelasiPembelianid: TAutoIncField
-      FieldName = 'id'
+    object qryRelasiPembelianid_pembelian: TAutoIncField
+      FieldName = 'id_pembelian'
       ReadOnly = True
     end
     object qryRelasiPembelianno_faktur: TStringField
@@ -206,16 +280,20 @@ object dm: Tdm
     object qryRelasiPembeliantotal: TFloatField
       FieldName = 'total'
     end
+    object qryRelasiPembelianid_detail_pembelian: TAutoIncField
+      FieldName = 'id_detail_pembelian'
+      ReadOnly = True
+    end
     object qryRelasiPembelianobat_id: TIntegerField
       FieldName = 'obat_id'
     end
     object qryRelasiPembelianjumlah_beli: TIntegerField
       FieldName = 'jumlah_beli'
-      DisplayFormat = '#,#0;(#,#0);#,#0;'
+      DisplayFormat = '#,#0;(#,#0);#,#0'
     end
     object qryRelasiPembelianharga_beli: TFloatField
       FieldName = 'harga_beli'
-      DisplayFormat = '#,#0;(#,#0);#,#0;'
+      DisplayFormat = '#,#0;(#,#0);#,#0'
     end
     object qryRelasiPembeliankode: TStringField
       FieldName = 'kode'
@@ -228,6 +306,12 @@ object dm: Tdm
     object qryRelasiPembeliannama_obat: TStringField
       FieldName = 'nama_obat'
       Size = 150
+    end
+    object qryRelasiPembeliantgl_obat: TDateField
+      FieldName = 'tgl_obat'
+    end
+    object qryRelasiPembeliantgl_exp: TDateField
+      FieldName = 'tgl_exp'
     end
     object qryRelasiPembelianjenis: TStringField
       FieldName = 'jenis'
