@@ -27,12 +27,14 @@ type
     pnl3: TPanel;
     SettingHargaJual1: TMenuItem;
     SetTanggalExpired1: TMenuItem;
+    ListPembelian1: TMenuItem;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
     procedure Supplier2Click(Sender: TObject);
     procedure Obat1Click(Sender: TObject);
     procedure Pembelian1Click(Sender: TObject);
+    procedure ListPembelian1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -45,7 +47,7 @@ var
 implementation
 
 uses
-  uJenisObat, uSatuan, uSupplier, uObat, uPembelian;
+  uJenisObat, uSatuan, uSupplier, uObat, uPembelian, uPembayaranPembelian;
 
 {$R *.dfm}
 
@@ -77,6 +79,11 @@ end;
 procedure TFMenu.Pembelian1Click(Sender: TObject);
 begin
   fPembelian.ShowModal;
+end;
+
+procedure TFMenu.ListPembelian1Click(Sender: TObject);
+begin
+  fPembayaranPembelian.ShowModal;
 end;
 
 end.

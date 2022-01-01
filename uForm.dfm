@@ -100,6 +100,10 @@ object FMenu: TFMenu
       object SetTanggalExpired1: TMenuItem
         Caption = 'Set Tanggal Expired'
       end
+      object ListPembelian1: TMenuItem
+        Caption = 'List Pembelian'
+        OnClick = ListPembelian1Click
+      end
     end
     object Laporan1: TMenuItem
       Caption = 'Laporan'

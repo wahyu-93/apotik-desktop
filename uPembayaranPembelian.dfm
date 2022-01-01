@@ -12,6 +12,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object grp1: TGroupBox
@@ -21,7 +22,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
     Height = 57
     TabOrder = 0
     object lbl1: TLabel
-      Left = 352
+      Left = 376
       Top = 16
       Width = 281
       Height = 27
@@ -394,6 +395,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
       ParentFont = False
       TabOrder = 1
       Text = 'edtKode'
+      OnKeyUp = edtpencarianKeyUp
     end
     object btnPilih: TBitBtn
       Left = 856
@@ -422,6 +424,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
       Font.Style = []
       ParentFont = False
       TabOrder = 3
+      OnClick = btnKeluarClick
     end
   end
 end
