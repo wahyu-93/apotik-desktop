@@ -15,32 +15,12 @@ object fBantuObat: TfBantuObat
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object grp1: TGroupBox
-    Left = 8
-    Top = 8
-    Width = 865
-    Height = 57
-    TabOrder = 0
-    object lbl1: TLabel
-      Left = 352
-      Top = 16
-      Width = 160
-      Height = 27
-      Caption = 'Form List Obat'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -24
-      Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
-    end
-  end
   object grp2: TGroupBox
     Left = 8
     Top = 72
     Width = 865
     Height = 545
-    TabOrder = 1
+    TabOrder = 0
     object dbgrd1: TDBGrid
       Left = 8
       Top = 16
@@ -250,6 +230,26 @@ object fBantuObat: TfBantuObat
       ParentFont = False
       TabOrder = 3
       OnClick = btnKeluarClick
+    end
+  end
+  object grp1: TGroupBox
+    Left = 8
+    Top = 8
+    Width = 865
+    Height = 57
+    TabOrder = 1
+    object lbl1: TLabel
+      Left = 352
+      Top = 16
+      Width = 160
+      Height = 27
+      Caption = 'Form List Obat'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -24
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
     end
   end
 end

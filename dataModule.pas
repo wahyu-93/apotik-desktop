@@ -73,6 +73,8 @@ type
     qryObatRelasiid_satuan: TIntegerField;
     qryObatRelasisatuanKode: TStringField;
     qryObatRelasisatuan: TStringField;
+    qryListPembelian: TADOQuery;
+    dsListPembelian: TDataSource;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

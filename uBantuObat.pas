@@ -8,13 +8,13 @@ uses
 
 type
   TfBantuObat = class(TForm)
-    grp1: TGroupBox;
-    lbl1: TLabel;
     grp2: TGroupBox;
     dbgrd1: TDBGrid;
     edtpencarian: TEdit;
     btnPilih: TBitBtn;
     btnKeluar: TBitBtn;
+    grp1: TGroupBox;
+    lbl1: TLabel;
     procedure btnKeluarClick(Sender: TObject);
     procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);

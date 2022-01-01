@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 953
-  Top = 246
+  Left = 548
+  Top = 249
   Height = 537
   Width = 710
   object XPManifest1: TXPManifest
@@ -326,5 +326,23 @@ object dm: Tdm
     DataSet = qryRelasiPembelian
     Left = 352
     Top = 160
+  end
+  object qryListPembelian: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select * from tbl_supplier left join tbl_pembelian on tbl_pembel' +
+        'ian.supplier_id = tbl_supplier.id inner join tbl_user on tbl_use' +
+        'r.id = tbl_pembelian.user_id order by tbl_pembelian.id desc;')
+    Left = 264
+    Top = 248
+  end
+  object dsListPembelian: TDataSource
+    DataSet = qryListPembelian
+    Left = 328
+    Top = 240
   end
 end

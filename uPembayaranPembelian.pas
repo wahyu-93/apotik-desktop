@@ -4,10 +4,17 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs;
+  Dialogs, StdCtrls, Buttons, Grids, DBGrids;
 
 type
   TfPembayaranPembelian = class(TForm)
+    grp1: TGroupBox;
+    lbl1: TLabel;
+    grp2: TGroupBox;
+    dbgrd1: TDBGrid;
+    edtpencarian: TEdit;
+    btnPilih: TBitBtn;
+    btnKeluar: TBitBtn;
   private
     { Private declarations }
   public
@@ -18,6 +25,9 @@ var
   fPembayaranPembelian: TfPembayaranPembelian;
 
 implementation
+
+uses
+  dataModule;
 
 {$R *.dfm}
 

@@ -257,7 +257,8 @@ end;
 
 procedure TfPembelian.edtHargaKeyPress(Sender: TObject; var Key: Char);
 begin
-  if not (key in ['0'..'9',#8, #9]) then Key:=#0;
+  if not (key in ['0'..'9',#8, #9, #13]) then Key:=#0;
+  if Key=#13 then edtJumlahBeli.SetFocus;
 end;
 
 procedure TfPembelian.edtJumlahBeliKeyPress(Sender: TObject;
@@ -451,10 +452,24 @@ begin
 end;
 
 procedure TfPembelian.btnSelesaiClick(Sender: TObject);
+var
+  jumlahItem, total : string;
 begin
   if MessageDlg('Apakah Transaksi Akan Diselesaikan ?',mtConfirmation,[mbYes,mbno],0)=mryes then
     begin
       MessageDlg('Transaki Berhasil Disimpan', mtInformation, [mbok],0);
+
+      jumlahItem := IntToStr(hitungItem(id_pembelian));
+      total := FloatToStr(hitungTotal(id_pembelian));
+
+      with dm.qryPembelian do
+        begin
+          close;
+          sql.Clear;
+          sql.Text := 'update tbl_pembelian set jumlah_item = '+QuotedStr(jumlahItem)+', total = '+QuotedStr(total)+' where no_faktur = '+QuotedStr(edtFaktur.Text)+'';
+          ExecSQL;
+        end;
+
       FormCreate(Sender);
     end;
 end;

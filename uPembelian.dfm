@@ -1,6 +1,6 @@
 object fPembelian: TfPembelian
-  Left = 166
-  Top = 349
+  Left = 283
+  Top = 151
   Width = 1432
   Height = 766
   Caption = '.:: Form Pembelian ::.'
