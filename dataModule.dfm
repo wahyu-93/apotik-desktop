@@ -339,6 +339,74 @@ object dm: Tdm
         'r.id = tbl_pembelian.user_id order by tbl_pembelian.id desc;')
     Left = 264
     Top = 248
+    object qryListPembelianid: TIntegerField
+      FieldName = 'id'
+    end
+    object qryListPembeliankode: TStringField
+      FieldName = 'kode'
+    end
+    object qryListPembeliannama_supplier: TStringField
+      FieldName = 'nama_supplier'
+      Size = 100
+    end
+    object qryListPembelianalamat_supplier: TMemoField
+      FieldName = 'alamat_supplier'
+      BlobType = ftMemo
+    end
+    object qryListPembeliantelp_suplier: TStringField
+      FieldName = 'telp_suplier'
+      Size = 15
+    end
+    object qryListPembelianid_1: TIntegerField
+      FieldName = 'id_1'
+    end
+    object qryListPembelianno_faktur: TStringField
+      FieldName = 'no_faktur'
+      Size = 50
+    end
+    object qryListPembeliantgl_pembelian: TDateField
+      FieldName = 'tgl_pembelian'
+    end
+    object qryListPembeliansupplier_id: TIntegerField
+      FieldName = 'supplier_id'
+    end
+    object qryListPembelianjumlah_item: TIntegerField
+      FieldName = 'jumlah_item'
+      DisplayFormat = '#,#0;(#,#0);#,#0'
+    end
+    object qryListPembeliantotal: TFloatField
+      FieldName = 'total'
+      DisplayFormat = '#,#0;(#,#0);#,#0'
+    end
+    object qryListPembelianuser_id: TIntegerField
+      FieldName = 'user_id'
+    end
+    object qryListPembelianstatus: TStringField
+      FieldName = 'status'
+      Size = 25
+    end
+    object qryListPembeliantgl_pembayaran: TDateField
+      FieldName = 'tgl_pembayaran'
+    end
+    object qryListPembelianid_2: TIntegerField
+      FieldName = 'id_2'
+    end
+    object qryListPembeliannama: TStringField
+      FieldName = 'nama'
+      Size = 50
+    end
+    object qryListPembelianusername: TStringField
+      FieldName = 'username'
+      Size = 25
+    end
+    object qryListPembelianpassword: TStringField
+      FieldName = 'password'
+      Size = 25
+    end
+    object qryListPembelianrole: TStringField
+      FieldName = 'role'
+      Size = 50
+    end
   end
   object dsListPembelian: TDataSource
     DataSet = qryListPembelian
