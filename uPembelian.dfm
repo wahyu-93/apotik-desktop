@@ -333,7 +333,7 @@ object fPembelian: TfPembelian
       Top = 144
       Width = 89
       Height = 33
-      Caption = 'Hapus'
+      Caption = 'Hapus[F6]'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -348,7 +348,7 @@ object fPembelian: TfPembelian
       Top = 144
       Width = 89
       Height = 33
-      Caption = 'Selesai'
+      Caption = 'Selesai[F5]'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15

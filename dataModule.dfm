@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 548
-  Top = 249
+  Left = 323
+  Top = 533
   Height = 537
   Width = 710
   object XPManifest1: TXPManifest
