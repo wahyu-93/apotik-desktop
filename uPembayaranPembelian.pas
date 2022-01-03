@@ -18,7 +18,7 @@ type
     procedure btnKeluarClick(Sender: TObject);
     procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -39,12 +39,10 @@ procedure konek;
 begin
   with dm.qryListPembelian do
     begin
-      DisableControls;
       Close;
       sql.Clear;
       SQL.Text := 'select * from tbl_supplier left join tbl_pembelian on tbl_pembelian.supplier_id = tbl_supplier.id inner join tbl_user on tbl_user.id = tbl_pembelian.user_id order by tbl_pembelian.id desc';
       Open;
-      EnableControls;
     end;
 end;
 
@@ -68,7 +66,7 @@ begin
     end;
 end;
 
-procedure TfPembayaranPembelian.FormCreate(Sender: TObject);
+procedure TfPembayaranPembelian.FormShow(Sender: TObject);
 begin
   konek;
   edtpencarian.Clear;

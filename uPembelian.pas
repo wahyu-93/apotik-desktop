@@ -226,7 +226,7 @@ begin
             end;
         end;
 
-        edtFaktur.Text := FormatDateTime('ddmmyyyy',Now) + FormatFloat('00000',StrToInt(kode));
+        edtFaktur.Text := 'PB-'+FormatDateTime('ddmmyyyy',Now) + FormatFloat('00000',StrToInt(kode));
         btnSimpan.Caption := 'Simpan';
         status:='tambah';
         btnTambah.Caption := 'Batal[F1]';
