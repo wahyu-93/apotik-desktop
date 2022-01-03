@@ -283,6 +283,7 @@ end;
 
 procedure TfPembelian.btnBantuObatClick(Sender: TObject);
 begin
+  fBantuObat.edt1.Text := 'pembelian';
   fBantuObat.ShowModal;
 end;
 
@@ -484,7 +485,7 @@ procedure TfPembelian.FormKeyDown(Sender: TObject; var Key: Word;
 begin
   case Key of
     VK_F1: btnTambah.Click;
-    VK_F2: fBantuObat.ShowModal;
+    VK_F2: btnBantuObat.Click;
     VK_F5: btnSelesai.Click;
     VK_F6: btnHapus.Click;
     VK_F10 : btnKeluar.Click;

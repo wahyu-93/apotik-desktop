@@ -408,8 +408,8 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from tbl_penjualan')
-    Left = 504
-    Top = 112
+    Left = 496
+    Top = 80
   end
   object qryStok: TADOQuery
     Active = True
@@ -444,5 +444,41 @@ object dm: Tdm
     object qryStokcreated_at: TDateTimeField
       FieldName = 'created_at'
     end
+  end
+  object qrySetHarga: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from tbl_harga_jual')
+    Left = 504
+    Top = 200
+  end
+  object qryRelasiSetHarga: TADOQuery
+    Parameters = <>
+    Left = 504
+    Top = 256
+  end
+  object dsRelasiSetHarga: TDataSource
+    DataSet = qryRelasiSetHarga
+    Left = 584
+    Top = 288
+  end
+  object qryRelasiStok: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select a.nama_supplier, b.id as id_pembelian, b.no_faktur, b.tgl' +
+        '_pembelian, b.supplier_id, c.harga, c.keterangan, c.created_at, ' +
+        'd.id as id_obat, d.kode, d.barcode, d.nama_obat,d.tgl_exp, d.sto' +
+        'k from tbl_supplier a left join tbl_pembelian b on b.supplier_id' +
+        ' = a.id inner join tbl_stok c on c.no_faktur = b.no_faktur inner' +
+        ' join tbl_obat d on d.id = c.obat_id order by b.id desc')
+    Left = 312
+    Top = 344
   end
 end

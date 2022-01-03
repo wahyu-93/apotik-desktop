@@ -26,7 +26,6 @@ type
     pnl2: TPanel;
     pnl3: TPanel;
     SettingHargaJual1: TMenuItem;
-    SetTanggalExpired1: TMenuItem;
     ListPembelian1: TMenuItem;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
@@ -36,6 +35,7 @@ type
     procedure Pembelian1Click(Sender: TObject);
     procedure ListPembelian1Click(Sender: TObject);
     procedure Penjualan1Click(Sender: TObject);
+    procedure SettingHargaJual1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -49,7 +49,7 @@ implementation
 
 uses
   uJenisObat, uSatuan, uSupplier, uObat, uPembelian, uPembayaranPembelian, 
-  uPenjualan;
+  uPenjualan, uSetHarga;
 
 {$R *.dfm}
 
@@ -91,6 +91,11 @@ end;
 procedure TFMenu.Penjualan1Click(Sender: TObject);
 begin
   Fpenjualan.ShowModal;
+end;
+
+procedure TFMenu.SettingHargaJual1Click(Sender: TObject);
+begin
+  fSetHarga.ShowModal;
 end;
 
 end.

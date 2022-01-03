@@ -102,6 +102,10 @@ type
     qryStokharga: TFloatField;
     qryStokketerangan: TStringField;
     qryStokcreated_at: TDateTimeField;
+    qrySetHarga: TADOQuery;
+    qryRelasiSetHarga: TADOQuery;
+    dsRelasiSetHarga: TDataSource;
+    qryRelasiStok: TADOQuery;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

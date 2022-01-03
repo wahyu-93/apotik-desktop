@@ -97,9 +97,7 @@ object FMenu: TFMenu
       end
       object SettingHargaJual1: TMenuItem
         Caption = 'Set Harga Jual'
-      end
-      object SetTanggalExpired1: TMenuItem
-        Caption = 'Set Tanggal Expired'
+        OnClick = SettingHargaJual1Click
       end
       object ListPembelian1: TMenuItem
         Caption = 'List Pembelian'

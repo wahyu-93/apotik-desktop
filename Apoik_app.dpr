@@ -11,7 +11,8 @@ uses
   uPenjualan in 'uPenjualan.pas' {Fpenjualan},
   uPembelian in 'uPembelian.pas' {fPembelian},
   uBantuObat in 'uBantuObat.pas' {fBantuObat},
-  uPembayaranPembelian in 'uPembayaranPembelian.pas' {fPembayaranPembelian};
+  uPembayaranPembelian in 'uPembayaranPembelian.pas' {fPembayaranPembelian},
+  uSetHarga in 'uSetHarga.pas' {fSetHarga};
 
 {$R *.res}
 
@@ -27,5 +28,6 @@ begin
   Application.CreateForm(TfPembelian, fPembelian);
   Application.CreateForm(TfBantuObat, fBantuObat);
   Application.CreateForm(TfPembayaranPembelian, fPembayaranPembelian);
+  Application.CreateForm(TfSetHarga, fSetHarga);
   Application.Run;
 end.

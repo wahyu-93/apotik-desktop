@@ -397,7 +397,7 @@ object fPembelian: TfPembelian
       DataSource = dm.dsRelasiPembelian
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -15
+      Font.Height = -21
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False

@@ -12,7 +12,7 @@ object fBantuObat: TfBantuObat
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
-  OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object grp2: TGroupBox
@@ -251,6 +251,15 @@ object fBantuObat: TfBantuObat
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
+    end
+    object edt1: TEdit
+      Left = 16
+      Top = 24
+      Width = 121
+      Height = 21
+      TabOrder = 0
+      Text = 'edt1'
+      Visible = False
     end
   end
 end
