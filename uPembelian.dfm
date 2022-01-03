@@ -400,7 +400,6 @@ object fPembelian: TfPembelian
       Font.Height = -15
       Font.Name = 'Arial'
       Font.Style = []
-      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
       ParentFont = False
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
@@ -408,7 +407,8 @@ object fPembelian: TfPembelian
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
-      OnDblClick = dbgrd1DblClick
+      OnCellClick = dbgrd1CellClick
+      OnKeyPress = dbgrd1KeyPress
       Columns = <
         item
           Expanded = False
@@ -552,7 +552,6 @@ object fPembelian: TfPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -595,6 +594,7 @@ object fPembelian: TfPembelian
           Font.Height = -15
           Font.Name = 'Arial Narrow'
           Font.Style = []
+          ReadOnly = True
           Title.Alignment = taCenter
           Title.Caption = 'Nama Obat'
           Title.Font.Charset = ANSI_CHARSET
@@ -613,6 +613,7 @@ object fPembelian: TfPembelian
           Font.Height = -15
           Font.Name = 'Arial Narrow'
           Font.Style = []
+          ReadOnly = True
           Title.Alignment = taCenter
           Title.Caption = 'Jenis Obat'
           Title.Font.Charset = ANSI_CHARSET
@@ -631,6 +632,7 @@ object fPembelian: TfPembelian
           Font.Height = -15
           Font.Name = 'Arial Narrow'
           Font.Style = []
+          ReadOnly = True
           Title.Alignment = taCenter
           Title.Caption = 'Satuan'
           Title.Font.Charset = ANSI_CHARSET
@@ -668,6 +670,7 @@ object fPembelian: TfPembelian
           Font.Height = -15
           Font.Name = 'Arial Narrow'
           Font.Style = []
+          ReadOnly = True
           Title.Alignment = taCenter
           Title.Caption = 'Harga Pembelian'
           Title.Font.Charset = ANSI_CHARSET

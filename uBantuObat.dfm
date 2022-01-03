@@ -41,6 +41,7 @@ object fBantuObat: TfBantuObat
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
       OnDblClick = dbgrd1DblClick
+      OnKeyPress = dbgrd1KeyPress
       Columns = <
         item
           Expanded = False

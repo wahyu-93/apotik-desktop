@@ -21,6 +21,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure btnPilihClick(Sender: TObject);
     procedure dbgrd1DblClick(Sender: TObject);
+    procedure dbgrd1KeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -81,6 +82,11 @@ begin
 end;
 
 procedure TfBantuObat.dbgrd1DblClick(Sender: TObject);
+begin
+  btnPilih.Click;
+end;
+
+procedure TfBantuObat.dbgrd1KeyPress(Sender: TObject; var Key: Char);
 begin
   btnPilih.Click;
 end;

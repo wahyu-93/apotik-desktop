@@ -52,11 +52,12 @@ type
     procedure edtHargaKeyPress(Sender: TObject; var Key: Char);
     procedure edtJumlahBeliKeyPress(Sender: TObject; var Key: Char);
     procedure btnSimpanClick(Sender: TObject);
-    procedure dbgrd1DblClick(Sender: TObject);
     procedure btnHapusClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure btnSelesaiClick(Sender: TObject);
+    procedure dbgrd1KeyPress(Sender: TObject; var Key: Char);
+    procedure dbgrd1CellClick(Column: TColumn);
 
   private
     { Private declarations }
@@ -265,6 +266,7 @@ procedure TfPembelian.edtJumlahBeliKeyPress(Sender: TObject;
   var Key: Char);
 begin
   if not (key in ['0'..'9',#8, #9]) then Key:=#0;
+  if key=#13 then btnSimpan.Click;
 end;
 
 procedure TfPembelian.btnSimpanClick(Sender: TObject);
@@ -376,26 +378,6 @@ begin
     end;
 end;
 
-procedure TfPembelian.dbgrd1DblClick(Sender: TObject);
-begin
-  edtKode.Text := dbgrd1.Fields[9].AsString + ' - ' + dbgrd1.Fields[10].AsString;
-  edtNama.Text := dbgrd1.Fields[11].AsString;
-  edtSatuan.Text := dbgrd1.Fields[13].AsString;
-  edtJenis.Text := dbgrd1.Fields[12].AsString;
-  edtHarga.Text := dbgrd1.Fields[15].AsString;
-  edtJumlahBeli.Text := dbgrd1.Fields[14].AsString;
-  edtIdObat.Text := dbgrd1.Fields[6].AsString;
-  dtpTanggalKadaluarsa.Date := dbgrd1.Fields[10].AsDateTime;
-  edtIdPembelian.Text := dbgrd1.Fields[5].AsString;
-
-  btnSimpan.Caption := 'Edit';
-  btnHapus.Enabled := True;
-  btnSelesai.Enabled := false;
-
-  edtHarga.Enabled := False;
-  edtJumlahBeli.Enabled := false;
-end;
-
 procedure TfPembelian.btnHapusClick(Sender: TObject);
 begin
   if btnHapus.Caption = 'Hapus' then
@@ -472,6 +454,53 @@ begin
 
       FormCreate(Sender);
     end;
+end;
+
+procedure TfPembelian.dbgrd1KeyPress(Sender: TObject; var Key: Char);
+var jumlahNew : Integer;
+    totalNew : Real;
+begin
+  if key=#13 then
+    begin
+      //edit data lewat dbgrid
+      jumlahNew := dbgrd1.Fields[14].AsInteger;
+      totalNew  := dbgrd1.Fields[14].AsInteger * StrToInt(edtHarga.Text);
+      
+      with dm.qryDetailPembelian do
+        begin
+          close;
+          sql.Clear;
+          SQL.Text := 'update tbl_detail_pembelian set jumlah_beli = '+QuotedStr(IntToStr(jumlahNew))+', harga_beli = '+QuotedStr(FloatToStr(totalNew))+
+                      ' where obat_id = '+QuotedStr(edtIdObat.Text)+' and pembelian_id = '+QuotedStr(id_pembelian)+'';
+          ExecSQL;
+        end;
+
+      edtJumlahBeli.Text := IntToStr(jumlahNew);
+      konek(edtFaktur.Text);
+      ShowMessage(id_pembelian);
+      lblItem.Caption := IntToStr(hitungItem(id_pembelian));
+      lblTotalHarga.Caption := FormatFloat('Rp. ###,###,###', hitungTotal(id_pembelian));
+    end;
+end;
+
+procedure TfPembelian.dbgrd1CellClick(Column: TColumn);
+begin
+  edtKode.Text := dbgrd1.Fields[9].AsString + ' - ' + dbgrd1.Fields[10].AsString;
+  edtNama.Text := dbgrd1.Fields[11].AsString;
+  edtSatuan.Text := dbgrd1.Fields[13].AsString;
+  edtJenis.Text := dbgrd1.Fields[12].AsString;
+  edtHarga.Text := dbgrd1.Fields[15].AsString;
+  edtJumlahBeli.Text := dbgrd1.Fields[14].AsString;
+  edtIdObat.Text := dbgrd1.Fields[6].AsString;
+  dtpTanggalKadaluarsa.Date := dbgrd1.Fields[10].AsDateTime;
+  edtIdPembelian.Text := dbgrd1.Fields[5].AsString;
+
+  btnSimpan.Caption := 'Edit';
+  btnHapus.Enabled := True;
+  btnSelesai.Enabled := false;
+
+  edtHarga.Enabled := False;
+  edtJumlahBeli.Enabled := false;
 end;
 
 end.
