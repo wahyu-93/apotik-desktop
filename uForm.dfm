@@ -93,6 +93,7 @@ object FMenu: TFMenu
       end
       object Penjualan1: TMenuItem
         Caption = 'Penjualan'
+        OnClick = Penjualan1Click
       end
       object SettingHargaJual1: TMenuItem
         Caption = 'Set Harga Jual'

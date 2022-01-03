@@ -264,6 +264,15 @@ begin
                   SQL.Text := 'delete from tbl_pembelian where id='+QuotedStr(id_pembelian)+'';
                   ExecSQL;
                 end;
+
+              //hapus stok
+              with dm.qryStok do
+                begin
+                  close;
+                  SQL.Clear;
+                  SQL.Text := 'delete from tbl_stok where no_faktur = '+QuotedStr(edtFaktur.Text)+'';
+                  ExecSQL;
+                end;
             end;
 
           MessageDlg('Transaksi Dibatalkan',mtInformation,[mbOk],0);
@@ -374,6 +383,32 @@ begin
             end;
         end;
 
+      //stok
+      with dm.qryStok do
+        begin
+          close;
+          sql.Clear;
+          SQL.Text := 'select * from tbl_stok where obat_id = '+QuotedStr(edtIdObat.Text)+' and no_faktur = '+QuotedStr(edtFaktur.Text)+'';
+          Open;
+
+          if IsEmpty then
+            begin
+              Append;
+            end
+          else
+            begin
+              Edit;
+            end;
+
+          FieldByName('no_faktur').AsString := edtFaktur.Text;
+          FieldByName('obat_id').AsString   := edtIdObat.Text;
+          FieldByName('jumlah').AsString    := edtJumlahBeli.Text;
+          FieldByName('harga').AsString     := edtHarga.Text;
+          FieldByName('keterangan').AsString:= 'pembelian';
+          Post;
+        end;
+      
+
       // clear entitas barang
       clearEntitasBarang;
 
@@ -459,6 +494,7 @@ end;
 procedure TfPembelian.btnSelesaiClick(Sender: TObject);
 var
   jumlahItem, total : string;
+  a : integer;
 begin
   if MessageDlg('Apakah Transaksi Akan Diselesaikan ?',mtConfirmation,[mbYes,mbno],0)=mryes then
     begin
@@ -473,6 +509,31 @@ begin
           sql.Clear;
           sql.Text := 'update tbl_pembelian set jumlah_item = '+QuotedStr(jumlahItem)+', total = '+QuotedStr(total)+' where no_faktur = '+QuotedStr(edtFaktur.Text)+'';
           ExecSQL;
+        end;
+
+      with dm.qryDetailPembelian do
+        begin
+          Close;
+          SQL.Clear;
+          SQL.Text := 'select * from tbl_detail_pembelian where pembelian_id = '+QuotedStr(id_pembelian)+'';
+          Open;
+
+          for a:=1 to RecordCount do
+            begin
+              RecNo := a;
+
+              with dm.qryObat do
+                begin
+                  if locate('id',dm.qryDetailPembelian.fieldbyname('obat_id').AsString,[]) then
+                    begin
+                      Edit;
+                      FieldByName('stok').AsInteger := fieldbyname('stok').AsInteger + dm.qryDetailPembelian.fieldbyname('jumlah_beli').AsInteger;
+                      Post;
+                    end;
+                end;
+
+              Next;
+            end;
         end;
 
       FormCreate(Sender);
@@ -499,6 +560,15 @@ begin
           ExecSQL;
         end;
 
+      // stok
+      with dm.qryStok do
+        begin
+          close;
+          sql.Clear;
+          SQL.Text := 'update tbl_stok set jumlah = '+QuotedStr(IntToStr(jumlahNew))+' where obat_id = '+QuotedStr(dbgrd1.Fields[6].AsString)+' and no_faktur = '+QuotedStr(dbgrd1.Fields[1].AsString)+'';
+          ExecSQL;
+        end;
+
       konek(edtFaktur.Text);
 
       lblItem.Caption := IntToStr(hitungItem(id_pembelian));
@@ -516,5 +586,6 @@ procedure TfPembelian.dbgrd1CellClick(Column: TColumn);
 begin
   fokusDbgrid;
 end;
+
 
 end.

@@ -35,6 +35,7 @@ type
     procedure Obat1Click(Sender: TObject);
     procedure Pembelian1Click(Sender: TObject);
     procedure ListPembelian1Click(Sender: TObject);
+    procedure Penjualan1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -47,7 +48,8 @@ var
 implementation
 
 uses
-  uJenisObat, uSatuan, uSupplier, uObat, uPembelian, uPembayaranPembelian;
+  uJenisObat, uSatuan, uSupplier, uObat, uPembelian, uPembayaranPembelian, 
+  uPenjualan;
 
 {$R *.dfm}
 
@@ -84,6 +86,11 @@ end;
 procedure TFMenu.ListPembelian1Click(Sender: TObject);
 begin
   fPembayaranPembelian.ShowModal;
+end;
+
+procedure TFMenu.Penjualan1Click(Sender: TObject);
+begin
+  Fpenjualan.ShowModal;
 end;
 
 end.

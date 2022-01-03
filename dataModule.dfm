@@ -1,9 +1,9 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 352
-  Top = 452
+  Left = 316
+  Top = 270
   Height = 537
-  Width = 710
+  Width = 825
   object XPManifest1: TXPManifest
     Left = 128
     Top = 32
@@ -17,25 +17,10 @@ object dm: Tdm
     Left = 72
     Top = 32
   end
-  object qryBarang: TADOQuery
-    Active = True
-    Connection = con1
-    CursorType = ctStatic
-    Parameters = <>
-    SQL.Strings = (
-      'select * from tbl_barang')
-    Left = 40
-    Top = 88
-  end
-  object dsBarang: TDataSource
-    DataSet = qryBarang
-    Left = 104
-    Top = 88
-  end
   object dsJenis: TDataSource
     DataSet = qryJenis
-    Left = 96
-    Top = 160
+    Left = 104
+    Top = 80
   end
   object qryJenis: TADOQuery
     Active = True
@@ -44,8 +29,8 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from tbl_jenis')
-    Left = 48
-    Top = 168
+    Left = 56
+    Top = 88
     object qryJenisid: TAutoIncField
       FieldName = 'id'
       ReadOnly = True
@@ -65,8 +50,8 @@ object dm: Tdm
   end
   object dsSatuan: TDataSource
     DataSet = qrySatuan
-    Left = 112
-    Top = 224
+    Left = 120
+    Top = 144
   end
   object qrySatuan: TADOQuery
     Active = True
@@ -75,8 +60,8 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from tbl_satuan')
-    Left = 64
-    Top = 240
+    Left = 72
+    Top = 160
     object qrySatuanid: TAutoIncField
       FieldName = 'id'
       ReadOnly = True
@@ -96,8 +81,8 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from tbl_supplier')
-    Left = 56
-    Top = 296
+    Left = 64
+    Top = 216
     object qrySupplierid: TAutoIncField
       FieldName = 'id'
       ReadOnly = True
@@ -121,8 +106,8 @@ object dm: Tdm
   end
   object dsSupplier: TDataSource
     DataSet = qrySupplier
-    Left = 104
-    Top = 288
+    Left = 112
+    Top = 208
   end
   object qryObat: TADOQuery
     Active = True
@@ -131,8 +116,8 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from tbl_obat')
-    Left = 64
-    Top = 360
+    Left = 72
+    Top = 280
     object qryObatid: TAutoIncField
       FieldName = 'id'
       ReadOnly = True
@@ -165,11 +150,14 @@ object dm: Tdm
       FieldName = 'status'
       Size = 100
     end
+    object qryObatstok: TIntegerField
+      FieldName = 'stok'
+    end
   end
   object dsObat: TDataSource
     DataSet = qryObatRelasi
-    Left = 120
-    Top = 352
+    Left = 128
+    Top = 272
   end
   object qryObatRelasi: TADOQuery
     Active = True
@@ -183,8 +171,8 @@ object dm: Tdm
         'enis, c.id as id_satuan, c.kode as satuanKode, c.satuan from tbl' +
         '_jenis a left join tbl_obat b on a.id = b.kode_jenis INNER join ' +
         'tbl_satuan c on c.id = b.kode_satuan order by b.id;')
-    Left = 56
-    Top = 416
+    Left = 64
+    Top = 336
     object qryObatRelasiid: TIntegerField
       FieldName = 'id'
     end
@@ -337,8 +325,8 @@ object dm: Tdm
         'select * from tbl_supplier left join tbl_pembelian on tbl_pembel' +
         'ian.supplier_id = tbl_supplier.id inner join tbl_user on tbl_use' +
         'r.id = tbl_pembelian.user_id order by tbl_pembelian.id desc;')
-    Left = 264
-    Top = 248
+    Left = 256
+    Top = 232
     object qryListPembelianid: TIntegerField
       FieldName = 'id'
     end
@@ -411,6 +399,50 @@ object dm: Tdm
   object dsListPembelian: TDataSource
     DataSet = qryListPembelian
     Left = 328
-    Top = 240
+    Top = 248
+  end
+  object qryPenjualan: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from tbl_penjualan')
+    Left = 504
+    Top = 112
+  end
+  object qryStok: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from tbl_stok')
+    Left = 248
+    Top = 320
+    object qryStokid: TAutoIncField
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object qryStokno_faktur: TStringField
+      FieldName = 'no_faktur'
+      Size = 50
+    end
+    object qryStokobat_id: TIntegerField
+      FieldName = 'obat_id'
+    end
+    object qryStokjumlah: TIntegerField
+      FieldName = 'jumlah'
+    end
+    object qryStokharga: TFloatField
+      FieldName = 'harga'
+    end
+    object qryStokketerangan: TStringField
+      FieldName = 'keterangan'
+      Size = 25
+    end
+    object qryStokcreated_at: TDateTimeField
+      FieldName = 'created_at'
+    end
   end
 end
