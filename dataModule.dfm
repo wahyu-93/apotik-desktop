@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 307
-  Top = 455
+  Left = 271
+  Top = 251
   Height = 537
   Width = 825
   object XPManifest1: TXPManifest
@@ -408,7 +408,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from tbl_penjualan')
-    Left = 496
+    Left = 488
     Top = 80
   end
   object qryStok: TADOQuery
@@ -452,8 +452,8 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from tbl_harga_jual')
-    Left = 504
-    Top = 200
+    Left = 488
+    Top = 152
   end
   object qryRelasiSetHarga: TADOQuery
     Active = True
@@ -464,8 +464,8 @@ object dm: Tdm
       
         'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id' +
         ' = b.id;')
-    Left = 504
-    Top = 256
+    Left = 488
+    Top = 208
     object qryRelasiSetHargaid: TAutoIncField
       FieldName = 'id'
       ReadOnly = True
@@ -534,8 +534,8 @@ object dm: Tdm
   end
   object dsRelasiSetHarga: TDataSource
     DataSet = qryRelasiSetHarga
-    Left = 584
-    Top = 288
+    Left = 544
+    Top = 168
   end
   object qryRelasiStok: TADOQuery
     Active = True
@@ -552,5 +552,60 @@ object dm: Tdm
         ' join tbl_obat d on d.id = c.obat_id order by b.id desc')
     Left = 312
     Top = 344
+  end
+  object qryPelanggan: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from tbl_pelanggan')
+    Left = 488
+    Top = 288
+    object qryPelangganid: TAutoIncField
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object qryPelangganjenis_pelanggan: TStringField
+      FieldName = 'jenis_pelanggan'
+      Size = 100
+    end
+  end
+  object dsPelanggan: TDataSource
+    DataSet = qryPelanggan
+    Left = 552
+    Top = 304
+  end
+  object qryRelasiPenjualan: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select a.id as id_penjualan, a.no_faktur, a.tgl_penjualan, a.jum' +
+        'lah_item, a.total, b.id as id_detail_penjualan, b.obat_id, b.jum' +
+        'lah_jual, b.harga_jual, c.kode, c.barcode, c.nama_obat, c.tgl_ob' +
+        'at, c.tgl_exp, d.jenis, e.satuan from tbl_penjualan a left join ' +
+        'tbl_detail_penjualan b on b.penjualan_id = a.id left join tbl_ob' +
+        'at c on c.id = b.obat_id left join tbl_jenis d on d.id=c.kode_je' +
+        'nis left join tbl_satuan e on e.id = c.kode_satuan')
+    Left = 552
+    Top = 64
+  end
+  object dsRelasiPenjualan: TDataSource
+    DataSet = qryRelasiPenjualan
+    Left = 616
+    Top = 88
+  end
+  object qryDetailPenjualan: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from tbl_detail_penjualan')
+    Left = 616
+    Top = 40
   end
 end

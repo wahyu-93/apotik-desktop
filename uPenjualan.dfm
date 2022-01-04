@@ -1,6 +1,6 @@
 object Fpenjualan: TFpenjualan
-  Left = 253
-  Top = 201
+  Left = 269
+  Top = 163
   Width = 1432
   Height = 768
   Caption = 'Fpenjualan'
@@ -10,8 +10,11 @@ object Fpenjualan: TFpenjualan
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnKeyDown = FormKeyDown
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object grp2: TGroupBox
@@ -31,7 +34,7 @@ object Fpenjualan: TFpenjualan
       Top = 16
       Width = 1385
       Height = 505
-      DataSource = dm.dsRelasiPembelian
+      DataSource = dm.dsRelasiPenjualan
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -21
@@ -47,7 +50,7 @@ object Fpenjualan: TFpenjualan
       Columns = <
         item
           Expanded = False
-          FieldName = 'id_pembelian'
+          FieldName = 'id_penjualan'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -15
@@ -79,7 +82,7 @@ object Fpenjualan: TFpenjualan
         end
         item
           Expanded = False
-          FieldName = 'tgl_pembelian'
+          FieldName = 'tgl_penjualan'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -15
@@ -127,7 +130,7 @@ object Fpenjualan: TFpenjualan
         end
         item
           Expanded = False
-          FieldName = 'id_detail_pembelian'
+          FieldName = 'id_detail_penjualan'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -15
@@ -281,14 +284,14 @@ object Fpenjualan: TFpenjualan
         item
           Alignment = taCenter
           Expanded = False
-          FieldName = 'jumlah_beli'
+          FieldName = 'jumlah_jual'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -15
           Font.Name = 'Arial Narrow'
           Font.Style = []
           Title.Alignment = taCenter
-          Title.Caption = 'Jumlah Pembelian'
+          Title.Caption = 'Jumlah'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -13
@@ -299,7 +302,7 @@ object Fpenjualan: TFpenjualan
         end
         item
           Expanded = False
-          FieldName = 'harga_beli'
+          FieldName = 'harga_jual'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -15
@@ -307,7 +310,7 @@ object Fpenjualan: TFpenjualan
           Font.Style = []
           ReadOnly = True
           Title.Alignment = taCenter
-          Title.Caption = 'Harga Pembelian'
+          Title.Caption = 'Harga'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -13
@@ -330,6 +333,7 @@ object Fpenjualan: TFpenjualan
       Font.Style = []
       ParentFont = False
       TabOrder = 1
+      OnClick = btnTambahClick
     end
     object btnKeluar: TBitBtn
       Left = 1288
@@ -344,6 +348,7 @@ object Fpenjualan: TFpenjualan
       Font.Style = []
       ParentFont = False
       TabOrder = 2
+      OnClick = btnKeluarClick
     end
   end
   object grp1: TGroupBox
@@ -404,10 +409,23 @@ object Fpenjualan: TFpenjualan
       Font.Style = []
       ParentFont = False
     end
+    object lbl2: TLabel
+      Left = 536
+      Top = 16
+      Width = 69
+      Height = 17
+      Caption = 'Pelanggan'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
     object dtpTanggalBeli: TDateTimePicker
       Left = 376
       Top = 40
-      Width = 217
+      Width = 153
       Height = 25
       Date = 44561.580060370370000000
       Time = 44561.580060370370000000
@@ -448,6 +466,7 @@ object Fpenjualan: TFpenjualan
       ParentFont = False
       TabOrder = 2
       Text = 'edtFaktur'
+      OnKeyPress = edtKodeKeyPress
     end
     object btnBantuObat: TBitBtn
       Left = 376
@@ -455,7 +474,14 @@ object Fpenjualan: TFpenjualan
       Width = 41
       Height = 25
       Caption = 'F2'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 3
+      OnClick = btnBantuObatClick
     end
     object btnSimpan: TBitBtn
       Left = 480
@@ -470,6 +496,7 @@ object Fpenjualan: TFpenjualan
       Font.Style = []
       ParentFont = False
       TabOrder = 4
+      OnClick = btnSimpanClick
     end
     object btnHapus: TBitBtn
       Left = 576
@@ -502,7 +529,7 @@ object Fpenjualan: TFpenjualan
     object edtIdObat: TEdit
       Left = 168
       Top = 72
-      Width = 121
+      Width = 57
       Height = 21
       TabOrder = 7
       Text = 'edtIdObat'
@@ -572,6 +599,31 @@ object Fpenjualan: TFpenjualan
         Font.Style = [fsItalic]
         ParentFont = False
       end
+    end
+    object dblkcbbPelanggan: TDBLookupComboBox
+      Left = 536
+      Top = 40
+      Width = 201
+      Height = 25
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      KeyField = 'id'
+      ListField = 'jenis_pelanggan'
+      ListSource = dm.dsPelanggan
+      ParentFont = False
+      TabOrder = 11
+    end
+    object edtHarga: TEdit
+      Left = 232
+      Top = 72
+      Width = 57
+      Height = 21
+      TabOrder = 12
+      Text = 'edtHarga'
+      Visible = False
     end
   end
 end

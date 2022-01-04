@@ -578,6 +578,7 @@ object fSetHarga: TfSetHarga
       ParentFont = False
       TabOrder = 2
       Text = 'edtKode'
+      OnKeyUp = edtpencarianKeyUp
     end
     object btnTambah: TBitBtn
       Left = 8

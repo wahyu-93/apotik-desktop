@@ -124,6 +124,13 @@ type
     qryRelasiSetHargatgl_exp: TDateField;
     qryRelasiSetHargastatus: TStringField;
     qryRelasiSetHargastok: TIntegerField;
+    qryPelanggan: TADOQuery;
+    dsPelanggan: TDataSource;
+    qryPelangganid: TAutoIncField;
+    qryPelangganjenis_pelanggan: TStringField;
+    qryRelasiPenjualan: TADOQuery;
+    dsRelasiPenjualan: TDataSource;
+    qryDetailPenjualan: TADOQuery;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

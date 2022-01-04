@@ -50,6 +50,8 @@ type
     procedure dbgrd1DblClick(Sender: TObject);
     procedure btnHapusClick(Sender: TObject);
     procedure konek;
+    procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -237,6 +239,18 @@ begin
       close;
       sql.Clear;
       SQL.Text := 'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id = b.id order by a.id';
+      Open;
+    end;
+end;
+
+procedure TfSetHarga.edtpencarianKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+   with dm.qryRelasiSetHarga do
+    begin
+      close;
+      sql.Clear;
+      SQL.Text := 'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id = b.id where b.nama_obat like ''%'+edtpencarian.Text+'%'' order by a.id';
       Open;
     end;
 end;
