@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 316
-  Top = 270
+  Left = 307
+  Top = 455
   Height = 537
   Width = 825
   object XPManifest1: TXPManifest
@@ -456,9 +456,81 @@ object dm: Tdm
     Top = 200
   end
   object qryRelasiSetHarga: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
     Parameters = <>
+    SQL.Strings = (
+      
+        'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id' +
+        ' = b.id;')
     Left = 504
     Top = 256
+    object qryRelasiSetHargaid: TAutoIncField
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object qryRelasiSetHargaobat_id: TIntegerField
+      FieldName = 'obat_id'
+    end
+    object qryRelasiSetHargaharga_jual: TFloatField
+      FieldName = 'harga_jual'
+      DisplayFormat = '#,#0;(#,#0);#,#0'
+    end
+    object qryRelasiSetHargaharga_beli_terakhir: TIntegerField
+      FieldName = 'harga_beli_terakhir'
+      DisplayFormat = '#,#0;(#,#0);#,#0'
+    end
+    object qryRelasiSetHargasupplier: TStringField
+      FieldName = 'supplier'
+      Size = 50
+    end
+    object qryRelasiSetHargasatuan: TStringField
+      FieldName = 'satuan'
+      Size = 100
+    end
+    object qryRelasiSetHargajenis: TStringField
+      FieldName = 'jenis'
+      Size = 100
+    end
+    object qryRelasiSetHargacreated_at: TDateTimeField
+      FieldName = 'created_at'
+    end
+    object qryRelasiSetHargaid_1: TAutoIncField
+      FieldName = 'id_1'
+      ReadOnly = True
+    end
+    object qryRelasiSetHargakode: TStringField
+      FieldName = 'kode'
+      Size = 30
+    end
+    object qryRelasiSetHargabarcode: TStringField
+      FieldName = 'barcode'
+      Size = 100
+    end
+    object qryRelasiSetHarganama_obat: TStringField
+      FieldName = 'nama_obat'
+      Size = 150
+    end
+    object qryRelasiSetHargakode_jenis: TIntegerField
+      FieldName = 'kode_jenis'
+    end
+    object qryRelasiSetHargakode_satuan: TIntegerField
+      FieldName = 'kode_satuan'
+    end
+    object qryRelasiSetHargatgl_obat: TDateField
+      FieldName = 'tgl_obat'
+    end
+    object qryRelasiSetHargatgl_exp: TDateField
+      FieldName = 'tgl_exp'
+    end
+    object qryRelasiSetHargastatus: TStringField
+      FieldName = 'status'
+      Size = 100
+    end
+    object qryRelasiSetHargastok: TIntegerField
+      FieldName = 'stok'
+    end
   end
   object dsRelasiSetHarga: TDataSource
     DataSet = qryRelasiSetHarga

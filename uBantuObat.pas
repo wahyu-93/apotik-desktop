@@ -108,6 +108,7 @@ begin
       fSetHarga.lblSupplier.Caption := dm.qryRelasiStok.fieldbyname('nama_supplier').AsString;
       fSetHarga.edtHarga.SetFocus;
       fSetHarga.edtIdObat.Text := dbgrd1.Fields[0].AsString;
+      fSetHarga.edtHargaBeli.Text := dm.qryRelasiStok.fieldbyname('harga').AsString;
 
       close;
     end;

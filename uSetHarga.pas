@@ -36,6 +36,7 @@ type
     btnBantuObat: TBitBtn;
     edtHarga: TEdit;
     edtIdObat: TEdit;
+    edtHargaBeli: TEdit;
     procedure btnBantuObatClick(Sender: TObject);
     procedure btnKeluarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -44,6 +45,9 @@ type
     procedure btnTambahClick(Sender: TObject);
     procedure btnSimpanClick(Sender: TObject);
     procedure edtHargaKeyPress(Sender: TObject; var Key: Char);
+    procedure dbgrd1DblClick(Sender: TObject);
+    procedure btnHapusClick(Sender: TObject);
+    procedure konek;
   private
     { Private declarations }
   public
@@ -56,7 +60,7 @@ var
 implementation
 
 uses
-  dataModule, uBantuObat;
+  dataModule, uBantuObat, DB;
 
 {$R *.dfm}
 
@@ -88,7 +92,8 @@ begin
   btnSimpan.Enabled := false;
   btnHapus.Enabled := False;
   btnKeluar.Enabled := True;
-  
+
+  konek;
 end;
 
 procedure TfSetHarga.FormKeyDown(Sender: TObject; var Key: Word;
@@ -147,6 +152,10 @@ begin
           Append;
           FieldByName('obat_id').AsString := edtIdObat.Text;
           FieldByName('harga_jual').AsString := edtHarga.Text;
+          FieldByName('harga_beli_terakhir').AsString := edtHargaBeli.Text;
+          FieldByName('supplier').AsString := lblSupplier.Caption;
+          FieldByName('satuan').AsString := lblSatuan.Caption;
+          FieldByName('jenis').AsString := lblJenis.Caption;
           Post;
 
           MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
@@ -166,6 +175,54 @@ procedure TfSetHarga.edtHargaKeyPress(Sender: TObject; var Key: Char);
 begin
   if not (key in(['0'..'9',#13,#9,#8])) then Key:=#0;
   if Key=#13 then btnSimpan.Click;
+end;
+
+procedure TfSetHarga.dbgrd1DblClick(Sender: TObject);
+begin
+  if dm.qryRelasiSetHarga.IsEmpty then Exit;
+  
+  edtKode.Text := dbgrd1.Fields[11].AsString+'-'+dbgrd1.Fields[1].AsString;
+  lblNamaObat.Caption := dbgrd1.Fields[3].AsString;
+  lblJenis.Caption := dbgrd1.Fields[17].AsString;
+  lblSatuan.Caption := dbgrd1.Fields[16].AsString;
+  lblHargaBeli.Caption := 'Rp. ' + FormatFloat('###,###',StrToFloat(dbgrd1.Fields[5].AsString));
+  lblSupplier.Caption := dbgrd1.Fields[6].AsString;
+
+  edtHargaBeli.Text := dbgrd1.Fields[4].AsString;
+  edtIdObat.Text := dbgrd1.Fields[2].AsString;
+
+  btnTambah.Caption := 'Batal[F1]';
+  btnBantuObat.Enabled := false;
+  btnHapus.Enabled := false;
+  btnHapus.Enabled := true;
+end;
+
+procedure TfSetHarga.btnHapusClick(Sender: TObject);
+begin
+  if MessageDlg('Yakin Data Akan Dihapus ?',mtConfirmation,[mbyes,mbno],0)=mryes then
+    begin
+      with dm.qrySetHarga do
+        begin
+          if Locate('obat_id',edtIdObat.Text,[]) then
+            begin
+              Delete;
+            end;
+        end;
+
+      MessageDlg('Data Berhasil Dihapus ?',mtInformation,[mbok],0);
+      FormShow(Sender);
+    end;
+end;
+
+procedure TfSetHarga.konek;
+begin
+  with dm.qryRelasiSetHarga do
+    begin
+      close;
+      sql.Clear;
+      SQL.Text := 'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id = b.id order by a.id';
+      Open;
+    end;
 end;
 
 end.

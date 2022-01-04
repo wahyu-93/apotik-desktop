@@ -408,6 +408,18 @@ begin
           FieldByName('keterangan').AsString:= 'pembelian';
           Post;
         end;
+
+        // update tgl expired obat
+        with dm.qryObat do
+          begin
+            if Locate('id',edtIdObat.Text,[]) then
+              begin
+                edit;
+                FieldByName('tgl_obat').AsDateTime := Now;
+                FieldByName('tgl_exp').AsDateTime := dtpTanggalKadaluarsa.Date;
+                Post;
+              end;
+          end;
       
 
       // clear entitas barang
