@@ -1,6 +1,6 @@
 object fSetHarga: TfSetHarga
-  Left = 541
-  Top = 79
+  Left = 403
+  Top = 134
   Width = 701
   Height = 740
   Caption = '.:: Set Harga Jual ::.'
@@ -71,7 +71,7 @@ object fSetHarga: TfSetHarga
     end
     object lbl4: TLabel
       Left = 8
-      Top = 80
+      Top = 72
       Width = 34
       Height = 17
       Caption = 'Jenis'
@@ -84,7 +84,7 @@ object fSetHarga: TfSetHarga
     end
     object lbl5: TLabel
       Left = 8
-      Top = 112
+      Top = 96
       Width = 46
       Height = 17
       Caption = 'Satuan'
@@ -110,7 +110,7 @@ object fSetHarga: TfSetHarga
     end
     object lbl7: TLabel
       Left = 96
-      Top = 80
+      Top = 72
       Width = 4
       Height = 17
       Caption = ':'
@@ -123,7 +123,7 @@ object fSetHarga: TfSetHarga
     end
     object lbl8: TLabel
       Left = 96
-      Top = 112
+      Top = 96
       Width = 4
       Height = 17
       Caption = ':'
@@ -149,7 +149,7 @@ object fSetHarga: TfSetHarga
     end
     object lblJenis: TLabel
       Left = 104
-      Top = 80
+      Top = 72
       Width = 32
       Height = 20
       Caption = 'Jenis'
@@ -162,7 +162,7 @@ object fSetHarga: TfSetHarga
     end
     object lblSatuan: TLabel
       Left = 104
-      Top = 112
+      Top = 96
       Width = 42
       Height = 20
       Caption = 'Satuan'
@@ -175,7 +175,7 @@ object fSetHarga: TfSetHarga
     end
     object lbl21: TLabel
       Left = 8
-      Top = 144
+      Top = 120
       Width = 122
       Height = 17
       Caption = 'Harga Beli Terakhir'
@@ -188,7 +188,7 @@ object fSetHarga: TfSetHarga
     end
     object lblHargaBeli: TLabel
       Left = 8
-      Top = 168
+      Top = 144
       Width = 68
       Height = 20
       Caption = 'Rp. 200.000'
@@ -201,7 +201,7 @@ object fSetHarga: TfSetHarga
     end
     object lblSupplier: TLabel
       Left = 184
-      Top = 168
+      Top = 144
       Width = 51
       Height = 20
       Caption = 'Supplier'
@@ -214,7 +214,7 @@ object fSetHarga: TfSetHarga
     end
     object lbl22: TLabel
       Left = 184
-      Top = 144
+      Top = 120
       Width = 53
       Height = 17
       Caption = 'Supplier'
@@ -227,10 +227,23 @@ object fSetHarga: TfSetHarga
     end
     object lbl23: TLabel
       Left = 8
-      Top = 198
+      Top = 222
       Width = 102
       Height = 17
       Caption = 'Harga Jual (Rp)'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lbl9: TLabel
+      Left = 8
+      Top = 184
+      Width = 115
+      Height = 17
+      Caption = 'Tanggal Exp Obat'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -254,9 +267,9 @@ object fSetHarga: TfSetHarga
     end
     object dbgrd1: TDBGrid
       Left = 8
-      Top = 232
+      Top = 248
       Width = 649
-      Height = 313
+      Height = 297
       DataSource = dm.dsRelasiSetHarga
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -642,9 +655,9 @@ object fSetHarga: TfSetHarga
       OnClick = btnBantuObatClick
     end
     object edtHarga: TEdit
-      Left = 120
-      Top = 194
-      Width = 385
+      Left = 144
+      Top = 218
+      Width = 193
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -666,13 +679,28 @@ object fSetHarga: TfSetHarga
       Visible = False
     end
     object edtHargaBeli: TEdit
-      Left = 376
-      Top = 160
+      Left = 488
+      Top = 80
       Width = 121
       Height = 21
       TabOrder = 10
       Text = 'edtHargaBeli'
       Visible = False
+    end
+    object dtpTglExp: TDateTimePicker
+      Left = 144
+      Top = 184
+      Width = 385
+      Height = 25
+      Date = 44565.491122905090000000
+      Time = 44565.491122905090000000
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 11
     end
   end
 end

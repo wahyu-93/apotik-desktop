@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, Grids, DBGrids;
+  Dialogs, StdCtrls, Buttons, Grids, DBGrids, ComCtrls;
 
 type
   TfSetHarga = class(TForm)
@@ -37,6 +37,8 @@ type
     edtHarga: TEdit;
     edtIdObat: TEdit;
     edtHargaBeli: TEdit;
+    lbl9: TLabel;
+    dtpTglExp: TDateTimePicker;
     procedure btnBantuObatClick(Sender: TObject);
     procedure btnKeluarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -93,6 +95,9 @@ begin
   btnHapus.Enabled := False;
   btnKeluar.Enabled := True;
 
+  dtpTglExp.Enabled := False;
+  dtpTglExp.Date := Now;
+
   konek;
 end;
 
@@ -114,6 +119,7 @@ begin
       edtHarga.SetFocus;
 
       edtpencarian.Enabled := false; edtpencarian.Clear;
+      dtpTglExp.Enabled := True;
 
       btnSimpan.Enabled := True;
       btnTambah.Caption := 'Batal[F1]';
@@ -157,6 +163,14 @@ begin
           FieldByName('satuan').AsString := lblSatuan.Caption;
           FieldByName('jenis').AsString := lblJenis.Caption;
           Post;
+          ShowMessage('update tbl_obat set tgl_exp = '+QuotedStr(FormatDateTime('yyyy-mm-dd',dtpTglExp.Date))+' where id = '+QuotedStr(edtIdObat.Text)+'');
+          with dm.qryObat do
+            begin
+              close;
+              sql.clear;
+              SQL.Text := 'update tbl_obat set tgl_exp = '+QuotedStr(FormatDateTime('yyyy-mm-dd',dtpTglExp.Date))+' where id = '+QuotedStr(edtIdObat.Text)+'';
+              ExecSQL;
+            end;
 
           MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
         end
@@ -190,6 +204,8 @@ begin
 
   edtHargaBeli.Text := dbgrd1.Fields[4].AsString;
   edtIdObat.Text := dbgrd1.Fields[2].AsString;
+  dtpTglExp.Date := dbgrd1.Fields[7].AsDateTime;
+  edtHarga.Text := dbgrd1.Fields[4].AsString;
 
   btnTambah.Caption := 'Batal[F1]';
   btnBantuObat.Enabled := false;

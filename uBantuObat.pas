@@ -110,6 +110,11 @@ begin
       fSetHarga.edtIdObat.Text := dbgrd1.Fields[0].AsString;
       fSetHarga.edtHargaBeli.Text := dm.qryRelasiStok.fieldbyname('harga').AsString;
 
+      if dm.qryRelasiStok.FieldByName('tgl_exp').AsString = '' then
+        fSetHarga.dtpTglExp.Date := Now
+      else
+        fSetHarga.dtpTglExp.Date := dm.qryRelasiStok.fieldbyname('tgl_exp').AsDateTime;
+
       close;
     end;
 
