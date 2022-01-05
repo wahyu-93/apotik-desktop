@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ComCtrls, Buttons, Grids, DBGrids, ExtCtrls, DBCtrls;
+  Dialogs, StdCtrls, ComCtrls, Buttons, Grids, DBGrids, ExtCtrls, DBCtrls,
+  jpeg;
 
 type
   TFpenjualan = class(TForm)
@@ -34,6 +35,7 @@ type
     lbl2: TLabel;
     dblkcbbPelanggan: TDBLookupComboBox;
     edtHarga: TEdit;
+    img1: TImage;
     procedure btnKeluarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -44,9 +46,9 @@ type
     procedure btnSimpanClick(Sender: TObject);
     procedure edtKodeKeyPress(Sender: TObject; var Key: Char);
     procedure dbgrd1KeyPress(Sender: TObject; var Key: Char);
-    procedure dbgrd1DblClick(Sender: TObject);
     procedure btnHapusClick(Sender: TObject);
     procedure btnSelesaiClick(Sender: TObject);
+    procedure dbgrd1CellClick(Column: TColumn);
   private
     { Private declarations }
   public
@@ -403,22 +405,10 @@ begin
       dm.qryRelasiPenjualan.Locate('id_detail_penjualan',id,[]);
     end;
 end;
-procedure TFpenjualan.dbgrd1DblClick(Sender: TObject);
-begin
-  if dm.qryRelasiPenjualan.IsEmpty then Exit;
-  
-  edtKode.Text := dbgrd1.Fields[8].AsString;
-  edtIdObat.Text := dbgrd1.Fields[6].AsString;
-  edtIdPembelian.Text := dbgrd1.Fields[0].AsString;
-  btnHapus.Enabled := True;
-end;
-
 procedure TFpenjualan.btnHapusClick(Sender: TObject);
 begin
   if MessageDlg('Yakin Data Akan Dihapus ?',mtConfirmation,[mbYes,mbNo],0)=mryes then
     begin
-      ShowMessage(edtIdPembelian.Text);
-      ShowMessage(edtIdObat.Text);
       with dm.qryDetailPenjualan do
         begin
           Close;
@@ -496,6 +486,16 @@ begin
 
       FormShow(Sender);
     end;
+end;
+
+procedure TFpenjualan.dbgrd1CellClick(Column: TColumn);
+begin
+ if dm.qryRelasiPenjualan.IsEmpty then Exit;
+  
+  edtKode.Text := dbgrd1.Fields[8].AsString;
+  edtIdObat.Text := dbgrd1.Fields[6].AsString;
+  edtIdPembelian.Text := dbgrd1.Fields[0].AsString;
+  btnHapus.Enabled := True;
 end;
 
 end.

@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, Grids, DBGrids;
+  Dialogs, StdCtrls, Buttons, Grids, DBGrids, jpeg, ExtCtrls;
 
 type
   TfBantuObat = class(TForm)
@@ -16,6 +16,7 @@ type
     grp1: TGroupBox;
     lbl1: TLabel;
     edt1: TEdit;
+    img1: TImage;
     procedure btnKeluarClick(Sender: TObject);
     procedure konek(status : string = 'pembelian');
     procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;

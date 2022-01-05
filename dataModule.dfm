@@ -1,9 +1,9 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 271
-  Top = 251
-  Height = 537
-  Width = 825
+  Left = 284
+  Top = 284
+  Height = 456
+  Width = 1342
   object XPManifest1: TXPManifest
     Left = 128
     Top = 32
@@ -623,5 +623,61 @@ object dm: Tdm
     object qryDetailPenjualanjumlah_jual: TIntegerField
       FieldName = 'jumlah_jual'
     end
+  end
+  object qryLaporanPembelian: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select * from tbl_pembelian left join tbl_supplier on tbl_pembel' +
+        'ian.supplier_id = tbl_supplier.id')
+    Left = 784
+    Top = 64
+  end
+  object qryLaporanPenjualan: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select * from tbl_penjualan left JOIN tbl_pelanggan on tbl_penju' +
+        'alan.id_pelanggan = tbl_pelanggan.id')
+    Left = 792
+    Top = 128
+  end
+  object qryLaporanStok: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 792
+    Top = 192
+  end
+  object qryLaporanItemLaris: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 792
+    Top = 256
+  end
+  object dsLaporanPembelian: TDataSource
+    DataSet = qryLaporanPembelian
+    Left = 856
+    Top = 40
+  end
+  object dslaporanPenjualan: TDataSource
+    DataSet = qryLaporanPenjualan
+    Left = 864
+    Top = 112
+  end
+  object dsLaporanStok: TDataSource
+    DataSet = qryLaporanStok
+    Left = 872
+    Top = 184
+  end
+  object dsLaporanItemLaris: TDataSource
+    DataSet = qryLaporanItemLaris
+    Left = 864
+    Top = 240
   end
 end

@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, Grids, DBGrids;
+  Dialogs, StdCtrls, Buttons, Grids, DBGrids, jpeg, ExtCtrls;
 
 type
   TfBantuObatPenjualan = class(TForm)
@@ -15,6 +15,7 @@ type
     btnKeluar: TBitBtn;
     grp1: TGroupBox;
     lbl1: TLabel;
+    img1: TImage;
     procedure konek;
     procedure FormShow(Sender: TObject);
     procedure btnKeluarClick(Sender: TObject);

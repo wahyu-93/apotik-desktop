@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, Grids, DBGrids;
+  Dialogs, StdCtrls, Buttons, Grids, DBGrids, jpeg, ExtCtrls;
 
 type
   TfJenisObat = class(TForm)
@@ -23,6 +23,7 @@ type
     btnSimpan: TBitBtn;
     btnHapus: TBitBtn;
     btnKeluar: TBitBtn;
+    img1: TImage;
     procedure FormCreate(Sender: TObject);
     procedure btnKeluarClick(Sender: TObject);
     procedure btnTambahClick(Sender: TObject);

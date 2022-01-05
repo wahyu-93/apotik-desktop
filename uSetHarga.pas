@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, Grids, DBGrids, ComCtrls;
+  Dialogs, StdCtrls, Buttons, Grids, DBGrids, ComCtrls, jpeg, ExtCtrls;
 
 type
   TfSetHarga = class(TForm)
@@ -39,6 +39,7 @@ type
     edtHargaBeli: TEdit;
     lbl9: TLabel;
     dtpTglExp: TDateTimePicker;
+    img1: TImage;
     procedure btnBantuObatClick(Sender: TObject);
     procedure btnKeluarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);

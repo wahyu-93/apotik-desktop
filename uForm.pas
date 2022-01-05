@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, ExtCtrls, Grids, DBGrids, ComCtrls;
+  Dialogs, Menus, ExtCtrls, Grids, DBGrids, ComCtrls, StdCtrls, jpeg;
 
 type
   TFMenu = class(TForm)
@@ -20,15 +20,21 @@ type
     Penjualan1: TMenuItem;
     Obat1: TMenuItem;
     Supplier2: TMenuItem;
-    dbgrd1: TDBGrid;
-    dbgrd2: TDBGrid;
-    pnl1: TPanel;
-    pnl2: TPanel;
-    pnl3: TPanel;
     SettingHargaJual1: TMenuItem;
     ListPembelian1: TMenuItem;
     stat1: TStatusBar;
     tmr1: TTimer;
+    grp1: TGroupBox;
+    grp2: TGroupBox;
+    grp3: TGroupBox;
+    grp4: TGroupBox;
+    grp5: TGroupBox;
+    lbl1: TLabel;
+    dbgrdPenjualan: TDBGrid;
+    dbgrdPembelian: TDBGrid;
+    dbgrdItemLaris: TDBGrid;
+    dbgrdStok: TDBGrid;
+    img1: TImage;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);

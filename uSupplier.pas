@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, Grids, DBGrids;
+  Dialogs, StdCtrls, Buttons, Grids, DBGrids, jpeg, ExtCtrls;
 
 type
   TFsupplier = class(TForm)
@@ -25,6 +25,7 @@ type
     mmoAlamat: TMemo;
     lbl5: TLabel;
     edtTelp: TEdit;
+    img1: TImage;
     procedure FormCreate(Sender: TObject);
     procedure btnKeluarClick(Sender: TObject);
     procedure dbgrd1CellClick(Column: TColumn);

@@ -136,6 +136,14 @@ type
     qryDetailPenjualanobat_id: TIntegerField;
     qryDetailPenjualanharga_jual: TIntegerField;
     qryDetailPenjualanjumlah_jual: TIntegerField;
+    qryLaporanPembelian: TADOQuery;
+    qryLaporanPenjualan: TADOQuery;
+    qryLaporanStok: TADOQuery;
+    qryLaporanItemLaris: TADOQuery;
+    dsLaporanPembelian: TDataSource;
+    dslaporanPenjualan: TDataSource;
+    dsLaporanStok: TDataSource;
+    dsLaporanItemLaris: TDataSource;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

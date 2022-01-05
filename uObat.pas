@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, Grids, DBGrids, DBCtrls;
+  Dialogs, StdCtrls, Buttons, Grids, DBGrids, DBCtrls, jpeg, ExtCtrls;
 
 type
   TFobat = class(TForm)
@@ -27,6 +27,7 @@ type
     edtNama: TEdit;
     dblkcbbJenisObat: TDBLookupComboBox;
     dblkcbbSatuanObat: TDBLookupComboBox;
+    img1: TImage;
     procedure btnKeluarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnTambahClick(Sender: TObject);

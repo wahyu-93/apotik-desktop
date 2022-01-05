@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, DBCtrls, ComCtrls, Grids, DBGrids, ExtCtrls;
+  Dialogs, StdCtrls, Buttons, DBCtrls, ComCtrls, Grids, DBGrids, ExtCtrls,
+  jpeg;
 
 type
   TfPembelian = class(TForm)
@@ -44,6 +45,7 @@ type
     lblTotalHarga: TLabel;
     edtIdObat: TEdit;
     edtIdPembelian: TEdit;
+    img1: TImage;
     procedure clearEntitasBarang;
     procedure fokusDbgrid;
     procedure btnKeluarClick(Sender: TObject);
