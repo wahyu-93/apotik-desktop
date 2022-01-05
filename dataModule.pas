@@ -3,7 +3,7 @@ unit dataModule;
 interface
 
 uses
-  SysUtils, Classes, XPMan, DB, ADODB;
+  SysUtils, Classes, XPMan, DB, ADODB, ExtCtrls;
 
 type
   Tdm = class(TDataModule)

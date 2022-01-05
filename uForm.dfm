@@ -63,6 +63,25 @@ object FMenu: TFMenu
     Caption = 'pnl3'
     TabOrder = 4
   end
+  object stat1: TStatusBar
+    Left = 0
+    Top = 822
+    Width = 1424
+    Height = 19
+    Panels = <
+      item
+        Text = 'Pengguna : Wahyu'
+        Width = 200
+      end
+      item
+        Text = 'Admin'
+        Width = 50
+      end
+      item
+        Text = 'Tanggal'
+        Width = 50
+      end>
+  end
   object mm1: TMainMenu
     Left = 96
     Top = 64
@@ -114,5 +133,11 @@ object FMenu: TFMenu
       Caption = 'Keluar'
       OnClick = Keluar1Click
     end
+  end
+  object tmr1: TTimer
+    Interval = 500
+    OnTimer = tmr1Timer
+    Left = 64
+    Top = 64
   end
 end

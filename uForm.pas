@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, ExtCtrls, Grids, DBGrids;
+  Dialogs, Menus, ExtCtrls, Grids, DBGrids, ComCtrls;
 
 type
   TFMenu = class(TForm)
@@ -27,6 +27,8 @@ type
     pnl3: TPanel;
     SettingHargaJual1: TMenuItem;
     ListPembelian1: TMenuItem;
+    stat1: TStatusBar;
+    tmr1: TTimer;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
@@ -36,6 +38,7 @@ type
     procedure ListPembelian1Click(Sender: TObject);
     procedure Penjualan1Click(Sender: TObject);
     procedure SettingHargaJual1Click(Sender: TObject);
+    procedure tmr1Timer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -49,7 +52,7 @@ implementation
 
 uses
   uJenisObat, uSatuan, uSupplier, uObat, uPembelian, uPembayaranPembelian, 
-  uPenjualan, uSetHarga;
+  uPenjualan, uSetHarga, dataModule;
 
 {$R *.dfm}
 
@@ -96,6 +99,11 @@ end;
 procedure TFMenu.SettingHargaJual1Click(Sender: TObject);
 begin
   fSetHarga.ShowModal;
+end;
+
+procedure TFMenu.tmr1Timer(Sender: TObject);
+begin
+  stat1.Panels[2].Text := 'Tanggal ' + FormatDateTime('dd-mm-yyyy',Now);
 end;
 
 end.

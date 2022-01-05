@@ -1,6 +1,6 @@
 object Fpenjualan: TFpenjualan
-  Left = 241
-  Top = 133
+  Left = 442
+  Top = 112
   Width = 1432
   Height = 768
   Caption = 'Fpenjualan'
@@ -529,6 +529,7 @@ object Fpenjualan: TFpenjualan
       Font.Style = []
       ParentFont = False
       TabOrder = 6
+      OnClick = btnSelesaiClick
     end
     object edtIdObat: TEdit
       Left = 168

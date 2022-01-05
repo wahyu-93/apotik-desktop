@@ -46,6 +46,7 @@ type
     procedure dbgrd1KeyPress(Sender: TObject; var Key: Char);
     procedure dbgrd1DblClick(Sender: TObject);
     procedure btnHapusClick(Sender: TObject);
+    procedure btnSelesaiClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -407,6 +408,8 @@ begin
   if dm.qryRelasiPenjualan.IsEmpty then Exit;
   
   edtKode.Text := dbgrd1.Fields[8].AsString;
+  edtIdObat.Text := dbgrd1.Fields[6].AsString;
+  edtIdPembelian.Text := dbgrd1.Fields[0].AsString;
   btnHapus.Enabled := True;
 end;
 
@@ -414,6 +417,8 @@ procedure TFpenjualan.btnHapusClick(Sender: TObject);
 begin
   if MessageDlg('Yakin Data Akan Dihapus ?',mtConfirmation,[mbYes,mbNo],0)=mryes then
     begin
+      ShowMessage(edtIdPembelian.Text);
+      ShowMessage(edtIdObat.Text);
       with dm.qryDetailPenjualan do
         begin
           Close;
@@ -423,8 +428,73 @@ begin
         end;
 
       MessageDlg('Item Berhasil Dihapus',mtInformation,[mbOK],0);
+      konek(edtFaktur.Text);
+      lblItem.Caption := IntToStr(hitungItem(id_penjualan));
+      lblTotalHarga.Caption := FormatFloat('Rp. ###,###,###', hitungTotal(id_penjualan));
+      
       edtKode.Clear;
       btnHapus.Enabled := false;
+
+      if dm.qryDetailPenjualan.IsEmpty then
+        btnSelesai.Enabled := false
+      else
+        btnSimpan.Enabled := true;
+    end;
+end;
+
+procedure TFpenjualan.btnSelesaiClick(Sender: TObject);
+var
+  jumlahItem, total : string;
+  a : integer;
+begin
+  if MessageDlg('Apakah Transaksi Akan Diselesaikan ?',mtConfirmation,[mbYes,mbno],0)=mryes then
+    begin
+      MessageDlg('Transaki Berhasil Disimpan', mtInformation, [mbok],0);
+
+      jumlahItem := IntToStr(hitungItem(id_penjualan));
+      total := FloatToStr(hitungTotal(id_penjualan));
+
+      with dm.qryPenjualan do
+        begin
+          close;
+          sql.Clear;
+          sql.Text := 'update tbl_penjualan set jumlah_item = '+QuotedStr(jumlahItem)+', total = '+QuotedStr(total)+
+                      ', status = '+QuotedStr('selesai')+', tgl_bayar = '+QuotedStr(FormatDateTime('yyyy-mm-dd hh:mm:ss',Now))+
+                      ' where no_faktur = '+QuotedStr(edtFaktur.Text)+'';
+          ExecSQL;
+        end;
+
+      with dm.qryDetailPenjualan do
+        begin
+          Close;
+          SQL.Clear;
+          SQL.Text := 'select * from tbl_detail_penjualan where penjualan_id = '+QuotedStr(id_penjualan)+'';
+          Open;
+
+          for a:=1 to RecordCount do
+            begin
+              RecNo := a;
+
+              with dm.qryObat do
+                begin
+                  close;
+                  SQL.Clear;
+                  SQL.Text := 'select * from tbl_obat';
+                  Open;
+                  
+                  if locate('id',dm.qryDetailPenjualan.fieldbyname('obat_id').AsString,[]) then
+                    begin
+                      Edit;
+                      FieldByName('stok').AsInteger := fieldbyname('stok').AsInteger - dm.qryDetailPenjualan.fieldbyname('jumlah_jual').AsInteger;
+                      Post;
+                    end;
+                end;
+
+              Next;
+            end;
+        end;
+
+      FormShow(Sender);
     end;
 end;
 

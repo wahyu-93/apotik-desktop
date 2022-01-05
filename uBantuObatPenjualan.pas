@@ -21,6 +21,8 @@ type
     procedure btnPilihClick(Sender: TObject);
     procedure dbgrd1DblClick(Sender: TObject);
     procedure dbgrd1KeyPress(Sender: TObject; var Key: Char);
+    procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -83,6 +85,18 @@ procedure TfBantuObatPenjualan.dbgrd1KeyPress(Sender: TObject;
   var Key: Char);
 begin
   btnPilih.Click;
+end;
+
+procedure TfBantuObatPenjualan.edtpencarianKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  with dm.qryRelasiSetHarga do
+    begin
+      close;
+      SQL.Clear;
+      SQL.Text := 'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id = b.id where b.nama_obat like ''%'+edtpencarian.Text+'%''';
+      Open;
+    end;
 end;
 
 end.
