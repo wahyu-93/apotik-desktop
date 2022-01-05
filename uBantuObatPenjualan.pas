@@ -68,6 +68,7 @@ begin
 
   Fpenjualan.edtIdObat.Text := dbgrd1.Fields[1].AsString;
   Fpenjualan.edtHarga.Text := dbgrd1.Fields[4].AsString;
+  Fpenjualan.btnHapus.Enabled := false;
   Fpenjualan.btnSimpan.Click;
 
   Close;

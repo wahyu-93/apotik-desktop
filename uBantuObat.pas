@@ -106,7 +106,7 @@ begin
 
       fSetHarga.lblHargaBeli.Caption := FormatFloat('Rp. ###,###,###', dm.qryRelasiStok.fieldbyname('harga').AsFloat);
       fSetHarga.lblSupplier.Caption := dm.qryRelasiStok.fieldbyname('nama_supplier').AsString;
-      fSetHarga.edtHarga.SetFocus;
+      fSetHarga.edtHarga.Enabled := True; fSetHarga.edtHarga.SetFocus;
       fSetHarga.edtIdObat.Text := dbgrd1.Fields[0].AsString;
       fSetHarga.edtHargaBeli.Text := dm.qryRelasiStok.fieldbyname('harga').AsString;
 

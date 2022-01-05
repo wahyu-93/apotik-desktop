@@ -99,7 +99,7 @@ begin
 
   dtpTglExp.Enabled := False;
   dtpTglExp.Date := Now;
-
+  
   konek;
 end;
 
@@ -165,7 +165,7 @@ begin
           FieldByName('satuan').AsString := lblSatuan.Caption;
           FieldByName('jenis').AsString := lblJenis.Caption;
           Post;
-          ShowMessage('update tbl_obat set tgl_exp = '+QuotedStr(FormatDateTime('yyyy-mm-dd',dtpTglExp.Date))+' where id = '+QuotedStr(edtIdObat.Text)+'');
+
           with dm.qryObat do
             begin
               close;

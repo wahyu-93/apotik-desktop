@@ -1,6 +1,6 @@
 object Fpenjualan: TFpenjualan
-  Left = 269
-  Top = 163
+  Left = 241
+  Top = 133
   Width = 1432
   Height = 768
   Caption = 'Fpenjualan'
@@ -47,6 +47,8 @@ object Fpenjualan: TFpenjualan
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnDblClick = dbgrd1DblClick
+      OnKeyPress = dbgrd1KeyPress
       Columns = <
         item
           Expanded = False
@@ -98,7 +100,7 @@ object Fpenjualan: TFpenjualan
         end
         item
           Expanded = False
-          FieldName = 'jumlah_item'
+          FieldName = 'jumlah_jual'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -15
@@ -496,6 +498,7 @@ object Fpenjualan: TFpenjualan
       Font.Style = []
       ParentFont = False
       TabOrder = 4
+      Visible = False
       OnClick = btnSimpanClick
     end
     object btnHapus: TBitBtn
@@ -511,6 +514,7 @@ object Fpenjualan: TFpenjualan
       Font.Style = []
       ParentFont = False
       TabOrder = 5
+      OnClick = btnHapusClick
     end
     object btnSelesai: TBitBtn
       Left = 672
@@ -570,6 +574,7 @@ object Fpenjualan: TFpenjualan
         Font.Name = 'Arial Narrow'
         Font.Style = [fsItalic]
         ParentFont = False
+        WordWrap = True
       end
     end
     object grp4: TGroupBox

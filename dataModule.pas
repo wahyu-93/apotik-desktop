@@ -131,6 +131,11 @@ type
     qryRelasiPenjualan: TADOQuery;
     dsRelasiPenjualan: TDataSource;
     qryDetailPenjualan: TADOQuery;
+    qryDetailPenjualanid: TAutoIncField;
+    qryDetailPenjualanpenjualan_id: TIntegerField;
+    qryDetailPenjualanobat_id: TIntegerField;
+    qryDetailPenjualanharga_jual: TIntegerField;
+    qryDetailPenjualanjumlah_jual: TIntegerField;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

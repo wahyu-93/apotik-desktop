@@ -73,6 +73,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -90,7 +91,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 140
+          Width = 150
           Visible = True
         end
         item
@@ -108,7 +109,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 169
+          Width = 150
           Visible = True
         end
         item
@@ -126,7 +127,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 135
+          Width = 150
           Visible = True
         end
         item
@@ -144,7 +145,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 172
+          Width = 150
           Visible = True
         end
         item
@@ -162,7 +163,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 127
+          Width = 150
           Visible = True
         end
         item
@@ -180,6 +181,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = 150
           Visible = True
         end
         item
@@ -196,6 +198,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -212,6 +215,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -228,6 +232,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -244,6 +249,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -260,6 +266,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -276,6 +283,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -292,6 +300,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -308,6 +317,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -324,6 +334,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item

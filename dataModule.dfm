@@ -607,5 +607,21 @@ object dm: Tdm
       'select * from tbl_detail_penjualan')
     Left = 616
     Top = 40
+    object qryDetailPenjualanid: TAutoIncField
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object qryDetailPenjualanpenjualan_id: TIntegerField
+      FieldName = 'penjualan_id'
+    end
+    object qryDetailPenjualanobat_id: TIntegerField
+      FieldName = 'obat_id'
+    end
+    object qryDetailPenjualanharga_jual: TIntegerField
+      FieldName = 'harga_jual'
+    end
+    object qryDetailPenjualanjumlah_jual: TIntegerField
+      FieldName = 'jumlah_jual'
+    end
   end
 end

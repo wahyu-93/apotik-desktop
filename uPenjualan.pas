@@ -43,6 +43,9 @@ type
     procedure konek(status : string = 'kosong');
     procedure btnSimpanClick(Sender: TObject);
     procedure edtKodeKeyPress(Sender: TObject; var Key: Char);
+    procedure dbgrd1KeyPress(Sender: TObject; var Key: Char);
+    procedure dbgrd1DblClick(Sender: TObject);
+    procedure btnHapusClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -110,6 +113,8 @@ begin
   case Key of
     VK_F1: btnTambah.Click;
     VK_F2: btnBantuObat.Click;
+    VK_F5: btnSelesai.Click;
+    VK_F6: btnHapus.Click;
   end;
 end;
 
@@ -127,7 +132,11 @@ begin
   btnKeluar.Enabled := true;
   btnTambah.Caption := 'Tambah[F1]';
 
+  btnSelesai.Enabled := false;
+  btnHapus.Enabled := false;
+  
   btnBantuObat.Enabled := false;
+  dbgrd1.Enabled := false;
   konek;
 end;
 
@@ -162,11 +171,55 @@ begin
         edtFaktur.Text := 'PJ-'+FormatDateTime('ddmmyyyy',Now) + FormatFloat('00000',StrToInt(kode));
         btnTambah.Caption := 'Batal[F1]';
         btnKeluar.Enabled := false;
-   
+        dbgrd1.Enabled := True;
+        
         status := 'tambah';
     end
   else
     begin
+      if MessageDlg('Apakah Transaksi Akan Dibatalkan ?',mtConfirmation,[mbyes,mbno],0)=mryes then
+        begin
+          with dm.qryPenjualan do
+            begin
+              close;
+              sql.Clear;
+              SQL.Text := 'select * from tbl_penjualan where id='+QuotedStr(id_penjualan)+'';
+              Open;
+            end;
+
+          if dm.qryPenjualan.RecordCount > 0 then
+            begin
+              // hapus detail transaksi
+              with dm.qryDetailPenjualan do
+                begin
+                  Close;
+                  SQL.Clear;
+                  SQL.Text := 'delete from tbl_detail_penjualan where penjualan_id = '+QuotedStr(id_penjualan)+'';
+                  ExecSQL;
+                end;
+
+              // hapus pembelian
+              with dm.qryPenjualan do
+                begin
+                  close;
+                  SQL.Clear;
+                  SQL.Text := 'delete from tbl_penjualan where id='+QuotedStr(id_penjualan)+'';
+                  ExecSQL;
+                end;
+
+              //hapus stok
+              with dm.qryStok do
+                begin
+                  close;
+                  SQL.Clear;
+                  SQL.Text := 'delete from tbl_stok where no_faktur = '+QuotedStr(edtFaktur.Text)+'';
+                  ExecSQL;
+                end;
+            end;
+
+          MessageDlg('Transaksi Dibatalkan',mtInformation,[mbOk],0);
+          FormShow(Sender);
+        end;
       FormShow(Sender);
     end;
 end;
@@ -237,14 +290,14 @@ begin
             end
           else
             begin
-              Edit;
-              FieldByName('harga_jual').AsString := edtHarga.Text;
-
-              if status = 'tambahLagi' then
-                FieldByName('jumlah_jual').AsString := IntToStr(1 + fieldbyname('jumlah_beli').AsInteger)
-              else
-                FieldByName('jumlah_jual').AsString := '1';
-              Post;
+              with dm.qryDetailPenjualan do
+                begin
+                  close;
+                  sql.Clear;
+                  SQL.Text := 'update tbl_detail_penjualan set jumlah_jual = '+QuotedStr(IntToStr(1 + dbgrd1.Fields[3].AsInteger))+
+                              ' where obat_id = '+QuotedStr(edtIdObat.Text)+' and penjualan_id = '+QuotedStr(edtIdPembelian.Text)+'';
+                  ExecSQL;
+                end;
 
               status := 'tambahLagi';
             end;
@@ -267,11 +320,11 @@ begin
               Edit;
             end;
 
-          FieldByName('no_faktur').AsString := edtFaktur.Text;
-          FieldByName('obat_id').AsString   := edtIdObat.Text;
-          FieldByName('jumlah').AsString    := '1';
-          FieldByName('harga').AsString     := edtHarga.Text;
-          FieldByName('keterangan').AsString:= 'penjualan';
+          FieldByName('no_faktur').AsString  := edtFaktur.Text;
+          FieldByName('obat_id').AsString    := edtIdObat.Text;
+          FieldByName('jumlah').AsString     := '1';
+          FieldByName('harga').AsString      := edtHarga.Text;
+          FieldByName('keterangan').AsString := 'penjualan';
           Post;
         end;
 
@@ -288,7 +341,7 @@ begin
       edtHarga.Enabled := True;
 
       btnSimpan.Caption := 'Simpan';
-      btnHapus.Caption := 'Batal';
+      btnHapus.Caption := 'Batal[F1]';
       status := 'edit';
     end;  
 end;
@@ -297,8 +350,76 @@ procedure TFpenjualan.edtKodeKeyPress(Sender: TObject; var Key: Char);
 begin
   if Key=#13 then
     begin
+      // barcode
       //cari item
       //simpan clik
+    end;
+end;
+
+procedure TFpenjualan.dbgrd1KeyPress(Sender: TObject; var Key: Char);
+var jumlahNew : Integer;
+    totalNew : Real;
+    id : string;
+begin
+  if key=#13 then
+    begin
+      //edit data lewat dbgrid
+      jumlahNew := dbgrd1.Fields[3].AsInteger;
+      id := dbgrd1.Fields[5].AsString;
+
+      with dm.qryDetailPenjualan do
+        begin
+          close;
+          sql.Clear;
+          SQL.Text := 'update tbl_detail_penjualan set jumlah_jual = '+QuotedStr(IntToStr(jumlahNew))+
+                      ' where obat_id = '+QuotedStr(dbgrd1.Fields[6].AsString)+' and penjualan_id = '+QuotedStr(dbgrd1.Fields[0].AsString)+'';
+          ExecSQL;
+        end;
+
+      // stok
+      with dm.qryStok do
+        begin
+          close;
+          sql.Clear;
+          SQL.Text := 'update tbl_stok set jumlah = '+QuotedStr(IntToStr(jumlahNew))+' where obat_id = '+QuotedStr(dbgrd1.Fields[6].AsString)+' and no_faktur = '+QuotedStr(dbgrd1.Fields[1].AsString)+'';
+          ExecSQL;
+        end;
+
+      konek(edtFaktur.Text);
+
+      lblItem.Caption := IntToStr(hitungItem(id_penjualan));
+      lblTotalHarga.Caption := FormatFloat('Rp. ###,###,###', hitungTotal(id_penjualan));
+
+      btnSelesai.Enabled := True;
+      btnTambah.Caption := 'Batal';
+      btnHapus.enabled := false;
+
+      dm.qryRelasiPenjualan.Locate('id_detail_penjualan',id,[]);
+    end;
+end;
+procedure TFpenjualan.dbgrd1DblClick(Sender: TObject);
+begin
+  if dm.qryRelasiPenjualan.IsEmpty then Exit;
+  
+  edtKode.Text := dbgrd1.Fields[8].AsString;
+  btnHapus.Enabled := True;
+end;
+
+procedure TFpenjualan.btnHapusClick(Sender: TObject);
+begin
+  if MessageDlg('Yakin Data Akan Dihapus ?',mtConfirmation,[mbYes,mbNo],0)=mryes then
+    begin
+      with dm.qryDetailPenjualan do
+        begin
+          Close;
+          SQL.Clear;
+          SQL.Text := 'delete from tbl_detail_penjualan where penjualan_id = '+QuotedStr(edtIdPembelian.Text)+' and obat_id = '+QuotedStr(edtIdObat.Text)+'';
+          ExecSQL;
+        end;
+
+      MessageDlg('Item Berhasil Dihapus',mtInformation,[mbOK],0);
+      edtKode.Clear;
+      btnHapus.Enabled := false;
     end;
 end;
 

@@ -348,6 +348,7 @@ begin
             end;
 
             status := 'tambahLagi';
+            ShowMessage('ok1');
         end;
 
       if dm.qryPembelian.Locate('no_faktur',edtFaktur.Text,[]) then id_pembelian := dm.qryPembelian.fieldbyname('id').AsString;
@@ -371,18 +372,18 @@ begin
             end
           else
             begin
-              Edit;
-              FieldByName('harga_beli').AsString := edtHarga.Text;
-
-              if status = 'tambahLagi' then
-                FieldByName('jumlah_beli').AsString := IntToStr(StrToInt(edtJumlahBeli.Text) + fieldbyname('jumlah_beli').AsInteger)
-              else
-                FieldByName('jumlah_beli').AsString := edtJumlahBeli.Text;
-              Post;
-
+              with dm.qryDetailPenjualan do
+                begin
+                  close;
+                  sql.Clear;
+                  SQL.Text := 'update tbl_detail_penjualan set jumlah_jual = '+QuotedStr(IntToStr(1 + dbgrd1.Fields[3].AsInteger))+
+                              ' where obat_id = '+QuotedStr(edtIdObat.Text)+' and penjualan_id = '+QuotedStr(edtIdPembelian.Text)+'';
+                  ExecSQL;
+                end;
               status := 'tambahLagi';
             end;
         end;
+        ShowMessage('ok2');
 
       //stok
       with dm.qryStok do
@@ -395,32 +396,31 @@ begin
           if IsEmpty then
             begin
               Append;
+              FieldByName('no_faktur').AsString := edtFaktur.Text;
+              FieldByName('obat_id').AsString   := edtIdObat.Text;
+              FieldByName('jumlah').AsString    := edtJumlahBeli.Text;
+              FieldByName('harga').AsString     := edtHarga.Text;
+              FieldByName('keterangan').AsString:= 'pembelian';
+              Post;
             end
           else
             begin
-              Edit;
+              ShowMessage('update obat');
             end;
-
-          FieldByName('no_faktur').AsString := edtFaktur.Text;
-          FieldByName('obat_id').AsString   := edtIdObat.Text;
-          FieldByName('jumlah').AsString    := edtJumlahBeli.Text;
-          FieldByName('harga').AsString     := edtHarga.Text;
-          FieldByName('keterangan').AsString:= 'pembelian';
-          Post;
         end;
+        ShowMessage('ok3');
 
         // update tgl expired obat
         with dm.qryObat do
           begin
-            if Locate('id',edtIdObat.Text,[]) then
-              begin
-                edit;
-                FieldByName('tgl_obat').AsDateTime := Now;
-                FieldByName('tgl_exp').AsDateTime := dtpTanggalKadaluarsa.Date;
-                Post;
-              end;
+            close;
+            sql.Clear;
+            sql.Text := 'update tbl_obat set tgl_obat = '+QuotedStr(DateToStr(Now))+', tgl_exp = '+QuotedStr(FormatDateTime('yyyy-mm-dd',dtpTanggalKadaluarsa.DateTime))+
+                        ' where id = '+QuotedStr(edtIdObat.Text)+'';
+            ExecSQL;
           end;
-      
+        ShowMessage('ok4');
+
 
       // clear entitas barang
       clearEntitasBarang;
@@ -464,7 +464,9 @@ begin
 
             konek(edtFaktur.Text);
             clearEntitasBarang;
-
+            lblItem.Caption := IntToStr(hitungItem(id_pembelian));
+            lblTotalHarga.Caption := FormatFloat('Rp. ###,###,###', hitungTotal(id_pembelian));
+      
             btnSimpan.Caption := 'Simpan';
             btnHapus.Enabled := false;
             btnSelesai.Enabled := True;
@@ -537,6 +539,11 @@ begin
 
               with dm.qryObat do
                 begin
+                  close;
+                  SQL.Clear;
+                  SQL.Text := 'select * from tbl_obat';
+                  Open;
+                  
                   if locate('id',dm.qryDetailPembelian.fieldbyname('obat_id').AsString,[]) then
                     begin
                       Edit;

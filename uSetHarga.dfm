@@ -300,6 +300,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -317,7 +318,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 122
+          Width = 100
           Visible = True
         end
         item
@@ -334,6 +335,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -351,7 +353,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 146
+          Width = 100
           Visible = True
         end
         item
@@ -369,7 +371,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 105
+          Width = 100
           Visible = True
         end
         item
@@ -387,7 +389,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 144
+          Width = 100
           Visible = True
         end
         item
@@ -405,7 +407,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 136
+          Width = 100
           Visible = True
         end
         item
@@ -423,6 +425,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = 100
           Visible = True
         end
         item
@@ -440,6 +443,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = 100
           Visible = True
         end
         item
@@ -456,6 +460,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -472,6 +477,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -488,6 +494,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -504,6 +511,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -520,6 +528,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -536,6 +545,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -552,16 +562,19 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'satuan'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'jenis'
+          Width = -1
           Visible = False
         end>
     end
