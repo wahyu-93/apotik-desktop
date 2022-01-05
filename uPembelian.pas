@@ -348,7 +348,6 @@ begin
             end;
 
             status := 'tambahLagi';
-            ShowMessage('ok1');
         end;
 
       if dm.qryPembelian.Locate('no_faktur',edtFaktur.Text,[]) then id_pembelian := dm.qryPembelian.fieldbyname('id').AsString;
@@ -383,7 +382,6 @@ begin
               status := 'tambahLagi';
             end;
         end;
-        ShowMessage('ok2');
 
       //stok
       with dm.qryStok do
@@ -408,7 +406,6 @@ begin
               ShowMessage('update obat');
             end;
         end;
-        ShowMessage('ok3');
 
         // update tgl expired obat
         with dm.qryObat do
@@ -419,8 +416,6 @@ begin
                         ' where id = '+QuotedStr(edtIdObat.Text)+'';
             ExecSQL;
           end;
-        ShowMessage('ok4');
-
 
       // clear entitas barang
       clearEntitasBarang;

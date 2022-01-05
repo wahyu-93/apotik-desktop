@@ -220,7 +220,6 @@ begin
           MessageDlg('Transaksi Dibatalkan',mtInformation,[mbOk],0);
           FormShow(Sender);
         end;
-      FormShow(Sender);
     end;
 end;
 
@@ -247,6 +246,7 @@ with dm.qryRelasiPenjualan do
 end;
 
 procedure TFpenjualan.btnSimpanClick(Sender: TObject);
+var jmlEdit : string;
 begin
   if btnSimpan.Caption = 'Simpan' then
     begin
@@ -290,12 +290,13 @@ begin
             end
           else
             begin
+              jmlEdit := IntToStr(1 + fieldbyname('jumlah_jual').AsInteger);
               with dm.qryDetailPenjualan do
                 begin
                   close;
                   sql.Clear;
-                  SQL.Text := 'update tbl_detail_penjualan set jumlah_jual = '+QuotedStr(IntToStr(1 + dbgrd1.Fields[3].AsInteger))+
-                              ' where obat_id = '+QuotedStr(edtIdObat.Text)+' and penjualan_id = '+QuotedStr(edtIdPembelian.Text)+'';
+                  SQL.Text := 'update tbl_detail_penjualan set jumlah_jual = '+QuotedStr(jmlEdit)+
+                              ' where obat_id = '+QuotedStr(edtIdObat.Text)+' and penjualan_id = '+QuotedStr(id_penjualan)+'';
                   ExecSQL;
                 end;
 
@@ -314,18 +315,22 @@ begin
           if IsEmpty then
             begin
               Append;
+              FieldByName('no_faktur').AsString  := edtFaktur.Text;
+              FieldByName('obat_id').AsString    := edtIdObat.Text;
+              FieldByName('jumlah').AsString     := '1';
+              FieldByName('harga').AsString      := edtHarga.Text;
+              FieldByName('keterangan').AsString := 'penjualan';
+              Post;
             end
           else
             begin
-              Edit;
-            end;
-
-          FieldByName('no_faktur').AsString  := edtFaktur.Text;
-          FieldByName('obat_id').AsString    := edtIdObat.Text;
-          FieldByName('jumlah').AsString     := '1';
-          FieldByName('harga').AsString      := edtHarga.Text;
-          FieldByName('keterangan').AsString := 'penjualan';
-          Post;
+              jmlEdit := IntToStr(1 + dm.qryStok.fieldbyname('jumlah').AsInteger);
+            
+              close;
+              sql.Clear;
+              SQL.Text := 'update tbl_stok set jumlah = '+QuotedStr(jmlEdit)+' where no_faktur = '+QuotedStr(edtFaktur.Text)+'';
+              ExecSQL; 
+            end;      
         end;
 
       konek(edtFaktur.Text);
