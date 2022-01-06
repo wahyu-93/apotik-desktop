@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 284
-  Top = 284
+  Left = 342
+  Top = 378
   Height = 456
   Width = 1342
   object XPManifest1: TXPManifest
@@ -635,6 +635,58 @@ object dm: Tdm
         'ian.supplier_id = tbl_supplier.id')
     Left = 784
     Top = 64
+    object qryLaporanPembelianid: TAutoIncField
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object qryLaporanPembelianno_faktur: TStringField
+      FieldName = 'no_faktur'
+      Size = 50
+    end
+    object qryLaporanPembeliantgl_pembelian: TDateField
+      Alignment = taCenter
+      FieldName = 'tgl_pembelian'
+    end
+    object qryLaporanPembeliansupplier_id: TIntegerField
+      FieldName = 'supplier_id'
+    end
+    object qryLaporanPembelianjumlah_item: TIntegerField
+      FieldName = 'jumlah_item'
+    end
+    object qryLaporanPembeliantotal: TFloatField
+      FieldName = 'total'
+    end
+    object qryLaporanPembelianuser_id: TIntegerField
+      FieldName = 'user_id'
+    end
+    object qryLaporanPembelianstatus: TStringField
+      FieldName = 'status'
+      Size = 25
+    end
+    object qryLaporanPembeliantgl_pembayaran: TDateField
+      Alignment = taCenter
+      FieldName = 'tgl_pembayaran'
+      DisplayFormat = 'dd - mm - yyyy'
+    end
+    object qryLaporanPembelianid_1: TAutoIncField
+      FieldName = 'id_1'
+      ReadOnly = True
+    end
+    object qryLaporanPembeliankode: TStringField
+      FieldName = 'kode'
+    end
+    object qryLaporanPembeliannama_supplier: TStringField
+      FieldName = 'nama_supplier'
+      Size = 100
+    end
+    object qryLaporanPembelianalamat_supplier: TMemoField
+      FieldName = 'alamat_supplier'
+      BlobType = ftMemo
+    end
+    object qryLaporanPembeliantelp_suplier: TStringField
+      FieldName = 'telp_suplier'
+      Size = 15
+    end
   end
   object qryLaporanPenjualan: TADOQuery
     Active = True
@@ -649,14 +701,27 @@ object dm: Tdm
     Top = 128
   end
   object qryLaporanStok: TADOQuery
+    Active = True
     Connection = con1
+    CursorType = ctStatic
     Parameters = <>
+    SQL.Strings = (
+      
+        'select * from tbl_obat a left join tbl_satuan b on a.kode_satuan' +
+        ' = b.id order by a.id')
     Left = 792
     Top = 192
   end
   object qryLaporanItemLaris: TADOQuery
+    Active = True
     Connection = con1
+    CursorType = ctStatic
     Parameters = <>
+    SQL.Strings = (
+      
+        'select *, sum(a.jumlah_jual) as jmlItemJual from tbl_detail_penj' +
+        'ualan a left join tbl_obat b on a.obat_id = b.id left join tbl_s' +
+        'atuan d on d.id = b.kode_satuan group by a.obat_id')
     Left = 792
     Top = 256
   end

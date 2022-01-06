@@ -45,6 +45,7 @@ type
     procedure Penjualan1Click(Sender: TObject);
     procedure SettingHargaJual1Click(Sender: TObject);
     procedure tmr1Timer(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -110,6 +111,46 @@ end;
 procedure TFMenu.tmr1Timer(Sender: TObject);
 begin
   stat1.Panels[2].Text := 'Tanggal ' + FormatDateTime('dd-mm-yyyy',Now);
+  FormShow(Sender);
+end;
+
+procedure TFMenu.FormShow(Sender: TObject);
+begin
+  with dm.qryLaporanPenjualan do
+    begin
+      close;
+      sql.Clear;
+      SQL.Text := 'select * from tbl_penjualan left JOIN tbl_pelanggan on tbl_penjualan.id_pelanggan = tbl_pelanggan.id '+
+                  'where tbl_penjualan.tgl_penjualan like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%'' order by tbl_penjualan.id asc';
+      Open;
+    end;
+
+  with dm.qryLaporanPembelian do
+    begin
+      close;
+      SQL.Clear;
+      sql.Text := 'select * from tbl_pembelian left join tbl_supplier on tbl_pembelian.supplier_id = tbl_supplier.id '+
+                  'where tbl_pembelian.tgl_pembelian = '+QuotedStr(FormatDateTime('yyyy-mm-dd',Now))+' order by tbl_pembelian.id asc';
+      Open;
+    end;
+
+  with dm.qryLaporanItemLaris do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Text := 'select *, sum(a.jumlah_jual) as jmlItemJual from tbl_penjualan z left join tbl_detail_penjualan a on z.id = a.penjualan_id left join '+
+                  'tbl_obat b on a.obat_id = b.id left join tbl_satuan d on d.id = b.kode_satuan where z.tgl_penjualan like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%'' group by a.obat_id order by jmlItemJual desc';
+      Open;
+    end;
+
+  with dm.qryLaporanStok do
+    begin
+      close;
+      sql.Clear;
+      SQL.Text := 'select * from tbl_obat a left join tbl_satuan b on a.kode_satuan = b.id order by a.stok asc';
+      Open;
+    end;
+
 end;
 
 end.

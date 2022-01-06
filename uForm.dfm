@@ -15,6 +15,7 @@ object FMenu: TFMenu
   Menu = mm1
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object img1: TImage
@@ -23380,9 +23381,9 @@ object FMenu: TFMenu
   end
   object stat1: TStatusBar
     Left = 0
-    Top = 822
+    Top = 808
     Width = 1460
-    Height = 19
+    Height = 33
     Panels = <
       item
         Text = 'Pengguna : Wahyu'
@@ -23399,7 +23400,7 @@ object FMenu: TFMenu
   end
   object grp1: TGroupBox
     Left = 8
-    Top = 104
+    Top = 96
     Width = 713
     Height = 345
     Caption = 'Laporan Penjualan Item '
@@ -23426,66 +23427,74 @@ object FMenu: TFMenu
         item
           Expanded = False
           FieldName = 'id'
-          Width = -1
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'no_faktur'
+          Title.Alignment = taCenter
+          Title.Caption = 'No Faktur'
           Width = 160
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'tgl_penjualan'
+          Title.Alignment = taCenter
+          Title.Caption = 'Tgl Penjualan'
           Width = 160
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'id_pelanggan'
-          Width = -1
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'jumlah_item'
-          Width = -1
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'total'
-          Width = -1
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'user_id'
-          Width = -1
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'tgl_bayar'
-          Width = -1
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'id_1'
-          Width = -1
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'jenis_pelanggan'
+          Title.Alignment = taCenter
+          Title.Caption = 'Pelanggan'
           Width = 160
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'status'
+          Title.Alignment = taCenter
+          Title.Caption = 'Status'
           Width = 160
           Visible = True
         end>
@@ -23493,7 +23502,7 @@ object FMenu: TFMenu
   end
   object grp2: TGroupBox
     Left = 736
-    Top = 104
+    Top = 96
     Width = 713
     Height = 345
     Caption = 'Laporan Pembelian Item '
@@ -23520,75 +23529,94 @@ object FMenu: TFMenu
         item
           Expanded = False
           FieldName = 'id'
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'no_faktur'
+          Title.Alignment = taCenter
+          Title.Caption = 'No Faktur'
           Width = 150
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'tgl_pembelian'
+          Title.Alignment = taCenter
+          Title.Caption = 'Tgl Pembelian'
           Width = 125
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'supplier_id'
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'jumlah_item'
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'total'
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'user_id'
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'tgl_pembayaran'
+          Title.Alignment = taCenter
+          Title.Caption = 'Tgl Pembayaran'
           Width = 121
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'id_1'
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'kode'
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'nama_supplier'
+          Title.Alignment = taCenter
+          Title.Caption = 'Supplier'
           Width = 150
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'alamat_supplier'
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'telp_suplier'
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'status'
+          Title.Alignment = taCenter
+          Title.Caption = 'Status'
           Width = 101
           Visible = True
         end>
@@ -23612,12 +23640,136 @@ object FMenu: TFMenu
       Top = 24
       Width = 697
       Height = 305
+      DataSource = dm.dsLaporanItemLaris
       TabOrder = 0
       TitleFont.Charset = ANSI_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -16
       TitleFont.Name = 'Arial'
       TitleFont.Style = []
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'id'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'penjualan_id'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'obat_id'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'harga_jual'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'jumlah_jual'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'id_1'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'kode'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'barcode'
+          Title.Alignment = taCenter
+          Title.Caption = 'Barcode'
+          Width = 160
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'nama_obat'
+          Title.Alignment = taCenter
+          Title.Caption = 'Nama Obat'
+          Width = 160
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'kode_jenis'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'kode_satuan'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'tgl_obat'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'tgl_exp'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'status'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'stok'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'id_2'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'kode_1'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'satuan'
+          Title.Alignment = taCenter
+          Title.Caption = 'Satuan'
+          Width = 160
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'jmlItemJual'
+          Title.Alignment = taCenter
+          Title.Caption = 'Jumlah Terjual'
+          Width = 160
+          Visible = True
+        end>
     end
   end
   object grp4: TGroupBox
@@ -23638,12 +23790,110 @@ object FMenu: TFMenu
       Top = 24
       Width = 697
       Height = 305
+      DataSource = dm.dsLaporanStok
       TabOrder = 0
       TitleFont.Charset = ANSI_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -16
       TitleFont.Name = 'Arial'
       TitleFont.Style = []
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'id'
+          Title.Alignment = taCenter
+          Width = -1
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'kode'
+          Title.Alignment = taCenter
+          Width = -1
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'barcode'
+          Title.Alignment = taCenter
+          Title.Caption = 'Barcode'
+          Width = 130
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'nama_obat'
+          Title.Alignment = taCenter
+          Title.Caption = 'Nama Obat'
+          Width = 130
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'kode_jenis'
+          Title.Alignment = taCenter
+          Width = -1
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'kode_satuan'
+          Title.Alignment = taCenter
+          Width = -1
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'tgl_obat'
+          Title.Alignment = taCenter
+          Width = -1
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'tgl_exp'
+          Title.Alignment = taCenter
+          Title.Caption = 'Tanggal Exp'
+          Width = 130
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'status'
+          Title.Alignment = taCenter
+          Width = -1
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'stok'
+          Title.Alignment = taCenter
+          Title.Caption = 'Stok'
+          Width = 130
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'id_1'
+          Title.Alignment = taCenter
+          Width = -1
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'kode_1'
+          Title.Alignment = taCenter
+          Width = -1
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'satuan'
+          Title.Alignment = taCenter
+          Title.Caption = 'Satuan'
+          Width = 130
+          Visible = True
+        end>
     end
   end
   object grp5: TGroupBox
@@ -23719,7 +23969,7 @@ object FMenu: TFMenu
     end
   end
   object tmr1: TTimer
-    Interval = 500
+    Interval = 60000
     OnTimer = tmr1Timer
     Left = 8
     Top = 8
