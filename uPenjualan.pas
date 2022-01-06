@@ -274,6 +274,9 @@ begin
 
       if dm.qryPenjualan.Locate('no_faktur',edtFaktur.Text,[]) then id_penjualan := dm.qryPenjualan.fieldbyname('id').AsString;
 
+      //cek stok
+      
+
       //simpan ke tabel detail penjualan
       with dm.qryDetailPenjualan do
         begin

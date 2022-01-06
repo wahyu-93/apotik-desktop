@@ -23956,9 +23956,9 @@ object Fpenjualan: TFpenjualan
       TabOrder = 10
       object lblTotalHarga: TLabel
         Left = 48
-        Top = 16
+        Top = 24
         Width = 388
-        Height = 75
+        Height = 67
         Alignment = taCenter
         Caption = 'Rp. 200.000.000'
         Font.Charset = ANSI_CHARSET

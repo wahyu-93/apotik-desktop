@@ -158,6 +158,7 @@ type
     qryLaporanPembeliannama_supplier: TStringField;
     qryLaporanPembelianalamat_supplier: TMemoField;
     qryLaporanPembeliantelp_suplier: TStringField;
+    qryObatRelasistok: TIntegerField;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

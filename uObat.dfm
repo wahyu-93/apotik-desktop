@@ -4,7 +4,7 @@ object Fobat: TFobat
   AutoScroll = False
   BorderIcons = [biSystemMenu]
   Caption = '.:: Form Obat ::.'
-  ClientHeight = 627
+  ClientHeight = 652
   ClientWidth = 882
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
@@ -14,7 +14,7 @@ object Fobat: TFobat
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
-  OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object img1: TImage
@@ -23402,7 +23402,7 @@ object Fobat: TFobat
     Left = 8
     Top = 72
     Width = 865
-    Height = 545
+    Height = 569
     TabOrder = 1
     object lbl2: TLabel
       Left = 8
@@ -23469,6 +23469,19 @@ object Fobat: TFobat
       Font.Style = []
       ParentFont = False
     end
+    object lbl7: TLabel
+      Left = 8
+      Top = 176
+      Width = 29
+      Height = 17
+      Caption = 'Stok'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
     object edtKode: TEdit
       Left = 104
       Top = 16
@@ -23499,7 +23512,7 @@ object Fobat: TFobat
     end
     object dbgrd1: TDBGrid
       Left = 16
-      Top = 176
+      Top = 208
       Width = 841
       Height = 281
       DataSource = dm.dsObat
@@ -23527,6 +23540,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23539,7 +23553,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 76
+          Width = 150
           Visible = True
         end
         item
@@ -23552,7 +23566,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 165
+          Width = 150
           Visible = True
         end
         item
@@ -23565,7 +23579,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 135
+          Width = 150
           Visible = True
         end
         item
@@ -23577,6 +23591,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23588,6 +23603,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23599,6 +23615,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23610,6 +23627,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23622,7 +23640,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 165
+          Width = 150
           Visible = True
         end
         item
@@ -23634,6 +23652,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23645,6 +23664,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23657,13 +23677,27 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 179
+          Width = 150
+          Visible = True
+        end
+        item
+          Alignment = taCenter
+          Expanded = False
+          FieldName = 'stok'
+          Title.Alignment = taCenter
+          Title.Caption = 'Stok'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = 50
           Visible = True
         end>
     end
     object edtpencarian: TEdit
       Left = 8
-      Top = 464
+      Top = 496
       Width = 849
       Height = 25
       Font.Charset = ANSI_CHARSET
@@ -23678,7 +23712,7 @@ object Fobat: TFobat
     end
     object btnTambah: TBitBtn
       Left = 8
-      Top = 504
+      Top = 528
       Width = 89
       Height = 33
       Caption = 'Tambah'
@@ -23693,7 +23727,7 @@ object Fobat: TFobat
     end
     object btnSimpan: TBitBtn
       Left = 104
-      Top = 504
+      Top = 528
       Width = 89
       Height = 33
       Caption = 'Simpan'
@@ -23708,7 +23742,7 @@ object Fobat: TFobat
     end
     object btnHapus: TBitBtn
       Left = 200
-      Top = 504
+      Top = 528
       Width = 89
       Height = 33
       Caption = 'Hapus'
@@ -23723,7 +23757,7 @@ object Fobat: TFobat
     end
     object btnKeluar: TBitBtn
       Left = 760
-      Top = 504
+      Top = 528
       Width = 89
       Height = 33
       Caption = 'Keluar'
@@ -23781,6 +23815,21 @@ object Fobat: TFobat
       ListSource = dm.dsSatuan
       ParentFont = False
       TabOrder = 10
+    end
+    object edtStok: TEdit
+      Left = 104
+      Top = 176
+      Width = 169
+      Height = 25
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 11
+      Text = 'edtKode'
+      OnKeyPress = edtStokKeyPress
     end
   end
 end

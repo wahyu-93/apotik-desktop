@@ -23763,6 +23763,7 @@ object FMenu: TFMenu
           Visible = True
         end
         item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'jmlItemJual'
           Title.Alignment = taCenter
@@ -23802,14 +23803,12 @@ object FMenu: TFMenu
           Expanded = False
           FieldName = 'id'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'kode'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
@@ -23832,21 +23831,18 @@ object FMenu: TFMenu
           Expanded = False
           FieldName = 'kode_jenis'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'kode_satuan'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'tgl_obat'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
@@ -23861,10 +23857,10 @@ object FMenu: TFMenu
           Expanded = False
           FieldName = 'status'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'stok'
           Title.Alignment = taCenter
@@ -23876,14 +23872,12 @@ object FMenu: TFMenu
           Expanded = False
           FieldName = 'id_1'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'kode_1'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item

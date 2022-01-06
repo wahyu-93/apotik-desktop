@@ -28,14 +28,17 @@ type
     dblkcbbJenisObat: TDBLookupComboBox;
     dblkcbbSatuanObat: TDBLookupComboBox;
     img1: TImage;
+    lbl7: TLabel;
+    edtStok: TEdit;
     procedure btnKeluarClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure btnTambahClick(Sender: TObject);
     procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure btnSimpanClick(Sender: TObject);
     procedure btnHapusClick(Sender: TObject);
     procedure dbgrd1CellClick(Column: TColumn);
+    procedure edtStokKeyPress(Sender: TObject; var Key: Char);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -45,7 +48,7 @@ type
 var
   Fobat: TFobat;
   kode, status : string;
-  oldNama, oldBarcode, oldSatuan, oldJenis : string;
+  oldNama, oldBarcode, oldSatuan, oldJenis, oldStok : string;
 
 implementation
 
@@ -61,35 +64,25 @@ begin
       DisableControls;
       Close;
       sql.Clear;
-      SQL.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, a.id as id_jenis, '+
+      SQL.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, a.id as id_jenis, b.stok, '+
                   'a.kode as jenisKode, a.jenis, c.id as id_satuan, c.kode as satuanKode, c.satuan from tbl_jenis a left join '+
                   'tbl_obat b on a.id = b.kode_jenis INNER join tbl_satuan c on c.id = b.kode_satuan order by b.id';
       Open;
       EnableControls;
+    end;
+
+  with dm.qryObat do
+    begin
+      close;
+      SQL.Clear;
+      sql.Text := 'select * from tbl_obat';
+      Open;
     end;
 end;
 
 procedure TFobat.btnKeluarClick(Sender: TObject);
 begin
   close;
-end;
-
-procedure TFobat.FormCreate(Sender: TObject);
-begin
-  edtKode.Clear; edtKode.Enabled := false;
-  edtBarcode.Clear; edtBarcode.Enabled := False;
-  edtNama.Clear; edtNama.Enabled := false;
-  dblkcbbJenisObat.KeyValue := Null; dblkcbbJenisObat.Enabled := false;
-  dblkcbbSatuanObat.KeyValue := Null; dblkcbbSatuanObat.Enabled := false;
-
-  edtpencarian.Clear; edtpencarian.Enabled := True;
-
-  btnTambah.Enabled := True; btnTambah.Caption := 'Tambah';
-  btnSimpan.Enabled := false; btnHapus.Enabled := False;
-  btnKeluar.Enabled := True;
-
-  dbgrd1.Enabled := True; edtpencarian.Enabled := True;
-  konek;
 end;
 
 procedure TFobat.btnTambahClick(Sender: TObject);
@@ -100,6 +93,7 @@ begin
       edtBarcode.Enabled := True;
       dblkcbbJenisObat.Enabled := true;
       dblkcbbSatuanObat.Enabled := True;
+      edtStok.Enabled := True;
 
       btnTambah.Caption := 'Batal';
       btnSimpan.Enabled := True;
@@ -127,7 +121,7 @@ begin
     end
   else
     begin
-      FormCreate(Sender);
+      FormShow(Sender);
     end;
 end;
 
@@ -171,6 +165,13 @@ begin
           Exit;
         end;
 
+      if edtStok.Text = '' then
+        begin
+          MessageDlg('Stok Diisi',mtInformation,[mbok],0);
+          edtStok.SetFocus;
+          Exit;
+        end;
+        
       if status='tambah' then
         begin
           if dm.qryObat.Locate('nama_obat',edtNama.Text,[]) then
@@ -188,6 +189,7 @@ begin
               FieldByName('nama_obat').AsString := trim(edtNama.Text);
               FieldByName('kode_jenis').AsString := dblkcbbJenisObat.KeyValue;
               FieldByName('kode_satuan').AsString := dblkcbbSatuanObat.KeyValue;
+              fieldbyname('stok').AsString := edtStok.Text;
               Post;
             end;
         end
@@ -195,7 +197,7 @@ begin
       else
         begin
           // edit perubahan
-          if (edtNama.Text <> oldNama) or (edtBarcode.Text <> oldBarcode) or (dblkcbbJenisObat.KeyValue <> oldJenis) or (dblkcbbSatuanObat.KeyValue <> oldSatuan) then
+          if (edtNama.Text <> oldNama) then
             begin
               if dm.qryObat.Locate('nama_obat',edtNama.Text,[]) then
                 begin
@@ -203,25 +205,21 @@ begin
                   edtNama.SetFocus;
                   Exit;
                 end;
+            end;
 
-              if dm.qryObat.Locate('kode',edtKode.Text,[]) then
-                begin
-                  with dm.qryObat do
-                    begin
-                      edit;
-                      FieldByName('kode').AsString := edtKode.Text;
-                      FieldByName('barcode').AsString := edtBarcode.Text;
-                      FieldByName('nama_obat').AsString := trim(edtNama.Text);
-                      FieldByName('kode_jenis').AsString := dblkcbbJenisObat.KeyValue;
-                      FieldByName('kode_satuan').AsString := dblkcbbSatuanObat.KeyValue;
-                      Post;
-                    end;
-                end;
+          with dm.qryObat do
+            begin
+              close;
+              sql.Clear;
+              sql.Text := 'update tbl_obat set barcode = '+QuotedStr(edtBarcode.Text)+', nama_obat = '+QuotedStr(Trim(edtNama.Text))+
+                          ', kode_jenis = '+QuotedStr(dblkcbbJenisObat.KeyValue)+', kode_satuan = '+QuotedStr(dblkcbbSatuanObat.KeyValue)+
+                          ', stok = '+QuotedStr(edtStok.Text)+' where kode = '+QuotedStr(edtKode.Text)+'';
+              ExecSQL;
             end;
         end;
-        
+
       MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
-      FormCreate(Sender);
+      FormShow(Sender);
     end
   else
     begin
@@ -230,6 +228,7 @@ begin
       edtBarcode.Enabled := True;
       dblkcbbJenisObat.Enabled := True;
       dblkcbbSatuanObat.Enabled := True;
+      edtStok.Enabled := True;
 
       dbgrd1.Enabled := False; edtpencarian.Enabled := false;
 
@@ -244,10 +243,10 @@ procedure TFobat.btnHapusClick(Sender: TObject);
 begin
   if MessageDlg('Yakin Data Akan Dihapus ?',mtConfirmation,[mbYes,mbNo],0)=mryes then
     begin
-      dm.qryObat.Delete;
+      if dm.qryObat.Locate('kode',edtKode.Text,[]) then dm.qryObat.Delete;
 
       MessageDlg('Data Berhasil Dihapus',mtInformation,[mbok],0);
-      FormCreate(Sender);
+      FormShow(Sender);
     end;
 end;
 
@@ -262,16 +261,43 @@ begin
           edtNama.Text              := Fields[3].AsString;
           dblkcbbJenisObat.KeyValue := Fields[6].AsString;
           dblkcbbSatuanObat.KeyValue:= fields[9].AsString;
+          edtStok.Text              := Fields[12].AsString;
         end;
 
       oldNama   := edtNama.Text;
       oldJenis  := dblkcbbJenisObat.KeyValue;
       oldSatuan := dblkcbbSatuanObat.KeyValue;
+      oldStok   := edtStok.Text;
 
       btnTambah.Enabled := False;
       btnSimpan.Caption := 'Edit'; btnSimpan.Enabled := True;
       btnHapus.Enabled := True; btnKeluar.Enabled := True;
     end;
+end;
+
+procedure TFobat.edtStokKeyPress(Sender: TObject; var Key: Char);
+begin
+  if not (key in ['0'..'9',#9,#8,#13]) then key:=#0;
+  if Key=#13 then btnSimpan.Click;
+end;
+
+procedure TFobat.FormShow(Sender: TObject);
+begin
+  edtKode.Clear; edtKode.Enabled := false;
+  edtBarcode.Clear; edtBarcode.Enabled := False;
+  edtNama.Clear; edtNama.Enabled := false;
+  dblkcbbJenisObat.KeyValue := Null; dblkcbbJenisObat.Enabled := false;
+  dblkcbbSatuanObat.KeyValue := Null; dblkcbbSatuanObat.Enabled := false;
+  edtStok.Clear; edtStok.Enabled := False;
+
+  edtpencarian.Clear; edtpencarian.Enabled := True;
+
+  btnTambah.Enabled := True; btnTambah.Caption := 'Tambah';
+  btnSimpan.Enabled := false; btnHapus.Enabled := False;
+  btnKeluar.Enabled := True;
+
+  dbgrd1.Enabled := True; edtpencarian.Enabled := True;
+  konek;
 end;
 
 end.

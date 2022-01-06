@@ -167,10 +167,10 @@ object dm: Tdm
     SQL.Strings = (
       
         'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_' +
-        'jenis, b.kode_satuan, a.id as id_jenis, a.kode as jenisKode, a.j' +
-        'enis, c.id as id_satuan, c.kode as satuanKode, c.satuan from tbl' +
-        '_jenis a left join tbl_obat b on a.id = b.kode_jenis INNER join ' +
-        'tbl_satuan c on c.id = b.kode_satuan order by b.id;')
+        'jenis, b.kode_satuan, b.stok, a.id as id_jenis, a.kode as jenisK' +
+        'ode, a.jenis, c.id as id_satuan, c.kode as satuanKode, c.satuan ' +
+        'from tbl_jenis a left join tbl_obat b on a.id = b.kode_jenis INN' +
+        'ER join tbl_satuan c on c.id = b.kode_satuan order by b.id;')
     Left = 64
     Top = 336
     object qryObatRelasiid: TIntegerField
@@ -213,6 +213,9 @@ object dm: Tdm
     object qryObatRelasisatuan: TStringField
       FieldName = 'satuan'
       Size = 100
+    end
+    object qryObatRelasistok: TIntegerField
+      FieldName = 'stok'
     end
   end
   object qryPembelian: TADOQuery
