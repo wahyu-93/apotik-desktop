@@ -23652,27 +23652,18 @@ object fSetHarga: TfSetHarga
         item
           Expanded = False
           FieldName = 'id'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'barcode'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Barcode'
           Title.Font.Charset = ANSI_CHARSET
@@ -23680,17 +23671,12 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 64
+          Width = 85
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'obat_id'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
@@ -23703,11 +23689,6 @@ object fSetHarga: TfSetHarga
         item
           Expanded = False
           FieldName = 'nama_obat'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Nama Obat'
           Title.Font.Charset = ANSI_CHARSET
@@ -23715,17 +23696,12 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 64
+          Width = 85
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'harga_jual'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Harga Jual'
           Title.Font.Charset = ANSI_CHARSET
@@ -23733,17 +23709,12 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 64
+          Width = 85
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'harga_beli_terakhir'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Harga Beli'
           Title.Font.Charset = ANSI_CHARSET
@@ -23751,17 +23722,12 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 64
+          Width = 85
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'supplier'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Supplier'
           Title.Font.Charset = ANSI_CHARSET
@@ -23769,17 +23735,12 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 64
+          Width = 85
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'tgl_exp'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Tanggal Exp'
           Title.Font.Charset = ANSI_CHARSET
@@ -23787,17 +23748,12 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 64
+          Width = 85
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'stok'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Stok'
           Title.Font.Charset = ANSI_CHARSET
@@ -23805,17 +23761,12 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 64
+          Width = 85
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'created_at'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
@@ -23828,11 +23779,6 @@ object fSetHarga: TfSetHarga
         item
           Expanded = False
           FieldName = 'id_1'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
@@ -23845,11 +23791,6 @@ object fSetHarga: TfSetHarga
         item
           Expanded = False
           FieldName = 'kode'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
@@ -23862,11 +23803,6 @@ object fSetHarga: TfSetHarga
         item
           Expanded = False
           FieldName = 'kode_jenis'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
@@ -23879,11 +23815,6 @@ object fSetHarga: TfSetHarga
         item
           Expanded = False
           FieldName = 'kode_satuan'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
@@ -23896,11 +23827,6 @@ object fSetHarga: TfSetHarga
         item
           Expanded = False
           FieldName = 'tgl_obat'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
@@ -23913,11 +23839,6 @@ object fSetHarga: TfSetHarga
         item
           Expanded = False
           FieldName = 'status'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
@@ -23936,6 +23857,7 @@ object fSetHarga: TfSetHarga
         item
           Expanded = False
           FieldName = 'jenis'
+          Width = -1
           Visible = False
         end>
     end

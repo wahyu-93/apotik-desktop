@@ -23548,6 +23548,11 @@ object fBantuObat: TfBantuObat
           Title.Font.Style = []
           Width = 174
           Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'stok'
+          Visible = False
         end>
     end
     object edtpencarian: TEdit

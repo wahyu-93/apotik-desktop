@@ -1,10 +1,10 @@
 object fBayar: TfBayar
-  Left = 516
-  Top = 231
+  Left = 345
+  Top = 228
   AutoScroll = False
   BorderIcons = []
   Caption = 'fBayar'
-  ClientHeight = 463
+  ClientHeight = 512
   ClientWidth = 598
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
@@ -13,6 +13,8 @@ object fBayar: TfBayar
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poDesktopCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object grp1: TGroupBox
@@ -41,32 +43,29 @@ object fBayar: TfBayar
       Height = 21
       TabOrder = 0
       Text = 'edtTtlBayar'
-      Visible = False
     end
     object edtByar: TEdit
-      Left = 16
-      Top = 32
+      Left = 152
+      Top = 16
       Width = 121
       Height = 21
       TabOrder = 1
       Text = 'edtByar'
-      Visible = False
     end
     object edtKmbalian: TEdit
-      Left = 88
-      Top = 32
+      Left = 376
+      Top = 16
       Width = 121
       Height = 21
       TabOrder = 2
       Text = 'edtKmbalian'
-      Visible = False
     end
   end
   object grp2: TGroupBox
     Left = 8
     Top = 72
     Width = 585
-    Height = 385
+    Height = 433
     TabOrder = 1
     object lbl4: TLabel
       Left = 24
@@ -83,7 +82,7 @@ object fBayar: TfBayar
     end
     object lbl2: TLabel
       Left = 24
-      Top = 128
+      Top = 144
       Width = 102
       Height = 24
       Caption = 'Bayar (Rp)'
@@ -96,7 +95,7 @@ object fBayar: TfBayar
     end
     object lbl3: TLabel
       Left = 24
-      Top = 240
+      Top = 272
       Width = 143
       Height = 24
       Caption = 'Kembalian (Rp)'
@@ -111,23 +110,23 @@ object fBayar: TfBayar
       Left = 24
       Top = 48
       Width = 545
-      Height = 65
+      Height = 83
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -48
+      Font.Height = -64
       Font.Name = 'Arial Narrow'
-      Font.Style = [fsBold]
+      Font.Style = [fsItalic]
       ParentFont = False
       TabOrder = 0
       Text = 'edtTotalBayar'
     end
     object btnKeluar: TBitBtn
       Left = 480
-      Top = 344
+      Top = 392
       Width = 89
       Height = 33
-      Caption = 'Keluar'
+      Caption = 'Keluar[F10]'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -135,35 +134,54 @@ object fBayar: TfBayar
       Font.Style = []
       ParentFont = False
       TabOrder = 1
+      OnClick = btnKeluarClick
     end
     object edtBayar: TEdit
       Left = 24
-      Top = 160
+      Top = 176
       Width = 545
-      Height = 65
+      Height = 83
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -48
+      Font.Height = -64
       Font.Name = 'Arial Narrow'
-      Font.Style = [fsBold]
+      Font.Style = [fsItalic]
+      MaxLength = 8
       ParentFont = False
       TabOrder = 2
       Text = 'edtKode'
+      OnKeyPress = edtBayarKeyPress
+      OnKeyUp = edtBayarKeyUp
     end
     object edtKembalian: TEdit
       Left = 24
-      Top = 272
+      Top = 304
       Width = 545
-      Height = 65
+      Height = 83
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -48
+      Font.Height = -64
       Font.Name = 'Arial Narrow'
-      Font.Style = [fsBold]
+      Font.Style = [fsItalic]
       ParentFont = False
       TabOrder = 3
       Text = 'edtKode'
+    end
+    object btnBayar: TBitBtn
+      Left = 384
+      Top = 392
+      Width = 89
+      Height = 33
+      Caption = 'Bayar[F9]'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 4
+      OnClick = btnBayarClick
     end
   end
 end

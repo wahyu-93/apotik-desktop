@@ -23507,7 +23507,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 125
+          Width = 120
           Visible = True
         end
         item
@@ -23525,7 +23525,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 125
+          Width = 120
           Visible = True
         end
         item
@@ -23560,7 +23560,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 125
+          Width = 120
           Visible = True
         end
         item
@@ -23578,7 +23578,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 125
+          Width = 120
           Visible = True
         end
         item
@@ -23596,7 +23596,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 125
+          Width = 120
           Visible = True
         end
         item
@@ -23614,7 +23614,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 125
+          Width = 120
           Visible = True
         end
         item
@@ -23649,7 +23649,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 125
+          Width = 120
           Visible = True
         end
         item
@@ -23747,7 +23747,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 125
+          Width = 120
           Visible = True
         end>
     end

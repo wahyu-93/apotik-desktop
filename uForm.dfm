@@ -23417,6 +23417,7 @@ object FMenu: TFMenu
       Width = 697
       Height = 313
       DataSource = dm.dslaporanPenjualan
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
       TabOrder = 0
       TitleFont.Charset = ANSI_CHARSET
       TitleFont.Color = clWindowText
@@ -23519,6 +23520,7 @@ object FMenu: TFMenu
       Width = 697
       Height = 313
       DataSource = dm.dsLaporanPembelian
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
       TabOrder = 0
       TitleFont.Charset = ANSI_CHARSET
       TitleFont.Color = clWindowText
@@ -23641,6 +23643,7 @@ object FMenu: TFMenu
       Width = 697
       Height = 305
       DataSource = dm.dsLaporanItemLaris
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
       TabOrder = 0
       TitleFont.Charset = ANSI_CHARSET
       TitleFont.Color = clWindowText
@@ -23792,6 +23795,7 @@ object FMenu: TFMenu
       Width = 697
       Height = 305
       DataSource = dm.dsLaporanStok
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
       TabOrder = 0
       TitleFont.Charset = ANSI_CHARSET
       TitleFont.Color = clWindowText

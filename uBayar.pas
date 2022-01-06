@@ -21,6 +21,13 @@ type
     edtTtlBayar: TEdit;
     edtByar: TEdit;
     edtKmbalian: TEdit;
+    btnBayar: TBitBtn;
+    procedure edtBayarKeyPress(Sender: TObject; var Key: Char);
+    procedure btnBayarClick(Sender: TObject);
+    procedure btnKeluarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure edtBayarKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -32,6 +39,86 @@ var
 
 implementation
 
+uses
+  uPenjualan;
+
 {$R *.dfm}
+
+Function Ribuan(Edit : TEdit):String;
+var
+ NilaiRupiah: string;
+ AngkaRupiah: Currency;
+begin
+  if Edit.Text='' then Exit;
+   NilaiRupiah := Edit.text;
+   NilaiRupiah := StringReplace(NilaiRupiah,',','',[rfReplaceAll,rfIgnoreCase]);
+   NilaiRupiah := StringReplace(NilaiRupiah,'.','',[rfReplaceAll,rfIgnoreCase]);
+   AngkaRupiah := StrToCurrDef(NilaiRupiah,0);
+   Edit.Text := FormatCurr('#,###',AngkaRupiah);
+   Edit.SelStart := length(Edit.text);
+end;
+
+procedure TfBayar.edtBayarKeyPress(Sender: TObject; var Key: Char);
+begin
+  if not (key in ['0'..'9',#8,#9,#13]) then key:=#0;
+  if Key = #13 then btnBayar.Click;
+end;
+
+procedure TfBayar.btnBayarClick(Sender: TObject);
+begin
+  if edtBayar.Text = '' then
+    begin
+      exit;
+    end;
+
+  if StrToInt(edtBayar.Text) <= 0 then
+    begin
+      exit;
+    end;
+
+  if StrToInt(edtKmbalian.Text) <=0 then
+    begin
+      MessageDlg('Masukkan Pembayaran Dengan Benar',mtInformation,[mbok],0);
+      edtBayar.SetFocus;
+      Exit;
+    end;
+
+  Fpenjualan.btnProses.Click;
+  Close;
+end;
+
+procedure TfBayar.btnKeluarClick(Sender: TObject);
+begin
+  close;
+end;
+
+procedure TfBayar.FormShow(Sender: TObject);
+begin
+  edtByar.Enabled := True; edtBayar.SetFocus;
+  Ribuan(edtTotalBayar);
+  edtKembalian.Text := '0'; edtKmbalian.Text := '0';
+end;
+
+procedure TfBayar.edtBayarKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if edtBayar.Text = '' then
+    begin
+      edtByar.Text := '0';
+      edtKembalian.Text := '0';
+      Exit;
+    end;
+
+  edtByar.Text := edtBayar.Text;
+  edtKmbalian.Text := IntToStr(StrToInt(edtByar.Text) - StrToInt(edtTtlBayar.Text));
+
+  if (edtKmbalian.Text = '0') or (edtByar.Text='0') then
+    edtKembalian.Text := '0'
+  else
+    begin
+      edtKembalian.Text := edtKmbalian.Text;
+      Ribuan(edtKembalian);
+    end;
+end;
 
 end.

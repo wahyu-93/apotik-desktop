@@ -36,6 +36,7 @@ type
     dblkcbbPelanggan: TDBLookupComboBox;
     edtHarga: TEdit;
     img1: TImage;
+    btnProses: TBitBtn;
     procedure btnKeluarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -49,6 +50,7 @@ type
     procedure btnHapusClick(Sender: TObject);
     procedure btnSelesaiClick(Sender: TObject);
     procedure dbgrd1CellClick(Column: TColumn);
+    procedure btnProsesClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -62,7 +64,7 @@ var
 implementation
 
 uses
-  dataModule, StrUtils, uBantuObatPenjualan;
+  dataModule, StrUtils, uBantuObatPenjualan, uBayar;
 
 {$R *.dfm}
 
@@ -436,6 +438,30 @@ begin
 end;
 
 procedure TFpenjualan.btnSelesaiClick(Sender: TObject);
+begin
+  fBayar.edtTtlBayar.Text := FloatToStr(hitungTotal(id_penjualan));
+  fBayar.edtTotalBayar.Text := FloatToStr(hitungTotal(id_penjualan));
+
+  fBayar.edtBayar.Text := '0';
+  fBayar.edtByar.Text := '0';
+
+  fBayar.edtKembalian.Text := '0';
+  fBayar.edtKmbalian.Text := '0';
+
+  fBayar.ShowModal;
+end;
+
+procedure TFpenjualan.dbgrd1CellClick(Column: TColumn);
+begin
+ if dm.qryRelasiPenjualan.IsEmpty then Exit;
+  
+  edtKode.Text := dbgrd1.Fields[8].AsString;
+  edtIdObat.Text := dbgrd1.Fields[6].AsString;
+  edtIdPembelian.Text := dbgrd1.Fields[0].AsString;
+  btnHapus.Enabled := True;
+end;
+
+procedure TFpenjualan.btnProsesClick(Sender: TObject);
 var
   jumlahItem, total : string;
   a : integer;
@@ -489,16 +515,6 @@ begin
 
       FormShow(Sender);
     end;
-end;
-
-procedure TFpenjualan.dbgrd1CellClick(Column: TColumn);
-begin
- if dm.qryRelasiPenjualan.IsEmpty then Exit;
-  
-  edtKode.Text := dbgrd1.Fields[8].AsString;
-  edtIdObat.Text := dbgrd1.Fields[6].AsString;
-  edtIdPembelian.Text := dbgrd1.Fields[0].AsString;
-  btnHapus.Enabled := True;
 end;
 
 end.

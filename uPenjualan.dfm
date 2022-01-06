@@ -23946,7 +23946,7 @@ object Fpenjualan: TFpenjualan
       Top = 24
       Width = 489
       Height = 97
-      Caption = 'Total Harga'
+      Caption = 'Total'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -23956,7 +23956,7 @@ object Fpenjualan: TFpenjualan
       TabOrder = 10
       object lblTotalHarga: TLabel
         Left = 48
-        Top = 24
+        Top = 16
         Width = 388
         Height = 67
         Alignment = taCenter
@@ -23993,6 +23993,16 @@ object Fpenjualan: TFpenjualan
       TabOrder = 12
       Text = 'edtHarga'
       Visible = False
+    end
+    object btnProses: TBitBtn
+      Left = 664
+      Top = 16
+      Width = 75
+      Height = 25
+      Caption = 'btnProses'
+      TabOrder = 13
+      Visible = False
+      OnClick = btnProsesClick
     end
   end
 end

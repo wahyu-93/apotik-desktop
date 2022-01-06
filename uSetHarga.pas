@@ -135,6 +135,7 @@ begin
 end;
 
 procedure TfSetHarga.btnSimpanClick(Sender: TObject);
+var hargabeli : string;
 begin
   if edtKode.Text = '' then
     begin
@@ -149,6 +150,8 @@ begin
       Exit;
     end;
 
+  if edtHargaBeli.Text = '' then hargabeli := '0' else hargabeli := edtHargaBeli.Text;
+
   with dm.qrySetHarga do
     begin
       Close;
@@ -161,7 +164,7 @@ begin
           Append;
           FieldByName('obat_id').AsString := edtIdObat.Text;
           FieldByName('harga_jual').AsString := edtHarga.Text;
-          FieldByName('harga_beli_terakhir').AsString := edtHargaBeli.Text;
+          FieldByName('harga_beli_terakhir').AsString := hargabeli;
           FieldByName('supplier').AsString := lblSupplier.Caption;
           FieldByName('satuan').AsString := lblSatuan.Caption;
           FieldByName('jenis').AsString := lblJenis.Caption;
