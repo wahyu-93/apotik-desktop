@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons;
+  Dialogs, StdCtrls, Buttons, jpeg, ExtCtrls;
 
 type
   TfBayar = class(TForm)
@@ -22,6 +22,7 @@ type
     edtByar: TEdit;
     edtKmbalian: TEdit;
     btnBayar: TBitBtn;
+    img1: TImage;
     procedure edtBayarKeyPress(Sender: TObject; var Key: Char);
     procedure btnBayarClick(Sender: TObject);
     procedure btnKeluarClick(Sender: TObject);

@@ -1,6 +1,6 @@
 object Fobat: TFobat
-  Left = 346
-  Top = 22
+  Left = 249
+  Top = 25
   AutoScroll = False
   BorderIcons = [biSystemMenu]
   Caption = '.:: Form Obat ::.'

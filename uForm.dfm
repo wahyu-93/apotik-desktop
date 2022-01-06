@@ -1,11 +1,11 @@
 object FMenu: TFMenu
-  Left = 215
-  Top = 75
+  Left = 246
+  Top = 65
   AutoScroll = False
   BorderIcons = []
   Caption = 'Kasir Apotik'
-  ClientHeight = 841
-  ClientWidth = 1460
+  ClientHeight = 847
+  ClientWidth = 1462
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23381,8 +23381,8 @@ object FMenu: TFMenu
   end
   object stat1: TStatusBar
     Left = 0
-    Top = 808
-    Width = 1460
+    Top = 814
+    Width = 1462
     Height = 33
     Panels = <
       item
@@ -23411,11 +23411,24 @@ object FMenu: TFMenu
     Font.Style = []
     ParentFont = False
     TabOrder = 1
+    object lblTotalPenjualan: TLabel
+      Left = 144
+      Top = 296
+      Width = 435
+      Height = 37
+      Caption = 'Total Penjualan : Rp. 100000000000'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -32
+      Font.Name = 'Arial Narrow'
+      Font.Style = [fsItalic]
+      ParentFont = False
+    end
     object dbgrdPenjualan: TDBGrid
       Left = 8
       Top = 24
       Width = 697
-      Height = 313
+      Height = 265
       DataSource = dm.dslaporanPenjualan
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
       TabOrder = 0
@@ -23436,15 +23449,16 @@ object FMenu: TFMenu
           FieldName = 'no_faktur'
           Title.Alignment = taCenter
           Title.Caption = 'No Faktur'
-          Width = 160
+          Width = 130
           Visible = True
         end
         item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'tgl_penjualan'
           Title.Alignment = taCenter
           Title.Caption = 'Tgl Penjualan'
-          Width = 160
+          Width = 130
           Visible = True
         end
         item
@@ -23461,17 +23475,12 @@ object FMenu: TFMenu
         end
         item
           Expanded = False
-          FieldName = 'total'
-          Title.Alignment = taCenter
-          Visible = False
-        end
-        item
-          Expanded = False
           FieldName = 'user_id'
           Title.Alignment = taCenter
           Visible = False
         end
         item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'tgl_bayar'
           Title.Alignment = taCenter
@@ -23488,7 +23497,7 @@ object FMenu: TFMenu
           FieldName = 'jenis_pelanggan'
           Title.Alignment = taCenter
           Title.Caption = 'Pelanggan'
-          Width = 160
+          Width = 130
           Visible = True
         end
         item
@@ -23496,7 +23505,15 @@ object FMenu: TFMenu
           FieldName = 'status'
           Title.Alignment = taCenter
           Title.Caption = 'Status'
-          Width = 160
+          Width = 130
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'total'
+          Title.Alignment = taCenter
+          Title.Caption = 'Total Penjualan'
+          Width = 130
           Visible = True
         end>
     end
@@ -23514,11 +23531,24 @@ object FMenu: TFMenu
     Font.Style = []
     ParentFont = False
     TabOrder = 2
+    object lblTotalPembelian: TLabel
+      Left = 144
+      Top = 296
+      Width = 442
+      Height = 37
+      Caption = 'Total Pembelian : Rp. 100000000000'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -32
+      Font.Name = 'Arial Narrow'
+      Font.Style = [fsItalic]
+      ParentFont = False
+    end
     object dbgrdPembelian: TDBGrid
       Left = 8
       Top = 24
       Width = 697
-      Height = 313
+      Height = 265
       DataSource = dm.dsLaporanPembelian
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
       TabOrder = 0
@@ -23532,6 +23562,7 @@ object FMenu: TFMenu
           Expanded = False
           FieldName = 'id'
           Title.Alignment = taCenter
+          Width = -1
           Visible = False
         end
         item
@@ -23539,7 +23570,7 @@ object FMenu: TFMenu
           FieldName = 'no_faktur'
           Title.Alignment = taCenter
           Title.Caption = 'No Faktur'
-          Width = 150
+          Width = 110
           Visible = True
         end
         item
@@ -23547,51 +23578,50 @@ object FMenu: TFMenu
           FieldName = 'tgl_pembelian'
           Title.Alignment = taCenter
           Title.Caption = 'Tgl Pembelian'
-          Width = 125
+          Width = 110
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'supplier_id'
           Title.Alignment = taCenter
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'jumlah_item'
           Title.Alignment = taCenter
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'total'
-          Title.Alignment = taCenter
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'user_id'
           Title.Alignment = taCenter
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'tgl_pembayaran'
           Title.Alignment = taCenter
-          Title.Caption = 'Tgl Pembayaran'
-          Width = 121
+          Title.Caption = 'Tgl Bayar'
+          Width = 110
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'id_1'
           Title.Alignment = taCenter
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'kode'
           Title.Alignment = taCenter
+          Width = -1
           Visible = False
         end
         item
@@ -23599,19 +23629,21 @@ object FMenu: TFMenu
           FieldName = 'nama_supplier'
           Title.Alignment = taCenter
           Title.Caption = 'Supplier'
-          Width = 150
+          Width = 110
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'alamat_supplier'
           Title.Alignment = taCenter
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'telp_suplier'
           Title.Alignment = taCenter
+          Width = -1
           Visible = False
         end
         item
@@ -23619,7 +23651,15 @@ object FMenu: TFMenu
           FieldName = 'status'
           Title.Alignment = taCenter
           Title.Caption = 'Status'
-          Width = 101
+          Width = 110
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'total'
+          Title.Alignment = taCenter
+          Title.Caption = 'Total'
+          Width = 110
           Visible = True
         end>
     end
@@ -23850,6 +23890,7 @@ object FMenu: TFMenu
           Visible = False
         end
         item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'tgl_exp'
           Title.Alignment = taCenter

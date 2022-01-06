@@ -1,11 +1,11 @@
 object fPembayaranPembelian: TfPembayaranPembelian
-  Left = 516
-  Top = 193
+  Left = 132
+  Top = 129
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form List Pembelian Obat ::.'
-  ClientHeight = 625
-  ClientWidth = 1066
+  ClientHeight = 626
+  ClientWidth = 1065
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23771,7 +23771,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
       Top = 504
       Width = 89
       Height = 33
-      Caption = 'Pilih'
+      Caption = 'Bayar'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -23779,6 +23779,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
       Font.Style = []
       ParentFont = False
       TabOrder = 2
+      OnClick = btnPilihClick
     end
     object btnKeluar: TBitBtn
       Left = 952

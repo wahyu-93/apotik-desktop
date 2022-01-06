@@ -20,6 +20,7 @@ type
     procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure FormShow(Sender: TObject);
+    procedure btnPilihClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,7 +33,7 @@ var
 implementation
 
 uses
-  dataModule;
+  dataModule, uFormBayarPembelian;
 
 {$R *.dfm}
 
@@ -71,6 +72,12 @@ procedure TfPembayaranPembelian.FormShow(Sender: TObject);
 begin
   konek;
   edtpencarian.Clear;
+end;
+
+procedure TfPembayaranPembelian.btnPilihClick(Sender: TObject);
+begin
+  fBayarPembelian.edtIdPembelian.Text := dbgrd1.Fields[3].AsString;
+  fBayarPembelian.ShowModal;
 end;
 
 end.

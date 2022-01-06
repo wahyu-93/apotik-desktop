@@ -1,6 +1,6 @@
 object fBantuObat: TfBantuObat
-  Left = 595
-  Top = 156
+  Left = 253
+  Top = 98
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form List Obat ::.'

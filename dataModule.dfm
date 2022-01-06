@@ -1,9 +1,9 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 342
-  Top = 378
+  Left = 227
+  Top = 291
   Height = 456
-  Width = 1342
+  Width = 1024
   object XPManifest1: TXPManifest
     Left = 128
     Top = 32
@@ -658,6 +658,7 @@ object dm: Tdm
     end
     object qryLaporanPembeliantotal: TFloatField
       FieldName = 'total'
+      DisplayFormat = 'Rp. #,#;(#,#);#,#'
     end
     object qryLaporanPembelianuser_id: TIntegerField
       FieldName = 'user_id'
@@ -669,7 +670,7 @@ object dm: Tdm
     object qryLaporanPembeliantgl_pembayaran: TDateField
       Alignment = taCenter
       FieldName = 'tgl_pembayaran'
-      DisplayFormat = 'dd - mm - yyyy'
+      DisplayFormat = 'dd/mm/yyyy'
     end
     object qryLaporanPembelianid_1: TAutoIncField
       FieldName = 'id_1'
@@ -702,6 +703,46 @@ object dm: Tdm
         'alan.id_pelanggan = tbl_pelanggan.id')
     Left = 792
     Top = 128
+    object qryLaporanPenjualanid: TAutoIncField
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object qryLaporanPenjualanno_faktur: TStringField
+      FieldName = 'no_faktur'
+      Size = 50
+    end
+    object qryLaporanPenjualantgl_penjualan: TDateTimeField
+      FieldName = 'tgl_penjualan'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object qryLaporanPenjualanid_pelanggan: TIntegerField
+      FieldName = 'id_pelanggan'
+    end
+    object qryLaporanPenjualanjumlah_item: TIntegerField
+      FieldName = 'jumlah_item'
+    end
+    object qryLaporanPenjualantotal: TFloatField
+      FieldName = 'total'
+      DisplayFormat = 'Rp. #,#;(#,#);#,#'
+    end
+    object qryLaporanPenjualanuser_id: TIntegerField
+      FieldName = 'user_id'
+    end
+    object qryLaporanPenjualanstatus: TStringField
+      FieldName = 'status'
+      Size = 15
+    end
+    object qryLaporanPenjualantgl_bayar: TDateTimeField
+      FieldName = 'tgl_bayar'
+    end
+    object qryLaporanPenjualanid_1: TAutoIncField
+      FieldName = 'id_1'
+      ReadOnly = True
+    end
+    object qryLaporanPenjualanjenis_pelanggan: TStringField
+      FieldName = 'jenis_pelanggan'
+      Size = 100
+    end
   end
   object qryLaporanStok: TADOQuery
     Active = True
@@ -747,5 +788,17 @@ object dm: Tdm
     DataSet = qryLaporanItemLaris
     Left = 864
     Top = 240
+  end
+  object qryTotalPenjualan: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 800
+    Top = 312
+  end
+  object qryTotalPembelian: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 800
+    Top = 360
   end
 end

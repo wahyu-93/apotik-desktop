@@ -1,10 +1,10 @@
 object fSetHarga: TfSetHarga
-  Left = 403
-  Top = 134
+  Left = 409
+  Top = 0
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Set Harga Jual ::.'
-  ClientHeight = 708
+  ClientHeight = 703
   ClientWidth = 690
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET

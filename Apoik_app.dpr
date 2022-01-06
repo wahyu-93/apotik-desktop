@@ -14,7 +14,8 @@ uses
   uPembayaranPembelian in 'uPembayaranPembelian.pas' {fPembayaranPembelian},
   uSetHarga in 'uSetHarga.pas' {fSetHarga},
   uBantuObatPenjualan in 'uBantuObatPenjualan.pas' {fBantuObatPenjualan},
-  uBayar in 'uBayar.pas' {fBayar};
+  uBayar in 'uBayar.pas' {fBayar},
+  uFormBayarPembelian in 'uFormBayarPembelian.pas' {fBayarPembelian};
 
 {$R *.res}
 
@@ -33,5 +34,6 @@ begin
   Application.CreateForm(TfSetHarga, fSetHarga);
   Application.CreateForm(TfBantuObatPenjualan, fBantuObatPenjualan);
   Application.CreateForm(TfBayar, fBayar);
+  Application.CreateForm(TfBayarPembelian, fBayarPembelian);
   Application.Run;
 end.

@@ -1,10 +1,10 @@
 object Fpenjualan: TFpenjualan
-  Left = 178
-  Top = 119
+  Left = 152
+  Top = 73
   AutoScroll = False
   BorderIcons = []
   Caption = 'Fpenjualan'
-  ClientHeight = 732
+  ClientHeight = 728
   ClientWidth = 1418
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
@@ -23958,7 +23958,7 @@ object Fpenjualan: TFpenjualan
         Left = 48
         Top = 16
         Width = 388
-        Height = 67
+        Height = 75
         Alignment = taCenter
         Caption = 'Rp. 200.000.000'
         Font.Charset = ANSI_CHARSET

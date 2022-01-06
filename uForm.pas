@@ -35,6 +35,8 @@ type
     dbgrdItemLaris: TDBGrid;
     dbgrdStok: TDBGrid;
     img1: TImage;
+    lblTotalPenjualan: TLabel;
+    lblTotalPembelian: TLabel;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
@@ -150,6 +152,30 @@ begin
       SQL.Text := 'select * from tbl_obat a left join tbl_satuan b on a.kode_satuan = b.id order by a.stok asc';
       Open;
     end;
+
+  //total penjualan
+  with dm.qryTotalPenjualan do
+    begin
+      close;
+      sql.Clear;
+      sql.Text := 'select sum(total) as total from tbl_penjualan where tgl_penjualan like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%''';
+      Open;
+
+      lblTotalPenjualan.Caption := 'Total Penjualan : ' + FormatFloat('Rp. ###,###,###', dm.qryTotalPenjualan.fieldbyname('total').AsFloat)
+    end;
+
+    
+  //total pembelian
+  with dm.qryTotalPembelian do
+    begin
+      close;
+      sql.Clear;
+      sql.Text := 'select sum(total) as total from tbl_pembelian where tgl_pembelian like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%''';
+      Open;
+
+      lblTotalPembelian.Caption := 'Total Pembelian : ' + FormatFloat('Rp. ###,###,###', dm.qryTotalPembelian.fieldbyname('total').AsFloat)
+    end;
+
 
 end;
 
