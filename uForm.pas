@@ -112,12 +112,12 @@ end;
 
 procedure TFMenu.tmr1Timer(Sender: TObject);
 begin
-  stat1.Panels[2].Text := 'Tanggal ' + FormatDateTime('dd-mm-yyyy',Now);
   FormShow(Sender);
 end;
 
 procedure TFMenu.FormShow(Sender: TObject);
 begin
+  stat1.Panels[2].Text := 'Tanggal ' + FormatDateTime('dd-mm-yyyy',Now);
   with dm.qryLaporanPenjualan do
     begin
       close;

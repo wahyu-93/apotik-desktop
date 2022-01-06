@@ -23403,7 +23403,7 @@ object FMenu: TFMenu
     Top = 96
     Width = 713
     Height = 345
-    Caption = 'Laporan Penjualan Item '
+    Caption = 'Laporan Penjualan Item  (Harian) '
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
@@ -23449,7 +23449,7 @@ object FMenu: TFMenu
           FieldName = 'no_faktur'
           Title.Alignment = taCenter
           Title.Caption = 'No Faktur'
-          Width = 130
+          Width = 150
           Visible = True
         end
         item
@@ -23458,7 +23458,7 @@ object FMenu: TFMenu
           FieldName = 'tgl_penjualan'
           Title.Alignment = taCenter
           Title.Caption = 'Tgl Penjualan'
-          Width = 130
+          Width = 100
           Visible = True
         end
         item
@@ -23523,7 +23523,7 @@ object FMenu: TFMenu
     Top = 96
     Width = 713
     Height = 345
-    Caption = 'Laporan Pembelian Item '
+    Caption = 'Laporan Pembelian Item  (Harian) '
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
@@ -23570,15 +23570,15 @@ object FMenu: TFMenu
           FieldName = 'no_faktur'
           Title.Alignment = taCenter
           Title.Caption = 'No Faktur'
-          Width = 110
+          Width = 150
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'tgl_pembelian'
           Title.Alignment = taCenter
-          Title.Caption = 'Tgl Pembelian'
-          Width = 110
+          Title.Caption = 'Tgl Beli'
+          Width = 100
           Visible = True
         end
         item
@@ -23607,7 +23607,7 @@ object FMenu: TFMenu
           FieldName = 'tgl_pembayaran'
           Title.Alignment = taCenter
           Title.Caption = 'Tgl Bayar'
-          Width = 110
+          Width = 100
           Visible = True
         end
         item
@@ -23651,7 +23651,7 @@ object FMenu: TFMenu
           FieldName = 'status'
           Title.Alignment = taCenter
           Title.Caption = 'Status'
-          Width = 110
+          Width = 80
           Visible = True
         end
         item
@@ -23669,7 +23669,7 @@ object FMenu: TFMenu
     Top = 464
     Width = 713
     Height = 337
-    Caption = 'Laporan Item Paling Laris '
+    Caption = 'Laporan Item Paling Laris  (Harian) '
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
