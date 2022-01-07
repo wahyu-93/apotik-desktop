@@ -552,14 +552,14 @@ begin
         WriteLn(txtFile, '     '+dm.qrySetting.fieldbyname('nama_toko').asString+'   ');
         WriteLn(txtFile, ''+dm.qrySetting.fieldbyname('alamat').asString+' ');
         WriteLn(txtFile, '        '+dm.qrySetting.fieldbyname('telp').asString+' ');
-        WriteLn(txtFile, '============================');
+        WriteLn(txtFile, '----------------------------');
         WriteLn(txtFile, 'No. Nota:' + edtFaktur.text );
         WriteLn(txtFile, 'Tanggal :' + FormatDateTime('dd/mm/yyyy hh:mm:ss', now));
         WriteLn(txtFile, 'Kasir   :' + dm.qryUser.fieldbyname('nama').asString);
-        WriteLn(txtFile, '============================');
+        WriteLn(txtFile, '----------------------------');
         WriteLn(txtFile, 'Nama Barang');
         WriteLn(txtFile, RataKanan('      QTY   Harga ', 'Sub Total', 28, ' '));
-        WriteLn(txtFile, '============================');
+        WriteLn(txtFile, '----------------------------');
 
         a := 1;
         with dm.qryRelasiPenjualan do
@@ -577,16 +577,16 @@ begin
               end;
           end;
 
-         WriteLn(txtFile, '============================');
+         WriteLn(txtFile, '----------------------------');
          WriteLn(txtFile, RataKanan('Total   : ', FormatFloat('Rp. ###,###,###', hitungTotal(id_penjualan)), 28,
          ' '));
          WriteLn(txtFile, RataKanan('Bayar   : ', FormatFloat('Rp. ###,###,###', StrToInt(edtBayar.Text)), 28,
          ' '));
          WriteLn(txtFile, RataKanan('Kembali : ', FormatFloat('Rp. ###,###,###', StrToInt(edtKembali.Text)), 28,
          ' '));
-         WriteLn(txtFile, '============================');
+         WriteLn(txtFile, '----------------------------');
          WriteLn(txtFile, ' Jumlah Item  : ' + IntToStr(hitungItem(id_penjualan)));
-         WriteLn(txtFile, '============================');
+         WriteLn(txtFile, '----------------------------');
          WriteLn(txtFile, '         Terima Kasih');
          WriteLn(txtFile, '    Berelaan Jual Seadannya');
          WriteLn(txtFile, #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 );
