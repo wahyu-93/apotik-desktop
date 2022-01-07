@@ -1,0 +1,7 @@
+catatan 
+===========
+- form laporan 
+- form backup dan restore database
+- detail penjualan
+- detail pembelian
+- return penjualan

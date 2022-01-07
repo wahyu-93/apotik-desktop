@@ -18,14 +18,17 @@ uses
   uFormBayarPembelian in 'uFormBayarPembelian.pas' {fBayarPembelian},
   uListPenjualan in 'uListPenjualan.pas' {fListPenjualan},
   uPengguna in 'uPengguna.pas' {fPengguna},
-  uSetting in 'uSetting.pas' {fSetting};
+  uSetting in 'uSetting.pas' {fSetting},
+  uLogin in 'uLogin.pas' {fLogin},
+  uMenuKasir in 'uMenuKasir.pas' {fMenuKasir};
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.CreateForm(TFMenu, FMenu);
+  Application.CreateForm(TfLogin, fLogin);
   Application.CreateForm(Tdm, dm);
+  Application.CreateForm(TFMenu, FMenu);
   Application.CreateForm(TfJenisObat, fJenisObat);
   Application.CreateForm(TFSatuan, FSatuan);
   Application.CreateForm(TFsupplier, Fsupplier);
@@ -41,5 +44,6 @@ begin
   Application.CreateForm(TfListPenjualan, fListPenjualan);
   Application.CreateForm(TfPengguna, fPengguna);
   Application.CreateForm(TfSetting, fSetting);
+  Application.CreateForm(TfMenuKasir, fMenuKasir);
   Application.Run;
 end.

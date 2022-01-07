@@ -344,7 +344,7 @@ begin
               FieldByName('supplier_id').AsString := dblkcbbSupplier.KeyValue;
               FieldByName('jumlah_item').AsString := '0';
               FieldByName('total').AsString := '0';
-              FieldByName('user_id').AsString := '1';
+              FieldByName('user_id').AsString := dm.qryUser.fieldbyname('id').AsString;
               FieldByName('status').AsString := 'pending';
               Post;
             end;

@@ -1,6 +1,6 @@
 object FMenu: TFMenu
-  Left = 246
-  Top = 65
+  Left = 407
+  Top = 269
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Applikasi Kasir Apotik V.1 ::.'
@@ -23391,7 +23391,7 @@ object FMenu: TFMenu
       end
       item
         Text = 'Admin'
-        Width = 50
+        Width = 200
       end
       item
         Text = 'Tanggal'
@@ -23449,7 +23449,6 @@ object FMenu: TFMenu
           FieldName = 'no_faktur'
           Title.Alignment = taCenter
           Title.Caption = 'No Faktur'
-          Width = 64
           Visible = True
         end
         item
@@ -23458,28 +23457,24 @@ object FMenu: TFMenu
           FieldName = 'tgl_penjualan'
           Title.Alignment = taCenter
           Title.Caption = 'Tgl Penjualan'
-          Width = 64
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'id_pelanggan'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'jumlah_item'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'user_id'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
@@ -23487,14 +23482,12 @@ object FMenu: TFMenu
           Expanded = False
           FieldName = 'tgl_bayar'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'id_1'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
@@ -23502,7 +23495,6 @@ object FMenu: TFMenu
           FieldName = 'jenis_pelanggan'
           Title.Alignment = taCenter
           Title.Caption = 'Pelanggan'
-          Width = 64
           Visible = True
         end
         item
@@ -23510,7 +23502,6 @@ object FMenu: TFMenu
           FieldName = 'status'
           Title.Alignment = taCenter
           Title.Caption = 'Status'
-          Width = 64
           Visible = True
         end
         item
@@ -23574,7 +23565,6 @@ object FMenu: TFMenu
           FieldName = 'no_faktur'
           Title.Alignment = taCenter
           Title.Caption = 'No Faktur'
-          Width = 64
           Visible = True
         end
         item
@@ -23582,28 +23572,24 @@ object FMenu: TFMenu
           FieldName = 'tgl_pembelian'
           Title.Alignment = taCenter
           Title.Caption = 'Tgl Beli'
-          Width = 64
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'supplier_id'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'jumlah_item'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'user_id'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
@@ -23611,21 +23597,18 @@ object FMenu: TFMenu
           FieldName = 'tgl_pembayaran'
           Title.Alignment = taCenter
           Title.Caption = 'Tgl Bayar'
-          Width = 64
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'id_1'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'kode'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
@@ -23633,21 +23616,18 @@ object FMenu: TFMenu
           FieldName = 'nama_supplier'
           Title.Alignment = taCenter
           Title.Caption = 'Supplier'
-          Width = 64
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'alamat_supplier'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'telp_suplier'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
@@ -23655,7 +23635,6 @@ object FMenu: TFMenu
           FieldName = 'status'
           Title.Alignment = taCenter
           Title.Caption = 'Status'
-          Width = 64
           Visible = True
         end
         item
@@ -23705,42 +23684,36 @@ object FMenu: TFMenu
           Expanded = False
           FieldName = 'penjualan_id'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'obat_id'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'harga_jual'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'jumlah_jual'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'id_1'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'kode'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
@@ -23748,7 +23721,6 @@ object FMenu: TFMenu
           FieldName = 'barcode'
           Title.Alignment = taCenter
           Title.Caption = 'Barcode'
-          Width = 64
           Visible = True
         end
         item
@@ -23756,63 +23728,54 @@ object FMenu: TFMenu
           FieldName = 'nama_obat'
           Title.Alignment = taCenter
           Title.Caption = 'Nama Obat'
-          Width = 64
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'kode_jenis'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'kode_satuan'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'tgl_obat'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'tgl_exp'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'status'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'stok'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'id_2'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'kode_1'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
@@ -23820,7 +23783,6 @@ object FMenu: TFMenu
           FieldName = 'satuan'
           Title.Alignment = taCenter
           Title.Caption = 'Satuan'
-          Width = 64
           Visible = True
         end
         item
@@ -23871,7 +23833,6 @@ object FMenu: TFMenu
           Expanded = False
           FieldName = 'kode'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
@@ -23879,7 +23840,6 @@ object FMenu: TFMenu
           FieldName = 'barcode'
           Title.Alignment = taCenter
           Title.Caption = 'Barcode'
-          Width = 64
           Visible = True
         end
         item
@@ -23887,28 +23847,24 @@ object FMenu: TFMenu
           FieldName = 'nama_obat'
           Title.Alignment = taCenter
           Title.Caption = 'Nama Obat'
-          Width = 64
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'kode_jenis'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'kode_satuan'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'tgl_obat'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
@@ -23917,14 +23873,12 @@ object FMenu: TFMenu
           FieldName = 'tgl_exp'
           Title.Alignment = taCenter
           Title.Caption = 'Tanggal Exp'
-          Width = 64
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'status'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
@@ -23933,21 +23887,18 @@ object FMenu: TFMenu
           FieldName = 'stok'
           Title.Alignment = taCenter
           Title.Caption = 'Stok'
-          Width = 64
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'id_1'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'kode_1'
           Title.Alignment = taCenter
-          Width = -1
           Visible = False
         end
         item
@@ -24023,9 +23974,6 @@ object FMenu: TFMenu
       object ListPenjualan1: TMenuItem
         Caption = 'List Penjualan'
       end
-      object ReturnPenjualan1: TMenuItem
-        Caption = 'Return Penjualan'
-      end
     end
     object Setting1: TMenuItem
       Caption = 'Setting'
@@ -24047,6 +23995,11 @@ object FMenu: TFMenu
     Interval = 60000
     OnTimer = tmr1Timer
     Left = 8
+    Top = 8
+  end
+  object tmr2: TTimer
+    OnTimer = tmr2Timer
+    Left = 80
     Top = 8
   end
 end

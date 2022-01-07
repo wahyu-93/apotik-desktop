@@ -39,7 +39,7 @@ type
     ListPenjualan1: TMenuItem;
     Pengguna1: TMenuItem;
     Apotik1: TMenuItem;
-    ReturnPenjualan1: TMenuItem;
+    tmr2: TTimer;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
@@ -53,6 +53,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure Pengguna1Click(Sender: TObject);
     procedure Apotik1Click(Sender: TObject);
+    procedure tmr2Timer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -122,7 +123,9 @@ end;
 
 procedure TFMenu.FormShow(Sender: TObject);
 begin
-  stat1.Panels[2].Text := 'Tanggal ' + FormatDateTime('dd-mm-yyyy',Now);
+  stat1.Panels[0].Text := 'Pengguna : ' + dm.qryUser.FieldByName('nama').AsString;
+  stat1.Panels[1].Text := 'Role : ' + dm.qryUser.fieldByname('role').AsString;
+
   with dm.qryLaporanPenjualan do
     begin
       close;
@@ -192,6 +195,11 @@ end;
 procedure TFMenu.Apotik1Click(Sender: TObject);
 begin
   fSetting.ShowModal;
+end;
+
+procedure TFMenu.tmr2Timer(Sender: TObject);
+begin
+  stat1.Panels[2].Text := 'Tanggal ' + FormatDateTime('dd-mm-yyyy',Now) + ' : ' + TimeToStr(Now);
 end;
 
 end.

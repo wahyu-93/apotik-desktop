@@ -3,7 +3,7 @@ object fSetting: TfSetting
   Top = 335
   AutoScroll = False
   BorderIcons = []
-  Caption = 'fSetting'
+  Caption = '.:: Form Setting ::.'
   ClientHeight = 322
   ClientWidth = 729
   Color = clGradientInactiveCaption
@@ -23385,7 +23385,7 @@ object fSetting: TfSetting
     Height = 57
     TabOrder = 0
     object lbl1: TLabel
-      Left = 264
+      Left = 280
       Top = 16
       Width = 139
       Height = 27
