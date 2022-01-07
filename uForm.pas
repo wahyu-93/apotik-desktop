@@ -39,6 +39,7 @@ type
     ListPenjualan1: TMenuItem;
     Pengguna1: TMenuItem;
     Apotik1: TMenuItem;
+    ReturnPenjualan1: TMenuItem;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
@@ -50,6 +51,8 @@ type
     procedure SettingHargaJual1Click(Sender: TObject);
     procedure tmr1Timer(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure Pengguna1Click(Sender: TObject);
+    procedure Apotik1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -63,7 +66,7 @@ implementation
 
 uses
   uJenisObat, uSatuan, uSupplier, uObat, uPembelian, uPembayaranPembelian, 
-  uPenjualan, uSetHarga, dataModule;
+  uPenjualan, uSetHarga, dataModule, uPengguna, uSetting;
 
 {$R *.dfm}
 
@@ -179,6 +182,16 @@ begin
     end;
 
 
+end;
+
+procedure TFMenu.Pengguna1Click(Sender: TObject);
+begin
+  fPengguna.ShowModal;
+end;
+
+procedure TFMenu.Apotik1Click(Sender: TObject);
+begin
+  fSetting.ShowModal;
 end;
 
 end.

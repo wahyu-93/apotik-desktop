@@ -87,6 +87,7 @@ begin
   Fpenjualan.edtBayar.Text := edtByar.Text;
   Fpenjualan.edtKembali.Text := edtKmbalian.Text;
   Fpenjualan.btnProses.Click;
+
   Close;
 end;
 

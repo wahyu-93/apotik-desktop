@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 227
-  Top = 291
+  Left = 319
+  Top = 626
   Height = 456
   Width = 1222
   object XPManifest1: TXPManifest
@@ -820,5 +820,30 @@ object dm: Tdm
       'select * from tbl_user')
     Left = 992
     Top = 112
+    object qryUserid: TAutoIncField
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object qryUsernama: TStringField
+      FieldName = 'nama'
+      Size = 50
+    end
+    object qryUserusername: TStringField
+      FieldName = 'username'
+      Size = 25
+    end
+    object qryUserpassword: TStringField
+      FieldName = 'password'
+      Size = 25
+    end
+    object qryUserrole: TStringField
+      FieldName = 'role'
+      Size = 50
+    end
+  end
+  object dsUser: TDataSource
+    DataSet = qryUser
+    Left = 1040
+    Top = 128
   end
 end

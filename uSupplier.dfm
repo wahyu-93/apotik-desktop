@@ -1,10 +1,10 @@
 object Fsupplier: TFsupplier
-  Left = 446
-  Top = 150
+  Left = 224
+  Top = 147
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form Supplier ::.'
-  ClientHeight = 623
+  ClientHeight = 624
   ClientWidth = 727
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
@@ -23444,8 +23444,8 @@ object Fsupplier: TFsupplier
       ParentFont = False
     end
     object lbl5: TLabel
-      Left = 8
-      Top = 152
+      Left = 16
+      Top = 160
       Width = 52
       Height = 17
       Caption = 'No. Telp'
@@ -23456,40 +23456,11 @@ object Fsupplier: TFsupplier
       Font.Style = []
       ParentFont = False
     end
-    object edtKode: TEdit
-      Left = 104
-      Top = 16
-      Width = 185
-      Height = 25
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 0
-      Text = 'edtKode'
-    end
-    object edtName: TEdit
-      Left = 104
-      Top = 48
-      Width = 593
-      Height = 25
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 1
-      Text = 'edtKode'
-      OnKeyPress = edtNameKeyPress
-    end
     object dbgrd1: TDBGrid
       Left = 8
-      Top = 192
+      Top = 184
       Width = 697
-      Height = 265
+      Height = 289
       DataSource = dm.dsSupplier
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23498,7 +23469,7 @@ object Fsupplier: TFsupplier
       Font.Style = []
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -11
@@ -23575,7 +23546,7 @@ object Fsupplier: TFsupplier
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 1
       Text = 'edtKode'
       OnKeyUp = edtpencarianKeyUp
     end
@@ -23591,7 +23562,7 @@ object Fsupplier: TFsupplier
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      TabOrder = 4
+      TabOrder = 2
       OnClick = btnTambahClick
     end
     object btnSimpan: TBitBtn
@@ -23606,7 +23577,7 @@ object Fsupplier: TFsupplier
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      TabOrder = 5
+      TabOrder = 3
       OnClick = btnSimpanClick
     end
     object btnHapus: TBitBtn
@@ -23621,7 +23592,7 @@ object Fsupplier: TFsupplier
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      TabOrder = 6
+      TabOrder = 4
       OnClick = btnHapusClick
     end
     object btnKeluar: TBitBtn
@@ -23636,8 +23607,36 @@ object Fsupplier: TFsupplier
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      TabOrder = 7
+      TabOrder = 5
       OnClick = btnKeluarClick
+    end
+    object edtKode: TEdit
+      Left = 104
+      Top = 16
+      Width = 185
+      Height = 25
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 6
+      Text = 'edtKode'
+    end
+    object edtName: TEdit
+      Left = 104
+      Top = 48
+      Width = 593
+      Height = 25
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 7
+      Text = 'edtKode'
     end
     object mmoAlamat: TMemo
       Left = 104
@@ -23668,7 +23667,6 @@ object Fsupplier: TFsupplier
       ParentFont = False
       TabOrder = 9
       Text = 'edtKode'
-      OnKeyPress = edtTelpKeyPress
     end
   end
 end

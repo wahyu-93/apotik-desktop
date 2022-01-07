@@ -174,6 +174,12 @@ type
     qryTotalPembelian: TADOQuery;
     qrySetting: TADOQuery;
     qryUser: TADOQuery;
+    dsUser: TDataSource;
+    qryUserid: TAutoIncField;
+    qryUsernama: TStringField;
+    qryUserusername: TStringField;
+    qryUserpassword: TStringField;
+    qryUserrole: TStringField;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

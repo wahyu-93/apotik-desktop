@@ -16,7 +16,9 @@ uses
   uBantuObatPenjualan in 'uBantuObatPenjualan.pas' {fBantuObatPenjualan},
   uBayar in 'uBayar.pas' {fBayar},
   uFormBayarPembelian in 'uFormBayarPembelian.pas' {fBayarPembelian},
-  uListPenjualan in 'uListPenjualan.pas' {fListPenjualan};
+  uListPenjualan in 'uListPenjualan.pas' {fListPenjualan},
+  uPengguna in 'uPengguna.pas' {fPengguna},
+  uSetting in 'uSetting.pas' {fSetting};
 
 {$R *.res}
 
@@ -37,5 +39,7 @@ begin
   Application.CreateForm(TfBayar, fBayar);
   Application.CreateForm(TfBayarPembelian, fBayarPembelian);
   Application.CreateForm(TfListPenjualan, fListPenjualan);
+  Application.CreateForm(TfPengguna, fPengguna);
+  Application.CreateForm(TfSetting, fSetting);
   Application.Run;
 end.

@@ -1,26 +1,25 @@
-        Apotik Hamdi Farma   
-Jl. H. Damanhuri Depan Mesjid Raya 
-          082250931217 
-==================================
-No. Nota  : PJ-0701202200036
-Tanggal   : 07-01-2022 11:05:09
-Kasir     : Wahyu
-==================================
+     Apotik Hamdi Farma   
+Jl.H.Damanhuri Dpn Msjd Raya 
+        082250931217 
+============================
+No. Nota:PJ-0701202200044
+Tanggal :07/01/2022 16:54:14
+Kasir   :Wahyu
+============================
 Nama Barang
-      QTY   Harga         Sub Total
-==================================
+      QTY   Harga  Sub Total
+============================
  Paracetamol
-      5 X 25.000            125.000
- Antimo
-      5 X 5.000              25.000
-==================================
-Total   :                Rp 150.000
-Bayar   :                Rp 150.000
-Kembali :                       Rp 
-==================================
- Jumlah Item  : 2
-==================================
- Terima Kasih Atas Pembelian Anda
+      1 X 25.000      25.000
+============================
+Total   :          Rp 25.000
+Bayar   :          Rp 25.000
+Kembali :                Rp 
+============================
+ Jumlah Item  : 1
+============================
+         Terima Kasih
+    Berelaan Jual Seadannya
 
 
 
