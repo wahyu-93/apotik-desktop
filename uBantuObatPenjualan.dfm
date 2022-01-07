@@ -3,7 +3,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
   Top = 185
   AutoScroll = False
   BorderIcons = []
-  Caption = 'fBantuObatPenjualan'
+  Caption = '.:: Form List Obat ::.'
   ClientHeight = 623
   ClientWidth = 880
   Color = clGradientInactiveCaption
@@ -23455,7 +23455,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 132
+          Width = 130
           Visible = True
         end
         item
@@ -23473,7 +23473,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 132
+          Width = 130
           Visible = True
         end
         item
@@ -23491,7 +23491,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 132
+          Width = 130
           Visible = True
         end
         item
@@ -23509,7 +23509,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 132
+          Width = 130
           Visible = True
         end
         item
@@ -23527,7 +23527,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 132
+          Width = 130
           Visible = True
         end
         item
@@ -23545,7 +23545,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 132
+          Width = 130
           Visible = True
         end
         item
@@ -23596,7 +23596,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item

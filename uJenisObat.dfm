@@ -3,7 +3,7 @@ object fJenisObat: TfJenisObat
   Top = 165
   AutoScroll = False
   BorderIcons = []
-  Caption = 'fJenisObat'
+  Caption = '.:: Form Jenis Obat ::.'
   ClientHeight = 530
   ClientWidth = 600
   Color = clGradientInactiveCaption

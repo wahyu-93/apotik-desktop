@@ -3,7 +3,7 @@ object fBayar: TfBayar
   Top = 232
   AutoScroll = False
   BorderIcons = []
-  Caption = 'fBayar'
+  Caption = '.:: Form Bayar ::.'
   ClientHeight = 512
   ClientWidth = 598
   Color = clGradientInactiveCaption

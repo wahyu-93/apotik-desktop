@@ -77,13 +77,15 @@ begin
       exit;
     end;
 
-  if StrToInt(edtKmbalian.Text) <=0 then
+  if StrToInt(edtKmbalian.Text) < 0 then
     begin
       MessageDlg('Masukkan Pembayaran Dengan Benar',mtInformation,[mbok],0);
       edtBayar.SetFocus;
       Exit;
     end;
 
+  Fpenjualan.edtBayar.Text := edtByar.Text;
+  Fpenjualan.edtKembali.Text := edtKmbalian.Text;
   Fpenjualan.btnProses.Click;
   Close;
 end;

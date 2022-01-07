@@ -1,9 +1,9 @@
 object Fpenjualan: TFpenjualan
-  Left = 152
-  Top = 73
+  Left = 79
+  Top = 193
   AutoScroll = False
   BorderIcons = []
-  Caption = 'Fpenjualan'
+  Caption = '.:: Form Penjualan ::.'
   ClientHeight = 728
   ClientWidth = 1418
   Color = clGradientInactiveCaption
@@ -24003,6 +24003,34 @@ object Fpenjualan: TFpenjualan
       TabOrder = 13
       Visible = False
       OnClick = btnProsesClick
+    end
+    object btnCetak: TBitBtn
+      Left = 600
+      Top = 16
+      Width = 75
+      Height = 25
+      Caption = 'btnCetak'
+      TabOrder = 14
+      Visible = False
+      OnClick = btnCetakClick
+    end
+    object edtKembali: TEdit
+      Left = 944
+      Top = 16
+      Width = 121
+      Height = 21
+      TabOrder = 15
+      Text = 'edtKembali'
+      Visible = False
+    end
+    object edtBayar: TEdit
+      Left = 1072
+      Top = 16
+      Width = 121
+      Height = 21
+      TabOrder = 16
+      Text = 'edtBayar'
+      Visible = False
     end
   end
 end

@@ -15,7 +15,8 @@ uses
   uSetHarga in 'uSetHarga.pas' {fSetHarga},
   uBantuObatPenjualan in 'uBantuObatPenjualan.pas' {fBantuObatPenjualan},
   uBayar in 'uBayar.pas' {fBayar},
-  uFormBayarPembelian in 'uFormBayarPembelian.pas' {fBayarPembelian};
+  uFormBayarPembelian in 'uFormBayarPembelian.pas' {fBayarPembelian},
+  uListPenjualan in 'uListPenjualan.pas' {fListPenjualan};
 
 {$R *.res}
 
@@ -35,5 +36,6 @@ begin
   Application.CreateForm(TfBantuObatPenjualan, fBantuObatPenjualan);
   Application.CreateForm(TfBayar, fBayar);
   Application.CreateForm(TfBayarPembelian, fBayarPembelian);
+  Application.CreateForm(TfListPenjualan, fListPenjualan);
   Application.Run;
 end.

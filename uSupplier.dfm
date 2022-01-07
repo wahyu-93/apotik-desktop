@@ -3,7 +3,7 @@ object Fsupplier: TFsupplier
   Top = 150
   AutoScroll = False
   BorderIcons = []
-  Caption = 'Fsupplier'
+  Caption = '.:: Form Supplier ::.'
   ClientHeight = 623
   ClientWidth = 727
   Color = clGradientInactiveCaption

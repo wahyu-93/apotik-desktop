@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ComCtrls, Buttons, Grids, DBGrids, ExtCtrls, DBCtrls,
-  jpeg;
+  jpeg, U_cetak;
 
 type
   TFpenjualan = class(TForm)
@@ -37,6 +37,9 @@ type
     edtHarga: TEdit;
     img1: TImage;
     btnProses: TBitBtn;
+    btnCetak: TBitBtn;
+    edtKembali: TEdit;
+    edtBayar: TEdit;
     procedure btnKeluarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -51,6 +54,7 @@ type
     procedure btnSelesaiClick(Sender: TObject);
     procedure dbgrd1CellClick(Column: TColumn);
     procedure btnProsesClick(Sender: TObject);
+    procedure btnCetakClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -64,7 +68,7 @@ var
 implementation
 
 uses
-  dataModule, StrUtils, uBantuObatPenjualan, uBayar;
+  dataModule, StrUtils, uBantuObatPenjualan, uBayar, DateUtils;
 
 {$R *.dfm}
 
@@ -454,7 +458,7 @@ end;
 procedure TFpenjualan.dbgrd1CellClick(Column: TColumn);
 begin
  if dm.qryRelasiPenjualan.IsEmpty then Exit;
-  
+
   edtKode.Text := dbgrd1.Fields[8].AsString;
   edtIdObat.Text := dbgrd1.Fields[6].AsString;
   edtIdPembelian.Text := dbgrd1.Fields[0].AsString;
@@ -513,8 +517,72 @@ begin
             end;
         end;
 
+      btnCetak.Click;
       FormShow(Sender);
     end;
+end;
+
+procedure TFpenjualan.btnCetakClick(Sender: TObject);
+var
+txtFile: TextFile;
+nmfile : string;
+a, total : Integer;
+begin
+  with dm.qrySetting do
+    begin
+      Close;
+      sql.Clear;
+      sql.Text := 'select * from tbl_setting';
+      Open;
+    end;
+
+  // Buat File dengan Nama Struk.txt
+        nmfile := GetCurrentDir + '\struk.txt';
+        AssignFile(txtFile, nmfile);
+        Rewrite(txtFile);
+        WriteLn(txtFile, '        '+dm.qrySetting.fieldbyname('nama_toko').asString+'   ');
+        WriteLn(txtFile, ''+dm.qrySetting.fieldbyname('alamat').asString+' ');
+        WriteLn(txtFile, '          '+dm.qrySetting.fieldbyname('telp').asString+' ');
+        WriteLn(txtFile, '==================================');
+        WriteLn(txtFile, 'No. Nota  : ' + edtFaktur.text );
+        WriteLn(txtFile, 'Tanggal   : ' + FormatDateTime('dd-mm-yyyy hh:mm:ss', now));
+        WriteLn(txtFile, 'Kasir     : ' + dm.qryUser.fieldbyname('nama').asString);
+        WriteLn(txtFile, '==================================');
+        WriteLn(txtFile, 'Nama Barang');
+        WriteLn(txtFile, RataKanan('      QTY   Harga ', 'Sub Total', 34, ' '));
+        WriteLn(txtFile, '==================================');
+
+        a := 1;
+        with dm.qryRelasiPenjualan do
+          begin
+            for a:=1 to RecordCount do
+              begin
+                RecNo := a;
+                total := fieldbyname('jumlah_jual').AsInteger * fieldbyname('harga_jual').AsInteger;
+
+                WriteLn(txtFile,' '+fieldbyname('nama_obat').asString);
+                WriteLn(txtFile, RataKanan
+                ('      ' + fieldbyname('jumlah_jual').asString +' X '+FormatFloat('###,###,###',fieldbyname('harga_jual').AsInteger)+' ',FormatFloat('###,###,###',total), 34, ' '));
+
+                Next;
+              end;
+          end;
+
+         WriteLn(txtFile, '==================================');
+         WriteLn(txtFile, RataKanan('Total   : ', FormatFloat('Rp. ###,###,###', hitungTotal(id_penjualan)), 34,
+         ' '));
+         WriteLn(txtFile, RataKanan('Bayar   : ', FormatFloat('Rp. ###,###,###', StrToInt(edtBayar.Text)), 34,
+         ' '));
+         WriteLn(txtFile, RataKanan('Kembali : ', FormatFloat('Rp. ###,###,###', StrToInt(edtKembali.Text)), 34,
+         ' '));
+         WriteLn(txtFile, '==================================');
+         WriteLn(txtFile, ' Jumlah Item  : ' + IntToStr(hitungItem(id_penjualan)));
+         WriteLn(txtFile, '==================================');
+         WriteLn(txtFile, ' Terima Kasih Atas Pembelian Anda');
+         WriteLn(txtFile, #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 );
+         CloseFile(txtFile);
+         // Cetak File Struk.txt
+   cetakFile('struk.txt');
 end;
 
 end.

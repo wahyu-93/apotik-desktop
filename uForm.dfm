@@ -3,7 +3,7 @@ object FMenu: TFMenu
   Top = 65
   AutoScroll = False
   BorderIcons = []
-  Caption = 'Kasir Apotik'
+  Caption = '.:: Applikasi Kasir Apotik V.1 ::.'
   ClientHeight = 847
   ClientWidth = 1462
   Color = clGradientInactiveCaption
@@ -23979,6 +23979,10 @@ object FMenu: TFMenu
     end
     object ransaksi1: TMenuItem
       Caption = 'Transaksi'
+      object SettingHargaJual1: TMenuItem
+        Caption = 'Set Harga Jual'
+        OnClick = SettingHargaJual1Click
+      end
       object Pembelian1: TMenuItem
         Caption = 'Pembelian'
         OnClick = Pembelian1Click
@@ -23987,20 +23991,22 @@ object FMenu: TFMenu
         Caption = 'Penjualan'
         OnClick = Penjualan1Click
       end
-      object SettingHargaJual1: TMenuItem
-        Caption = 'Set Harga Jual'
-        OnClick = SettingHargaJual1Click
-      end
       object ListPembelian1: TMenuItem
         Caption = 'List Pembelian'
         OnClick = ListPembelian1Click
       end
-    end
-    object Laporan1: TMenuItem
-      Caption = 'Laporan'
+      object ListPenjualan1: TMenuItem
+        Caption = 'List Penjualan'
+      end
     end
     object Setting1: TMenuItem
       Caption = 'Setting'
+      object Pengguna1: TMenuItem
+        Caption = 'Pengguna'
+      end
+      object Apotik1: TMenuItem
+        Caption = 'Apotik'
+      end
     end
     object Keluar1: TMenuItem
       Caption = 'Keluar'

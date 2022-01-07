@@ -62,7 +62,6 @@ begin
   // update tgl bayar dan status
   if rbLunas.Checked = True then
     begin
-      ShowMessage('bayar');
       with dm.qryPembelian do
         begin
           close;

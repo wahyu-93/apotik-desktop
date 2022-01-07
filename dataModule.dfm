@@ -3,7 +3,7 @@ object dm: Tdm
   Left = 227
   Top = 291
   Height = 456
-  Width = 1024
+  Width = 1222
   object XPManifest1: TXPManifest
     Left = 128
     Top = 32
@@ -800,5 +800,25 @@ object dm: Tdm
     Parameters = <>
     Left = 800
     Top = 360
+  end
+  object qrySetting: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from tbl_setting')
+    Left = 992
+    Top = 48
+  end
+  object qryUser: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from tbl_user')
+    Left = 992
+    Top = 112
   end
 end

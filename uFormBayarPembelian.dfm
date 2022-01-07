@@ -3,7 +3,7 @@ object fBayarPembelian: TfBayarPembelian
   Top = 287
   AutoScroll = False
   BorderIcons = []
-  Caption = 'fBayarPembelian'
+  Caption = '.:: Form Bayar Pembelian ::.'
   ClientHeight = 346
   ClientWidth = 515
   Color = clGradientInactiveCaption

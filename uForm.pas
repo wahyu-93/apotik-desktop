@@ -13,7 +13,6 @@ type
     Barang1: TMenuItem;
     Supplier1: TMenuItem;
     ransaksi1: TMenuItem;
-    Laporan1: TMenuItem;
     Setting1: TMenuItem;
     Keluar1: TMenuItem;
     Pembelian1: TMenuItem;
@@ -37,6 +36,9 @@ type
     img1: TImage;
     lblTotalPenjualan: TLabel;
     lblTotalPembelian: TLabel;
+    ListPenjualan1: TMenuItem;
+    Pengguna1: TMenuItem;
+    Apotik1: TMenuItem;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);

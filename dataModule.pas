@@ -172,6 +172,8 @@ type
     qryLaporanPenjualanjenis_pelanggan: TStringField;
     qryTotalPenjualan: TADOQuery;
     qryTotalPembelian: TADOQuery;
+    qrySetting: TADOQuery;
+    qryUser: TADOQuery;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

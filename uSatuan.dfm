@@ -2,7 +2,7 @@ object FSatuan: TFSatuan
   Left = 1027
   Top = 160
   AutoScroll = False
-  Caption = 'FSatuan'
+  Caption = '.:: Form Satuan ::.'
   ClientHeight = 528
   ClientWidth = 600
   Color = clGradientInactiveCaption
