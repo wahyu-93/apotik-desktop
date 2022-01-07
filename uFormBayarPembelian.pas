@@ -23,6 +23,8 @@ type
     procedure btnKeluarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnBayarClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -48,7 +50,7 @@ procedure TfBayarPembelian.FormShow(Sender: TObject);
 begin
   dtpTglBayar.Date := Now;
   rbLunas.Checked := false;
-  rbPending.Checked := False;
+  rbPending.Checked := True;
 end;
 
 procedure TfBayarPembelian.btnBayarClick(Sender: TObject);
@@ -75,6 +77,15 @@ begin
     MessageDlg('Status Pembayaran Berhasil Diubah', mtInformation,[mbok],0);
     fPembayaranPembelian.FormShow(Sender);
     close;
+end;
+
+procedure TfBayarPembelian.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+ case Key of
+    VK_F9: btnBayar.Click;
+    VK_F10 : btnKeluar.Click;
+  end;
 end;
 
 end.

@@ -1,6 +1,6 @@
 object fListPenjualan: TfListPenjualan
-  Left = 288
-  Top = 121
+  Left = 637
+  Top = 199
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form List Penjualan ::.'
@@ -13,6 +13,8 @@ object fListPenjualan: TfListPenjualan
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poDesktopCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object img1: TImage
@@ -23407,7 +23409,7 @@ object fListPenjualan: TfListPenjualan
       Top = 16
       Width = 1033
       Height = 449
-      DataSource = dm.dsListPembelian
+      DataSource = dm.dsListPenjualan
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -23423,24 +23425,9 @@ object fListPenjualan: TfListPenjualan
       TitleFont.Style = []
       Columns = <
         item
+          Alignment = taCenter
           Expanded = False
-          FieldName = 'id'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -13
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'kode'
+          FieldName = 'id_penjualan'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
@@ -23456,40 +23443,7 @@ object fListPenjualan: TfListPenjualan
           Visible = False
         end
         item
-          Expanded = False
-          FieldName = 'alamat_supplier'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -13
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'id_1'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -13
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'no_faktur'
           Font.Charset = ANSI_CHARSET
@@ -23504,78 +23458,45 @@ object fListPenjualan: TfListPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 140
           Visible = True
         end
         item
+          Alignment = taCenter
           Expanded = False
-          FieldName = 'tgl_pembelian'
+          FieldName = 'tgl_penjualan'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
-          Title.Caption = 'Tanggal Pembelian'
+          Title.Caption = 'Tgl Penjualan'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 140
           Visible = True
         end
         item
+          Alignment = taCenter
           Expanded = False
-          FieldName = 'supplier_id'
+          FieldName = 'jenis_pelanggan'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
+          Title.Caption = 'Jenis Pelanggan'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'nama_supplier'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Caption = 'Supplier'
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -13
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Width = 64
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'telp_suplier'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Caption = 'No Telp Supplier'
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -13
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Width = 64
+          Width = 140
           Visible = True
         end
         item
@@ -23593,7 +23514,7 @@ object fListPenjualan: TfListPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 140
           Visible = True
         end
         item
@@ -23611,27 +23532,30 @@ object fListPenjualan: TfListPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 140
           Visible = True
         end
         item
+          Alignment = taCenter
           Expanded = False
-          FieldName = 'user_id'
+          FieldName = 'tgl_bayar'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
+          Title.Caption = 'Tanggal Bayar'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
-          Visible = False
+          Width = 140
+          Visible = True
         end
         item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'status'
           Font.Charset = ANSI_CHARSET
@@ -23646,18 +23570,18 @@ object fListPenjualan: TfListPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 140
           Visible = True
         end
         item
+          Alignment = taCenter
           Expanded = False
-          FieldName = 'id_2'
+          FieldName = 'id_pelanggan'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
-          Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -13
@@ -23667,6 +23591,24 @@ object fListPenjualan: TfListPenjualan
           Visible = False
         end
         item
+          Alignment = taCenter
+          Expanded = False
+          FieldName = 'id_user'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = -1
+          Visible = False
+        end
+        item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'nama'
           Font.Charset = ANSI_CHARSET
@@ -23674,7 +23616,6 @@ object fListPenjualan: TfListPenjualan
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
-          Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -13
@@ -23684,40 +23625,7 @@ object fListPenjualan: TfListPenjualan
           Visible = False
         end
         item
-          Expanded = False
-          FieldName = 'username'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -13
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'password'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -13
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'role'
           Font.Charset = ANSI_CHARSET
@@ -23725,7 +23633,6 @@ object fListPenjualan: TfListPenjualan
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
-          Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -13
@@ -23733,19 +23640,6 @@ object fListPenjualan: TfListPenjualan
           Title.Font.Style = []
           Width = -1
           Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'tgl_pembayaran'
-          Title.Alignment = taCenter
-          Title.Caption = 'Tanggal Pembayaran'
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -13
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Width = 120
-          Visible = True
         end>
     end
     object edtpencarian: TEdit
@@ -23761,20 +23655,7 @@ object fListPenjualan: TfListPenjualan
       ParentFont = False
       TabOrder = 1
       Text = 'edtKode'
-    end
-    object btnPilih: TBitBtn
-      Left = 856
-      Top = 504
-      Width = 89
-      Height = 33
-      Caption = 'Detail'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 2
+      OnKeyUp = edtpencarianKeyUp
     end
     object btnKeluar: TBitBtn
       Left = 952
@@ -23788,7 +23669,7 @@ object fListPenjualan: TfListPenjualan
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 2
       OnClick = btnKeluarClick
     end
   end

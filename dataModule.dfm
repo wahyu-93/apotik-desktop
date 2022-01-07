@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 319
-  Top = 626
+  Left = 210
+  Top = 391
   Height = 456
   Width = 1222
   object XPManifest1: TXPManifest
@@ -412,7 +412,7 @@ object dm: Tdm
     SQL.Strings = (
       'select * from tbl_penjualan')
     Left = 488
-    Top = 80
+    Top = 120
   end
   object qryStok: TADOQuery
     Active = True
@@ -456,7 +456,7 @@ object dm: Tdm
     SQL.Strings = (
       'select * from tbl_harga_jual')
     Left = 488
-    Top = 152
+    Top = 192
   end
   object qryRelasiSetHarga: TADOQuery
     Active = True
@@ -468,7 +468,7 @@ object dm: Tdm
         'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id' +
         ' = b.id;')
     Left = 488
-    Top = 208
+    Top = 248
     object qryRelasiSetHargaid: TAutoIncField
       FieldName = 'id'
       ReadOnly = True
@@ -538,7 +538,7 @@ object dm: Tdm
   object dsRelasiSetHarga: TDataSource
     DataSet = qryRelasiSetHarga
     Left = 544
-    Top = 168
+    Top = 208
   end
   object qryRelasiStok: TADOQuery
     Active = True
@@ -564,7 +564,7 @@ object dm: Tdm
     SQL.Strings = (
       'select * from tbl_pelanggan')
     Left = 488
-    Top = 288
+    Top = 328
     object qryPelangganid: TAutoIncField
       FieldName = 'id'
       ReadOnly = True
@@ -577,7 +577,7 @@ object dm: Tdm
   object dsPelanggan: TDataSource
     DataSet = qryPelanggan
     Left = 552
-    Top = 304
+    Top = 344
   end
   object qryRelasiPenjualan: TADOQuery
     Active = True
@@ -594,12 +594,12 @@ object dm: Tdm
         'at c on c.id = b.obat_id left join tbl_jenis d on d.id=c.kode_je' +
         'nis left join tbl_satuan e on e.id = c.kode_satuan')
     Left = 552
-    Top = 64
+    Top = 104
   end
   object dsRelasiPenjualan: TDataSource
     DataSet = qryRelasiPenjualan
     Left = 616
-    Top = 88
+    Top = 128
   end
   object qryDetailPenjualan: TADOQuery
     Active = True
@@ -609,7 +609,7 @@ object dm: Tdm
     SQL.Strings = (
       'select * from tbl_detail_penjualan')
     Left = 616
-    Top = 40
+    Top = 80
     object qryDetailPenjualanid: TAutoIncField
       FieldName = 'id'
       ReadOnly = True
@@ -845,5 +845,71 @@ object dm: Tdm
     DataSet = qryUser
     Left = 1040
     Top = 128
+  end
+  object qryListPenjualan: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select a.id as id_pelanggan, a.jenis_pelanggan, b.id as id_penju' +
+        'alan, b.no_faktur, b.tgl_penjualan, b.jumlah_item, b.total, b.st' +
+        'atus, b.tgl_bayar, c.id as id_user, c.nama, c.role from tbl_pela' +
+        'nggan a left join tbl_penjualan b on b.id_pelanggan = a.id inner' +
+        ' JOIN tbl_user c on c.id = b.user_id')
+    Left = 488
+    Top = 24
+    object qryListPenjualanid_pelanggan: TAutoIncField
+      FieldName = 'id_pelanggan'
+      ReadOnly = True
+    end
+    object qryListPenjualanjenis_pelanggan: TStringField
+      FieldName = 'jenis_pelanggan'
+      Size = 100
+    end
+    object qryListPenjualanid_penjualan: TAutoIncField
+      FieldName = 'id_penjualan'
+      ReadOnly = True
+    end
+    object qryListPenjualanno_faktur: TStringField
+      FieldName = 'no_faktur'
+      Size = 50
+    end
+    object qryListPenjualantgl_penjualan: TDateTimeField
+      FieldName = 'tgl_penjualan'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object qryListPenjualanjumlah_item: TIntegerField
+      FieldName = 'jumlah_item'
+    end
+    object qryListPenjualantotal: TFloatField
+      FieldName = 'total'
+    end
+    object qryListPenjualanstatus: TStringField
+      FieldName = 'status'
+      Size = 15
+    end
+    object qryListPenjualantgl_bayar: TDateTimeField
+      FieldName = 'tgl_bayar'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object qryListPenjualanid_user: TAutoIncField
+      FieldName = 'id_user'
+      ReadOnly = True
+    end
+    object qryListPenjualannama: TStringField
+      FieldName = 'nama'
+      Size = 50
+    end
+    object qryListPenjualanrole: TStringField
+      FieldName = 'role'
+      Size = 50
+    end
+  end
+  object dsListPenjualan: TDataSource
+    DataSet = qryListPenjualan
+    Left = 560
+    Top = 16
   end
 end

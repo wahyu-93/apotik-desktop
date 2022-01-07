@@ -29,6 +29,8 @@ type
     procedure FormShow(Sender: TObject);
     procedure edtBayarKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -123,6 +125,15 @@ begin
       edtKembalian.Text := edtKmbalian.Text;
       Ribuan(edtKembalian);
     end;
+end;
+
+procedure TfBayar.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  case Key of
+    VK_F9: btnBayar.Click;
+    VK_f10: btnKeluar.Click;
+  end;
 end;
 
 end.

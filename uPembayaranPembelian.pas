@@ -76,6 +76,12 @@ end;
 
 procedure TfPembayaranPembelian.btnPilihClick(Sender: TObject);
 begin
+  if dbgrd1.Fields[12].AsString = 'lunas' then
+    begin
+      MessageDlg('Status Pembelian Sudah Lunas',mtInformation,[mbOK],0);
+      Exit;
+    end;
+
   fBayarPembelian.edtIdPembelian.Text := dbgrd1.Fields[3].AsString;
   fBayarPembelian.ShowModal;
 end;

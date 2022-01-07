@@ -1,6 +1,6 @@
 object fPembayaranPembelian: TfPembayaranPembelian
-  Left = 132
-  Top = 129
+  Left = 206
+  Top = 217
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form List Pembelian Obat ::.'
@@ -23438,7 +23438,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23455,7 +23454,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23472,7 +23470,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23489,7 +23486,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23542,7 +23538,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23631,7 +23626,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23666,7 +23660,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23683,7 +23676,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23700,7 +23692,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23717,7 +23708,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23734,7 +23724,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item

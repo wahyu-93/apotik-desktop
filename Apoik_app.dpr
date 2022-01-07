@@ -20,7 +20,8 @@ uses
   uPengguna in 'uPengguna.pas' {fPengguna},
   uSetting in 'uSetting.pas' {fSetting},
   uLogin in 'uLogin.pas' {fLogin},
-  uMenuKasir in 'uMenuKasir.pas' {fMenuKasir};
+  uMenuKasir in 'uMenuKasir.pas' {fMenuKasir},
+  uListJualObat in 'uListJualObat.pas' {fListJualObat};
 
 {$R *.res}
 
@@ -45,5 +46,6 @@ begin
   Application.CreateForm(TfPengguna, fPengguna);
   Application.CreateForm(TfSetting, fSetting);
   Application.CreateForm(TfMenuKasir, fMenuKasir);
+  Application.CreateForm(TfListJualObat, fListJualObat);
   Application.Run;
 end.

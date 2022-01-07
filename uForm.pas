@@ -54,6 +54,7 @@ type
     procedure Pengguna1Click(Sender: TObject);
     procedure Apotik1Click(Sender: TObject);
     procedure tmr2Timer(Sender: TObject);
+    procedure ListPenjualan1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -67,7 +68,7 @@ implementation
 
 uses
   uJenisObat, uSatuan, uSupplier, uObat, uPembelian, uPembayaranPembelian, 
-  uPenjualan, uSetHarga, dataModule, uPengguna, uSetting;
+  uPenjualan, uSetHarga, dataModule, uPengguna, uSetting, uListPenjualan;
 
 {$R *.dfm}
 
@@ -200,6 +201,11 @@ end;
 procedure TFMenu.tmr2Timer(Sender: TObject);
 begin
   stat1.Panels[2].Text := 'Tanggal ' + FormatDateTime('dd-mm-yyyy',Now) + ' : ' + TimeToStr(Now);
+end;
+
+procedure TFMenu.ListPenjualan1Click(Sender: TObject);
+begin
+  fListPenjualan.ShowModal;
 end;
 
 end.
