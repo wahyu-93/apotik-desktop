@@ -21,14 +21,17 @@ uses
   uSetting in 'uSetting.pas' {fSetting},
   uLogin in 'uLogin.pas' {fLogin},
   uMenuKasir in 'uMenuKasir.pas' {fMenuKasir},
-  uListJualObat in 'uListJualObat.pas' {fListJualObat};
+  uListJualObat in 'uListJualObat.pas' {fLaporanPenjualan},
+  uLaporanPembelian in 'uLaporanPembelian.pas' {fLaporanPembelian},
+  uLaporanStok in 'uLaporanStok.pas' {fLaporanStok},
+  uLaporanItemTerjual in 'uLaporanItemTerjual.pas' {fLaporanJumlahItemTerjual};
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.CreateForm(TfLogin, fLogin);
   Application.CreateForm(Tdm, dm);
+  Application.CreateForm(TfLogin, fLogin);
   Application.CreateForm(TFMenu, FMenu);
   Application.CreateForm(TfJenisObat, fJenisObat);
   Application.CreateForm(TFSatuan, FSatuan);
@@ -46,6 +49,9 @@ begin
   Application.CreateForm(TfPengguna, fPengguna);
   Application.CreateForm(TfSetting, fSetting);
   Application.CreateForm(TfMenuKasir, fMenuKasir);
-  Application.CreateForm(TfListJualObat, fListJualObat);
+  Application.CreateForm(TfLaporanPenjualan, fLaporanPenjualan);
+  Application.CreateForm(TfLaporanPembelian, fLaporanPembelian);
+  Application.CreateForm(TfLaporanStok, fLaporanStok);
+  Application.CreateForm(TfLaporanJumlahItemTerjual, fLaporanJumlahItemTerjual);
   Application.Run;
 end.

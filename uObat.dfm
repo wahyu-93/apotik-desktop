@@ -23553,7 +23553,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 150
+          Width = 130
           Visible = True
         end
         item
@@ -23566,7 +23566,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 150
+          Width = 130
           Visible = True
         end
         item
@@ -23579,7 +23579,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 150
+          Width = 130
           Visible = True
         end
         item
@@ -23640,7 +23640,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 150
+          Width = 130
           Visible = True
         end
         item
@@ -23677,7 +23677,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 150
+          Width = 130
           Visible = True
         end
         item
@@ -23691,7 +23691,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 50
+          Width = 130
           Visible = True
         end>
     end

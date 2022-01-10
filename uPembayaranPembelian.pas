@@ -43,7 +43,8 @@ begin
     begin
       Close;
       sql.Clear;
-      SQL.Text := 'select * from tbl_supplier left join tbl_pembelian on tbl_pembelian.supplier_id = tbl_supplier.id inner join tbl_user on tbl_user.id = tbl_pembelian.user_id order by tbl_pembelian.id desc';
+      SQL.Text := 'select * from tbl_supplier left join tbl_pembelian on tbl_pembelian.supplier_id = tbl_supplier.id inner join tbl_user on tbl_user.id = tbl_pembelian.user_id '+
+                  'where date(tgl_pembelian) = '+QuotedStr(FormatDateTime('yyyy-mm-dd',Now))+' order by tbl_pembelian.id desc';
       Open;
     end;
 end;

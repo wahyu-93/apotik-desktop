@@ -23,23 +23,27 @@ type
     ListPembelian1: TMenuItem;
     stat1: TStatusBar;
     tmr1: TTimer;
-    grp1: TGroupBox;
-    grp2: TGroupBox;
-    grp3: TGroupBox;
-    grp4: TGroupBox;
     grp5: TGroupBox;
     lbl1: TLabel;
-    dbgrdPenjualan: TDBGrid;
-    dbgrdPembelian: TDBGrid;
-    dbgrdItemLaris: TDBGrid;
-    dbgrdStok: TDBGrid;
     img1: TImage;
-    lblTotalPenjualan: TLabel;
-    lblTotalPembelian: TLabel;
     ListPenjualan1: TMenuItem;
     Pengguna1: TMenuItem;
     Apotik1: TMenuItem;
     tmr2: TTimer;
+    Laporan1: TMenuItem;
+    LaporanPembelian1: TMenuItem;
+    LaporanPenjualan1: TMenuItem;
+    LaporanStok1: TMenuItem;
+    LaporanItemLaris1: TMenuItem;
+    pnl1: TPanel;
+    lblTotalPembelian: TLabel;
+    lbl2: TLabel;
+    pnl2: TPanel;
+    lbl4: TLabel;
+    lblTotalPenjualan: TLabel;
+    lblJam: TLabel;
+    lbl6: TLabel;
+    lbl3: TLabel;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
@@ -55,6 +59,10 @@ type
     procedure Apotik1Click(Sender: TObject);
     procedure tmr2Timer(Sender: TObject);
     procedure ListPenjualan1Click(Sender: TObject);
+    procedure LaporanPembelian1Click(Sender: TObject);
+    procedure LaporanPenjualan1Click(Sender: TObject);
+    procedure LaporanStok1Click(Sender: TObject);
+    procedure LaporanItemLaris1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -68,9 +76,23 @@ implementation
 
 uses
   uJenisObat, uSatuan, uSupplier, uObat, uPembelian, uPembayaranPembelian, 
-  uPenjualan, uSetHarga, dataModule, uPengguna, uSetting, uListPenjualan;
+  uPenjualan, uSetHarga, dataModule, uPengguna, uSetting, uListPenjualan, 
+  uLaporanPembelian, uListJualObat, uLaporanStok, uLaporanItemTerjual;
 
 {$R *.dfm}
+
+function hari (vtgl : TDate):string;
+var a : Integer;
+const
+  nama_hari: array[1..7] of string = ('Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'jum''at', 'Sabtu');
+begin
+  for a:=1 to 7 do
+   begin
+     LongDayNames[a] := nama_hari[a];
+   end;
+
+  Result := FormatDateTime('dddd',vtgl);
+end;
 
 procedure TFMenu.Keluar1Click(Sender: TObject);
 begin
@@ -127,40 +149,9 @@ begin
   stat1.Panels[0].Text := 'Pengguna : ' + dm.qryUser.FieldByName('nama').AsString;
   stat1.Panels[1].Text := 'Role : ' + dm.qryUser.fieldByname('role').AsString;
 
-  with dm.qryLaporanPenjualan do
-    begin
-      close;
-      sql.Clear;
-      SQL.Text := 'select * from tbl_penjualan left JOIN tbl_pelanggan on tbl_penjualan.id_pelanggan = tbl_pelanggan.id '+
-                  'where tbl_penjualan.tgl_penjualan like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%'' order by tbl_penjualan.id asc';
-      Open;
-    end;
+  lbl6.Caption := 'Selamat Datang '+ dm.qryUser.fieldbyname('nama').AsString+' Di Aplikasi Kasir Apotik V.1';
+  lbl3.Caption := 'Anda Login Sebagai '+ dm.qryUser.fieldbyname('role').AsString;
 
-  with dm.qryLaporanPembelian do
-    begin
-      close;
-      SQL.Clear;
-      sql.Text := 'select * from tbl_pembelian left join tbl_supplier on tbl_pembelian.supplier_id = tbl_supplier.id '+
-                  'where tbl_pembelian.tgl_pembelian = '+QuotedStr(FormatDateTime('yyyy-mm-dd',Now))+' order by tbl_pembelian.id asc';
-      Open;
-    end;
-
-  with dm.qryLaporanItemLaris do
-    begin
-      Close;
-      SQL.Clear;
-      SQL.Text := 'select *, sum(a.jumlah_jual) as jmlItemJual from tbl_penjualan z left join tbl_detail_penjualan a on z.id = a.penjualan_id left join '+
-                  'tbl_obat b on a.obat_id = b.id left join tbl_satuan d on d.id = b.kode_satuan where z.tgl_penjualan like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%'' group by a.obat_id order by jmlItemJual desc';
-      Open;
-    end;
-
-  with dm.qryLaporanStok do
-    begin
-      close;
-      sql.Clear;
-      SQL.Text := 'select * from tbl_obat a left join tbl_satuan b on a.kode_satuan = b.id order by a.stok asc';
-      Open;
-    end;
 
   //total penjualan
   with dm.qryTotalPenjualan do
@@ -201,11 +192,32 @@ end;
 procedure TFMenu.tmr2Timer(Sender: TObject);
 begin
   stat1.Panels[2].Text := 'Tanggal ' + FormatDateTime('dd-mm-yyyy',Now) + ' : ' + TimeToStr(Now);
+  lblJam.Caption := hari(Now)+', '+FormatDateTime('dd-mm-yyyy',Now) + #13 + TimeToStr(Now);
 end;
 
 procedure TFMenu.ListPenjualan1Click(Sender: TObject);
 begin
   fListPenjualan.ShowModal;
+end;
+
+procedure TFMenu.LaporanPembelian1Click(Sender: TObject);
+begin
+  fLaporanPembelian.ShowModal;
+end;
+
+procedure TFMenu.LaporanPenjualan1Click(Sender: TObject);
+begin
+  fLaporanPenjualan.ShowModal;
+end;
+
+procedure TFMenu.LaporanStok1Click(Sender: TObject);
+begin
+  fLaporanStok.ShowModal;
+end;
+
+procedure TFMenu.LaporanItemLaris1Click(Sender: TObject);
+begin
+  fLaporanJumlahItemTerjual.ShowModal;
 end;
 
 end.

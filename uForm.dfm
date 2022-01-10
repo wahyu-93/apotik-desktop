@@ -1,6 +1,6 @@
 object FMenu: TFMenu
-  Left = 198
-  Top = 107
+  Left = 172
+  Top = 86
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Applikasi Kasir Apotik V.1 ::.'
@@ -23379,6 +23379,45 @@ object FMenu: TFMenu
       F7EEBDD7BDFBAF75EF7EEBDD763EA3FD71FEF7EF47875E1C7AFFD9}
     Stretch = True
   end
+  object lblJam: TLabel
+    Left = 832
+    Top = 104
+    Width = 167
+    Height = 75
+    Caption = 'lblJam'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -64
+    Font.Name = 'Arial Narrow'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object lbl6: TLabel
+    Left = 8
+    Top = 264
+    Width = 518
+    Height = 33
+    Caption = 'Selamat Datang Di Aplikasi Kasir Apotik V.1'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -27
+    Font.Name = 'Bahnschrift'
+    Font.Style = []
+    ParentFont = False
+  end
+  object lbl3: TLabel
+    Left = 8
+    Top = 312
+    Width = 518
+    Height = 33
+    Caption = 'Selamat Datang Di Aplikasi Kasir Apotik V.1'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -27
+    Font.Name = 'Bahnschrift'
+    Font.Style = []
+    ParentFont = False
+  end
   object stat1: TStatusBar
     Left = 0
     Top = 814
@@ -23398,574 +23437,12 @@ object FMenu: TFMenu
         Width = 50
       end>
   end
-  object grp1: TGroupBox
-    Left = 8
-    Top = 96
-    Width = 713
-    Height = 345
-    Caption = 'Laporan Penjualan Item  (Harian) '
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Arial'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 1
-    object lblTotalPenjualan: TLabel
-      Left = 144
-      Top = 296
-      Width = 435
-      Height = 37
-      Caption = 'Total Penjualan : Rp. 100000000000'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -32
-      Font.Name = 'Arial Narrow'
-      Font.Style = [fsItalic]
-      ParentFont = False
-    end
-    object dbgrdPenjualan: TDBGrid
-      Left = 8
-      Top = 24
-      Width = 697
-      Height = 265
-      DataSource = dm.dslaporanPenjualan
-      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
-      TabOrder = 0
-      TitleFont.Charset = ANSI_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -16
-      TitleFont.Name = 'Arial'
-      TitleFont.Style = []
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 'id'
-          Title.Alignment = taCenter
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'no_faktur'
-          Title.Alignment = taCenter
-          Title.Caption = 'No Faktur'
-          Width = 64
-          Visible = True
-        end
-        item
-          Alignment = taCenter
-          Expanded = False
-          FieldName = 'tgl_penjualan'
-          Title.Alignment = taCenter
-          Title.Caption = 'Tgl Penjualan'
-          Width = 64
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'id_pelanggan'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'jumlah_item'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'user_id'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Alignment = taCenter
-          Expanded = False
-          FieldName = 'tgl_bayar'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'id_1'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'jenis_pelanggan'
-          Title.Alignment = taCenter
-          Title.Caption = 'Pelanggan'
-          Width = 64
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'status'
-          Title.Alignment = taCenter
-          Title.Caption = 'Status'
-          Width = 64
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'total'
-          Title.Alignment = taCenter
-          Title.Caption = 'Total Penjualan'
-          Width = 120
-          Visible = True
-        end>
-    end
-  end
-  object grp2: TGroupBox
-    Left = 736
-    Top = 96
-    Width = 713
-    Height = 345
-    Caption = 'Laporan Pembelian Item  (Harian) '
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Arial'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 2
-    object lblTotalPembelian: TLabel
-      Left = 144
-      Top = 296
-      Width = 442
-      Height = 37
-      Caption = 'Total Pembelian : Rp. 100000000000'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -32
-      Font.Name = 'Arial Narrow'
-      Font.Style = [fsItalic]
-      ParentFont = False
-    end
-    object dbgrdPembelian: TDBGrid
-      Left = 8
-      Top = 24
-      Width = 697
-      Height = 265
-      DataSource = dm.dsLaporanPembelian
-      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
-      TabOrder = 0
-      TitleFont.Charset = ANSI_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -16
-      TitleFont.Name = 'Arial'
-      TitleFont.Style = []
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 'id'
-          Title.Alignment = taCenter
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'no_faktur'
-          Title.Alignment = taCenter
-          Title.Caption = 'No Faktur'
-          Width = 64
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'tgl_pembelian'
-          Title.Alignment = taCenter
-          Title.Caption = 'Tgl Beli'
-          Width = 64
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'supplier_id'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'jumlah_item'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'user_id'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'tgl_pembayaran'
-          Title.Alignment = taCenter
-          Title.Caption = 'Tgl Bayar'
-          Width = 64
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'id_1'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'kode'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'nama_supplier'
-          Title.Alignment = taCenter
-          Title.Caption = 'Supplier'
-          Width = 64
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'alamat_supplier'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'telp_suplier'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'status'
-          Title.Alignment = taCenter
-          Title.Caption = 'Status'
-          Width = 64
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'total'
-          Title.Alignment = taCenter
-          Title.Caption = 'Total'
-          Width = 110
-          Visible = True
-        end>
-    end
-  end
-  object grp3: TGroupBox
-    Left = 8
-    Top = 464
-    Width = 713
-    Height = 337
-    Caption = 'Laporan Item Paling Laris  (Harian) '
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Arial'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 3
-    object dbgrdItemLaris: TDBGrid
-      Left = 8
-      Top = 24
-      Width = 697
-      Height = 305
-      DataSource = dm.dsLaporanItemLaris
-      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
-      TabOrder = 0
-      TitleFont.Charset = ANSI_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -16
-      TitleFont.Name = 'Arial'
-      TitleFont.Style = []
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 'id'
-          Title.Alignment = taCenter
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'penjualan_id'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'obat_id'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'harga_jual'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'jumlah_jual'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'id_1'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'kode'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'barcode'
-          Title.Alignment = taCenter
-          Title.Caption = 'Barcode'
-          Width = 64
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'nama_obat'
-          Title.Alignment = taCenter
-          Title.Caption = 'Nama Obat'
-          Width = 64
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'kode_jenis'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'kode_satuan'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'tgl_obat'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'tgl_exp'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'status'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'stok'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'id_2'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'kode_1'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'satuan'
-          Title.Alignment = taCenter
-          Title.Caption = 'Satuan'
-          Width = 64
-          Visible = True
-        end
-        item
-          Alignment = taCenter
-          Expanded = False
-          FieldName = 'jmlItemJual'
-          Title.Alignment = taCenter
-          Title.Caption = 'Jumlah Terjual'
-          Width = 150
-          Visible = True
-        end>
-    end
-  end
-  object grp4: TGroupBox
-    Left = 736
-    Top = 464
-    Width = 713
-    Height = 337
-    Caption = 'Stok Item '
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Arial'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 4
-    object dbgrdStok: TDBGrid
-      Left = 8
-      Top = 24
-      Width = 697
-      Height = 305
-      DataSource = dm.dsLaporanStok
-      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
-      TabOrder = 0
-      TitleFont.Charset = ANSI_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -16
-      TitleFont.Name = 'Arial'
-      TitleFont.Style = []
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 'id'
-          Title.Alignment = taCenter
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'kode'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'barcode'
-          Title.Alignment = taCenter
-          Title.Caption = 'Barcode'
-          Width = 64
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'nama_obat'
-          Title.Alignment = taCenter
-          Title.Caption = 'Nama Obat'
-          Width = 64
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'kode_jenis'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'kode_satuan'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'tgl_obat'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Alignment = taCenter
-          Expanded = False
-          FieldName = 'tgl_exp'
-          Title.Alignment = taCenter
-          Title.Caption = 'Tanggal Exp'
-          Width = 64
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'status'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Alignment = taCenter
-          Expanded = False
-          FieldName = 'stok'
-          Title.Alignment = taCenter
-          Title.Caption = 'Stok'
-          Width = 64
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'id_1'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'kode_1'
-          Title.Alignment = taCenter
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'satuan'
-          Title.Alignment = taCenter
-          Title.Caption = 'Satuan'
-          Width = 130
-          Visible = True
-        end>
-    end
-  end
   object grp5: TGroupBox
     Left = 8
     Top = 8
     Width = 1441
     Height = 73
-    TabOrder = 5
+    TabOrder = 1
     object lbl1: TLabel
       Left = 648
       Top = 16
@@ -23977,6 +23454,74 @@ object FMenu: TFMenu
       Font.Height = -37
       Font.Name = 'Arial Narrow'
       Font.Style = []
+      ParentFont = False
+    end
+  end
+  object pnl1: TPanel
+    Left = 8
+    Top = 104
+    Width = 385
+    Height = 137
+    Color = clGradientInactiveCaption
+    TabOrder = 2
+    object lblTotalPembelian: TLabel
+      Left = 16
+      Top = 76
+      Width = 361
+      Height = 31
+      Caption = 'Total Pembelian : Rp. 100000000000'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -27
+      Font.Name = 'Arial Narrow'
+      Font.Style = [fsItalic]
+      ParentFont = False
+    end
+    object lbl2: TLabel
+      Left = 16
+      Top = 16
+      Width = 228
+      Height = 24
+      Caption = 'Total Pembelian (Harian)'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -21
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
+  end
+  object pnl2: TPanel
+    Left = 400
+    Top = 104
+    Width = 393
+    Height = 137
+    Color = clGradientInactiveCaption
+    TabOrder = 3
+    object lbl4: TLabel
+      Left = 16
+      Top = 16
+      Width = 222
+      Height = 24
+      Caption = 'Total Penjualan (Harian)'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -21
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblTotalPenjualan: TLabel
+      Left = 16
+      Top = 76
+      Width = 361
+      Height = 31
+      Caption = 'Total Pembelian : Rp. 100000000000'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -27
+      Font.Name = 'Arial Narrow'
+      Font.Style = [fsItalic]
       ParentFont = False
     end
   end
@@ -24023,6 +23568,25 @@ object FMenu: TFMenu
       object ListPenjualan1: TMenuItem
         Caption = 'List Penjualan'
         OnClick = ListPenjualan1Click
+      end
+    end
+    object Laporan1: TMenuItem
+      Caption = 'Laporan'
+      object LaporanPembelian1: TMenuItem
+        Caption = 'Laporan Pembelian'
+        OnClick = LaporanPembelian1Click
+      end
+      object LaporanPenjualan1: TMenuItem
+        Caption = 'Laporan Penjualan'
+        OnClick = LaporanPenjualan1Click
+      end
+      object LaporanStok1: TMenuItem
+        Caption = 'Laporan Stok'
+        OnClick = LaporanStok1Click
+      end
+      object LaporanItemLaris1: TMenuItem
+        Caption = 'Laporan Jumlah Item Terjual'
+        OnClick = LaporanItemLaris1Click
       end
     end
     object Setting1: TMenuItem
