@@ -15,10 +15,13 @@ type
     dbgrd1: TDBGrid;
     edtpencarian: TEdit;
     btnKeluar: TBitBtn;
+    btnDetail: TBitBtn;
     procedure btnKeluarClick(Sender: TObject);
     procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure FormShow(Sender: TObject);
+    procedure btnDetailClick(Sender: TObject);
+    procedure dbgrd1DblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,7 +34,7 @@ var
 implementation
 
 uses
-  dataModule;
+  dataModule, uDetailPenjualan;
 
 {$R *.dfm}
 
@@ -71,6 +74,19 @@ procedure TfListPenjualan.FormShow(Sender: TObject);
 begin
   konek;
   edtpencarian.Clear;
+end;
+
+procedure TfListPenjualan.btnDetailClick(Sender: TObject);
+begin
+  if dbgrd1.Fields[0].AsString = '' then Exit;
+
+  fDetailPenjualan.edtFaktur.Text := dbgrd1.Fields[1].AsString;
+  fDetailPenjualan.ShowModal;
+end;
+
+procedure TfListPenjualan.dbgrd1DblClick(Sender: TObject);
+begin
+  btnDetail.Click;
 end;
 
 end.

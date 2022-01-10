@@ -124,6 +124,7 @@ begin
     VK_F2: btnBantuObat.Click;
     VK_F5: btnSelesai.Click;
     VK_F6: btnHapus.Click;
+    VK_F10: btnKeluar.Click;
   end;
 end;
 
@@ -236,8 +237,6 @@ procedure TFpenjualan.btnBantuObatClick(Sender: TObject);
 begin
   fBantuObatPenjualan.ShowModal;
 end;
-
-
 
 procedure TFpenjualan.konek(status: string);
 begin

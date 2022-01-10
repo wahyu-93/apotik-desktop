@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 210
-  Top = 391
+  Left = 369
+  Top = 329
   Height = 456
   Width = 1222
   object XPManifest1: TXPManifest
@@ -595,6 +595,63 @@ object dm: Tdm
         'nis left join tbl_satuan e on e.id = c.kode_satuan')
     Left = 552
     Top = 104
+    object qryRelasiPenjualanid_penjualan: TAutoIncField
+      FieldName = 'id_penjualan'
+      ReadOnly = True
+    end
+    object qryRelasiPenjualanno_faktur: TStringField
+      FieldName = 'no_faktur'
+      Size = 50
+    end
+    object qryRelasiPenjualantgl_penjualan: TDateTimeField
+      FieldName = 'tgl_penjualan'
+    end
+    object qryRelasiPenjualanjumlah_item: TIntegerField
+      FieldName = 'jumlah_item'
+    end
+    object qryRelasiPenjualantotal: TFloatField
+      FieldName = 'total'
+    end
+    object qryRelasiPenjualanid_detail_penjualan: TAutoIncField
+      FieldName = 'id_detail_penjualan'
+      ReadOnly = True
+    end
+    object qryRelasiPenjualanobat_id: TIntegerField
+      FieldName = 'obat_id'
+    end
+    object qryRelasiPenjualanjumlah_jual: TIntegerField
+      FieldName = 'jumlah_jual'
+    end
+    object qryRelasiPenjualanharga_jual: TIntegerField
+      FieldName = 'harga_jual'
+      DisplayFormat = '#,#;(#,#);#,#'
+    end
+    object qryRelasiPenjualankode: TStringField
+      FieldName = 'kode'
+      Size = 30
+    end
+    object qryRelasiPenjualanbarcode: TStringField
+      FieldName = 'barcode'
+      Size = 100
+    end
+    object qryRelasiPenjualannama_obat: TStringField
+      FieldName = 'nama_obat'
+      Size = 150
+    end
+    object qryRelasiPenjualantgl_obat: TDateField
+      FieldName = 'tgl_obat'
+    end
+    object qryRelasiPenjualantgl_exp: TDateField
+      FieldName = 'tgl_exp'
+    end
+    object qryRelasiPenjualanjenis: TStringField
+      FieldName = 'jenis'
+      Size = 100
+    end
+    object qryRelasiPenjualansatuan: TStringField
+      FieldName = 'satuan'
+      Size = 100
+    end
   end
   object dsRelasiPenjualan: TDataSource
     DataSet = qryRelasiPenjualan
@@ -885,6 +942,7 @@ object dm: Tdm
     end
     object qryListPenjualantotal: TFloatField
       FieldName = 'total'
+      DisplayFormat = '#,#;(#,#);#,#'
     end
     object qryListPenjualanstatus: TStringField
       FieldName = 'status'

@@ -201,7 +201,7 @@ procedure TfSetHarga.dbgrd1DblClick(Sender: TObject);
 begin
   if dm.qryRelasiSetHarga.IsEmpty then Exit;
   
-  edtKode.Text := dbgrd1.Fields[11].AsString+'-'+dbgrd1.Fields[1].AsString;
+  edtKode.Text := dbgrd1.Fields[1].AsString;
   lblNamaObat.Caption := dbgrd1.Fields[3].AsString;
   lblJenis.Caption := dbgrd1.Fields[17].AsString;
   lblSatuan.Caption := dbgrd1.Fields[16].AsString;

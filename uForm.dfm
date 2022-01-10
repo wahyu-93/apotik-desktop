@@ -19,7 +19,7 @@ object FMenu: TFMenu
   PixelsPerInch = 96
   TextHeight = 13
   object img1: TImage
-    Left = -8
+    Left = -16
     Top = 0
     Width = 1809
     Height = 937
@@ -23380,7 +23380,7 @@ object FMenu: TFMenu
     Stretch = True
   end
   object lblJam: TLabel
-    Left = 832
+    Left = 912
     Top = 104
     Width = 167
     Height = 75
@@ -23460,13 +23460,13 @@ object FMenu: TFMenu
   object pnl1: TPanel
     Left = 8
     Top = 104
-    Width = 385
+    Width = 441
     Height = 137
     Color = clGradientInactiveCaption
     TabOrder = 2
     object lblTotalPembelian: TLabel
-      Left = 16
-      Top = 76
+      Left = 8
+      Top = 68
       Width = 361
       Height = 31
       Caption = 'Total Pembelian : Rp. 100000000000'
@@ -23478,42 +23478,42 @@ object FMenu: TFMenu
       ParentFont = False
     end
     object lbl2: TLabel
-      Left = 16
-      Top = 16
-      Width = 228
+      Left = 8
+      Top = 24
+      Width = 212
       Height = 24
       Caption = 'Total Pembelian (Harian)'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -21
-      Font.Name = 'Arial'
+      Font.Name = 'Baskerville Old Face'
       Font.Style = []
       ParentFont = False
     end
   end
   object pnl2: TPanel
-    Left = 400
+    Left = 456
     Top = 104
-    Width = 393
+    Width = 449
     Height = 137
     Color = clGradientInactiveCaption
     TabOrder = 3
     object lbl4: TLabel
-      Left = 16
-      Top = 16
-      Width = 222
+      Left = 8
+      Top = 24
+      Width = 205
       Height = 24
       Caption = 'Total Penjualan (Harian)'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -21
-      Font.Name = 'Arial'
+      Font.Name = 'Baskerville Old Face'
       Font.Style = []
       ParentFont = False
     end
     object lblTotalPenjualan: TLabel
-      Left = 16
-      Top = 76
+      Left = 8
+      Top = 68
       Width = 361
       Height = 31
       Caption = 'Total Pembelian : Rp. 100000000000'

@@ -23663,9 +23663,9 @@ object fSetHarga: TfSetHarga
         end
         item
           Expanded = False
-          FieldName = 'barcode'
+          FieldName = 'kode'
           Title.Alignment = taCenter
-          Title.Caption = 'Barcode'
+          Title.Caption = 'Kode Obat'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -16
@@ -23790,18 +23790,6 @@ object fSetHarga: TfSetHarga
         end
         item
           Expanded = False
-          FieldName = 'kode'
-          Title.Alignment = taCenter
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
-          Title.Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
           FieldName = 'kode_jenis'
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
@@ -23857,6 +23845,19 @@ object fSetHarga: TfSetHarga
         item
           Expanded = False
           FieldName = 'jenis'
+          Width = -1
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'barcode'
+          Title.Alignment = taCenter
+          Title.Caption = 'Barcode'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -16
+          Title.Font.Name = 'Arial Narrow'
+          Title.Font.Style = []
           Width = -1
           Visible = False
         end>

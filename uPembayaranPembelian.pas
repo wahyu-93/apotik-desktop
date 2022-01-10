@@ -16,11 +16,14 @@ type
     btnPilih: TBitBtn;
     btnKeluar: TBitBtn;
     img1: TImage;
+    btnDetail: TBitBtn;
     procedure btnKeluarClick(Sender: TObject);
     procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     procedure btnPilihClick(Sender: TObject);
+    procedure btnDetailClick(Sender: TObject);
+    procedure dbgrd1DblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -33,7 +36,7 @@ var
 implementation
 
 uses
-  dataModule, uFormBayarPembelian;
+  dataModule, uFormBayarPembelian, uDetailPembelian;
 
 {$R *.dfm}
 
@@ -85,6 +88,19 @@ begin
 
   fBayarPembelian.edtIdPembelian.Text := dbgrd1.Fields[3].AsString;
   fBayarPembelian.ShowModal;
+end;
+
+procedure TfPembayaranPembelian.btnDetailClick(Sender: TObject);
+begin
+ if dbgrd1.Fields[0].AsString = '' then Exit;
+
+  fDetailPembelian.edtFaktur.Text := dbgrd1.Fields[4].AsString;
+  fDetailPembelian.ShowModal;
+end;
+
+procedure TfPembayaranPembelian.dbgrd1DblClick(Sender: TObject);
+begin
+  btnDetail.Click;
 end;
 
 end.

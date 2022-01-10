@@ -64,11 +64,9 @@ end;
 
 procedure TfBantuObatPenjualan.btnPilihClick(Sender: TObject);
 begin
-  if dbgrd1.Fields[2].AsString = '' then
-    Fpenjualan.edtKode.Text := dbgrd1.Fields[12].AsString
-  else
-    Fpenjualan.edtKode.Text := dbgrd1.Fields[2].AsString;
+  if dbgrd1.Fields[1].AsString = '' then Exit;
 
+  Fpenjualan.edtKode.Text := dbgrd1.Fields[2].AsString;
   Fpenjualan.edtIdObat.Text := dbgrd1.Fields[1].AsString;
   Fpenjualan.edtHarga.Text := dbgrd1.Fields[4].AsString;
   Fpenjualan.btnHapus.Enabled := false;

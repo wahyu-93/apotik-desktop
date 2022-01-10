@@ -4,7 +4,7 @@ object fListPenjualan: TfListPenjualan
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form List Penjualan ::.'
-  ClientHeight = 624
+  ClientHeight = 627
   ClientWidth = 1066
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
@@ -23423,6 +23423,7 @@ object fListPenjualan: TfListPenjualan
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnDblClick = dbgrd1DblClick
       Columns = <
         item
           Alignment = taCenter
@@ -23666,6 +23667,21 @@ object fListPenjualan: TfListPenjualan
       ParentFont = False
       TabOrder = 2
       OnClick = btnKeluarClick
+    end
+    object btnDetail: TBitBtn
+      Left = 856
+      Top = 504
+      Width = 89
+      Height = 33
+      Caption = 'Detail'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 3
+      OnClick = btnDetailClick
     end
   end
 end

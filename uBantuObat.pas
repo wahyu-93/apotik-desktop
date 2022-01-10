@@ -49,14 +49,30 @@ end;
 procedure TfBantuObat.edtpencarianKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  with dm.qryObat do
+ if edt1.Text = 'pembelian' then
     begin
-      DisableControls;
-      SQL.Clear;
-      SQL.Text := 'select * from tbl_obat where nama_obat like ''%'+edtpencarian.Text+'%''';
-      Open;
-      EnableControls;
-    end;  
+      with dm.qryObatRelasi do
+        begin
+          close;
+          sql.Clear;
+          sql.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, b.stok, a.id as id_jenis, a.kode as jenisKode, a.jenis, c.id as id_satuan, '+
+                      'c.kode as satuanKode, c.satuan from tbl_jenis a left join tbl_obat b on a.id = b.kode_jenis INNER join tbl_satuan c on c.id = b.kode_satuan  where b.nama_obat like ''%'+edtpencarian.Text+'%'' order by b.id';
+          Open;
+        end;
+    end
+  else
+  if edt1.Text = 'setHarga' then
+    begin
+      with dm.qryObatRelasi do
+        begin
+          close;
+          sql.Clear;
+          sql.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, b.stok, a.id as id_jenis, a.kode as jenisKode, a.jenis, c.id as id_satuan, '+
+                      'c.kode as satuanKode, c.satuan from tbl_jenis a left join tbl_obat b on a.id = b.kode_jenis INNER join tbl_satuan c on c.id = b.kode_satuan '+
+                      'where b.stok > 0 and b.nama_obat like ''%'+edtpencarian.Text+'%''order by b.id';
+          Open;
+        end;
+    end;
 end;
 
 procedure TfBantuObat.btnPilihClick(Sender: TObject);

@@ -24,7 +24,9 @@ uses
   uListJualObat in 'uListJualObat.pas' {fLaporanPenjualan},
   uLaporanPembelian in 'uLaporanPembelian.pas' {fLaporanPembelian},
   uLaporanStok in 'uLaporanStok.pas' {fLaporanStok},
-  uLaporanItemTerjual in 'uLaporanItemTerjual.pas' {fLaporanJumlahItemTerjual};
+  uLaporanItemTerjual in 'uLaporanItemTerjual.pas' {fLaporanJumlahItemTerjual},
+  uDetailPenjualan in 'uDetailPenjualan.pas' {fDetailPenjualan},
+  uDetailPembelian in 'uDetailPembelian.pas' {fDetailPembelian};
 
 {$R *.res}
 
@@ -53,5 +55,7 @@ begin
   Application.CreateForm(TfLaporanPembelian, fLaporanPembelian);
   Application.CreateForm(TfLaporanStok, fLaporanStok);
   Application.CreateForm(TfLaporanJumlahItemTerjual, fLaporanJumlahItemTerjual);
+  Application.CreateForm(TfDetailPenjualan, fDetailPenjualan);
+  Application.CreateForm(TfDetailPembelian, fDetailPembelian);
   Application.Run;
 end.

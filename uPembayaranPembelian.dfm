@@ -23423,6 +23423,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnDblClick = dbgrd1DblClick
       Columns = <
         item
           Expanded = False
@@ -23795,6 +23796,21 @@ object fPembayaranPembelian: TfPembayaranPembelian
       ParentFont = False
       TabOrder = 3
       OnClick = btnKeluarClick
+    end
+    object btnDetail: TBitBtn
+      Left = 760
+      Top = 504
+      Width = 89
+      Height = 33
+      Caption = 'Detail'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 4
+      OnClick = btnDetailClick
     end
   end
 end

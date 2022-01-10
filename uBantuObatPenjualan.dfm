@@ -23442,14 +23442,14 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
         end
         item
           Expanded = False
-          FieldName = 'barcode'
+          FieldName = 'kode'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
-          Title.Caption = 'Barcode'
+          Title.Caption = 'Kode Obat'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -13
@@ -23617,23 +23617,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
         end
         item
           Expanded = False
-          FieldName = 'kode'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -13
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
           FieldName = 'kode_jenis'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -23709,6 +23692,24 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = -1
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'barcode'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Caption = 'Barcode'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -13
