@@ -23444,11 +23444,13 @@ object FMenu: TFMenu
     Height = 73
     TabOrder = 1
     object lbl1: TLabel
-      Left = 648
+      Left = 8
       Top = 16
-      Width = 132
+      Width = 1425
       Height = 43
-      Caption = 'Dashbord'
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'Apotik Hamdi Farma'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -37

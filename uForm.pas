@@ -151,6 +151,7 @@ begin
 
   lbl6.Caption := 'Selamat Datang '+ dm.qryUser.fieldbyname('nama').AsString+' Di Aplikasi Kasir Apotik V.1';
   lbl3.Caption := 'Anda Login Sebagai '+ dm.qryUser.fieldbyname('role').AsString;
+  lbl1.Caption := dm.qrySetting.fieldbyname('nama_toko').AsString;
 
 
   //total penjualan

@@ -24091,9 +24091,10 @@ object fPembelian: TfPembelian
       object lblItem: TLabel
         Left = 8
         Top = 32
-        Width = 78
+        Width = 97
         Height = 33
         Alignment = taCenter
+        AutoSize = False
         Caption = '999999'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -24119,9 +24120,10 @@ object fPembelian: TfPembelian
       object lblTotalHarga: TLabel
         Left = 8
         Top = 32
-        Width = 177
+        Width = 217
         Height = 33
         Alignment = taCenter
+        AutoSize = False
         Caption = 'Rp. 200.000.000'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText

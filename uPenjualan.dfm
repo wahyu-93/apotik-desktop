@@ -23931,6 +23931,7 @@ object Fpenjualan: TFpenjualan
         Width = 96
         Height = 42
         Alignment = taCenter
+        AutoSize = False
         Caption = '999999'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -23955,11 +23956,12 @@ object Fpenjualan: TFpenjualan
       ParentFont = False
       TabOrder = 10
       object lblTotalHarga: TLabel
-        Left = 48
+        Left = 8
         Top = 16
-        Width = 388
+        Width = 473
         Height = 75
         Alignment = taCenter
+        AutoSize = False
         Caption = 'Rp. 200.000.000'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText

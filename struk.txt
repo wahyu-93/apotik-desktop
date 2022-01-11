@@ -2,18 +2,18 @@
 Jl.H.Damanhuri Dpn Msjd Raya 
         082250931217 
 ----------------------------
-No. Nota:PJ-1001202200050
-Tanggal :10/01/2022 16:17:12
+No. Nota:PJ-1101202200058
+Tanggal :11/01/2022 08:43:33
 Kasir   :Wahyu
 ----------------------------
 Nama Barang
       QTY   Harga  Sub Total
 ----------------------------
- Antimo
-      1 X 5.000        5.000
+ Paracetamol
+      3 X 25.000      75.000
 ----------------------------
-Total   :           Rp 5.000
-Bayar   :          Rp 10.000
+Total   :          Rp 75.000
+Bayar   :          Rp 80.000
 Kembali :           Rp 5.000
 ----------------------------
  Jumlah Item  : 1
