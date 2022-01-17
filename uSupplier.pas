@@ -36,6 +36,8 @@ type
     procedure edtTelpKeyPress(Sender: TObject; var Key: Char);
     procedure edtNameKeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
+    procedure edtNameChange(Sender: TObject);
+    procedure mmoAlamatChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -52,6 +54,50 @@ uses
   dataModule, StrUtils;
 
 {$R *.dfm}
+
+procedure upperCase(sender:TObject);  
+var
+  sebelumUp : TNotifyEvent; //mengeset variabel yang dibutuhkan
+  dimulaiUp: Integer;
+begin
+  with (Sender as TEdit) do
+    begin
+      sebelumUp := OnChange; //assign var sebelumUp seperti onChange
+      OnChange := nil;
+      dimulaiUp := SelStart;
+      if ((SelStart > 0) and (Text[SelStart - 1] = ' ')) or (SelStart = 1) then
+        begin
+          SelStart := SelStart - 1;
+          SelLength := 1;
+          //menjadikan karakter pertama menjadi upperCase
+          SelText := AnsiUpperCase (SelText);
+        end;
+      OnChange := sebelumUp;
+      SelStart := dimulaiUp;
+    end;
+end;
+
+procedure upperCaseMemo(sender:TObject);  
+var
+  sebelumUp : TNotifyEvent; //mengeset variabel yang dibutuhkan
+  dimulaiUp: Integer;
+begin
+  with (Sender as TMemo) do
+    begin
+      sebelumUp := OnChange; //assign var sebelumUp seperti onChange
+      OnChange := nil;
+      dimulaiUp := SelStart;
+      if ((SelStart > 0) and (Text[SelStart - 1] = ' ')) or (SelStart = 1) then
+        begin
+          SelStart := SelStart - 1;
+          SelLength := 1;
+          //menjadikan karakter pertama menjadi upperCase
+          SelText := AnsiUpperCase (SelText);
+        end;
+      OnChange := sebelumUp;
+      SelStart := dimulaiUp;
+    end;
+end;
 
 procedure konek;
 begin
@@ -273,6 +319,16 @@ begin
 
   dbgrd1.Enabled := True; edtpencarian.Enabled := True;
   konek;
+end;
+
+procedure TFsupplier.edtNameChange(Sender: TObject);
+begin
+  upperCase(Sender);
+end;
+
+procedure TFsupplier.mmoAlamatChange(Sender: TObject);
+begin
+  upperCaseMemo(Sender);
 end;
 
 end.

@@ -22,6 +22,7 @@ type
     btnHapus: TBitBtn;
     btnKeluar: TBitBtn;
     img1: TImage;
+    edtId: TEdit;
     procedure dbgrd1CellClick(Column: TColumn);
     procedure btnTambahClick(Sender: TObject);
     procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;
@@ -30,6 +31,7 @@ type
     procedure btnKeluarClick(Sender: TObject);
     procedure btnHapusClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure edtSatuanChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -45,6 +47,27 @@ implementation
 uses dataModule, StrUtils;
 
 {$R *.dfm}
+procedure upperCase(sender:TObject);  
+var
+  sebelumUp : TNotifyEvent; //mengeset variabel yang dibutuhkan
+  dimulaiUp: Integer;
+begin
+  with (Sender as TEdit) do
+    begin
+      sebelumUp := OnChange; //assign var sebelumUp seperti onChange
+      OnChange := nil;
+      dimulaiUp := SelStart;
+      if ((SelStart > 0) and (Text[SelStart - 1] = ' ')) or (SelStart = 1) then
+        begin
+          SelStart := SelStart - 1;
+          SelLength := 1;
+          //menjadikan karakter pertama menjadi upperCase
+          SelText := AnsiUpperCase (SelText);
+        end;
+      OnChange := sebelumUp;
+      SelStart := dimulaiUp;
+    end;
+end;
 
 procedure konek;
 begin
@@ -109,9 +132,30 @@ begin
         btnSimpan.Caption := 'Simpan';
         status:='tambah';
         oldSatuan := '';
+
+        with dm.qrySatuan do
+          begin
+            Append;
+            FieldByName('kode').AsString := edtKode.Text;
+            Post;
+
+            Locate('kode',edtKode.Text,[]);
+            edtId.Text := fieldbyname('id').AsString;
+          end;
     end
  else
   begin
+    if edtId.Text <> '' then
+      begin
+        with dm.qrySatuan do
+          begin
+            close;
+            SQL.Clear;
+            SQL.Text := 'delete from tbl_satuan where id = '+QuotedStr(edtId.Text)+'';
+            ExecSQL;
+          end;
+      end;
+
     FormShow(Sender);
   end;
 end;
@@ -151,14 +195,15 @@ begin
 
           with dm.qrySatuan do
             begin
-              Append;
-              FieldByName('kode').AsString := edtKode.Text;
-              FieldByName('satuan').AsString := trim(edtSatuan.Text);
-              Post;
+              close;
+              SQL.Clear;
+              SQL.Text := 'update tbl_satuan set satuan ='+QuotedStr(edtSatuan.Text)
+                          +' where kode = '+QuotedStr(edtKode.Text)+'';
+              ExecSQL;
             end;
 
-          MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
           FormShow(Sender);
+          MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
         end
       else
         begin
@@ -238,7 +283,13 @@ begin
   btnKeluar.Enabled := True;
 
   dbgrd1.Enabled := True; edtpencarian.Enabled := True;
+  edtId.Clear;
   konek;
+end;
+
+procedure TFSatuan.edtSatuanChange(Sender: TObject);
+begin
+  upperCase(Sender);
 end;
 
 end.

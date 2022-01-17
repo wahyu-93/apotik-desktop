@@ -1,6 +1,6 @@
 object FSatuan: TFSatuan
-  Left = 1027
-  Top = 160
+  Left = 478
+  Top = 238
   AutoScroll = False
   Caption = '.:: Form Satuan ::.'
   ClientHeight = 528
@@ -23456,6 +23456,7 @@ object FSatuan: TFSatuan
       ParentFont = False
       TabOrder = 1
       Text = 'edtKode'
+      OnChange = edtSatuanChange
     end
     object dbgrd1: TDBGrid
       Left = 8
@@ -23581,6 +23582,15 @@ object FSatuan: TFSatuan
       ParentFont = False
       TabOrder = 7
       OnClick = btnKeluarClick
+    end
+    object edtId: TEdit
+      Left = 296
+      Top = 24
+      Width = 121
+      Height = 21
+      TabOrder = 8
+      Text = 'edtId'
+      Visible = False
     end
   end
 end

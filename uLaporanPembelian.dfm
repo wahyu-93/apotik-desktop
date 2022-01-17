@@ -1,6 +1,6 @@
 object fLaporanPembelian: TfLaporanPembelian
-  Left = 465
-  Top = 448
+  Left = 534
+  Top = 308
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Laporan Pembelian Iem ::.'
@@ -23479,6 +23479,7 @@ object fLaporanPembelian: TfLaporanPembelian
       TabOrder = 4
       Text = 'cbbBulan'
       Items.Strings = (
+        '-'
         'Januari'
         'Februari'
         'Maret'

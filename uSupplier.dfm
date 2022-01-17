@@ -23637,6 +23637,7 @@ object Fsupplier: TFsupplier
       ParentFont = False
       TabOrder = 7
       Text = 'edtKode'
+      OnChange = edtNameChange
     end
     object mmoAlamat: TMemo
       Left = 104
@@ -23652,6 +23653,7 @@ object Fsupplier: TFsupplier
         'mmoKet')
       ParentFont = False
       TabOrder = 8
+      OnChange = mmoAlamatChange
     end
     object edtTelp: TEdit
       Left = 104

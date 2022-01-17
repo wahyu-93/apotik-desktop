@@ -23479,6 +23479,7 @@ object fLaporanPenjualan: TfLaporanPenjualan
       TabOrder = 4
       Text = 'cbbBulan'
       Items.Strings = (
+        '-'
         'Januari'
         'Februari'
         'Maret'

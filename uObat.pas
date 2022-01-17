@@ -40,6 +40,7 @@ type
     procedure dbgrd1CellClick(Column: TColumn);
     procedure edtStokKeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
+    procedure edtNamaChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -57,6 +58,28 @@ uses
   dataModule, StrUtils, DB;
 
 {$R *.dfm}
+
+procedure upperCase(sender:TObject);  
+var
+  sebelumUp : TNotifyEvent; //mengeset variabel yang dibutuhkan
+  dimulaiUp: Integer;
+begin
+  with (Sender as TEdit) do
+    begin
+      sebelumUp := OnChange; //assign var sebelumUp seperti onChange
+      OnChange := nil;
+      dimulaiUp := SelStart;
+      if ((SelStart > 0) and (Text[SelStart - 1] = ' ')) or (SelStart = 1) then
+        begin
+          SelStart := SelStart - 1;
+          SelLength := 1;
+          //menjadikan karakter pertama menjadi upperCase
+          SelText := AnsiUpperCase (SelText);
+        end;
+      OnChange := sebelumUp;
+      SelStart := dimulaiUp;
+    end;
+end;
 
 procedure konek;
 begin
@@ -144,23 +167,23 @@ begin
 
         with dm.qryObat do
           begin
-            close;
-            sql.Clear;
-            sql.Text := 'select * from tbl_obat where kode = '+QuotedStr(edtKode.Text)+'';
-            Open;
-
-            edtIdObat.Text := dm.qryObat.fieldbyname('id').AsString;
+            Locate('kode',edtKode.Text,[]);
+            edtIdObat.Text := fieldbyname('id').AsString;
           end;
     end
   else
     begin
-      with dm.qryObat do
+      if edtIdObat.Text <> '' then
         begin
-          close;
-          sql.Clear;
-          sql.Text := 'delete from tbl_obat where id = '+QuotedStr(edtIdObat.Text)+'';
-          ExecSQL;
+          with dm.qryObat do
+            begin
+              close;
+              sql.Clear;
+              sql.Text := 'delete from tbl_obat where id = '+QuotedStr(edtIdObat.Text)+'';
+              ExecSQL;
+            end;
         end;
+
       FormShow(Sender);
     end;
 end;
@@ -236,7 +259,7 @@ begin
       else
         begin
           // edit perubahan
-          if (edtNama.Text <> oldNama) then
+          if edtNama.Text <> oldNama then
             begin
               if dm.qryObat.Locate('nama_obat',edtNama.Text,[]) then
                 begin
@@ -336,7 +359,13 @@ begin
   btnKeluar.Enabled := True;
 
   dbgrd1.Enabled := True; edtpencarian.Enabled := True;
+  edtIdObat.Clear;
   konek;
+end;
+
+procedure TFobat.edtNamaChange(Sender: TObject);
+begin
+  upperCase(Sender);
 end;
 
 end.

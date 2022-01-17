@@ -23500,6 +23500,7 @@ object fSetting: TfSetting
       ParentFont = False
       TabOrder = 2
       Text = 'edtNama'
+      OnChange = edtNamaChange
     end
     object mmoAlamat: TMemo
       Left = 112
@@ -23516,6 +23517,7 @@ object fSetting: TfSetting
       MaxLength = 28
       ParentFont = False
       TabOrder = 3
+      OnChange = mmoAlamatChange
     end
     object edtTelp: TEdit
       Left = 112

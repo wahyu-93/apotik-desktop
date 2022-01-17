@@ -25,6 +25,8 @@ type
     procedure btnKeluarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnSimpanClick(Sender: TObject);
+    procedure edtNamaChange(Sender: TObject);
+    procedure mmoAlamatChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -40,6 +42,50 @@ uses
   dataModule;
 
 {$R *.dfm}
+
+procedure upperCase(sender:TObject);  
+var
+  sebelumUp : TNotifyEvent; //mengeset variabel yang dibutuhkan
+  dimulaiUp: Integer;
+begin
+  with (Sender as TEdit) do
+    begin
+      sebelumUp := OnChange; //assign var sebelumUp seperti onChange
+      OnChange := nil;
+      dimulaiUp := SelStart;
+      if ((SelStart > 0) and (Text[SelStart - 1] = ' ')) or (SelStart = 1) then
+        begin
+          SelStart := SelStart - 1;
+          SelLength := 1;
+          //menjadikan karakter pertama menjadi upperCase
+          SelText := AnsiUpperCase (SelText);
+        end;
+      OnChange := sebelumUp;
+      SelStart := dimulaiUp;
+    end;
+end;
+
+procedure upperCaseMemo(sender:TObject);  
+var
+  sebelumUp : TNotifyEvent; //mengeset variabel yang dibutuhkan
+  dimulaiUp: Integer;
+begin
+  with (Sender as TMemo) do
+    begin
+      sebelumUp := OnChange; //assign var sebelumUp seperti onChange
+      OnChange := nil;
+      dimulaiUp := SelStart;
+      if ((SelStart > 0) and (Text[SelStart - 1] = ' ')) or (SelStart = 1) then
+        begin
+          SelStart := SelStart - 1;
+          SelLength := 1;
+          //menjadikan karakter pertama menjadi upperCase
+          SelText := AnsiUpperCase (SelText);
+        end;
+      OnChange := sebelumUp;
+      SelStart := dimulaiUp;
+    end;
+end;
 
 procedure konek;
 begin
@@ -111,6 +157,16 @@ begin
       MessageDlg('Setting Berhasil Diubah',mtInformation,[mbOK],0);
 
     end;
+end;
+
+procedure TfSetting.edtNamaChange(Sender: TObject);
+begin
+  upperCase(Sender);
+end;
+
+procedure TfSetting.mmoAlamatChange(Sender: TObject);
+begin
+  upperCaseMemo(Sender);
 end;
 
 end.

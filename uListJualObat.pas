@@ -97,15 +97,24 @@ begin
     end
   else if rbBulan.Checked = True then
     begin
-      if (cbbTahun.Text = '') or (cbbBulan.Text = '') then
+      if cbbTahun.Text = '' then
         begin
-          MessageDlg('Bulan dan Tahun Wajib Diisi',mtInformation,[mbOK],0);
+          MessageDlg('Tahun Wajib Diisi',mtInformation,[mbOK],0);
           Exit;
         end
       else
         begin
-          query := 'select * from tbl_penjualan left JOIN tbl_pelanggan on tbl_penjualan.id_pelanggan = tbl_pelanggan.id '+
-               'where month(tbl_penjualan.tgl_penjualan) = '+QuotedStr(IntToStr(cbbBulan.ItemIndex+1)+'-'+cbbTahun.Text)+' order by tbl_penjualan.id asc';
+          if cbbBulan.Text <> '' then
+            begin
+               query := 'select * from tbl_penjualan left JOIN tbl_pelanggan on tbl_penjualan.id_pelanggan = tbl_pelanggan.id '+
+                        'where month(tbl_penjualan.tgl_penjualan) = '+QuotedStr(IntToStr(cbbBulan.ItemIndex)+'-'+cbbTahun.Text)+' order by tbl_penjualan.id asc';
+
+            end
+          else
+            begin
+              query := 'select * from tbl_penjualan left JOIN tbl_pelanggan on tbl_penjualan.id_pelanggan = tbl_pelanggan.id '+
+               'where year(tbl_penjualan.tgl_penjualan) = '+QuotedStr(cbbTahun.Text)+' order by tbl_penjualan.id asc';
+            end;
         end;
     end;
 

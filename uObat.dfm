@@ -23540,7 +23540,6 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23553,7 +23552,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 150
+          Width = 64
           Visible = True
         end
         item
@@ -23579,7 +23578,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 150
+          Width = 64
           Visible = True
         end
         item
@@ -23615,7 +23614,6 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23640,7 +23638,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 150
+          Width = 64
           Visible = True
         end
         item
@@ -23652,7 +23650,6 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23677,7 +23674,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 150
+          Width = 64
           Visible = True
         end
         item
@@ -23783,6 +23780,7 @@ object Fobat: TFobat
       ParentFont = False
       TabOrder = 8
       Text = 'edtKode'
+      OnChange = edtNamaChange
     end
     object dblkcbbJenisObat: TDBLookupComboBox
       Left = 104
@@ -23838,7 +23836,6 @@ object Fobat: TFobat
       Height = 21
       TabOrder = 12
       Text = 'edtIdObat'
-      Visible = False
     end
   end
 end

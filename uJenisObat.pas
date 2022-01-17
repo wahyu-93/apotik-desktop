@@ -24,6 +24,7 @@ type
     btnHapus: TBitBtn;
     btnKeluar: TBitBtn;
     img1: TImage;
+    edtId: TEdit;
     procedure btnKeluarClick(Sender: TObject);
     procedure btnTambahClick(Sender: TObject);
     procedure btnSimpanClick(Sender: TObject);
@@ -32,6 +33,9 @@ type
     procedure dbgrd1CellClick(Column: TColumn);
     procedure btnHapusClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure edtJenisChange(Sender: TObject);
+    procedure mmoKetChange(Sender: TObject);
+    procedure edtJenisKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -49,16 +53,58 @@ uses
 
 {$R *.dfm}
 
+procedure upperCase(sender:TObject);  
+var
+  sebelumUp : TNotifyEvent; //mengeset variabel yang dibutuhkan
+  dimulaiUp: Integer;
+begin
+  with (Sender as TEdit) do
+    begin
+      sebelumUp := OnChange; //assign var sebelumUp seperti onChange
+      OnChange := nil;
+      dimulaiUp := SelStart;
+      if ((SelStart > 0) and (Text[SelStart - 1] = ' ')) or (SelStart = 1) then
+        begin
+          SelStart := SelStart - 1;
+          SelLength := 1;
+          //menjadikan karakter pertama menjadi upperCase
+          SelText := AnsiUpperCase (SelText);
+        end;
+      OnChange := sebelumUp;
+      SelStart := dimulaiUp;
+    end;
+end;
+
+procedure upperCaseMemo(sender:TObject);  
+var
+  sebelumUp : TNotifyEvent; //mengeset variabel yang dibutuhkan
+  dimulaiUp: Integer;
+begin
+  with (Sender as TMemo) do
+    begin
+      sebelumUp := OnChange; //assign var sebelumUp seperti onChange
+      OnChange := nil;
+      dimulaiUp := SelStart;
+      if ((SelStart > 0) and (Text[SelStart - 1] = ' ')) or (SelStart = 1) then
+        begin
+          SelStart := SelStart - 1;
+          SelLength := 1;
+          //menjadikan karakter pertama menjadi upperCase
+          SelText := AnsiUpperCase (SelText);
+        end;
+      OnChange := sebelumUp;
+      SelStart := dimulaiUp;
+    end;
+end;
+
 procedure konek;
 begin
   with dm.qryJenis do
     begin
-      DisableControls;
       Close;
       sql.Clear;
       SQL.Text := 'select * from tbl_jenis order by id';
       Open;
-      EnableControls;
     end;
 end;
 
@@ -100,9 +146,30 @@ begin
         btnSimpan.Caption := 'Simpan';
         status:='tambah';
         oldJenis := '';
+
+        with dm.qryJenis do
+          begin
+            Append;
+            FieldByName('kode').AsString := edtKode.Text;
+            Post;
+
+            Locate('kode',edtKode.Text,[]);
+            edtId.Text := Fieldbyname('id').AsString;
+          end;
     end
   else
     begin
+      if edtId.Text <> '' then
+        begin
+          with dm.qryJenis do
+            begin
+              Close;
+              SQL.Clear;
+              SQL.Text := 'delete from tbl_jenis where id = '+QuotedStr(edtId.Text)+'';
+              ExecSQL;
+            end;
+        end;
+
       FormShow(Sender);
     end;
 end;
@@ -127,17 +194,17 @@ begin
               Exit;
             end;
 
-          with dm.qryJenis do
+           with dm.qryJenis do
             begin
-              Append;
-              FieldByName('kode').AsString := edtKode.Text;
-              FieldByName('jenis').AsString := trim(edtJenis.Text);
-              FieldByName('keterangan').AsString := Trim(mmoKet.Text);
-              Post;
+              close;
+              SQL.Clear;
+              SQL.Text := 'update tbl_jenis set jenis ='+QuotedStr(edtJenis.Text)
+                          +', keterangan = '+QuotedStr(mmoKet.Text)+' where kode = '+QuotedStr(edtKode.Text)+'';
+              ExecSQL;
             end;
 
-          MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
           FormShow(Sender);
+          MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
         end
       else
         begin
@@ -173,7 +240,7 @@ begin
                   ExecSQL;
                 end;
             end;
-
+            
           FormShow(Sender);
           MessageDlg('Data Berhasil Diubah',mtInformation,[mbok],0);
         end;
@@ -247,7 +314,23 @@ begin
   btnKeluar.Enabled := True;
 
   dbgrd1.Enabled := True; edtpencarian.Enabled := True;
+  edtId.Clear;
   konek;
+end;
+
+procedure TfJenisObat.edtJenisChange(Sender: TObject);
+begin
+  upperCase(Sender);
+end;
+
+procedure TfJenisObat.mmoKetChange(Sender: TObject);
+begin
+  upperCaseMemo(Sender);
+end;
+
+procedure TfJenisObat.edtJenisKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key=#13 then mmoKet.SetFocus;
 end;
 
 end.

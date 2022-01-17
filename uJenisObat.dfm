@@ -23470,6 +23470,8 @@ object fJenisObat: TfJenisObat
       ParentFont = False
       TabOrder = 1
       Text = 'edtKode'
+      OnChange = edtJenisChange
+      OnKeyPress = edtJenisKeyPress
     end
     object mmoKet: TMemo
       Left = 120
@@ -23485,6 +23487,7 @@ object fJenisObat: TfJenisObat
         'mmoKet')
       ParentFont = False
       TabOrder = 2
+      OnChange = mmoKetChange
     end
     object dbgrd1: TDBGrid
       Left = 8
@@ -23645,6 +23648,15 @@ object fJenisObat: TfJenisObat
       ParentFont = False
       TabOrder = 8
       OnClick = btnKeluarClick
+    end
+    object edtId: TEdit
+      Left = 320
+      Top = 24
+      Width = 121
+      Height = 21
+      TabOrder = 9
+      Text = 'edtId'
+      Visible = False
     end
   end
 end
