@@ -46,10 +46,11 @@ type
     edtIdObat: TEdit;
     edtIdPembelian: TEdit;
     img1: TImage;
+    lbl11: TLabel;
+    edtFakturSales: TEdit;
     procedure clearEntitasBarang;
     procedure fokusDbgrid;
     procedure btnKeluarClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure btnTambahClick(Sender: TObject);
     procedure btnBantuObatClick(Sender: TObject);
     procedure edtHargaKeyPress(Sender: TObject; var Key: Char);
@@ -61,6 +62,7 @@ type
     procedure btnSelesaiClick(Sender: TObject);
     procedure dbgrd1KeyPress(Sender: TObject; var Key: Char);
     procedure dbgrd1CellClick(Column: TColumn);
+    procedure FormShow(Sender: TObject);
 
   private
     { Private declarations }
@@ -124,7 +126,7 @@ begin
     begin
       close;
       sql.Clear;
-      sql.Text := 'select a.id as id_pembelian, a.no_faktur, a.tgl_pembelian, a.jumlah_item, a.total, b.id as id_detail_pembelian, '+
+      sql.Text := 'select a.id as id_pembelian, a.no_faktur, a.no_faktur_supplier, a.tgl_pembelian, a.jumlah_item, a.total, b.id as id_detail_pembelian, '+
                   'b.obat_id, b.jumlah_beli, b.harga_beli, c.kode, c.barcode, c.nama_obat, c.tgl_obat, c.tgl_exp, d.jenis, e.satuan '+
                   'from tbl_pembelian a left join tbl_detail_pembelian b on b.pembelian_id = a.id left join tbl_obat c on c.id = b.obat_id left join '+
                   'tbl_jenis d on d.id=c.kode_jenis left join tbl_satuan e on e.id = c.kode_satuan where a.no_faktur='+QuotedStr(id_pembelian)+'';
@@ -168,33 +170,6 @@ begin
   close;
 end;
 
-procedure TfPembelian.FormCreate(Sender: TObject);
-begin
-  edtFaktur.Clear;
-  dtpTanggalBeli.Enabled := false; dtpTanggalBeli.DateTime := Now;
-  dblkcbbSupplier.KeyValue := Null; dblkcbbSupplier.Enabled := false;
-
-  btnBantuObat.Enabled := False;
-  edtKode.Clear;
-  edtNama.Clear;
-  edtSatuan.Clear;
-  edtJenis.Clear;
-
-  dtpTanggalKadaluarsa.DateTime := Now; dtpTanggalKadaluarsa.Enabled := false;
-  edtHarga.Enabled := false; edtHarga.Clear;
-  edtJumlahBeli.Enabled := false; edtJumlahBeli.Clear;
-
-  btnSimpan.Enabled := False;
-  btnHapus.Enabled := False; btnHapus.Caption := 'Hapus[F6]';
-  btnSelesai.Enabled := False;
-
-  lblItem.Caption := '0'; lblTotalHarga.Caption := '0';
-  btnTambah.Enabled := True; btnTambah.Caption := 'Tambah[F1]';
-  btnKeluar.Enabled := True;
-
-  konek;
-end;
-
 procedure TfPembelian.btnTambahClick(Sender: TObject);
 begin
   if btnTambah.Caption='Tambah[F1]' then
@@ -207,33 +182,15 @@ begin
       edtHarga.Enabled := True;
       edtJumlahBeli.Enabled := True;
 
+      edtFakturSales.Enabled := True;
       btnSimpan.Enabled := True;
 
-      with dm.qryPembelian do
-        begin
-          close;
-          SQL.Clear;
-          SQL.Text := 'select * from tbl_pembelian where no_faktur like ''%'+FormatDateTime('yyyy',Now)+'%''';
-          Open;
+      edtFaktur.Text := 'PB-'+FormatDateTime('ddmmyyyy',Now);
+      btnSimpan.Caption := 'Simpan';
+      status:='tambah';
+      btnTambah.Caption := 'Batal[F1]';
 
-          if IsEmpty then
-            begin
-              kode := '00001';
-            end
-          else
-            begin
-              Last;
-              kode := RightStr(fieldbyname('no_faktur').Text,5);
-              kode := IntToStr(StrToInt(kode) + 1);
-            end;
-        end;
-
-        edtFaktur.Text := 'PB-'+FormatDateTime('ddmmyyyy',Now) + FormatFloat('00000',StrToInt(kode));
-        btnSimpan.Caption := 'Simpan';
-        status:='tambah';
-        btnTambah.Caption := 'Batal[F1]';
-
-        btnKeluar.Enabled := false;
+      btnKeluar.Enabled := false;
     end
   else
     begin
@@ -278,7 +235,7 @@ begin
             end;
 
           MessageDlg('Transaksi Dibatalkan',mtInformation,[mbOk],0);
-          FormCreate(Sender);
+          FormShow(Sender);
         end;
     end;
 end;
@@ -331,24 +288,55 @@ begin
       exit;
     end;
 
+  if edtFakturSales.Text = '' then
+    begin
+      MessageDlg('No Faktur dari Supplier Diisi', mtInformation,[mbOK],0);
+      edtFakturSales.SetFocus;
+      Exit;
+    end;
+
   if btnSimpan.Caption = 'Simpan' then
     begin
       if status = 'tambah' then
         begin
-          // simpan ke table pembelian
+           // simpan ke table pembelian
+          with dm.qryPembelian do
+          begin
+            close;
+            SQL.Clear;
+            SQL.Text := 'select * from tbl_pembelian where no_faktur like ''%'+FormatDateTime('yyyy',Now)+'%''';
+            Open;
+
+            if IsEmpty then
+              begin
+                kode := '00001';
+              end
+            else
+              begin
+                Last;
+                kode := RightStr(fieldbyname('no_faktur').Text,5);
+                kode := IntToStr(StrToInt(kode) + 1);
+              end;
+          end;
+
+          edtFaktur.Text := 'PB-'+FormatDateTime('ddmmyyyy',Now) + FormatFloat('00000',StrToInt(kode));
+
           with dm.qryPembelian do
             begin
               Append;
               FieldByName('no_faktur').AsString := edtFaktur.Text;
-              FieldByName('tgl_pembelian').AsDateTime := dtpTanggalBeli.Date;
-              FieldByName('supplier_id').AsString := dblkcbbSupplier.KeyValue;
               FieldByName('jumlah_item').AsString := '0';
               FieldByName('total').AsString := '0';
               FieldByName('user_id').AsString := dm.qryUser.fieldbyname('id').AsString;
               FieldByName('status').AsString := 'pending';
+              FieldByName('tgl_pembelian').AsDateTime := dtpTanggalBeli.Date;
+              FieldByName('supplier_id').AsString := dblkcbbSupplier.KeyValue;
+              FieldByName('no_faktur_supplier').AsString := edtFakturSales.Text;
               Post;
             end;
 
+            dblkcbbSupplier.Enabled := false;
+            edtFakturSales.Enabled := False;
             status := 'tambahLagi';
         end;
 
@@ -561,7 +549,7 @@ begin
             end;
         end;
 
-      FormCreate(Sender);
+      FormShow(Sender);
     end;
 end;
 
@@ -612,5 +600,34 @@ begin
   fokusDbgrid;
 end;
 
+
+procedure TfPembelian.FormShow(Sender: TObject);
+begin
+  edtFaktur.Clear;
+  dtpTanggalBeli.Enabled := false; dtpTanggalBeli.DateTime := Now;
+  dblkcbbSupplier.KeyValue := Null; dblkcbbSupplier.Enabled := false;
+
+  btnBantuObat.Enabled := False;
+  edtKode.Clear;
+  edtNama.Clear;
+  edtSatuan.Clear;
+  edtJenis.Clear;
+
+  dtpTanggalKadaluarsa.DateTime := Now; dtpTanggalKadaluarsa.Enabled := false;
+  edtHarga.Enabled := false; edtHarga.Clear;
+  edtJumlahBeli.Enabled := false; edtJumlahBeli.Clear;
+
+  btnSimpan.Enabled := False;
+  btnHapus.Enabled := False; btnHapus.Caption := 'Hapus[F6]';
+  btnSelesai.Enabled := False;
+
+  lblItem.Caption := '0'; lblTotalHarga.Caption := '0';
+  btnTambah.Enabled := True; btnTambah.Caption := 'Tambah[F1]';
+  btnKeluar.Enabled := True;
+  
+  edtFakturSales.Clear;
+
+  konek;
+end;
 
 end.

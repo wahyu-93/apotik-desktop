@@ -23478,6 +23478,7 @@ object fLaporanPenjualan: TfLaporanPenjualan
       ParentFont = False
       TabOrder = 4
       Text = 'cbbBulan'
+      OnKeyPress = cbbBulanKeyPress
       Items.Strings = (
         '-'
         'Januari'
@@ -23507,6 +23508,7 @@ object fLaporanPenjualan: TfLaporanPenjualan
       ParentFont = False
       TabOrder = 5
       Text = 'cbb1'
+      OnKeyPress = cbbTahunKeyPress
       Items.Strings = (
         'Januari'
         'Februari'

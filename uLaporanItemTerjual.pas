@@ -25,6 +25,8 @@ type
     procedure rbTanggalClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnLapClick(Sender: TObject);
+    procedure cbbBulanKeyPress(Sender: TObject; var Key: Char);
+    procedure cbbTahunKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -115,15 +117,24 @@ begin
     end
   else if rbBulan.Checked = True then
     begin
-      if (cbbTahun.Text = '') or (cbbBulan.Text = '') then
+      if cbbTahun.Text = '' then
         begin
-          MessageDlg('Bulan dan Tahun Wajib Diisi',mtInformation,[mbOK],0);
+          MessageDlg('Tahun Wajib Diisi',mtInformation,[mbOK],0);
           Exit;
         end
       else
         begin
-          query := 'select *, sum(a.jumlah_jual) as jmlItemJual from tbl_penjualan z left join tbl_detail_penjualan a on z.id = a.penjualan_id left join '+
-               'tbl_obat b on a.obat_id = b.id left join tbl_satuan d on d.id = b.kode_satuan where month(z.tgl_penjualan) = '+QuotedStr(IntToStr(cbbBulan.ItemIndex+1)+'-'+cbbTahun.Text)+' group by a.obat_id order by jmlItemJual desc';
+          if cbbBulan.Text <> '-' then
+            begin
+              query := 'select *, sum(a.jumlah_jual) as jmlItemJual from tbl_penjualan z left join tbl_detail_penjualan a on z.id = a.penjualan_id left join '+
+                 'tbl_obat b on a.obat_id = b.id left join tbl_satuan d on d.id = b.kode_satuan where month(z.tgl_penjualan) = '+QuotedStr(IntToStr(cbbBulan.ItemIndex)+'-'+cbbTahun.Text)+' group by a.obat_id order by jmlItemJual desc';
+            end
+          else
+            begin
+             query := 'select *, sum(a.jumlah_jual) as jmlItemJual from tbl_penjualan z left join tbl_detail_penjualan a on z.id = a.penjualan_id left join '+
+               'tbl_obat b on a.obat_id = b.id left join tbl_satuan d on d.id = b.kode_satuan where year(z.tgl_penjualan) = '+QuotedStr(cbbTahun.Text)+' group by a.obat_id order by jmlItemJual desc';
+
+            end;
         end;
     end;
 
@@ -135,4 +146,16 @@ begin
       Open;
     end;
 end;
+procedure TfLaporanJumlahItemTerjual.cbbBulanKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  Key := #0;
+end;
+
+procedure TfLaporanJumlahItemTerjual.cbbTahunKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  Key := #0;
+end;
+
 end.

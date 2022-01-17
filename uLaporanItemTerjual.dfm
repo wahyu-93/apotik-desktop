@@ -23478,7 +23478,9 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
       ParentFont = False
       TabOrder = 4
       Text = 'cbbBulan'
+      OnKeyPress = cbbBulanKeyPress
       Items.Strings = (
+        '-'
         'Januari'
         'Februari'
         'Maret'
@@ -23506,6 +23508,7 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
       ParentFont = False
       TabOrder = 5
       Text = 'cbb1'
+      OnKeyPress = cbbTahunKeyPress
       Items.Strings = (
         'Januari'
         'Februari'
@@ -23564,7 +23567,6 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23576,7 +23578,6 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23588,7 +23589,6 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23600,7 +23600,6 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23612,7 +23611,6 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23624,7 +23622,6 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23650,7 +23647,6 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23675,7 +23671,6 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23687,7 +23682,6 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23699,7 +23693,6 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23711,7 +23704,6 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23723,7 +23715,6 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23735,7 +23726,6 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23747,7 +23737,6 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23759,7 +23748,6 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item

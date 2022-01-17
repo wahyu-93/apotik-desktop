@@ -162,33 +162,14 @@ begin
 
       btnBantuObat.Enabled := True;
 
-      with dm.qryPenjualan do
-        begin
-          close;
-          SQL.Clear;
-          SQL.Text := 'select * from tbl_penjualan where no_faktur like ''%'+FormatDateTime('yyyy',Now)+'%''';
-          Open;
+      edtFaktur.Text := 'PJ-'+FormatDateTime('ddmmyyyy',Now);
+      btnTambah.Caption := 'Batal[F1]';
+      btnKeluar.Enabled := false;
+      dbgrd1.Enabled := True;
 
-          if IsEmpty then
-            begin
-              kode := '00001';
-            end
-          else
-            begin
-              Last;
-              kode := RightStr(fieldbyname('no_faktur').Text,5);
-              kode := IntToStr(StrToInt(kode) + 1);
-            end;
-        end;
+      chkCetak.Enabled := True;
 
-        edtFaktur.Text := 'PJ-'+FormatDateTime('ddmmyyyy',Now) + FormatFloat('00000',StrToInt(kode));
-        btnTambah.Caption := 'Batal[F1]';
-        btnKeluar.Enabled := false;
-        dbgrd1.Enabled := True;
-
-        chkCetak.Enabled := True;
-        
-        status := 'tambah';
+      status := 'tambah';
     end
   else
     begin
@@ -266,6 +247,26 @@ begin
       if status = 'tambah' then
         begin
           // simpan ke table pembelian
+          with dm.qryPenjualan do
+          begin
+            close;
+            SQL.Clear;
+            SQL.Text := 'select * from tbl_penjualan where no_faktur like ''%'+FormatDateTime('yyyy',Now)+'%''';
+            Open;
+
+            if IsEmpty then
+              begin
+                kode := '00001';
+              end
+            else
+              begin
+                Last;
+                kode := RightStr(fieldbyname('no_faktur').Text,5);
+                kode := IntToStr(StrToInt(kode) + 1);
+              end;
+          end;
+
+          edtFaktur.Text := 'PJ-'+FormatDateTime('ddmmyyyy',Now) + FormatFloat('00000',StrToInt(kode));
           with dm.qryPenjualan do
             begin
               Append;
@@ -476,8 +477,6 @@ var
 begin
   if MessageDlg('Apakah Transaksi Akan Diselesaikan ?',mtConfirmation,[mbYes,mbno],0)=mryes then
     begin
-      MessageDlg('Transaki Berhasil Disimpan', mtInformation, [mbok],0);
-
       jumlahItem := IntToStr(hitungItem(id_penjualan));
       total := FloatToStr(hitungTotal(id_penjualan));
 

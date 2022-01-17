@@ -25,6 +25,8 @@ type
     procedure btnLapClick(Sender: TObject);
     procedure rbTanggalClick(Sender: TObject);
     procedure rbBulanClick(Sender: TObject);
+    procedure cbbBulanKeyPress(Sender: TObject; var Key: Char);
+    procedure cbbTahunKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -105,7 +107,7 @@ begin
         end
       else
         begin
-          if cbbBulan.Text <> '' then
+          if cbbBulan.Text <> '-' then
             begin
               query := 'select * from tbl_pembelian left join tbl_supplier on tbl_pembelian.supplier_id = tbl_supplier.id '+
                  'where month(tbl_pembelian.tgl_pembelian) = '+QuotedStr(IntToStr(cbbBulan.ItemIndex)+'-'+cbbTahun.Text)+' order by tbl_pembelian.id asc';
@@ -143,6 +145,18 @@ begin
 
   cbbTahun.Text := ''; cbbTahun.Enabled := True;
   cbbBulan.Text := ''; cbbBulan.Enabled := True;
+end;
+
+procedure TfLaporanPembelian.cbbBulanKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  Key := #0;
+end;
+
+procedure TfLaporanPembelian.cbbTahunKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  Key := #0;
 end;
 
 end.

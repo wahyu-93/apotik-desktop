@@ -210,6 +210,7 @@ type
     qryRelasiPenjualantgl_exp: TDateField;
     qryRelasiPenjualanjenis: TStringField;
     qryRelasiPenjualansatuan: TStringField;
+    qryRelasiPembelianno_faktur_supplier: TStringField;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

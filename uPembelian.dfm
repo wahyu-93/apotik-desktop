@@ -15,8 +15,8 @@ object fPembelian: TfPembelian
   KeyPreview = True
   OldCreateOrder = False
   Position = poDesktopCenter
-  OnCreate = FormCreate
   OnKeyDown = FormKeyDown
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object img1: TImage
@@ -23516,6 +23516,19 @@ object fPembelian: TfPembelian
       Font.Style = []
       ParentFont = False
     end
+    object lbl11: TLabel
+      Left = 1080
+      Top = 16
+      Width = 120
+      Height = 17
+      Caption = 'No Faktur Supplier'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
     object dtpTanggalBeli: TDateTimePicker
       Left = 376
       Top = 40
@@ -23549,7 +23562,7 @@ object fPembelian: TfPembelian
     object dblkcbbSupplier: TDBLookupComboBox
       Left = 792
       Top = 40
-      Width = 601
+      Width = 281
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23738,6 +23751,21 @@ object fPembelian: TfPembelian
       TabOrder = 15
       Text = 'edtIdPembelian'
       Visible = False
+    end
+    object edtFakturSales: TEdit
+      Left = 1080
+      Top = 40
+      Width = 313
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 16
+      Text = 'edtFaktur'
     end
   end
   object grp2: TGroupBox

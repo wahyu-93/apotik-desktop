@@ -245,13 +245,14 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       
-        'select a.id as id_pembelian, a.no_faktur, a.tgl_pembelian, a.jum' +
-        'lah_item, a.total, b.id as id_detail_pembelian, b.obat_id, b.jum' +
-        'lah_beli, b.harga_beli, c.kode, c.barcode, c.nama_obat, c.tgl_ob' +
-        'at, c.tgl_exp, d.jenis, e.satuan from tbl_pembelian a left join ' +
-        'tbl_detail_pembelian b on b.pembelian_id = a.id left join tbl_ob' +
-        'at c on c.id = b.obat_id left join tbl_jenis d on d.id=c.kode_je' +
-        'nis left join tbl_satuan e on e.id = c.kode_satuan '#10)
+        'select a.id as id_pembelian, a.no_faktur, a.no_faktur_supplier, ' +
+        'a.tgl_pembelian, a.jumlah_item, a.total, b.id as id_detail_pembe' +
+        'lian, b.obat_id, b.jumlah_beli, b.harga_beli, c.kode, c.barcode,' +
+        ' c.nama_obat, c.tgl_obat, c.tgl_exp, d.jenis, e.satuan from tbl_' +
+        'pembelian a left join tbl_detail_pembelian b on b.pembelian_id =' +
+        ' a.id left join tbl_obat c on c.id = b.obat_id left join tbl_jen' +
+        'is d on d.id=c.kode_jenis left join tbl_satuan e on e.id = c.kod' +
+        'e_satuan '#10)
     Left = 264
     Top = 144
     object qryRelasiPembelianid_pembelian: TAutoIncField
@@ -311,6 +312,10 @@ object dm: Tdm
     object qryRelasiPembeliansatuan: TStringField
       FieldName = 'satuan'
       Size = 100
+    end
+    object qryRelasiPembelianno_faktur_supplier: TStringField
+      FieldName = 'no_faktur_supplier'
+      Size = 30
     end
   end
   object dsRelasiPembelian: TDataSource
