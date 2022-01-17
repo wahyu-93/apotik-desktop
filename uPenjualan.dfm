@@ -23775,7 +23775,7 @@ object Fpenjualan: TFpenjualan
       ParentFont = False
     end
     object lbl2: TLabel
-      Left = 536
+      Left = 512
       Top = 16
       Width = 69
       Height = 17
@@ -23787,10 +23787,23 @@ object Fpenjualan: TFpenjualan
       Font.Style = []
       ParentFont = False
     end
+    object lbl4: TLabel
+      Left = 624
+      Top = 16
+      Width = 76
+      Height = 17
+      Caption = 'Cetak Struk'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
     object dtpTanggalBeli: TDateTimePicker
       Left = 376
       Top = 40
-      Width = 153
+      Width = 121
       Height = 25
       Date = 44561.580060370370000000
       Time = 44561.580060370370000000
@@ -23972,9 +23985,9 @@ object Fpenjualan: TFpenjualan
       end
     end
     object dblkcbbPelanggan: TDBLookupComboBox
-      Left = 536
+      Left = 512
       Top = 40
-      Width = 201
+      Width = 105
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23997,7 +24010,7 @@ object Fpenjualan: TFpenjualan
       Visible = False
     end
     object btnProses: TBitBtn
-      Left = 664
+      Left = 1288
       Top = 16
       Width = 75
       Height = 25
@@ -24007,7 +24020,7 @@ object Fpenjualan: TFpenjualan
       OnClick = btnProsesClick
     end
     object btnCetak: TBitBtn
-      Left = 600
+      Left = 1224
       Top = 16
       Width = 75
       Height = 25
@@ -24033,6 +24046,22 @@ object Fpenjualan: TFpenjualan
       TabOrder = 16
       Text = 'edtBayar'
       Visible = False
+    end
+    object chkCetak: TCheckBox
+      Left = 624
+      Top = 43
+      Width = 97
+      Height = 17
+      Caption = 'Cetak'
+      Checked = True
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 17
     end
   end
 end

@@ -24,7 +24,6 @@ type
     btnHapus: TBitBtn;
     btnKeluar: TBitBtn;
     img1: TImage;
-    procedure FormCreate(Sender: TObject);
     procedure btnKeluarClick(Sender: TObject);
     procedure btnTambahClick(Sender: TObject);
     procedure btnSimpanClick(Sender: TObject);
@@ -32,6 +31,7 @@ type
       Shift: TShiftState);
     procedure dbgrd1CellClick(Column: TColumn);
     procedure btnHapusClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -62,21 +62,6 @@ begin
     end;
 end;
 
-procedure TfJenisObat.FormCreate(Sender: TObject);
-begin
-  edtKode.Clear; edtKode.Enabled := false;
-  edtJenis.Clear; edtJenis.Enabled := false;
-  mmoKet.Clear; mmoKet.Enabled := False;
-  edtpencarian.Clear; edtpencarian.Enabled := True;
-
-  btnTambah.Enabled := True; btnTambah.Caption := 'Tambah';
-  btnSimpan.Enabled := false; btnHapus.Enabled := False;
-  btnKeluar.Enabled := True;
-
-  dbgrd1.Enabled := True; edtpencarian.Enabled := True;
-  konek;
-end;
-
 procedure TfJenisObat.btnKeluarClick(Sender: TObject);
 begin
   Close;
@@ -92,6 +77,8 @@ begin
       btnTambah.Caption := 'Batal';
       btnSimpan.Enabled := True;
       btnKeluar.Enabled := false;
+
+      dbgrd1.Enabled := false;
 
       konek;
 
@@ -116,7 +103,7 @@ begin
     end
   else
     begin
-      FormCreate(Sender);
+      FormShow(Sender);
     end;
 end;
 
@@ -150,7 +137,7 @@ begin
             end;
 
           MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
-          FormCreate(Sender);
+          FormShow(Sender);
         end
       else
         begin
@@ -187,7 +174,7 @@ begin
                 end;
             end;
 
-          FormCreate(Sender);
+          FormShow(Sender);
           MessageDlg('Data Berhasil Diubah',mtInformation,[mbok],0);
         end;
     end
@@ -244,8 +231,23 @@ begin
       dm.qryJenis.Delete;
 
       MessageDlg('Data Berhasil Dihapus',mtInformation,[mbok],0);
-      FormCreate(Sender);
+      FormShow(Sender);
     end;
+end;
+
+procedure TfJenisObat.FormShow(Sender: TObject);
+begin
+  edtKode.Clear; edtKode.Enabled := false;
+  edtJenis.Clear; edtJenis.Enabled := false;
+  mmoKet.Clear; mmoKet.Enabled := False;
+  edtpencarian.Clear; edtpencarian.Enabled := True;
+
+  btnTambah.Enabled := True; btnTambah.Caption := 'Tambah';
+  btnSimpan.Enabled := false; btnHapus.Enabled := False;
+  btnKeluar.Enabled := True;
+
+  dbgrd1.Enabled := True; edtpencarian.Enabled := True;
+  konek;
 end;
 
 end.

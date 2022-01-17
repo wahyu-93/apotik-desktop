@@ -1,6 +1,6 @@
 object fBantuObat: TfBantuObat
-  Left = 300
-  Top = 104
+  Left = 741
+  Top = 268
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form List Obat ::.'
@@ -23415,7 +23415,6 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23429,7 +23428,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 190
+          Width = 64
           Visible = True
         end
         item
@@ -23455,7 +23454,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 190
+          Width = 64
           Visible = True
         end
         item
@@ -23491,7 +23490,6 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23516,7 +23514,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 190
+          Width = 64
           Visible = True
         end
         item
@@ -23528,7 +23526,6 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23553,14 +23550,21 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 190
+          Width = 64
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'stok'
-          Width = -1
-          Visible = False
+          Title.Alignment = taCenter
+          Title.Caption = 'Stok'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = 50
+          Visible = True
         end>
     end
     object edtpencarian: TEdit

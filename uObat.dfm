@@ -23553,7 +23553,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 130
+          Width = 150
           Visible = True
         end
         item
@@ -23566,8 +23566,8 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 130
-          Visible = True
+          Width = -1
+          Visible = False
         end
         item
           Expanded = False
@@ -23579,7 +23579,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 130
+          Width = 150
           Visible = True
         end
         item
@@ -23640,7 +23640,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 130
+          Width = 150
           Visible = True
         end
         item
@@ -23677,7 +23677,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 130
+          Width = 150
           Visible = True
         end
         item
@@ -23691,7 +23691,7 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 130
+          Width = 150
           Visible = True
         end>
     end
@@ -23830,6 +23830,15 @@ object Fobat: TFobat
       TabOrder = 11
       Text = 'edtKode'
       OnKeyPress = edtStokKeyPress
+    end
+    object edtIdObat: TEdit
+      Left = 304
+      Top = 16
+      Width = 121
+      Height = 21
+      TabOrder = 12
+      Text = 'edtIdObat'
+      Visible = False
     end
   end
 end

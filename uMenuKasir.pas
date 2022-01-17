@@ -40,7 +40,7 @@ uses
 
 procedure TfMenuKasir.FormShow(Sender: TObject);
 begin
-  lbl1.Caption := 'Selamat Datang '+ dm.qryUser.fieldbyname('nama').AsString+' Di Aplikasi Kasir Apotik V.1';
+  lbl1.Caption := 'Selamat Datang '+ dm.qryUser.fieldbyname('nama').AsString+' Di Aplikasi Kasir Apotek V.1';
   lbl2.Caption := 'Anda Login Sebagai '+ dm.qryUser.fieldbyname('role').AsString;
 
   stat1.Panels[0].Text := 'Pengguna : ' + dm.qryUser.FieldByName('nama').AsString;

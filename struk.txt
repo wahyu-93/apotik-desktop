@@ -1,23 +1,25 @@
      Apotik Hamdi Farma   
-Jl.H.Damanhuri Dpn Msjd Raya 
-        082250931217 
-----------------------------
-No. Nota:PJ-1101202200058
-Tanggal :11/01/2022 08:43:33
-Kasir   :Wahyu
-----------------------------
+Jl.Suryagandamana Dpn Msjd Raya 
+        081256566056 
+----------------------------------
+No. Nota:PJ-1501202200001
+Tanggal :15/01/2022 19:42:48
+Kasir   :Hamdi Farma
+----------------------------------
 Nama Barang
-      QTY   Harga  Sub Total
-----------------------------
- Paracetamol
-      3 X 25.000      75.000
-----------------------------
-Total   :          Rp 75.000
-Bayar   :          Rp 80.000
-Kembali :           Rp 5.000
-----------------------------
- Jumlah Item  : 1
-----------------------------
+      QTY   Harga         Sub Total
+----------------------------------
+ fdsfsdfdsf
+      1 X 1.000               1.000
+ dddasdd
+      1 X 50.000             50.000
+----------------------------------
+Total   :                 Rp 51.000
+Bayar   :                 Rp 51.000
+Kembali :                       Rp 
+----------------------------------
+ Jumlah Item  : 2
+----------------------------------
          Terima Kasih
     Berelaan Jual Seadannya
 

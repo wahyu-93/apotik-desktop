@@ -13,7 +13,7 @@ object FSatuan: TFSatuan
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
-  OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object img1: TImage

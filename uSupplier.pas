@@ -26,7 +26,6 @@ type
     mmoAlamat: TMemo;
     lbl5: TLabel;
     edtTelp: TEdit;
-    procedure FormCreate(Sender: TObject);
     procedure btnKeluarClick(Sender: TObject);
     procedure dbgrd1CellClick(Column: TColumn);
     procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;
@@ -36,6 +35,7 @@ type
     procedure btnHapusClick(Sender: TObject);
     procedure edtTelpKeyPress(Sender: TObject; var Key: Char);
     procedure edtNameKeyPress(Sender: TObject; var Key: Char);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -64,23 +64,6 @@ begin
       Open;
       EnableControls;
     end;
-end;
-
-procedure TFsupplier.FormCreate(Sender: TObject);
-begin
-  edtKode.Clear; edtKode.Enabled := false;
-  edtName.Clear; edtName.Enabled := false;
-  mmoAlamat.Clear; mmoAlamat.Enabled := false;
-  edtTelp.Clear; edtTelp.Enabled := false;
-
-  edtpencarian.Clear; edtpencarian.Enabled := True;
-
-  btnTambah.Enabled := True; btnTambah.Caption := 'Tambah';
-  btnSimpan.Enabled := false; btnHapus.Enabled := False;
-  btnKeluar.Enabled := True;
-
-  dbgrd1.Enabled := True; edtpencarian.Enabled := True;
-  konek;
 end;
 
 procedure TFsupplier.btnKeluarClick(Sender: TObject);
@@ -135,6 +118,8 @@ begin
       btnSimpan.Enabled := True;
       btnKeluar.Enabled := false;
 
+      dbgrd1.Enabled := false;
+
       konek;
 
       with dm.qrySupplier do
@@ -157,7 +142,7 @@ begin
     end
   else
     begin
-      FormCreate(Sender);
+      FormShow(Sender);
     end;
 end;
 
@@ -235,7 +220,7 @@ begin
         end;
         
       MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
-      FormCreate(Sender);
+      FormShow(Sender);
     end
   else
     begin
@@ -259,7 +244,7 @@ begin
       dm.qrySupplier.Delete;
 
       MessageDlg('Data Berhasil Dihapus',mtInformation,[mbok],0);
-      FormCreate(Sender);
+      FormShow(Sender);
     end;
 end;
 
@@ -271,6 +256,23 @@ end;
 procedure TFsupplier.edtNameKeyPress(Sender: TObject; var Key: Char);
 begin
   if Key=#13 then mmoAlamat.SetFocus;
+end;
+
+procedure TFsupplier.FormShow(Sender: TObject);
+begin
+  edtKode.Clear; edtKode.Enabled := false;
+  edtName.Clear; edtName.Enabled := false;
+  mmoAlamat.Clear; mmoAlamat.Enabled := false;
+  edtTelp.Clear; edtTelp.Enabled := false;
+
+  edtpencarian.Clear; edtpencarian.Enabled := True;
+
+  btnTambah.Enabled := True; btnTambah.Caption := 'Tambah';
+  btnSimpan.Enabled := false; btnHapus.Enabled := False;
+  btnKeluar.Enabled := True;
+
+  dbgrd1.Enabled := True; edtpencarian.Enabled := True;
+  konek;
 end;
 
 end.

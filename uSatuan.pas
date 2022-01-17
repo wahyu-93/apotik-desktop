@@ -22,7 +22,6 @@ type
     btnHapus: TBitBtn;
     btnKeluar: TBitBtn;
     img1: TImage;
-    procedure FormCreate(Sender: TObject);
     procedure dbgrd1CellClick(Column: TColumn);
     procedure btnTambahClick(Sender: TObject);
     procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;
@@ -30,6 +29,7 @@ type
     procedure btnSimpanClick(Sender: TObject);
     procedure btnKeluarClick(Sender: TObject);
     procedure btnHapusClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -60,20 +60,6 @@ begin
 end;
 
 
-procedure TFSatuan.FormCreate(Sender: TObject);
-begin
-  edtKode.Clear; edtKode.Enabled := false;
-  edtSatuan.Clear; edtSatuan.Enabled := false;
-  edtpencarian.Clear; edtpencarian.Enabled := True;
-
-  btnTambah.Enabled := True; btnTambah.Caption := 'Tambah';
-  btnSimpan.Enabled := false; btnHapus.Enabled := False;
-  btnKeluar.Enabled := True;
-
-  dbgrd1.Enabled := True; edtpencarian.Enabled := True;
-  konek;
-end;
-
 procedure TFSatuan.dbgrd1CellClick(Column: TColumn);
 begin
   if dm.qrySatuan.IsEmpty=False then
@@ -101,6 +87,8 @@ begin
       btnSimpan.Enabled := True;
       btnKeluar.Enabled := false;
 
+      dbgrd1.Enabled := false;
+
       konek;
 
       with dm.qrySatuan do
@@ -124,7 +112,7 @@ begin
     end
  else
   begin
-    FormCreate(Sender);
+    FormShow(Sender);
   end;
 end;
 
@@ -170,7 +158,7 @@ begin
             end;
 
           MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
-          FormCreate(Sender);
+          FormShow(Sender);
         end
       else
         begin
@@ -206,7 +194,7 @@ begin
                 end;
             end;
 
-          FormCreate(Sender);
+          FormShow(Sender);
           MessageDlg('Data Berhasil Diubah',mtInformation,[mbok],0);
         end;
     end
@@ -235,8 +223,22 @@ begin
       dm.qrySatuan.Delete;
 
       MessageDlg('Data Berhasil Dihapus',mtInformation,[mbok],0);
-      FormCreate(Sender);
+      FormShow(Sender);
     end;
+end;
+
+procedure TFSatuan.FormShow(Sender: TObject);
+begin
+  edtKode.Clear; edtKode.Enabled := false;
+  edtSatuan.Clear; edtSatuan.Enabled := false;
+  edtpencarian.Clear; edtpencarian.Enabled := True;
+
+  btnTambah.Enabled := True; btnTambah.Caption := 'Tambah';
+  btnSimpan.Enabled := false; btnHapus.Enabled := False;
+  btnKeluar.Enabled := True;
+
+  dbgrd1.Enabled := True; edtpencarian.Enabled := True;
+  konek;
 end;
 
 end.

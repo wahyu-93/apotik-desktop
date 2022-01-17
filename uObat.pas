@@ -30,6 +30,7 @@ type
     img1: TImage;
     lbl7: TLabel;
     edtStok: TEdit;
+    edtIdObat: TEdit;
     procedure btnKeluarClick(Sender: TObject);
     procedure btnTambahClick(Sender: TObject);
     procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;
@@ -53,7 +54,7 @@ var
 implementation
 
 uses
-  dataModule, StrUtils;
+  dataModule, StrUtils, DB;
 
 {$R *.dfm}
 
@@ -69,6 +70,22 @@ begin
                   'tbl_obat b on a.id = b.kode_jenis INNER join tbl_satuan c on c.id = b.kode_satuan order by b.id';
       Open;
       EnableControls;
+    end;
+
+  with dm.qrySatuan do
+    begin
+      close;
+      SQL.Clear;
+      SQL.Text := 'select * from tbl_satuan';
+      Open;
+    end;
+
+  with dm.qryJenis do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Text := 'select * from tbl_jenis';
+      Open;
     end;
 
   with dm.qryObat do
@@ -93,11 +110,13 @@ begin
       edtBarcode.Enabled := True;
       dblkcbbJenisObat.Enabled := true;
       dblkcbbSatuanObat.Enabled := True;
-      edtStok.Enabled := True;
+      edtStok.Enabled := True; edtStok.Text := '0';
 
       btnTambah.Caption := 'Batal';
       btnSimpan.Enabled := True;
       btnKeluar.Enabled := false;
+
+      dbgrd1.Enabled := False;
 
       konek;
 
@@ -118,9 +137,30 @@ begin
         edtKode.Text := 'OBT'+FormatFloat('0000',StrToInt(kode));
         btnSimpan.Caption := 'Simpan';
         status:='tambah';
+
+        dm.qryObat.Append;
+        dm.qryObat.FieldByName('kode').AsString := edtKode.Text;
+        dm.qryObat.Post;
+
+        with dm.qryObat do
+          begin
+            close;
+            sql.Clear;
+            sql.Text := 'select * from tbl_obat where kode = '+QuotedStr(edtKode.Text)+'';
+            Open;
+
+            edtIdObat.Text := dm.qryObat.fieldbyname('id').AsString;
+          end;
     end
   else
     begin
+      with dm.qryObat do
+        begin
+          close;
+          sql.Clear;
+          sql.Text := 'delete from tbl_obat where id = '+QuotedStr(edtIdObat.Text)+'';
+          ExecSQL;
+        end;
       FormShow(Sender);
     end;
 end;
@@ -128,11 +168,12 @@ end;
 procedure TFobat.edtpencarianKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  with dm.qryObatRelasi do
+   with dm.qryObatRelasi do
     begin
       DisableControls;
-      SQL.Clear;
-      SQL.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, a.id as id_jenis, '+
+      Close;
+      sql.Clear;
+      SQL.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, a.id as id_jenis, b.stok, '+
                   'a.kode as jenisKode, a.jenis, c.id as id_satuan, c.kode as satuanKode, c.satuan from tbl_jenis a left join '+
                   'tbl_obat b on a.id = b.kode_jenis INNER join tbl_satuan c on c.id = b.kode_satuan where b.nama_obat like ''%'+edtpencarian.Text+'%'' order by b.id';
       Open;
@@ -183,14 +224,12 @@ begin
 
           with dm.qryObat do
             begin
-              Append;
-              FieldByName('kode').AsString := edtKode.Text;
-              FieldByName('barcode').AsString := edtBarcode.Text;
-              FieldByName('nama_obat').AsString := trim(edtNama.Text);
-              FieldByName('kode_jenis').AsString := dblkcbbJenisObat.KeyValue;
-              FieldByName('kode_satuan').AsString := dblkcbbSatuanObat.KeyValue;
-              fieldbyname('stok').AsString := edtStok.Text;
-              Post;
+              close;
+              sql.Clear;
+              sql.Text := 'update tbl_obat set barcode = '+QuotedStr(edtBarcode.Text)+', nama_obat = '+QuotedStr(Trim(edtNama.Text))+
+                          ', kode_jenis = '+QuotedStr(dblkcbbJenisObat.KeyValue)+', kode_satuan = '+QuotedStr(dblkcbbSatuanObat.KeyValue)+
+                          ', stok = '+QuotedStr(edtStok.Text)+' where kode = '+QuotedStr(edtKode.Text)+'';
+              ExecSQL;
             end;
         end
 

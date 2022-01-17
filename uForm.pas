@@ -149,7 +149,7 @@ begin
   stat1.Panels[0].Text := 'Pengguna : ' + dm.qryUser.FieldByName('nama').AsString;
   stat1.Panels[1].Text := 'Role : ' + dm.qryUser.fieldByname('role').AsString;
 
-  lbl6.Caption := 'Selamat Datang '+ dm.qryUser.fieldbyname('nama').AsString+' Di Aplikasi Kasir Apotik V.1';
+  lbl6.Caption := 'Selamat Datang '+ dm.qryUser.fieldbyname('nama').AsString+' Di Aplikasi Kasir Apotek V.1';
   lbl3.Caption := 'Anda Login Sebagai '+ dm.qryUser.fieldbyname('role').AsString;
   lbl1.Caption := dm.qrySetting.fieldbyname('nama_toko').AsString;
 

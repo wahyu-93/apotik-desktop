@@ -373,12 +373,12 @@ begin
             end
           else
             begin
-              with dm.qryDetailPenjualan do
+              with dm.qryDetailPembelian do
                 begin
                   close;
                   sql.Clear;
-                  SQL.Text := 'update tbl_detail_penjualan set jumlah_jual = '+QuotedStr(IntToStr(1 + dbgrd1.Fields[3].AsInteger))+
-                              ' where obat_id = '+QuotedStr(edtIdObat.Text)+' and penjualan_id = '+QuotedStr(edtIdPembelian.Text)+'';
+                  SQL.Text := 'update tbl_detail_pembelian set jumlah_beli = '+QuotedStr(edtJumlahBeli.Text)+', harga_beli = '+QuotedStr(edtHarga.Text)+
+                              ' where obat_id = '+QuotedStr(edtIdObat.Text)+' and pembelian_id = '+QuotedStr(id_pembelian)+'';
                   ExecSQL;
                 end;
               status := 'tambahLagi';
@@ -405,7 +405,15 @@ begin
             end
           else
             begin
-              ShowMessage('update obat');
+              with dm.qryStok do
+                begin
+                  close;
+                  sql.Clear;
+                  sql.Text := 'update tbl_stok set jumlah = '+QuotedStr(edtJumlahBeli.Text)+', harga = '+QuotedStr(edtHarga.Text)+
+                              ' where no_faktur = '+QuotedStr(edtFaktur.Text)+' and obat_id = '+QuotedStr(edtIdObat.Text)+'';
+                  ExecSQL;
+                end;
+
             end;
         end;
 
