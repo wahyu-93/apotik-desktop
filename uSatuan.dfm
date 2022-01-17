@@ -1,6 +1,6 @@
 object FSatuan: TFSatuan
-  Left = 478
-  Top = 238
+  Left = 640
+  Top = 192
   AutoScroll = False
   Caption = '.:: Form Satuan ::.'
   ClientHeight = 528

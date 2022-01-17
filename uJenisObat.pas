@@ -123,8 +123,11 @@ begin
       btnTambah.Caption := 'Batal';
       btnSimpan.Enabled := True;
       btnKeluar.Enabled := false;
+      btnHapus.Enabled := False;
 
       dbgrd1.Enabled := false;
+      edtJenis.Clear;
+      mmoKet.Clear;
 
       konek;
 
@@ -285,7 +288,7 @@ begin
         end;
 
       oldJenis := edtJenis.Text;
-      btnTambah.Enabled := False;
+      btnTambah.Enabled := True;
       btnSimpan.Caption := 'Edit'; btnSimpan.Enabled := True;
       btnHapus.Enabled := True; btnKeluar.Enabled := True;
     end;

@@ -1,6 +1,6 @@
 object Fsupplier: TFsupplier
-  Left = 224
-  Top = 147
+  Left = 540
+  Top = 172
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form Supplier ::.'
@@ -23638,6 +23638,7 @@ object Fsupplier: TFsupplier
       TabOrder = 7
       Text = 'edtKode'
       OnChange = edtNameChange
+      OnKeyPress = edtNameKeyPress
     end
     object mmoAlamat: TMemo
       Left = 104
@@ -23669,6 +23670,15 @@ object Fsupplier: TFsupplier
       ParentFont = False
       TabOrder = 9
       Text = 'edtKode'
+    end
+    object edtId: TEdit
+      Left = 344
+      Top = 16
+      Width = 121
+      Height = 21
+      TabOrder = 10
+      Text = 'edtId'
+      Visible = False
     end
   end
 end

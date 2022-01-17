@@ -94,7 +94,7 @@ begin
         end;
 
       oldSatuan := edtSatuan.Text;
-      btnTambah.Enabled := False;
+      btnTambah.Enabled := True;
       btnSimpan.Caption := 'Edit'; btnSimpan.Enabled := True;
       btnHapus.Enabled := True; btnKeluar.Enabled := True;
     end;
@@ -109,8 +109,10 @@ begin
       btnTambah.Caption := 'Batal';
       btnSimpan.Enabled := True;
       btnKeluar.Enabled := false;
+      btnHapus.Enabled := False;
 
       dbgrd1.Enabled := false;
+      edtSatuan.Clear;
 
       konek;
 

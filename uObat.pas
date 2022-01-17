@@ -138,8 +138,14 @@ begin
       btnTambah.Caption := 'Batal';
       btnSimpan.Enabled := True;
       btnKeluar.Enabled := false;
+      btnHapus.Enabled := False;
 
       dbgrd1.Enabled := False;
+      edtBarcode.Clear;
+      edtNama.Clear;
+      dblkcbbJenisObat.KeyValue := null;
+      dblkcbbSatuanObat.KeyValue := null;
+      edtStok.Text := '0';
 
       konek;
 
@@ -331,7 +337,7 @@ begin
       oldSatuan := dblkcbbSatuanObat.KeyValue;
       oldStok   := edtStok.Text;
 
-      btnTambah.Enabled := False;
+      btnTambah.Enabled := True;
       btnSimpan.Caption := 'Edit'; btnSimpan.Enabled := True;
       btnHapus.Enabled := True; btnKeluar.Enabled := True;
     end;

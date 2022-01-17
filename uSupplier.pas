@@ -26,6 +26,7 @@ type
     mmoAlamat: TMemo;
     lbl5: TLabel;
     edtTelp: TEdit;
+    edtId: TEdit;
     procedure btnKeluarClick(Sender: TObject);
     procedure dbgrd1CellClick(Column: TColumn);
     procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;
@@ -51,7 +52,7 @@ var
 implementation
 
 uses
-  dataModule, StrUtils;
+  dataModule, StrUtils, DB;
 
 {$R *.dfm}
 
@@ -133,7 +134,7 @@ begin
       oldAlamat := mmoAlamat.Text;
       oldTelp := edtTelp.Text;
 
-      btnTambah.Enabled := False;
+      btnTambah.Enabled := True;
       btnSimpan.Caption := 'Edit'; btnSimpan.Enabled := True;
       btnHapus.Enabled := True; btnKeluar.Enabled := True;
     end;
@@ -163,8 +164,12 @@ begin
       btnTambah.Caption := 'Batal';
       btnSimpan.Enabled := True;
       btnKeluar.Enabled := false;
+      btnHapus.Enabled := False;
 
       dbgrd1.Enabled := false;
+      edtName.Clear;
+      mmoAlamat.Clear;
+      edtTelp.Clear;
 
       konek;
 
@@ -185,9 +190,29 @@ begin
         edtKode.Text := 'SUP'+FormatFloat('0000',StrToInt(kode));
         btnSimpan.Caption := 'Simpan';
         status:='tambah';
+
+        with dm.qrySupplier do
+          begin
+            Append;
+            FieldByName('kode').AsString := edtKode.Text;
+            Post;
+
+            Locate('kode',edtKode.Text,[]);
+            edtId.Text := fieldbyname('id').AsString;
+          end;
     end
   else
     begin
+      if edtId.Text <> '' then
+        begin
+          with dm.qrySupplier do
+            begin
+              Close;
+              sql.Clear;
+              SQL.Text := 'delete from tbl_supplier where id = '+QuotedStr(edtId.Text)+'';
+              ExecSQL;
+            end;
+        end;
       FormShow(Sender);
     end;
 end;
@@ -228,8 +253,7 @@ begin
 
           with dm.qrySupplier do
             begin
-              Append;
-              FieldByName('kode').AsString := edtKode.Text;
+              Edit;
               FieldByName('nama_supplier').AsString := trim(edtName.Text);
               FieldByName('alamat_supplier').AsString := Trim(mmoAlamat.Text);
               FieldByName('telp_suplier').AsString := Trim(edtTelp.Text);
@@ -318,6 +342,7 @@ begin
   btnKeluar.Enabled := True;
 
   dbgrd1.Enabled := True; edtpencarian.Enabled := True;
+  edtId.Clear;
   konek;
 end;
 
