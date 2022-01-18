@@ -25,6 +25,8 @@ type
     procedure dbgrd1DblClick(Sender: TObject);
     procedure dbgrd1KeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
+    procedure dbgrd1DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
   public
@@ -55,8 +57,8 @@ begin
         begin
           close;
           sql.Clear;
-          sql.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, b.stok, a.id as id_jenis, a.kode as jenisKode, a.jenis, c.id as id_satuan, '+
-                      'c.kode as satuanKode, c.satuan from tbl_jenis a left join tbl_obat b on a.id = b.kode_jenis INNER join tbl_satuan c on c.id = b.kode_satuan  where b.nama_obat like ''%'+edtpencarian.Text+'%'' order by b.id';
+          sql.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, b.stok, b.status, a.id as id_jenis, a.kode as jenisKode, a.jenis, c.id as id_satuan, '+
+                      'c.kode as satuanKode, c.satuan from tbl_jenis a left join tbl_obat b on a.id = b.kode_jenis INNER join tbl_satuan c on c.id = b.kode_satuan where b.nama_obat like ''%'+edtpencarian.Text+'%'' order by b.id';
           Open;
         end;
     end
@@ -67,7 +69,7 @@ begin
         begin
           close;
           sql.Clear;
-          sql.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, b.stok, a.id as id_jenis, a.kode as jenisKode, a.jenis, c.id as id_satuan, '+
+          sql.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, b.stok, b.status, a.id as id_jenis, a.kode as jenisKode, a.jenis, c.id as id_satuan, '+
                       'c.kode as satuanKode, c.satuan from tbl_jenis a left join tbl_obat b on a.id = b.kode_jenis INNER join tbl_satuan c on c.id = b.kode_satuan '+
                       'where b.nama_obat like ''%'+edtpencarian.Text+'%''order by b.id';
           Open;
@@ -127,6 +129,16 @@ begin
       fSetHarga.edtIdObat.Text := dbgrd1.Fields[0].AsString;
       fSetHarga.edtHargaBeli.Text := dm.qryRelasiStok.fieldbyname('harga').AsString;
 
+      if fSetHarga.edtHargaBeli.Text = '' then
+        begin
+          fSetHarga.edtHargaBeli.Enabled := True;
+          fSetHarga.edtHargaBeli.SetFocus;
+         end
+      else
+        begin
+          fSetHarga.edtHargaBeli.Enabled := false;
+        end;
+          
       if dm.qryRelasiStok.FieldByName('tgl_exp').AsString = '' then
         fSetHarga.dtpTglExp.Date := Now
       else
@@ -157,7 +169,7 @@ begin
         begin
           close;
           sql.Clear;
-          sql.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, b.stok, a.id as id_jenis, a.kode as jenisKode, a.jenis, c.id as id_satuan, '+
+          sql.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, b.stok, b.status, a.id as id_jenis, a.kode as jenisKode, a.jenis, c.id as id_satuan, '+
                       'c.kode as satuanKode, c.satuan from tbl_jenis a left join tbl_obat b on a.id = b.kode_jenis INNER join tbl_satuan c on c.id = b.kode_satuan order by b.id';
           Open;
         end;
@@ -169,7 +181,7 @@ begin
         begin
           close;
           sql.Clear;
-          sql.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, b.stok, a.id as id_jenis, a.kode as jenisKode, a.jenis, c.id as id_satuan, '+
+          sql.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, b.stok, b.status, a.id as id_jenis, a.kode as jenisKode, a.jenis, c.id as id_satuan, '+
                       'c.kode as satuanKode, c.satuan from tbl_jenis a left join tbl_obat b on a.id = b.kode_jenis INNER join tbl_satuan c on c.id = b.kode_satuan '+
                       ' order by b.id';
           Open;
@@ -181,6 +193,29 @@ procedure TfBantuObat.FormShow(Sender: TObject);
 begin
   edtpencarian.Clear;
   konek(edt1.Text);
+end;
+
+procedure TfBantuObat.dbgrd1DrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn;
+  State: TGridDrawState);
+begin
+  if edt1.Text = 'setHarga' then
+    begin
+      if dm.qryObatRelasi.FieldByName('status').AsString = '1' then
+      begin
+        dbgrd1.Canvas.Brush.Color := clMoneyGreen;
+        dbgrd1.Canvas.Font.Color := clBlack;
+      end;
+    end
+  else
+    begin
+      if dm.qryObatRelasi.FieldByName('stok').AsString = '0' then
+      begin
+        dbgrd1.Canvas.Brush.Color := clSkyBlue;
+        dbgrd1.Canvas.Font.Color := clBlack;
+      end;
+    end;
+  dbgrd1.DefaultDrawColumnCell(rect, datacol, column, state);
 end;
 
 end.

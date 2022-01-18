@@ -88,7 +88,7 @@ begin
       DisableControls;
       Close;
       sql.Clear;
-      SQL.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, a.id as id_jenis, b.stok, '+
+      SQL.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, a.id as id_jenis, b.stok, b.status, '+
                   'a.kode as jenisKode, a.jenis, c.id as id_satuan, c.kode as satuanKode, c.satuan from tbl_jenis a left join '+
                   'tbl_obat b on a.id = b.kode_jenis INNER join tbl_satuan c on c.id = b.kode_satuan order by b.id';
       Open;

@@ -23403,6 +23403,7 @@ object fBantuObat: TfBantuObat
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnDrawColumnCell = dbgrd1DrawColumnCell
       OnDblClick = dbgrd1DblClick
       OnKeyPress = dbgrd1KeyPress
       Columns = <
@@ -23415,6 +23416,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23428,7 +23430,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 180
           Visible = True
         end
         item
@@ -23454,7 +23456,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 180
           Visible = True
         end
         item
@@ -23490,6 +23492,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23514,7 +23517,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 180
           Visible = True
         end
         item
@@ -23526,6 +23529,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23550,7 +23554,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 180
           Visible = True
         end
         item
@@ -23565,6 +23569,19 @@ object fBantuObat: TfBantuObat
           Title.Font.Style = []
           Width = 50
           Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'status'
+          Title.Alignment = taCenter
+          Title.Caption = 'Status'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = -1
+          Visible = False
         end>
     end
     object edtpencarian: TEdit

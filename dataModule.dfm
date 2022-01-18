@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 369
-  Top = 329
+  Left = 584
+  Top = 351
   Height = 456
   Width = 1222
   object XPManifest1: TXPManifest
@@ -167,10 +167,11 @@ object dm: Tdm
     SQL.Strings = (
       
         'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_' +
-        'jenis, b.kode_satuan, b.stok, a.id as id_jenis, a.kode as jenisK' +
-        'ode, a.jenis, c.id as id_satuan, c.kode as satuanKode, c.satuan ' +
-        'from tbl_jenis a left join tbl_obat b on a.id = b.kode_jenis INN' +
-        'ER join tbl_satuan c on c.id = b.kode_satuan order by b.id;')
+        'jenis, b.kode_satuan, b.stok, b.status, a.id as id_jenis, a.kode' +
+        ' as jenisKode, a.jenis, c.id as id_satuan, c.kode as satuanKode,' +
+        ' c.satuan from tbl_jenis a left join tbl_obat b on a.id = b.kode' +
+        '_jenis INNER join tbl_satuan c on c.id = b.kode_satuan order by ' +
+        'b.id;')
     Left = 64
     Top = 336
     object qryObatRelasiid: TIntegerField
@@ -216,6 +217,10 @@ object dm: Tdm
     end
     object qryObatRelasistok: TIntegerField
       FieldName = 'stok'
+    end
+    object qryObatRelasistatus: TStringField
+      FieldName = 'status'
+      Size = 100
     end
   end
   object qryPembelian: TADOQuery

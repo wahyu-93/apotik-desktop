@@ -24,6 +24,8 @@ type
     procedure dbgrd1KeyPress(Sender: TObject; var Key: Char);
     procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure dbgrd1DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
   public
@@ -65,6 +67,11 @@ end;
 procedure TfBantuObatPenjualan.btnPilihClick(Sender: TObject);
 begin
   if dbgrd1.Fields[1].AsString = '' then Exit;
+  if dbgrd1.Fields[7].AsString = '0' then
+    begin
+      MessageDlg('Cek Ketersediaan Stok',mtInformation,[mbOK],0);
+      Exit;
+    end;
 
   Fpenjualan.edtKode.Text := dbgrd1.Fields[2].AsString;
   Fpenjualan.edtIdObat.Text := dbgrd1.Fields[1].AsString;
@@ -96,6 +103,18 @@ begin
       SQL.Text := 'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id = b.id where b.nama_obat like ''%'+edtpencarian.Text+'%''';
       Open;
     end;
+end;
+
+procedure TfBantuObatPenjualan.dbgrd1DrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn;
+  State: TGridDrawState);
+begin
+  if dm.qryRelasiSetHarga.FieldByName('stok').AsString = '0' then
+    begin
+      dbgrd1.Canvas.Brush.Color := clSkyBlue;
+      dbgrd1.Canvas.Font.Color := clBlack;
+    end;
+  dbgrd1.DefaultDrawColumnCell(rect, datacol, column, state);
 end;
 
 end.

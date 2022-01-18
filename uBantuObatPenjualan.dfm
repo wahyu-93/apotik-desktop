@@ -1,6 +1,6 @@
 object fBantuObatPenjualan: TfBantuObatPenjualan
-  Left = 478
-  Top = 185
+  Left = 524
+  Top = 294
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form List Obat ::.'
@@ -23403,6 +23403,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnDrawColumnCell = dbgrd1DrawColumnCell
       OnDblClick = dbgrd1DblClick
       OnKeyPress = dbgrd1KeyPress
       Columns = <
@@ -23455,7 +23456,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 130
+          Width = 120
           Visible = True
         end
         item
@@ -23473,7 +23474,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 130
+          Width = 120
           Visible = True
         end
         item
@@ -23491,7 +23492,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 130
+          Width = 120
           Visible = True
         end
         item
@@ -23509,7 +23510,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 130
+          Width = 120
           Visible = True
         end
         item
@@ -23527,7 +23528,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 130
+          Width = 120
           Visible = True
         end
         item
@@ -23545,7 +23546,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 130
+          Width = 120
           Visible = True
         end
         item
@@ -23596,6 +23597,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item

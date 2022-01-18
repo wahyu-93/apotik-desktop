@@ -40,6 +40,8 @@ type
     lbl9: TLabel;
     dtpTglExp: TDateTimePicker;
     img1: TImage;
+    edtSupplier: TEdit;
+    bvl1: TBevel;
     procedure btnBantuObatClick(Sender: TObject);
     procedure btnKeluarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -53,6 +55,7 @@ type
     procedure konek;
     procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure edtHargaBeliKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -100,7 +103,10 @@ begin
 
   dtpTglExp.Enabled := False;
   dtpTglExp.Date := Now;
-  
+
+  edtHargaBeli.Clear; edtHargaBeli.Enabled := false;
+  edtSupplier.Clear; edtSupplier.Enabled := false;
+
   konek;
 end;
 
@@ -143,6 +149,13 @@ begin
       Exit;
     end;
 
+  if edtHargaBeli.Text = '' then
+    begin
+      MessageDlg('Harga Beli Belum Diisi' ,mtInformation,[mbOK],0);
+      edtHargaBeli.SetFocus;
+      Exit;
+    end;
+
   if edtHarga.Text = '' then
     begin
       MessageDlg('Harga Jual Belum Diisi' ,mtInformation,[mbOK],0);
@@ -174,7 +187,7 @@ begin
             begin
               close;
               sql.clear;
-              SQL.Text := 'update tbl_obat set tgl_exp = '+QuotedStr(FormatDateTime('yyyy-mm-dd',dtpTglExp.Date))+' where id = '+QuotedStr(edtIdObat.Text)+'';
+              SQL.Text := 'update tbl_obat set tgl_exp = '+QuotedStr(FormatDateTime('yyyy-mm-dd',dtpTglExp.Date))+', status='+QuotedStr('1')+' where id = '+QuotedStr(edtIdObat.Text)+'';
               ExecSQL;
             end;
 
@@ -257,6 +270,12 @@ begin
       SQL.Text := 'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id = b.id where b.nama_obat like ''%'+edtpencarian.Text+'%'' order by a.id';
       Open;
     end;
+end;
+
+procedure TfSetHarga.edtHargaBeliKeyPress(Sender: TObject; var Key: Char);
+begin
+  if not (key in(['0'..'9',#13,#9,#8])) then Key:=#0;
+  if Key=#13 then edtHarga.SetFocus;
 end;
 
 end.
