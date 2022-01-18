@@ -3,17 +3,17 @@ Jl.Suryagandamana Dpn Msjd Raya
         081256566056 
 ----------------------------------
 No. Nota:PJ-1801202200004
-Tanggal :18/01/2022 12:02:22
+Tanggal :18/01/2022 16:21:10
 Kasir   :Hamdi Farma
 ----------------------------------
 Nama Barang
       QTY   Harga         Sub Total
 ----------------------------------
- addada ml
-      1 X 5.000.000       5.000.000
+ fdsfsdfdsf
+      10 X 50.000           500.000
 ----------------------------------
-Total   :              Rp 5.000.000
-Bayar   :              Rp 5.000.000
+Total   :                Rp 500.000
+Bayar   :                Rp 500.000
 Kembali :                       Rp 
 ----------------------------------
  Jumlah Item  : 1

@@ -20,6 +20,8 @@ type
     cbbTahun: TComboBox;
     btnLap: TBitBtn;
     dbgrdPembelian: TDBGrid;
+    pnl1: TPanel;
+    lblJumlah: TLabel;
     procedure btnKeluarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnLapClick(Sender: TObject);
@@ -35,11 +37,13 @@ type
 
 var
   fLaporanPembelian: TfLaporanPembelian;
-
+  a : Integer;
+  total : real;
+  
 implementation
 
 uses
-  dataModule;
+  dataModule, ADODB;
 
 {$R *.dfm}
 
@@ -80,8 +84,26 @@ begin
   dtp1.Enabled := false;
   cbbTahun.Enabled := False;
   cbbBulan.Enabled := False;
-  
-  konek;
+
+  with dm.qryLaporanPembelian do
+    begin
+      close;
+      SQL.Clear;
+      sql.Text := 'select * from tbl_pembelian left join tbl_supplier on tbl_pembelian.supplier_id = tbl_supplier.id '+
+                  'where date(tbl_pembelian.tgl_pembelian) = '+QuotedStr(FormatDateTime('yyyy-mm-dd',Now))+' order by tbl_pembelian.id asc';
+      Open;
+
+      total := 0;
+      for a:= 1 to RecordCount do
+        begin
+          RecNo := a;
+          total := total + (fieldbyname('total').AsFloat);
+         
+          Next;
+        end;
+
+      lblJumlah.Caption := 'Jumlah Transaksi : '+ IntToStr(RecordCount)+ ' - Total Pembelian : ' + FormatFloat('Rp. ###,###,###', total);
+    end;
 end;
 
 procedure TfLaporanPembelian.btnLapClick(Sender: TObject);
@@ -128,6 +150,17 @@ begin
       SQL.Clear;
       sql.Text := query;
       Open;
+
+      total := 0;
+      for a:= 1 to RecordCount do
+        begin
+          RecNo := a;
+          total := total + (fieldbyname('total').AsFloat);
+         
+          Next;
+        end;
+
+      lblJumlah.Caption := 'Jumlah Transaksi : '+ IntToStr(RecordCount)+ ' - Total Pembelian : ' + FormatFloat('Rp. ###,###,###', total);
     end;
 end;
 

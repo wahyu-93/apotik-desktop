@@ -819,9 +819,82 @@ object dm: Tdm
     SQL.Strings = (
       
         'select * from tbl_obat a left join tbl_satuan b on a.kode_satuan' +
-        ' = b.id order by a.id')
+        ' = b.id left join tbl_harga_jual c on c.obat_id = a.id order by ' +
+        'a.id;')
     Left = 792
     Top = 192
+    object qryLaporanStokid: TIntegerField
+      FieldName = 'id'
+    end
+    object qryLaporanStokkode: TStringField
+      FieldName = 'kode'
+      Size = 30
+    end
+    object qryLaporanStokbarcode: TStringField
+      FieldName = 'barcode'
+      Size = 100
+    end
+    object qryLaporanStoknama_obat: TStringField
+      FieldName = 'nama_obat'
+      Size = 150
+    end
+    object qryLaporanStokkode_jenis: TIntegerField
+      FieldName = 'kode_jenis'
+    end
+    object qryLaporanStokkode_satuan: TIntegerField
+      FieldName = 'kode_satuan'
+    end
+    object qryLaporanStoktgl_obat: TDateField
+      FieldName = 'tgl_obat'
+    end
+    object qryLaporanStoktgl_exp: TDateField
+      FieldName = 'tgl_exp'
+    end
+    object qryLaporanStokstatus: TStringField
+      FieldName = 'status'
+      Size = 100
+    end
+    object qryLaporanStokstok: TIntegerField
+      FieldName = 'stok'
+    end
+    object qryLaporanStokid_1: TIntegerField
+      FieldName = 'id_1'
+    end
+    object qryLaporanStokkode_1: TStringField
+      FieldName = 'kode_1'
+    end
+    object qryLaporanStoksatuan: TStringField
+      FieldName = 'satuan'
+      Size = 100
+    end
+    object qryLaporanStokid_2: TIntegerField
+      FieldName = 'id_2'
+    end
+    object qryLaporanStokobat_id: TIntegerField
+      FieldName = 'obat_id'
+    end
+    object qryLaporanStokharga_jual: TFloatField
+      FieldName = 'harga_jual'
+    end
+    object qryLaporanStokharga_beli_terakhir: TIntegerField
+      FieldName = 'harga_beli_terakhir'
+      DisplayFormat = '#,##;(#,##);#,##'
+    end
+    object qryLaporanStoksupplier: TStringField
+      FieldName = 'supplier'
+      Size = 50
+    end
+    object qryLaporanStoksatuan_1: TStringField
+      FieldName = 'satuan_1'
+      Size = 100
+    end
+    object qryLaporanStokjenis: TStringField
+      FieldName = 'jenis'
+      Size = 100
+    end
+    object qryLaporanStokcreated_at: TDateTimeField
+      FieldName = 'created_at'
+    end
   end
   object qryLaporanItemLaris: TADOQuery
     Active = True

@@ -20,6 +20,8 @@ type
     cbbTahun: TComboBox;
     btnLap: TBitBtn;
     dbgrdPenjualan: TDBGrid;
+    pnl1: TPanel;
+    lblJumlah: TLabel;
     procedure btnKeluarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnLapClick(Sender: TObject);
@@ -35,6 +37,8 @@ type
 
 var
   fLaporanPenjualan: TfLaporanPenjualan;
+  a : Integer;
+  total : real;
 
 implementation
 
@@ -81,8 +85,27 @@ begin
   cbbTahun.Enabled := False;
   cbbBulan.Enabled := False;
   
-  konek;
+  with dm.qryLaporanPenjualan do
+    begin
+      close;
+      sql.Clear;
+      SQL.Text := 'select * from tbl_penjualan left JOIN tbl_pelanggan on tbl_penjualan.id_pelanggan = tbl_pelanggan.id '+
+                  'where tbl_penjualan.tgl_penjualan like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%'' order by tbl_penjualan.id asc';
+      Open;
+
+      total := 0;
+      for a:= 1 to RecordCount do
+        begin
+          RecNo := a;
+          total := total + (fieldbyname('total').AsFloat);
+         
+          Next;
+        end;
+
+      lblJumlah.Caption := 'Jumlah Transaksi : '+ IntToStr(RecordCount)+ ' - Total Pembelian : ' + FormatFloat('Rp. ###,###,###', total);
+    end;
 end;
+
 procedure TfLaporanPenjualan.btnLapClick(Sender: TObject);
 var query : string;
 begin
@@ -126,6 +149,17 @@ begin
       SQL.Clear;
       sql.Text := query;
       Open;
+
+      total := 0;
+      for a:= 1 to RecordCount do
+        begin
+          RecNo := a;
+          total := total + (fieldbyname('total').AsFloat);
+         
+          Next;
+        end;
+
+      lblJumlah.Caption := 'Jumlah Transaksi : '+ IntToStr(RecordCount)+ ' - Total Pembelian : ' + FormatFloat('Rp. ###,###,###', total);
     end;
 end;
 

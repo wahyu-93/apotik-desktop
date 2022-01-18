@@ -23385,7 +23385,7 @@ object fLaporanStok: TfLaporanStok
     Height = 57
     TabOrder = 0
     object lbl1: TLabel
-      Left = 424
+      Left = 400
       Top = 16
       Width = 196
       Height = 27
@@ -23423,7 +23423,7 @@ object fLaporanStok: TfLaporanStok
       Left = 8
       Top = 24
       Width = 1033
-      Height = 505
+      Height = 465
       DataSource = dm.dsLaporanStok
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23547,20 +23547,6 @@ object fLaporanStok: TfLaporanStok
           Visible = False
         end
         item
-          Alignment = taCenter
-          Expanded = False
-          FieldName = 'stok'
-          Title.Alignment = taCenter
-          Title.Caption = 'Stok'
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -15
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Width = 190
-          Visible = True
-        end
-        item
           Expanded = False
           FieldName = 'id_1'
           Title.Alignment = taCenter
@@ -23594,7 +23580,56 @@ object fLaporanStok: TfLaporanStok
           Title.Font.Style = []
           Width = 190
           Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'harga_beli_terakhir'
+          Title.Alignment = taCenter
+          Title.Caption = 'Harga Beli'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -15
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = 123
+          Visible = True
+        end
+        item
+          Alignment = taCenter
+          Expanded = False
+          FieldName = 'stok'
+          Title.Alignment = taCenter
+          Title.Caption = 'Stok'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -15
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = 101
+          Visible = True
         end>
+    end
+    object pnl1: TPanel
+      Left = 8
+      Top = 496
+      Width = 1033
+      Height = 33
+      TabOrder = 2
+      object lblJumlah: TLabel
+        Left = 8
+        Top = 7
+        Width = 1017
+        Height = 18
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'Laporan Stok Item'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clRed
+        Font.Height = -16
+        Font.Name = 'Arial Narrow'
+        Font.Style = [fsItalic]
+        ParentFont = False
+      end
     end
   end
 end

@@ -35,6 +35,7 @@ begin
   Application.Initialize;
   Application.CreateForm(Tdm, dm);
   Application.CreateForm(TfLogin, fLogin);
+  Application.CreateForm(TfReturn, fReturn);
   Application.CreateForm(TFMenu, FMenu);
   Application.CreateForm(TfJenisObat, fJenisObat);
   Application.CreateForm(TFSatuan, FSatuan);
@@ -58,6 +59,5 @@ begin
   Application.CreateForm(TfLaporanJumlahItemTerjual, fLaporanJumlahItemTerjual);
   Application.CreateForm(TfDetailPenjualan, fDetailPenjualan);
   Application.CreateForm(TfDetailPembelian, fDetailPembelian);
-  Application.CreateForm(TfReturn, fReturn);
   Application.Run;
 end.
