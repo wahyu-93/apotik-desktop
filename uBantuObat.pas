@@ -125,11 +125,15 @@ begin
 
       fSetHarga.lblHargaBeli.Caption := FormatFloat('Rp. ###,###,###', dm.qryRelasiStok.fieldbyname('harga').AsFloat);
       fSetHarga.lblSupplier.Caption := dm.qryRelasiStok.fieldbyname('nama_supplier').AsString;
+      fSetHarga.edtSupplier.Text := dm.qryRelasiStok.fieldbyname('nama_supplier').AsString;
+
       fSetHarga.edtHarga.Enabled := True; fSetHarga.edtHarga.SetFocus;
       fSetHarga.edtIdObat.Text := dbgrd1.Fields[0].AsString;
       fSetHarga.edtHargaBeli.Text := dm.qryRelasiStok.fieldbyname('harga').AsString;
+      fSetHarga.dtpTglExp.Enabled := True;
 
-      if fSetHarga.edtHargaBeli.Text = '' then
+
+      if fSetHarga.edtSupplier.Text = '' then
         begin
           fSetHarga.edtHargaBeli.Enabled := True;
           fSetHarga.edtHargaBeli.SetFocus;
@@ -138,7 +142,7 @@ begin
         begin
           fSetHarga.edtHargaBeli.Enabled := false;
         end;
-          
+
       if dm.qryRelasiStok.FieldByName('tgl_exp').AsString = '' then
         fSetHarga.dtpTglExp.Date := Now
       else

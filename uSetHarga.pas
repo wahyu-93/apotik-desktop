@@ -68,7 +68,7 @@ var
 implementation
 
 uses
-  dataModule, uBantuObat, DB;
+  dataModule, uBantuObat, DB, ADODB;
 
 {$R *.dfm}
 
@@ -107,6 +107,8 @@ begin
   edtHargaBeli.Clear; edtHargaBeli.Enabled := false;
   edtSupplier.Clear; edtSupplier.Enabled := false;
 
+  btnSimpan.Caption := 'Simpan';
+
   konek;
 end;
 
@@ -132,7 +134,7 @@ begin
 
       btnSimpan.Enabled := True;
       btnTambah.Caption := 'Batal[F1]';
-      
+
     end
   else
     begin
@@ -142,65 +144,93 @@ end;
 
 procedure TfSetHarga.btnSimpanClick(Sender: TObject);
 var hargabeli : string;
+    id_set_harga : string;
 begin
-  if edtKode.Text = '' then
+  if btnSimpan.Caption = 'Simpan' then
     begin
-      MessageDlg('Obat Belum Dipilih', mtInformation,[mbok],0);
-      Exit;
-    end;
-
-  if edtHargaBeli.Text = '' then
-    begin
-      MessageDlg('Harga Beli Belum Diisi' ,mtInformation,[mbOK],0);
-      edtHargaBeli.SetFocus;
-      Exit;
-    end;
-
-  if edtHarga.Text = '' then
-    begin
-      MessageDlg('Harga Jual Belum Diisi' ,mtInformation,[mbOK],0);
-      edtHarga.SetFocus;
-      Exit;
-    end;
-
-  if edtHargaBeli.Text = '' then hargabeli := '0' else hargabeli := edtHargaBeli.Text;
-
-  with dm.qrySetHarga do
-    begin
-      Close;
-      sql.Clear;
-      SQL.Text := 'select * from tbl_harga_jual where obat_id = '+QuotedStr(edtIdObat.Text)+'';
-      Open;
-
-      if IsEmpty then
+      if edtKode.Text = '' then
         begin
-          Append;
-          FieldByName('obat_id').AsString := edtIdObat.Text;
-          FieldByName('harga_jual').AsString := edtHarga.Text;
-          FieldByName('harga_beli_terakhir').AsString := hargabeli;
-          FieldByName('supplier').AsString := lblSupplier.Caption;
-          FieldByName('satuan').AsString := lblSatuan.Caption;
-          FieldByName('jenis').AsString := lblJenis.Caption;
-          Post;
-
-          with dm.qryObat do
-            begin
-              close;
-              sql.clear;
-              SQL.Text := 'update tbl_obat set tgl_exp = '+QuotedStr(FormatDateTime('yyyy-mm-dd',dtpTglExp.Date))+', status='+QuotedStr('1')+' where id = '+QuotedStr(edtIdObat.Text)+'';
-              ExecSQL;
-            end;
-
-          MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
-        end
-      else
-        begin
-          MessageDlg('Obat Sudah Diberi Harga, Hapus Data sebelumnya untuk Memasukkan Harga Baru',mtInformation,[mbok],0);
+          MessageDlg('Obat Belum Dipilih', mtInformation,[mbok],0);
           Exit;
         end;
-    end;
 
-  FormShow(Sender);
+      if edtHargaBeli.Text = '' then
+        begin
+          MessageDlg('Harga Beli Belum Diisi' ,mtInformation,[mbOK],0);
+          edtHargaBeli.SetFocus;
+          Exit;
+        end;
+
+      if edtHarga.Text = '' then
+        begin
+          MessageDlg('Harga Jual Belum Diisi' ,mtInformation,[mbOK],0);
+          edtHarga.SetFocus;
+          Exit;
+        end;
+
+      if edtHargaBeli.Text = '' then hargabeli := '0' else hargabeli := edtHargaBeli.Text;
+
+      with dm.qrySetHarga do
+        begin
+          Close;
+          sql.Clear;
+          SQL.Text := 'select * from tbl_harga_jual where obat_id = '+QuotedStr(edtIdObat.Text)+'';
+          Open;
+
+          id_set_harga := fieldbyname('id').AsString;
+
+          if IsEmpty then
+            begin
+              Append;
+              FieldByName('obat_id').AsString := edtIdObat.Text;
+              FieldByName('harga_jual').AsString := edtHarga.Text;
+              FieldByName('harga_beli_terakhir').AsString := hargabeli;
+              FieldByName('supplier').AsString := lblSupplier.Caption;
+              FieldByName('satuan').AsString := lblSatuan.Caption;
+              FieldByName('jenis').AsString := lblJenis.Caption;
+              Post;
+
+              MessageDlg('Data Berhasil Disimpan', mtInformation,[mbOK],0);
+            end
+          else
+            begin
+              with dm.qrySetHarga do
+                begin
+                  close;
+                  sql.Clear;
+                  SQL.Text := 'update tbl_harga_jual set harga_beli_terakhir = '+QuotedStr(hargabeli)+', harga_jual = '+QuotedStr(edtHarga.Text)+' where id = '+QuotedStr(id_set_harga)+'';
+                  ExecSQL;
+
+                  MessageDlg('Harga Obat Berhasil Diupdate',mtInformation,[mbok],0);
+                end;
+            end;
+        end;
+
+      with dm.qryObat do
+        begin
+          close;
+          sql.clear;
+          SQL.Text := 'update tbl_obat set tgl_exp = '+QuotedStr(FormatDateTime('yyyy-mm-dd',dtpTglExp.Date))+', status='+QuotedStr('1')+' where id = '+QuotedStr(edtIdObat.Text)+'';
+          ExecSQL;
+        end;
+
+      FormShow(Sender);
+    end
+  else
+    begin
+      dtpTglExp.Enabled := True;
+      edtHarga.Enabled := True; edtHarga.SetFocus;
+
+      btnTambah.Caption := 'Batal';
+      btnSimpan.Caption := 'Simpan';
+      btnHapus.Enabled := false;
+
+      if edtSupplier.Text = '' then
+        edtHargaBeli.Enabled := True
+      else
+        edtHargaBeli.Enabled := false;
+
+    end;
 
 end;
 
@@ -221,7 +251,7 @@ begin
   lblHargaBeli.Caption := 'Rp. ' + FormatFloat('###,###',StrToFloat(dbgrd1.Fields[5].AsString));
   lblSupplier.Caption := dbgrd1.Fields[6].AsString;
 
-  edtHargaBeli.Text := dbgrd1.Fields[4].AsString;
+  edtHargaBeli.Text := dbgrd1.Fields[5].AsString;
   edtIdObat.Text := dbgrd1.Fields[2].AsString;
   dtpTglExp.Date := dbgrd1.Fields[7].AsDateTime;
   edtHarga.Text := dbgrd1.Fields[4].AsString;
@@ -230,6 +260,9 @@ begin
   btnBantuObat.Enabled := false;
   btnHapus.Enabled := false;
   btnHapus.Enabled := true;
+
+  btnSimpan.Caption := 'Edit';
+  btnSimpan.Enabled := True;
 end;
 
 procedure TfSetHarga.btnHapusClick(Sender: TObject);
@@ -238,10 +271,18 @@ begin
     begin
       with dm.qrySetHarga do
         begin
-          if Locate('obat_id',edtIdObat.Text,[]) then
-            begin
-              Delete;
-            end;
+          close;
+          SQL.Clear;
+          SQL.Text := 'delete from tbl_harga_jual where obat_id = '+QuotedStr(edtIdObat.Text)+'';
+          ExecSQL;
+        end;
+
+       with dm.qryObat do
+        begin
+          close;
+          SQL.Clear;
+          SQL.Text := 'update tbl_obat set status = '+QuotedStr('0')+' where id = '+QuotedStr(edtIdObat.Text)+'';
+          ExecSQL;
         end;
 
       MessageDlg('Data Berhasil Dihapus ?',mtInformation,[mbok],0);
