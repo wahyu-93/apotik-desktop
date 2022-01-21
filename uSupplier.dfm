@@ -1,6 +1,6 @@
 object Fsupplier: TFsupplier
-  Left = 540
-  Top = 172
+  Left = 718
+  Top = 456
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form Supplier ::.'

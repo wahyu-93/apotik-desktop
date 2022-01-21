@@ -23557,19 +23557,34 @@ object FMenu: TFMenu
       end
       object Pembelian1: TMenuItem
         Caption = 'Pembelian'
-        OnClick = Pembelian1Click
+        object ListPembelian2: TMenuItem
+          Caption = 'List Pembelian'
+          OnClick = ListPembelian2Click
+        end
+        object Pembelian2: TMenuItem
+          Caption = 'Pembelian'
+          OnClick = Pembelian2Click
+        end
       end
       object Penjualan1: TMenuItem
         Caption = 'Penjualan'
-        OnClick = Penjualan1Click
+        object ListPenjualan2: TMenuItem
+          Caption = 'List Penjualan'
+          OnClick = ListPenjualan2Click
+        end
+        object Penjualan2: TMenuItem
+          Caption = 'Penjualan'
+          OnClick = Penjualan2Click
+        end
       end
-      object ListPembelian1: TMenuItem
-        Caption = 'List Pembelian'
-        OnClick = ListPembelian1Click
-      end
-      object ListPenjualan1: TMenuItem
-        Caption = 'List Penjualan'
-        OnClick = ListPenjualan1Click
+      object Retur1: TMenuItem
+        Caption = 'Retur Penjualan'
+        object ListRetur1: TMenuItem
+          Caption = 'List Retur Penjualan'
+        end
+        object ReturPenjualan1: TMenuItem
+          Caption = 'Retur Penjualan'
+        end
       end
     end
     object Laporan1: TMenuItem

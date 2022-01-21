@@ -233,6 +233,11 @@ type
     qryLaporanStoksatuan_1: TStringField;
     qryLaporanStokjenis: TStringField;
     qryLaporanStokcreated_at: TDateTimeField;
+    qryRetur: TADOQuery;
+    dsRetur: TDataSource;
+    qryRelasiReturObat: TADOQuery;
+    dsRelasiReturObat: TDataSource;
+    qryStokalasan: TStringField;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

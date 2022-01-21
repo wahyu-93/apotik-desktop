@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 584
-  Top = 351
+  Left = 152
+  Top = 289
   Height = 456
   Width = 1222
   object XPManifest1: TXPManifest
@@ -456,6 +456,10 @@ object dm: Tdm
     end
     object qryStokcreated_at: TDateTimeField
       FieldName = 'created_at'
+    end
+    object qryStokalasan: TStringField
+      FieldName = 'alasan'
+      Size = 200
     end
   end
   object qrySetHarga: TADOQuery
@@ -1052,5 +1056,37 @@ object dm: Tdm
     DataSet = qryListPenjualan
     Left = 560
     Top = 16
+  end
+  object qryRetur: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from tbl_retur')
+    Left = 1000
+    Top = 216
+  end
+  object dsRetur: TDataSource
+    DataSet = qryRetur
+    Left = 1056
+    Top = 248
+  end
+  object qryRelasiReturObat: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select * from tbl_stok left join tbl_obat on tbl_obat.id = tbl_s' +
+        'tok.obat_id')
+    Left = 1008
+    Top = 320
+  end
+  object dsRelasiReturObat: TDataSource
+    DataSet = qryRelasiReturObat
+    Left = 1048
+    Top = 304
   end
 end

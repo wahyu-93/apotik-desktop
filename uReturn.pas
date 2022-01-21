@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Grids, DBGrids, Buttons, ComCtrls;
+  Dialogs, StdCtrls, Grids, DBGrids, Buttons, ComCtrls, jpeg, ExtCtrls;
 
 type
   TfReturn = class(TForm)
@@ -22,10 +22,22 @@ type
     btnKeluar: TBitBtn;
     lbl4: TLabel;
     dtpTanggalRetur: TDateTimePicker;
+    img1: TImage;
+    btnTambah: TBitBtn;
+    edtKode: TEdit;
+    dbgrd2: TDBGrid;
+    lbl5: TLabel;
+    lbl6: TLabel;
+    bvl1: TBevel;
+    btnSelesai: TBitBtn;
     procedure btnKeluarClick(Sender: TObject);
     procedure edtFakturKeyPress(Sender: TObject; var Key: Char);
     procedure btnCariClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure btnReturClick(Sender: TObject);
+    procedure btnTambahClick(Sender: TObject);
+    procedure dbgrd1DblClick(Sender: TObject);
+    procedure btnSelesaiClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -34,11 +46,12 @@ type
 
 var
   fReturn: TfReturn;
+  kode : string;
 
 implementation
 
 uses
-  dataModule;
+  dataModule, uProsesRetur, DB, StrUtils;
 
 {$R *.dfm}
 
@@ -56,6 +69,17 @@ begin
       Open;
     end;
 
+end;
+
+procedure konekRelasiReturObat(faktur : string = 'kosong');
+begin
+  with dm.qryRelasiReturObat do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Text := 'select * from tbl_stok left join tbl_obat on tbl_obat.id = tbl_stok.obat_id where tbl_stok.no_faktur = '+QuotedStr(faktur)+' and tbl_stok.keterangan = '+QuotedStr('retur-penjualan')+'';
+      Open;
+    end;
 end;
 
 procedure TfReturn.btnKeluarClick(Sender: TObject);
@@ -95,6 +119,7 @@ begin
         end
       else
         begin
+          btnRetualAll.Enabled := True;
           edtTanggalJual.Text := fieldbyname('tgl_penjualan').AsString;
         end;
 
@@ -103,11 +128,123 @@ end;
 
 procedure TfReturn.FormShow(Sender: TObject);
 begin
-  edtFaktur.Clear; edtFaktur.SetFocus;
+  edtFaktur.Clear; edtFaktur.Enabled := False;
   edtTanggalJual.Clear; edtTanggalJual.Enabled := false;
-  dtpTanggalRetur.Enabled := True; dtpTanggalRetur.Date := Now;
+  dtpTanggalRetur.Enabled := false; dtpTanggalRetur.Date := Now;
+  btnCari.Enabled := false;
+
+  btnTambah.Enabled := True; btnTambah.Caption := 'Tambah';
+  btnRetualAll.Enabled := false;
+  btnRetur.Enabled := false;
+  btnKeluar.Enabled := True;
+  btnSelesai.Enabled := false;
 
   konek;
+  konekRelasiReturObat;
+end;
+
+procedure TfReturn.btnReturClick(Sender: TObject);
+begin
+  fProsesRetur.edtFaktur.Text := edtFaktur.Text;
+  fProsesRetur.edtTglJual.Text := edtTanggalJual.Text;
+  fProsesRetur.edtTglRetur.Text := DateToStr(dtpTanggalRetur.DateTime);
+
+  fProsesRetur.edtKodeObat.Text := dbgrd1.Fields[7].AsString;
+  fProsesRetur.edtNamaObat.Text := dbgrd1.Fields[11].AsString;
+  fProsesRetur.edtJumlahJual.Text := dbgrd1.Fields[14].AsString;
+  fProsesRetur.edtHargaJual.Text := FormatFloat('Rp. ###,###,###', dbgrd1.Fields[15].AsFloat);
+  fProsesRetur.edtKodeRetur.Text := edtKode.Text;
+  fProsesRetur.edtIdPenjualan.Text := dbgrd1.Fields[0].AsString;
+
+  fProsesRetur.edtHarga.Text := dbgrd1.Fields[15].AsString;
+  fProsesRetur.edtIdObat.Text := dbgrd1.Fields[6].AsString;
+  fProsesRetur.edtJumlahRetur.Text := dbgrd1.Fields[14].AsString;
+  fProsesRetur.mmoAlasan.Clear;
+
+  fProsesRetur.ShowModal;
+end;
+
+procedure TfReturn.btnTambahClick(Sender: TObject);
+begin
+  if btnTambah.Caption = 'Tambah' then
+    begin
+      edtFaktur.Enabled := True; edtFaktur.SetFocus;
+      dtpTanggalRetur.Enabled := True; dtpTanggalRetur.Date := Now;
+
+      btnCari.Enabled := True;
+      btnTambah.Caption := 'Batal';
+      btnKeluar.Enabled := false;
+
+      with dm.qryRetur do
+        begin
+          Close;
+          sql.Clear;
+          SQL.Text := 'select * from tbl_retur where kode like ''%'+FormatDateTime('yyyy',Now)+'%''';
+          Open;
+
+          if IsEmpty then
+            begin
+              kode := '0001';
+            end
+          else
+            begin
+              Last;
+              kode := RightStr(fieldbyname('kode').Text,4);
+              kode := IntToStr(StrToInt(kode) + 1);
+            end;
+
+          edtKode.Text := 'RT-' + FormatDateTime('ddmmyyyy',Now) + FormatFloat('0000',StrToInt(kode));
+
+          //simpan tbl_retur
+          with dm.qryRetur do
+            begin
+              Append;
+              FieldByName('kode').AsString := edtKode.Text;
+              FieldByName('tgl_retur').AsString := DateToStr(dtpTanggalRetur.Date);
+              FieldByName('jenis_retur').AsString := 'penjualan';
+              Post;
+            end;
+        end;
+    end
+  else
+    begin
+      if MessageDlg('Yakin Transaksi Akan Dibatalkan',mtConfirmation, [mbYes,mbNo],0) = mryes then
+        begin
+          with dm.qryRetur do
+            begin
+              Close;
+              sql.Clear;
+              sql.Text := 'delete from tbl_retur where kode = '+QuotedStr(edtKode.Text)+'';
+              ExecSQL;
+            end;
+
+          with dm.qryStok do
+            begin
+              close;
+              sql.Clear;
+              sql.Text := 'delete from tbl_stok where no_faktur = '+QuotedStr(edtFaktur.Text)+' and keterangan = '+QuotedStr('retur-penjualan')+'';
+              ExecSQL;
+            end;
+            
+          FormShow(Sender);
+        end;
+    end;
+end;
+
+procedure TfReturn.dbgrd1DblClick(Sender: TObject);
+begin
+  btnRetur.Enabled := True;
+end;
+
+procedure TfReturn.btnSelesaiClick(Sender: TObject);
+begin
+  if MessageDlg('Selesaikan Transaksi',mtConfirmation,[mbyes,mbNo],0) = mryes then
+    begin
+      // cek data di tbl_stok sesui kode retur
+      // loop datanya
+      // kurangkan dengan jumlah di detail penjualan sesuai dengan id_obat
+      // tambahkan stok di tbl_obat sesuai id obat
+    end;
 end;
 
 end.

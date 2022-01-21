@@ -20,13 +20,11 @@ type
     Obat1: TMenuItem;
     Supplier2: TMenuItem;
     SettingHargaJual1: TMenuItem;
-    ListPembelian1: TMenuItem;
     stat1: TStatusBar;
     tmr1: TTimer;
     grp5: TGroupBox;
     lbl1: TLabel;
     img1: TImage;
-    ListPenjualan1: TMenuItem;
     Pengguna1: TMenuItem;
     Apotik1: TMenuItem;
     tmr2: TTimer;
@@ -44,25 +42,32 @@ type
     lblJam: TLabel;
     lbl6: TLabel;
     lbl3: TLabel;
+    ListPembelian2: TMenuItem;
+    Pembelian2: TMenuItem;
+    ListPenjualan2: TMenuItem;
+    Penjualan2: TMenuItem;
+    Retur1: TMenuItem;
+    ListRetur1: TMenuItem;
+    ReturPenjualan1: TMenuItem;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
     procedure Supplier2Click(Sender: TObject);
     procedure Obat1Click(Sender: TObject);
-    procedure Pembelian1Click(Sender: TObject);
-    procedure ListPembelian1Click(Sender: TObject);
-    procedure Penjualan1Click(Sender: TObject);
     procedure SettingHargaJual1Click(Sender: TObject);
     procedure tmr1Timer(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Pengguna1Click(Sender: TObject);
     procedure Apotik1Click(Sender: TObject);
     procedure tmr2Timer(Sender: TObject);
-    procedure ListPenjualan1Click(Sender: TObject);
     procedure LaporanPembelian1Click(Sender: TObject);
     procedure LaporanPenjualan1Click(Sender: TObject);
     procedure LaporanStok1Click(Sender: TObject);
     procedure LaporanItemLaris1Click(Sender: TObject);
+    procedure ListPembelian2Click(Sender: TObject);
+    procedure Pembelian2Click(Sender: TObject);
+    procedure ListPenjualan2Click(Sender: TObject);
+    procedure Penjualan2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -77,7 +82,7 @@ implementation
 uses
   uJenisObat, uSatuan, uSupplier, uObat, uPembelian, uPembayaranPembelian, 
   uPenjualan, uSetHarga, dataModule, uPengguna, uSetting, uListPenjualan, 
-  uLaporanPembelian, uListJualObat, uLaporanStok, uLaporanItemTerjual;
+  uLaporanPembelian, uListJualObat, uLaporanStok, uLaporanItemTerjual, uReturn;
 
 {$R *.dfm}
 
@@ -117,21 +122,6 @@ end;
 procedure TFMenu.Obat1Click(Sender: TObject);
 begin
   Fobat.ShowModal;
-end;
-
-procedure TFMenu.Pembelian1Click(Sender: TObject);
-begin
-  fPembelian.ShowModal;
-end;
-
-procedure TFMenu.ListPembelian1Click(Sender: TObject);
-begin
-  fPembayaranPembelian.ShowModal;
-end;
-
-procedure TFMenu.Penjualan1Click(Sender: TObject);
-begin
-  Fpenjualan.ShowModal;
 end;
 
 procedure TFMenu.SettingHargaJual1Click(Sender: TObject);
@@ -198,11 +188,6 @@ begin
   lblJam.Caption := hari(Now)+', '+FormatDateTime('dd-mm-yyyy',Now) + #13 + TimeToStr(Now);
 end;
 
-procedure TFMenu.ListPenjualan1Click(Sender: TObject);
-begin
-  fListPenjualan.ShowModal;
-end;
-
 procedure TFMenu.LaporanPembelian1Click(Sender: TObject);
 begin
   fLaporanPembelian.ShowModal;
@@ -221,6 +206,26 @@ end;
 procedure TFMenu.LaporanItemLaris1Click(Sender: TObject);
 begin
   fLaporanJumlahItemTerjual.ShowModal;
+end;
+
+procedure TFMenu.ListPembelian2Click(Sender: TObject);
+begin
+  fPembayaranPembelian.ShowModal;
+end;
+
+procedure TFMenu.Pembelian2Click(Sender: TObject);
+begin
+  fPembelian.ShowModal;
+end;
+
+procedure TFMenu.ListPenjualan2Click(Sender: TObject);
+begin
+  fListPenjualan.ShowModal;
+end;
+
+procedure TFMenu.Penjualan2Click(Sender: TObject);
+begin
+  Fpenjualan.ShowModal;
 end;
 
 end.

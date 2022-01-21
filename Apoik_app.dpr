@@ -27,7 +27,8 @@ uses
   uLaporanItemTerjual in 'uLaporanItemTerjual.pas' {fLaporanJumlahItemTerjual},
   uDetailPenjualan in 'uDetailPenjualan.pas' {fDetailPenjualan},
   uDetailPembelian in 'uDetailPembelian.pas' {fDetailPembelian},
-  uReturn in 'uReturn.pas' {fReturn};
+  uReturn in 'uReturn.pas' {fReturn},
+  uProsesRetur in 'uProsesRetur.pas' {fProsesRetur};
 
 {$R *.res}
 
@@ -59,5 +60,6 @@ begin
   Application.CreateForm(TfLaporanJumlahItemTerjual, fLaporanJumlahItemTerjual);
   Application.CreateForm(TfDetailPenjualan, fDetailPenjualan);
   Application.CreateForm(TfDetailPembelian, fDetailPembelian);
+  Application.CreateForm(TfProsesRetur, fProsesRetur);
   Application.Run;
 end.
