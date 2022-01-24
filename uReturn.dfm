@@ -1,6 +1,6 @@
 object fReturn: TfReturn
-  Left = 413
-  Top = 175
+  Left = 343
+  Top = 234
   AutoScroll = False
   BorderIcons = []
   Caption = 'fReturn'
@@ -23406,6 +23406,15 @@ object fReturn: TfReturn
       Text = 'edtKode'
       Visible = False
     end
+    object edtIdPenjualan: TEdit
+      Left = 136
+      Top = 16
+      Width = 121
+      Height = 21
+      TabOrder = 1
+      Text = 'edtIdPenjualan'
+      Visible = False
+    end
   end
   object grp2: TGroupBox
     Left = 8
@@ -23669,7 +23678,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 100
           Visible = True
         end
         item
@@ -23739,7 +23748,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 100
           Visible = True
         end
         item
@@ -23796,7 +23805,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 100
           Visible = True
         end
         item
@@ -23815,7 +23824,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 100
           Visible = True
         end>
     end
@@ -23846,6 +23855,7 @@ object fReturn: TfReturn
       Font.Style = []
       ParentFont = False
       TabOrder = 4
+      OnClick = btnRetualAllClick
     end
     object btnRetur: TBitBtn
       Left = 200
@@ -24044,7 +24054,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 100
           Visible = True
         end
         item
@@ -24079,7 +24089,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 100
           Visible = True
         end
         item
@@ -24114,7 +24124,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 100
           Visible = True
         end
         item
@@ -24131,7 +24141,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 100
           Visible = True
         end
         item
@@ -24225,7 +24235,7 @@ object fReturn: TfReturn
       Top = 472
       Width = 89
       Height = 33
-      Caption = 'Selsai'
+      Caption = 'Selesai'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15

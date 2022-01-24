@@ -28,7 +28,8 @@ uses
   uDetailPenjualan in 'uDetailPenjualan.pas' {fDetailPenjualan},
   uDetailPembelian in 'uDetailPembelian.pas' {fDetailPembelian},
   uReturn in 'uReturn.pas' {fReturn},
-  uProsesRetur in 'uProsesRetur.pas' {fProsesRetur};
+  uProsesRetur in 'uProsesRetur.pas' {fProsesRetur},
+  u_confirmReturAll in 'u_confirmReturAll.pas' {fReturAll};
 
 {$R *.res}
 
@@ -61,5 +62,6 @@ begin
   Application.CreateForm(TfDetailPenjualan, fDetailPenjualan);
   Application.CreateForm(TfDetailPembelian, fDetailPembelian);
   Application.CreateForm(TfProsesRetur, fProsesRetur);
+  Application.CreateForm(TfReturAll, fReturAll);
   Application.Run;
 end.

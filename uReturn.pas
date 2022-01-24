@@ -30,6 +30,7 @@ type
     lbl6: TLabel;
     bvl1: TBevel;
     btnSelesai: TBitBtn;
+    edtIdPenjualan: TEdit;
     procedure btnKeluarClick(Sender: TObject);
     procedure edtFakturKeyPress(Sender: TObject; var Key: Char);
     procedure btnCariClick(Sender: TObject);
@@ -38,6 +39,7 @@ type
     procedure btnTambahClick(Sender: TObject);
     procedure dbgrd1DblClick(Sender: TObject);
     procedure btnSelesaiClick(Sender: TObject);
+    procedure btnRetualAllClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,7 +53,7 @@ var
 implementation
 
 uses
-  dataModule, uProsesRetur, DB, StrUtils;
+  dataModule, uProsesRetur, DB, StrUtils, u_confirmReturAll;
 
 {$R *.dfm}
 
@@ -121,6 +123,7 @@ begin
         begin
           btnRetualAll.Enabled := True;
           edtTanggalJual.Text := fieldbyname('tgl_penjualan').AsString;
+          edtIdPenjualan.Text := fieldbyname('id_penjualan').AsString;
         end;
 
     end;
@@ -237,14 +240,83 @@ begin
 end;
 
 procedure TfReturn.btnSelesaiClick(Sender: TObject);
+var a, jmlRetur, jmlJual, stokObat : Integer;
+    obatId : string;
 begin
   if MessageDlg('Selesaikan Transaksi',mtConfirmation,[mbyes,mbNo],0) = mryes then
     begin
       // cek data di tbl_stok sesui kode retur
-      // loop datanya
-      // kurangkan dengan jumlah di detail penjualan sesuai dengan id_obat
-      // tambahkan stok di tbl_obat sesuai id obat
+      with dm.qryStok do
+        begin
+          Close;
+          sql.Clear;
+          SQL.Text := 'select * from tbl_stok where no_faktur = '+QuotedStr(edtFaktur.Text)+' and keterangan = '+QuotedStr('retur-penjualan')+'';
+          Open;
+
+          if IsEmpty then
+            begin
+              MessageDlg('Transaksi Tidak Bisa Diselesaikan!',mtInformation,[mbok],0);
+              Exit;
+            end
+          else
+            begin
+              //loop
+              for a:= 1 to RecordCount do
+                begin
+                  RecNo := a;
+                  obatId := dm.qryStok.fieldbyname('obat_id').AsString;
+                  jmlRetur := dm.qryStok.fieldbyname('jumlah').AsInteger;
+
+                  //kurangkan data di detail_penjualan
+                  with dm.qryDetailPenjualan do
+                    begin
+                      Close;
+                      SQL.Clear;
+                      SQL.Text := 'select * from tbl_detail_penjualan where penjualan_id = '+QuotedStr(edtIdPenjualan.Text)+' and obat_id = '+QuotedStr(obatId)+'';
+                      Open;
+
+                      jmlJual := dm.qryDetailPenjualan.fieldbyname('jumlah_jual').AsInteger;
+
+                      //update
+                      Close;
+                      sql.Clear;
+                      sql.Text := 'update tbl_detail_penjualan set jumlah_jual = '+QuotedStr(IntToStr(jmlJual - jmlRetur))+', status = '+QuotedStr('retur')+
+                                  ' where penjualan_id = '+QuotedStr(edtIdPenjualan.Text)+' and obat_id = '+QuotedStr(obatId)+'';
+                      ExecSQL;
+                    end;
+
+                  //tabahkan stok tbl_obat
+                  with dm.qryObat do
+                    begin
+                      close;
+                      sql.Clear;
+                      SQL.Text := 'select * from tbl_obat where id = '+QuotedStr(obatId)+'';
+                      Open;
+
+                      stokObat := dm.qryObat.fieldbyname('stok').AsInteger;
+
+                      //update
+                      close;
+                      SQL.Clear;
+                      SQL.Text := 'update tbl_obat set stok = '+QuotedStr(IntToStr(stokObat+jmlRetur))+' where id = '+QuotedStr(obatId)+'';
+                      ExecSQL;
+                    end;
+                end;
+
+                MessageDlg('Transaksi Berhasil Disimpan', mtInformation,[mbOK],0);
+                FormShow(Sender);
+            end;
+        end;
     end;
+end;
+
+procedure TfReturn.btnRetualAllClick(Sender: TObject);
+begin
+  fReturAll.edtKodeRetur.Text := edtKode.Text;
+  fReturAll.edtFaktur.Text := edtFaktur.Text;
+  fReturAll.edtIdPenjualan.Text := edtIdPenjualan.Text;
+  
+  fReturAll.ShowModal;
 end;
 
 end.

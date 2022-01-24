@@ -1,11 +1,11 @@
 object fProsesRetur: TfProsesRetur
-  Left = 947
-  Top = 227
+  Left = 163
+  Top = 133
   AutoScroll = False
   BorderIcons = []
   Caption = 'fProsesRetur'
-  ClientHeight = 512
-  ClientWidth = 729
+  ClientHeight = 516
+  ClientWidth = 731
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
