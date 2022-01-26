@@ -1,9 +1,9 @@
 object fProsesRetur: TfProsesRetur
-  Left = 163
-  Top = 133
+  Left = 444
+  Top = 224
   AutoScroll = False
   BorderIcons = []
-  Caption = 'fProsesRetur'
+  Caption = '.:: Proses Retur Obat ::.'
   ClientHeight = 516
   ClientWidth = 731
   Color = clGradientInactiveCaption

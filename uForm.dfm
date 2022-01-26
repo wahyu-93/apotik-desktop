@@ -23577,13 +23577,15 @@ object FMenu: TFMenu
           OnClick = Penjualan2Click
         end
       end
-      object Retur1: TMenuItem
+      object ReturPenjualan1: TMenuItem
         Caption = 'Retur Penjualan'
-        object ListRetur1: TMenuItem
+        object ListReturPenjualan1: TMenuItem
           Caption = 'List Retur Penjualan'
+          OnClick = ListReturPenjualan1Click
         end
-        object ReturPenjualan1: TMenuItem
+        object ReturPenjualan2: TMenuItem
           Caption = 'Retur Penjualan'
+          OnClick = ReturPenjualan2Click
         end
       end
     end

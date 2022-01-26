@@ -46,9 +46,9 @@ type
     Pembelian2: TMenuItem;
     ListPenjualan2: TMenuItem;
     Penjualan2: TMenuItem;
-    Retur1: TMenuItem;
-    ListRetur1: TMenuItem;
     ReturPenjualan1: TMenuItem;
+    ListReturPenjualan1: TMenuItem;
+    ReturPenjualan2: TMenuItem;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
@@ -68,6 +68,8 @@ type
     procedure Pembelian2Click(Sender: TObject);
     procedure ListPenjualan2Click(Sender: TObject);
     procedure Penjualan2Click(Sender: TObject);
+    procedure ReturPenjualan2Click(Sender: TObject);
+    procedure ListReturPenjualan1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -82,7 +84,8 @@ implementation
 uses
   uJenisObat, uSatuan, uSupplier, uObat, uPembelian, uPembayaranPembelian, 
   uPenjualan, uSetHarga, dataModule, uPengguna, uSetting, uListPenjualan, 
-  uLaporanPembelian, uListJualObat, uLaporanStok, uLaporanItemTerjual, uReturn;
+  uLaporanPembelian, uListJualObat, uLaporanStok, uLaporanItemTerjual, uReturn, 
+  uListReturPenjualan;
 
 {$R *.dfm}
 
@@ -226,6 +229,16 @@ end;
 procedure TFMenu.Penjualan2Click(Sender: TObject);
 begin
   Fpenjualan.ShowModal;
+end;
+
+procedure TFMenu.ReturPenjualan2Click(Sender: TObject);
+begin
+  fReturn.ShowModal;  
+end;
+
+procedure TFMenu.ListReturPenjualan1Click(Sender: TObject);
+begin
+  fListReturPenjualan.ShowModal;
 end;
 
 end.

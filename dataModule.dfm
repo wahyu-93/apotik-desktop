@@ -1,9 +1,9 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 152
-  Top = 289
+  Left = 376
+  Top = 465
   Height = 456
-  Width = 1222
+  Width = 1271
   object XPManifest1: TXPManifest
     Left = 128
     Top = 32
@@ -707,8 +707,8 @@ object dm: Tdm
       
         'select * from tbl_pembelian left join tbl_supplier on tbl_pembel' +
         'ian.supplier_id = tbl_supplier.id')
-    Left = 784
-    Top = 64
+    Left = 720
+    Top = 48
     object qryLaporanPembelianid: TAutoIncField
       FieldName = 'id'
       ReadOnly = True
@@ -772,8 +772,8 @@ object dm: Tdm
       
         'select * from tbl_penjualan left JOIN tbl_pelanggan on tbl_penju' +
         'alan.id_pelanggan = tbl_pelanggan.id')
-    Left = 792
-    Top = 128
+    Left = 728
+    Top = 112
     object qryLaporanPenjualanid: TAutoIncField
       FieldName = 'id'
       ReadOnly = True
@@ -825,8 +825,8 @@ object dm: Tdm
         'select * from tbl_obat a left join tbl_satuan b on a.kode_satuan' +
         ' = b.id left join tbl_harga_jual c on c.obat_id = a.id order by ' +
         'a.id;')
-    Left = 792
-    Top = 192
+    Left = 728
+    Top = 176
     object qryLaporanStokid: TIntegerField
       FieldName = 'id'
     end
@@ -910,40 +910,40 @@ object dm: Tdm
         'select *, sum(a.jumlah_jual) as jmlItemJual from tbl_detail_penj' +
         'ualan a left join tbl_obat b on a.obat_id = b.id left join tbl_s' +
         'atuan d on d.id = b.kode_satuan group by a.obat_id')
-    Left = 792
-    Top = 256
+    Left = 728
+    Top = 240
   end
   object dsLaporanPembelian: TDataSource
     DataSet = qryLaporanPembelian
-    Left = 856
-    Top = 40
+    Left = 792
+    Top = 24
   end
   object dslaporanPenjualan: TDataSource
     DataSet = qryLaporanPenjualan
-    Left = 864
-    Top = 112
+    Left = 800
+    Top = 96
   end
   object dsLaporanStok: TDataSource
     DataSet = qryLaporanStok
-    Left = 872
-    Top = 184
+    Left = 808
+    Top = 168
   end
   object dsLaporanItemLaris: TDataSource
     DataSet = qryLaporanItemLaris
-    Left = 864
-    Top = 240
+    Left = 800
+    Top = 224
   end
   object qryTotalPenjualan: TADOQuery
     Connection = con1
     Parameters = <>
-    Left = 800
-    Top = 312
+    Left = 736
+    Top = 296
   end
   object qryTotalPembelian: TADOQuery
     Connection = con1
     Parameters = <>
-    Left = 800
-    Top = 360
+    Left = 736
+    Top = 344
   end
   object qrySetting: TADOQuery
     Active = True
@@ -952,8 +952,8 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from tbl_setting')
-    Left = 992
-    Top = 48
+    Left = 928
+    Top = 32
   end
   object qryUser: TADOQuery
     Active = True
@@ -962,8 +962,8 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from tbl_user')
-    Left = 992
-    Top = 112
+    Left = 928
+    Top = 96
     object qryUserid: TAutoIncField
       FieldName = 'id'
       ReadOnly = True
@@ -987,8 +987,8 @@ object dm: Tdm
   end
   object dsUser: TDataSource
     DataSet = qryUser
-    Left = 1040
-    Top = 128
+    Left = 976
+    Top = 112
   end
   object qryListPenjualan: TADOQuery
     Active = True
@@ -1064,13 +1064,13 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from tbl_retur')
-    Left = 1000
-    Top = 216
+    Left = 936
+    Top = 200
   end
   object dsRetur: TDataSource
     DataSet = qryRetur
-    Left = 1056
-    Top = 248
+    Left = 968
+    Top = 240
   end
   object qryRelasiReturObat: TADOQuery
     Active = True
@@ -1081,12 +1081,134 @@ object dm: Tdm
       
         'select * from tbl_stok left join tbl_obat on tbl_obat.id = tbl_s' +
         'tok.obat_id')
-    Left = 1008
-    Top = 320
+    Left = 944
+    Top = 328
   end
   object dsRelasiReturObat: TDataSource
     DataSet = qryRelasiReturObat
-    Left = 1048
-    Top = 304
+    Left = 984
+    Top = 312
+  end
+  object qryListRetur: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select *, count(b.obat_id) as jml_item from tbl_retur a LEFT JOI' +
+        'N tbl_stok b ON b.no_faktur = a.faktur_penjualan WHERE b.keteran' +
+        'gan='#39'retur-penjualan'#39' GROUP BY a.kode;')
+    Left = 992
+    Top = 184
+  end
+  object dsListRetur: TDataSource
+    DataSet = qryListRetur
+    Left = 1024
+    Top = 176
+  end
+  object qryDetailRetur: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select * from tbl_retur a LEFT JOIN tbl_stok b ON b.no_faktur = ' +
+        'a.faktur_penjualan INNER JOIN tbl_obat c ON c.id = b.obat_id')
+    Left = 1024
+    Top = 232
+    object qryDetailReturid: TAutoIncField
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object qryDetailReturkode: TStringField
+      FieldName = 'kode'
+      Size = 100
+    end
+    object qryDetailReturtgl_retur: TDateField
+      FieldName = 'tgl_retur'
+    end
+    object qryDetailReturfaktur_penjualan: TStringField
+      FieldName = 'faktur_penjualan'
+      Size = 50
+    end
+    object qryDetailReturjenis_retur: TStringField
+      FieldName = 'jenis_retur'
+      Size = 50
+    end
+    object qryDetailReturstatus: TStringField
+      FieldName = 'status'
+      Size = 50
+    end
+    object qryDetailReturid_1: TAutoIncField
+      FieldName = 'id_1'
+      ReadOnly = True
+    end
+    object qryDetailReturno_faktur: TStringField
+      FieldName = 'no_faktur'
+      Size = 50
+    end
+    object qryDetailReturobat_id: TIntegerField
+      FieldName = 'obat_id'
+    end
+    object qryDetailReturjumlah: TIntegerField
+      FieldName = 'jumlah'
+    end
+    object qryDetailReturharga: TFloatField
+      FieldName = 'harga'
+      DisplayFormat = '#,###;(#,##);#,##'
+    end
+    object qryDetailReturketerangan: TStringField
+      FieldName = 'keterangan'
+      Size = 25
+    end
+    object qryDetailReturalasan: TStringField
+      FieldName = 'alasan'
+      Size = 200
+    end
+    object qryDetailReturcreated_at: TDateTimeField
+      FieldName = 'created_at'
+    end
+    object qryDetailReturid_2: TAutoIncField
+      FieldName = 'id_2'
+      ReadOnly = True
+    end
+    object qryDetailReturkode_1: TStringField
+      FieldName = 'kode_1'
+      Size = 30
+    end
+    object qryDetailReturbarcode: TStringField
+      FieldName = 'barcode'
+      Size = 100
+    end
+    object qryDetailReturnama_obat: TStringField
+      FieldName = 'nama_obat'
+      Size = 150
+    end
+    object qryDetailReturkode_jenis: TIntegerField
+      FieldName = 'kode_jenis'
+    end
+    object qryDetailReturkode_satuan: TIntegerField
+      FieldName = 'kode_satuan'
+    end
+    object qryDetailReturtgl_obat: TDateField
+      FieldName = 'tgl_obat'
+    end
+    object qryDetailReturtgl_exp: TDateField
+      FieldName = 'tgl_exp'
+    end
+    object qryDetailReturstatus_1: TStringField
+      FieldName = 'status_1'
+      Size = 100
+    end
+    object qryDetailReturstok: TIntegerField
+      FieldName = 'stok'
+    end
+  end
+  object dsDetailRetur: TDataSource
+    DataSet = qryDetailRetur
+    Left = 1088
+    Top = 248
   end
 end

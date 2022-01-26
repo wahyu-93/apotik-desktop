@@ -1,6 +1,6 @@
 object fDetailPenjualan: TfDetailPenjualan
-  Left = 558
-  Top = 219
+  Left = 507
+  Top = 429
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form Detail Penjualan ::.'
@@ -23468,7 +23468,6 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23588,7 +23587,7 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 160
+          Width = 64
           Visible = True
         end
         item
@@ -23658,7 +23657,7 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 160
+          Width = 64
           Visible = True
         end
         item
@@ -23677,7 +23676,7 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 160
+          Width = 64
           Visible = True
         end
         item
@@ -23696,7 +23695,7 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 160
+          Width = 64
           Visible = True
         end
         item
@@ -23715,7 +23714,7 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 160
+          Width = 64
           Visible = True
         end
         item

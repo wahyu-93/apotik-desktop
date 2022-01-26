@@ -3,7 +3,7 @@ object fReturAll: TfReturAll
   Top = 189
   AutoScroll = False
   BorderIcons = []
-  Caption = 'fReturAll'
+  Caption = '.:: Konfirmasi Retur All ::.'
   ClientHeight = 264
   ClientWidth = 571
   Color = clGradientInactiveCaption
