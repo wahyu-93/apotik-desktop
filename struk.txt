@@ -1,31 +1,27 @@
      Apotek Hamdi Farma   
 Jl.Suryagandamana Dpn Msjd Raya 
         081256566056 
-----------------------------------
-No. Nota:PJ-2601202200005
-Tanggal :26/01/2022 16:05:59
+    Tersedia Obat-Obatan
+      Herbal dan Alkes
+----------------------------
+No. Nota:PJ-2701202200008
+Tanggal :27/01/2022 10:36:48
 Kasir   :Hamdi Farma
-----------------------------------
+----------------------------
 Nama Barang
-      QTY   Harga         Sub Total
-----------------------------------
+      QTY   Harga  Sub Total
+----------------------------
  fdsfsdfdsf
-      1 X 70.000             70.000
-----------------------------------
-Total   :                 Rp 70.000
-Bayar   :                 Rp 80.000
-Kembali :                 Rp 10.000
-----------------------------------
+      1 X 70.000      70.000
+----------------------------
+Total   :          Rp 70.000
+Bayar   :          Rp 80.000
+Kembali :          Rp 10.000
+----------------------------
  Jumlah Item  : 1
-----------------------------------
+----------------------------
          Terima Kasih
     Berelaan Jual Seadannya
-
-
-
-
-
-
 
 
 

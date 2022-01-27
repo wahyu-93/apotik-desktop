@@ -23404,6 +23404,7 @@ object fReturAll: TfReturAll
       Height = 21
       TabOrder = 0
       Text = 'edtFaktur'
+      Visible = False
     end
     object edtKodeRetur: TEdit
       Left = 16
@@ -23412,6 +23413,7 @@ object fReturAll: TfReturAll
       Height = 21
       TabOrder = 1
       Text = 'edtKodeRetur'
+      Visible = False
     end
     object edtIdPenjualan: TEdit
       Left = 424
@@ -23420,6 +23422,7 @@ object fReturAll: TfReturAll
       Height = 21
       TabOrder = 2
       Text = 'edtIdPenjualan'
+      Visible = False
     end
   end
   object grp2: TGroupBox

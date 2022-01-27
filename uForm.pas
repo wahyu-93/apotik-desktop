@@ -152,7 +152,7 @@ begin
     begin
       close;
       sql.Clear;
-      sql.Text := 'select count(id) as jml_transaksi, sum(total) as total from tbl_penjualan where tgl_penjualan like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%''';
+      sql.Text := 'select count(id) as jml_transaksi, sum(total) as total from tbl_penjualan where tgl_penjualan like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%'' and status='+QuotedStr('selesai')+'';
       Open;
 
       lblTotalPenjualan.Caption := 'Total Penjualan : ' + FormatFloat('Rp. ###,###,###', dm.qryTotalPenjualan.fieldbyname('total').AsFloat);
@@ -165,7 +165,7 @@ begin
     begin
       close;
       sql.Clear;
-      sql.Text := 'select count(id) as jml_transaksi, sum(total) as total from tbl_pembelian where tgl_pembelian like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%''';
+      sql.Text := 'select count(id) as jml_transaksi, sum(total) as total from tbl_pembelian where tgl_pembelian like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%'' and status='+QuotedStr('selesai')+'';
       Open;
 
       lblTotalPembelian.Caption := 'Total Pembelian : ' + FormatFloat('Rp. ###,###,###', dm.qryTotalPembelian.fieldbyname('total').AsFloat);

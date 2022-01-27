@@ -23,6 +23,7 @@ type
     edtKmbalian: TEdit;
     btnBayar: TBitBtn;
     img1: TImage;
+    btnPending: TBitBtn;
     procedure edtBayarKeyPress(Sender: TObject; var Key: Char);
     procedure btnBayarClick(Sender: TObject);
     procedure btnKeluarClick(Sender: TObject);
@@ -31,6 +32,7 @@ type
       Shift: TShiftState);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure btnPendingClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -131,9 +133,16 @@ procedure TfBayar.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   case Key of
+    VK_F8: btnPending.Click;
     VK_F9: btnBayar.Click;
     VK_f10: btnKeluar.Click;
   end;
+end;
+
+procedure TfBayar.btnPendingClick(Sender: TObject);
+begin
+  Fpenjualan.btnProsesPending.Click;
+  close;
 end;
 
 end.

@@ -23549,5 +23549,20 @@ object fBayar: TfBayar
       TabOrder = 4
       OnClick = btnBayarClick
     end
+    object btnPending: TBitBtn
+      Left = 200
+      Top = 392
+      Width = 177
+      Height = 33
+      Caption = 'Pending Pembayaran[F8]'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 5
+      OnClick = btnPendingClick
+    end
   end
 end

@@ -1,6 +1,6 @@
 object fListPenjualan: TfListPenjualan
-  Left = 637
-  Top = 199
+  Left = 348
+  Top = 180
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form List Penjualan ::.'
@@ -23682,6 +23682,20 @@ object fListPenjualan: TfListPenjualan
       ParentFont = False
       TabOrder = 3
       OnClick = btnDetailClick
+    end
+    object btnCetak: TBitBtn
+      Left = 736
+      Top = 504
+      Width = 113
+      Height = 33
+      Caption = 'Cetak Struk'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 4
     end
   end
 end

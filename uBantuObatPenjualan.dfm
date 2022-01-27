@@ -23385,7 +23385,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
     Height = 545
     TabOrder = 0
     object dbgrd1: TDBGrid
-      Left = 8
+      Left = 16
       Top = 16
       Width = 841
       Height = 449
@@ -23412,16 +23412,15 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'id'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23429,16 +23428,15 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'obat_id'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23446,14 +23444,14 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'kode'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Kode Obat'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
           Width = 120
@@ -23464,17 +23462,17 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'nama_obat'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Nama Obat'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 233
           Visible = True
         end
         item
@@ -23482,17 +23480,17 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'harga_jual'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Harga'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 124
           Visible = True
         end
         item
@@ -23500,14 +23498,14 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'satuan'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Satuan'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
           Width = 120
@@ -23518,14 +23516,14 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'jenis'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Jenis'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
           Width = 120
@@ -23536,17 +23534,17 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'stok'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Stok'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 95
           Visible = True
         end
         item
@@ -23554,16 +23552,15 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'harga_beli_terakhir'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23571,16 +23568,15 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'supplier'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23588,16 +23584,15 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'created_at'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23605,16 +23600,15 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'id_1'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23622,16 +23616,15 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'kode_jenis'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23639,16 +23632,15 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'kode_satuan'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23656,16 +23648,15 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'tgl_obat'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23673,16 +23664,15 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'tgl_exp'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23690,16 +23680,15 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'status'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23707,17 +23696,16 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           FieldName = 'barcode'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Barcode'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end>
     end

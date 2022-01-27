@@ -1,6 +1,6 @@
 object Fpenjualan: TFpenjualan
-  Left = 282
-  Top = 357
+  Left = 213
+  Top = 310
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form Penjualan ::.'
@@ -24039,7 +24039,7 @@ object Fpenjualan: TFpenjualan
       Visible = False
     end
     object edtBayar: TEdit
-      Left = 1072
+      Left = 984
       Top = 16
       Width = 121
       Height = 21
@@ -24062,6 +24062,16 @@ object Fpenjualan: TFpenjualan
       ParentFont = False
       State = cbChecked
       TabOrder = 17
+    end
+    object btnProsesPending: TBitBtn
+      Left = 1136
+      Top = 16
+      Width = 75
+      Height = 25
+      Caption = 'btnProsesPending'
+      TabOrder = 18
+      Visible = False
+      OnClick = btnProsesPendingClick
     end
   end
 end
