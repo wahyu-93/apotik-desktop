@@ -56,6 +56,8 @@ type
     procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure edtHargaBeliKeyPress(Sender: TObject; var Key: Char);
+    procedure dbgrd1DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
   public
@@ -68,7 +70,7 @@ var
 implementation
 
 uses
-  dataModule, uBantuObat, DB, ADODB;
+  dataModule, uBantuObat, DB, ADODB, DateUtils;
 
 {$R *.dfm}
 
@@ -317,6 +319,36 @@ procedure TfSetHarga.edtHargaBeliKeyPress(Sender: TObject; var Key: Char);
 begin
   if not (key in(['0'..'9',#13,#9,#8])) then Key:=#0;
   if Key=#13 then edtHarga.SetFocus;
+end;
+
+procedure TfSetHarga.dbgrd1DrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn;
+  State: TGridDrawState);
+var
+  datenow, datethen : TDateTime;
+  tglNow, bulanNow, tahunNow,
+  tglThen, bulanThen, tahunThen : string;
+  hasil : Integer;
+begin
+  tglNow := FormatDateTime('dd',Now);
+  bulanNow := FormatDateTime('mm',Now);
+  tahunNow := FormatDateTime('yyyy',Now);
+
+  tglThen := FormatDateTime('dd', dbgrd1.Fields[7].AsDateTime);
+  bulanThen := FormatDateTime('mm', dbgrd1.Fields[7].AsDateTime);
+  tahunThen := FormatDateTime('yyyy',dbgrd1.Fields[7].AsDateTime);
+
+  datenow := EncodeDate(StrToInt(tahunNow), StrToInt(bulanNow), StrToInt(tglNow));
+  datethen:= EncodeDate(StrToInt(tahunThen), StrToInt(bulanThen), StrToInt(tglThen));
+
+  hasil := DaysBetween(datenow, datethen);
+
+  if hasil <= 100 then
+    begin
+      dbgrd1.Canvas.Brush.Color := clRed;
+      dbgrd1.Canvas.Font.Color := clBlack;
+    end;
+  dbgrd1.DefaultDrawColumnCell(rect, datacol, column, state);
 end;
 
 end.

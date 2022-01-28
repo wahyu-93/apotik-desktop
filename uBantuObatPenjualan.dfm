@@ -1,6 +1,6 @@
 object fBantuObatPenjualan: TfBantuObatPenjualan
-  Left = 524
-  Top = 294
+  Left = 494
+  Top = 248
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form List Obat ::.'
@@ -23423,6 +23423,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23439,6 +23440,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23456,7 +23458,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 130
           Visible = True
         end
         item
@@ -23474,7 +23476,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 233
+          Width = 130
           Visible = True
         end
         item
@@ -23492,7 +23494,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 124
+          Width = 130
           Visible = True
         end
         item
@@ -23510,7 +23512,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 130
           Visible = True
         end
         item
@@ -23528,7 +23530,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 130
           Visible = True
         end
         item
@@ -23546,7 +23548,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 95
+          Width = 130
           Visible = True
         end
         item
@@ -23563,6 +23565,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23579,6 +23582,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23595,6 +23599,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23611,6 +23616,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23627,6 +23633,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23643,6 +23650,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23659,6 +23667,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23675,6 +23684,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23691,6 +23701,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23708,6 +23719,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end>
     end

@@ -234,7 +234,7 @@ begin
       sql.Clear;
       SQL.Text := 'select a.id as id_penjualan, a.no_faktur, a.tgl_penjualan, a.jumlah_item, '+
                   'a.total, b.id as id_detail_penjualan, b.obat_id, b.jumlah_jual, b.harga_jual, c.kode, c.barcode, '+
-                  'c.nama_obat, c.tgl_obat, c.tgl_exp, d.jenis, e.satuan from tbl_penjualan a left join '+
+                  'c.nama_obat, c.tgl_obat, c.tgl_exp, d.jenis, e.satuan, b.catatan from tbl_penjualan a left join '+
                   'tbl_detail_penjualan b on b.penjualan_id = a.id left join tbl_obat c on c.id = b.obat_id left join tbl_jenis d '+
                   'on d.id=c.kode_jenis left join tbl_satuan e on e.id = c.kode_satuan where a.no_faktur='+QuotedStr(status)+'';
       open
@@ -383,19 +383,20 @@ end;
 procedure TFpenjualan.dbgrd1KeyPress(Sender: TObject; var Key: Char);
 var jumlahNew : Integer;
     totalNew : Real;
-    id : string;
+    id,catatan : string;
 begin
   if key=#13 then
     begin
       //edit data lewat dbgrid
       jumlahNew := dbgrd1.Fields[3].AsInteger;
+      catatan := dbgrd1.Fields[16].AsString;
       id := dbgrd1.Fields[5].AsString;
 
       with dm.qryDetailPenjualan do
         begin
           close;
           sql.Clear;
-          SQL.Text := 'update tbl_detail_penjualan set jumlah_jual = '+QuotedStr(IntToStr(jumlahNew))+
+          SQL.Text := 'update tbl_detail_penjualan set jumlah_jual = '+QuotedStr(IntToStr(jumlahNew))+', catatan = '+QuotedStr(catatan)+
                       ' where obat_id = '+QuotedStr(dbgrd1.Fields[6].AsString)+' and penjualan_id = '+QuotedStr(dbgrd1.Fields[0].AsString)+'';
           ExecSQL;
         end;

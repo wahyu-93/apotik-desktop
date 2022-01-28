@@ -49,6 +49,15 @@ type
     ReturPenjualan1: TMenuItem;
     ListReturPenjualan1: TMenuItem;
     ReturPenjualan2: TMenuItem;
+    dbgrd1: TDBGrid;
+    lblAlert: TLabel;
+    tmr3: TTimer;
+    RefreshDashboard1: TMenuItem;
+    N1: TMenuItem;
+    LabaPenjualan1: TMenuItem;
+    lblAlertExp: TLabel;
+    dbgrd2: TDBGrid;
+    tmr4: TTimer;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
@@ -70,6 +79,10 @@ type
     procedure Penjualan2Click(Sender: TObject);
     procedure ReturPenjualan2Click(Sender: TObject);
     procedure ListReturPenjualan1Click(Sender: TObject);
+    procedure tmr3Timer(Sender: TObject);
+    procedure RefreshDashboard1Click(Sender: TObject);
+    procedure LabaPenjualan1Click(Sender: TObject);
+    procedure tmr4Timer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -85,14 +98,14 @@ uses
   uJenisObat, uSatuan, uSupplier, uObat, uPembelian, uPembayaranPembelian, 
   uPenjualan, uSetHarga, dataModule, uPengguna, uSetting, uListPenjualan, 
   uLaporanPembelian, uListJualObat, uLaporanStok, uLaporanItemTerjual, uReturn, 
-  uListReturPenjualan;
+  uListReturPenjualan, u_labaPenjualan;
 
 {$R *.dfm}
 
 function hari (vtgl : TDate):string;
 var a : Integer;
 const
-  nama_hari: array[1..7] of string = ('Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'jum''at', 'Sabtu');
+  nama_hari: array[1..7] of string = ('Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum''at', 'Sabtu');
 begin
   for a:=1 to 7 do
    begin
@@ -172,7 +185,53 @@ begin
       lbl2.Caption := 'Total Pembelian (Harian) : '+dm.qryTotalPembelian.fieldbyname('jml_transaksi').AsString +' Transaksi';
     end;
 
+  //alert stok
+  tmr3.Enabled := false;
+  with dm.qryDashObat do
+    begin
+      Close;
+      sql.Clear;
+      SQL.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, b.stok, b.status, a.id as id_jenis, '+
+                  'a.kode as jenisKode, a.jenis, c.id as id_satuan, c.kode as satuanKode, c.satuan from tbl_jenis a left join tbl_obat b on a.id = b.kode_jenis '+
+                  'INNER join tbl_satuan c on c.id = b.kode_satuan where b.stok < 5 order by b.stok asc, b.id asc';
+      Open;
 
+      if IsEmpty then
+        begin
+          tmr3.Enabled := false;
+          lblAlert.Visible := False;
+          dbgrd1.Visible := False;
+        end
+      else
+        begin
+          tmr3.Enabled := True;
+          lblAlert.Visible := True;
+          dbgrd1.Visible := True;
+        end;
+    end;
+
+    //alert exp
+    tmr4.Enabled := false;
+    with dm.qryDashExp do
+      begin
+        close;
+        sql.Clear;
+        sql.Text := 'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id = b.id where (DATEDIFF(b.tgl_exp,now())) < 100 ';
+        Open;
+
+        if IsEmpty then
+          begin
+            tmr4.Enabled := false;
+            lblAlertExp.Visible := False;
+            dbgrd2.Visible := False;
+          end
+        else
+          begin
+           tmr4.Enabled := True;
+           lblAlertExp.Visible := True;
+           dbgrd2.Visible := True;
+          end;
+      end;
 end;
 
 procedure TFMenu.Pengguna1Click(Sender: TObject);
@@ -239,6 +298,26 @@ end;
 procedure TFMenu.ListReturPenjualan1Click(Sender: TObject);
 begin
   fListReturPenjualan.ShowModal;
+end;
+
+procedure TFMenu.tmr3Timer(Sender: TObject);
+begin
+  if lblAlert.Visible = False then lblAlert.Visible := True else lblAlert.Visible := false;
+end;
+
+procedure TFMenu.RefreshDashboard1Click(Sender: TObject);
+begin
+  FormShow(Sender);
+end;
+
+procedure TFMenu.LabaPenjualan1Click(Sender: TObject);
+begin
+  fLabaPenjualan.ShowModal;
+end;
+
+procedure TFMenu.tmr4Timer(Sender: TObject);
+begin
+  if lblAlertExp.Visible = False then lblAlertExp.Visible := True else lblAlertExp.Visible := false;
 end;
 
 end.

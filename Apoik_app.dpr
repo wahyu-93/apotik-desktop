@@ -32,7 +32,8 @@ uses
   u_confirmReturAll in 'u_confirmReturAll.pas' {fReturAll},
   uListReturPenjualan in 'uListReturPenjualan.pas' {fListReturPenjualan},
   uDetailReturPenjualan in 'uDetailReturPenjualan.pas' {fDetailReturPenjualan},
-  u_bayarPenjualan in 'u_bayarPenjualan.pas' {fBayarPenjualan};
+  u_bayarPenjualan in 'u_bayarPenjualan.pas' {fBayarPenjualan},
+  u_labaPenjualan in 'u_labaPenjualan.pas' {fLabaPenjualan};
 
 {$R *.res}
 
@@ -69,5 +70,6 @@ begin
   Application.CreateForm(TfListReturPenjualan, fListReturPenjualan);
   Application.CreateForm(TfDetailReturPenjualan, fDetailReturPenjualan);
   Application.CreateForm(TfBayarPenjualan, fBayarPenjualan);
+  Application.CreateForm(TfLabaPenjualan, fLabaPenjualan);
   Application.Run;
 end.

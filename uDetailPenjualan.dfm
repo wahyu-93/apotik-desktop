@@ -1,6 +1,6 @@
 object fDetailPenjualan: TfDetailPenjualan
-  Left = 507
-  Top = 429
+  Left = 539
+  Top = 67
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form Detail Penjualan ::.'
@@ -23459,15 +23459,16 @@ object fDetailPenjualan: TfDetailPenjualan
           FieldName = 'id_penjualan'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -15
+          Font.Height = -16
           Font.Name = 'Arial Narrow'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23475,13 +23476,13 @@ object fDetailPenjualan: TfDetailPenjualan
           FieldName = 'no_faktur'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -15
+          Font.Height = -16
           Font.Name = 'Arial Narrow'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
           Width = -1
@@ -23492,16 +23493,15 @@ object fDetailPenjualan: TfDetailPenjualan
           FieldName = 'tgl_penjualan'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -15
+          Font.Height = -16
           Font.Name = 'Arial Narrow'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23509,13 +23509,13 @@ object fDetailPenjualan: TfDetailPenjualan
           FieldName = 'jumlah_jual'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -15
+          Font.Height = -16
           Font.Name = 'Arial Narrow'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
           Width = -1
@@ -23526,13 +23526,13 @@ object fDetailPenjualan: TfDetailPenjualan
           FieldName = 'total'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -15
+          Font.Height = -16
           Font.Name = 'Arial Narrow'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
           Width = -1
@@ -23543,13 +23543,13 @@ object fDetailPenjualan: TfDetailPenjualan
           FieldName = 'id_detail_penjualan'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -15
+          Font.Height = -16
           Font.Name = 'Arial Narrow'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
           Width = -1
@@ -23560,13 +23560,13 @@ object fDetailPenjualan: TfDetailPenjualan
           FieldName = 'obat_id'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -15
+          Font.Height = -16
           Font.Name = 'Arial Narrow'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
           Width = -1
@@ -23577,17 +23577,17 @@ object fDetailPenjualan: TfDetailPenjualan
           FieldName = 'kode'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -15
+          Font.Height = -16
           Font.Name = 'Arial Narrow'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Kode Obat'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 130
           Visible = True
         end
         item
@@ -23595,13 +23595,13 @@ object fDetailPenjualan: TfDetailPenjualan
           FieldName = 'barcode'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -15
+          Font.Height = -16
           Font.Name = 'Arial Narrow'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
           Width = -1
@@ -23612,13 +23612,13 @@ object fDetailPenjualan: TfDetailPenjualan
           FieldName = 'tgl_obat'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -15
+          Font.Height = -16
           Font.Name = 'Arial Narrow'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
           Width = -1
@@ -23629,13 +23629,13 @@ object fDetailPenjualan: TfDetailPenjualan
           FieldName = 'tgl_exp'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -15
+          Font.Height = -16
           Font.Name = 'Arial Narrow'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
           Width = -1
@@ -23646,7 +23646,7 @@ object fDetailPenjualan: TfDetailPenjualan
           FieldName = 'nama_obat'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -15
+          Font.Height = -16
           Font.Name = 'Arial Narrow'
           Font.Style = []
           ReadOnly = True
@@ -23654,10 +23654,10 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Caption = 'Nama Obat'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 173
           Visible = True
         end
         item
@@ -23665,7 +23665,7 @@ object fDetailPenjualan: TfDetailPenjualan
           FieldName = 'jenis'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -15
+          Font.Height = -16
           Font.Name = 'Arial Narrow'
           Font.Style = []
           ReadOnly = True
@@ -23673,10 +23673,10 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Caption = 'Jenis Obat'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 130
           Visible = True
         end
         item
@@ -23684,7 +23684,7 @@ object fDetailPenjualan: TfDetailPenjualan
           FieldName = 'satuan'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -15
+          Font.Height = -16
           Font.Name = 'Arial Narrow'
           Font.Style = []
           ReadOnly = True
@@ -23692,10 +23692,10 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Caption = 'Satuan'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 130
           Visible = True
         end
         item
@@ -23704,17 +23704,17 @@ object fDetailPenjualan: TfDetailPenjualan
           FieldName = 'jumlah_jual'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -15
+          Font.Height = -16
           Font.Name = 'Arial Narrow'
           Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Jumlah'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 130
           Visible = True
         end
         item
@@ -23722,7 +23722,7 @@ object fDetailPenjualan: TfDetailPenjualan
           FieldName = 'harga_jual'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -15
+          Font.Height = -16
           Font.Name = 'Arial Narrow'
           Font.Style = []
           ReadOnly = True
@@ -23730,10 +23730,28 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Caption = 'Harga'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
-          Title.Font.Height = -13
+          Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 160
+          Width = 130
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'catatan'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Arial Narrow'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Caption = 'Catatan'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -16
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = 151
           Visible = True
         end>
     end

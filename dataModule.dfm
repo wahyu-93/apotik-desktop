@@ -1,9 +1,9 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 376
-  Top = 465
+  Left = 236
+  Top = 406
   Height = 456
-  Width = 1271
+  Width = 1406
   object XPManifest1: TXPManifest
     Left = 128
     Top = 32
@@ -603,10 +603,10 @@ object dm: Tdm
         'select a.id as id_penjualan, a.no_faktur, a.tgl_penjualan, a.jum' +
         'lah_item, a.total, b.id as id_detail_penjualan, b.obat_id, b.jum' +
         'lah_jual, b.harga_jual, c.kode, c.barcode, c.nama_obat, c.tgl_ob' +
-        'at, c.tgl_exp, d.jenis, e.satuan from tbl_penjualan a left join ' +
-        'tbl_detail_penjualan b on b.penjualan_id = a.id left join tbl_ob' +
-        'at c on c.id = b.obat_id left join tbl_jenis d on d.id=c.kode_je' +
-        'nis left join tbl_satuan e on e.id = c.kode_satuan')
+        'at, c.tgl_exp, d.jenis, e.satuan, b.catatan from tbl_penjualan a' +
+        ' left join tbl_detail_penjualan b on b.penjualan_id = a.id left ' +
+        'join tbl_obat c on c.id = b.obat_id left join tbl_jenis d on d.i' +
+        'd=c.kode_jenis left join tbl_satuan e on e.id = c.kode_satuan')
     Left = 552
     Top = 104
     object qryRelasiPenjualanid_penjualan: TAutoIncField
@@ -666,6 +666,10 @@ object dm: Tdm
       FieldName = 'satuan'
       Size = 100
     end
+    object qryRelasiPenjualancatatan: TStringField
+      FieldName = 'catatan'
+      Size = 200
+    end
   end
   object dsRelasiPenjualan: TDataSource
     DataSet = qryRelasiPenjualan
@@ -696,6 +700,14 @@ object dm: Tdm
     end
     object qryDetailPenjualanjumlah_jual: TIntegerField
       FieldName = 'jumlah_jual'
+    end
+    object qryDetailPenjualanstatus: TStringField
+      FieldName = 'status'
+      Size = 50
+    end
+    object qryDetailPenjualancatatan: TStringField
+      FieldName = 'catatan'
+      Size = 200
     end
   end
   object qryLaporanPembelian: TADOQuery
@@ -1210,5 +1222,130 @@ object dm: Tdm
     DataSet = qryDetailRetur
     Left = 1088
     Top = 248
+  end
+  object qryDashObat: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_' +
+        'jenis, b.kode_satuan, b.stok, b.status, a.id as id_jenis, a.kode' +
+        ' as jenisKode, a.jenis, c.id as id_satuan, c.kode as satuanKode,' +
+        ' c.satuan from tbl_jenis a left join tbl_obat b on a.id = b.kode' +
+        '_jenis INNER join tbl_satuan c on c.id = b.kode_satuan order by ' +
+        'b.id;')
+    Left = 1144
+    Top = 40
+  end
+  object dsDashObat: TDataSource
+    DataSet = qryDashObat
+    Left = 1208
+    Top = 48
+  end
+  object qryLabaPenjualan: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select *, (a.harga_jual - a.harga_beli_terakhir) as laba from tb' +
+        'l_harga_jual a left join tbl_obat b on a.obat_id = b.id')
+    Left = 1144
+    Top = 112
+    object qryLabaPenjualanid: TAutoIncField
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object qryLabaPenjualanobat_id: TIntegerField
+      FieldName = 'obat_id'
+    end
+    object qryLabaPenjualanharga_jual: TFloatField
+      FieldName = 'harga_jual'
+      DisplayFormat = '#,##;(#,##);#,##'
+    end
+    object qryLabaPenjualanharga_beli_terakhir: TIntegerField
+      FieldName = 'harga_beli_terakhir'
+      DisplayFormat = '#,##;(#,##);#,##'
+    end
+    object qryLabaPenjualansupplier: TStringField
+      FieldName = 'supplier'
+      Size = 50
+    end
+    object qryLabaPenjualansatuan: TStringField
+      FieldName = 'satuan'
+      Size = 100
+    end
+    object qryLabaPenjualanjenis: TStringField
+      FieldName = 'jenis'
+      Size = 100
+    end
+    object qryLabaPenjualancreated_at: TDateTimeField
+      FieldName = 'created_at'
+    end
+    object qryLabaPenjualanid_1: TAutoIncField
+      FieldName = 'id_1'
+      ReadOnly = True
+    end
+    object qryLabaPenjualankode: TStringField
+      FieldName = 'kode'
+      Size = 30
+    end
+    object qryLabaPenjualanbarcode: TStringField
+      FieldName = 'barcode'
+      Size = 100
+    end
+    object qryLabaPenjualannama_obat: TStringField
+      FieldName = 'nama_obat'
+      Size = 150
+    end
+    object qryLabaPenjualankode_jenis: TIntegerField
+      FieldName = 'kode_jenis'
+    end
+    object qryLabaPenjualankode_satuan: TIntegerField
+      FieldName = 'kode_satuan'
+    end
+    object qryLabaPenjualantgl_obat: TDateField
+      FieldName = 'tgl_obat'
+    end
+    object qryLabaPenjualantgl_exp: TDateField
+      FieldName = 'tgl_exp'
+    end
+    object qryLabaPenjualanstatus: TStringField
+      FieldName = 'status'
+      Size = 100
+    end
+    object qryLabaPenjualanstok: TIntegerField
+      FieldName = 'stok'
+    end
+    object qryLabaPenjualanlaba: TFloatField
+      FieldName = 'laba'
+      ReadOnly = True
+      DisplayFormat = '#,##;(#,##);#,##'
+    end
+  end
+  object dsLabaPenjualan: TDataSource
+    DataSet = qryLabaPenjualan
+    Left = 1216
+    Top = 136
+  end
+  object qryDashExp: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id' +
+        ' = b.id where (DATEDIFF(b.tgl_exp,now())) < 100')
+    Left = 1152
+    Top = 200
+  end
+  object dsDashExp: TDataSource
+    DataSet = qryDashExp
+    Left = 1208
+    Top = 208
   end
 end

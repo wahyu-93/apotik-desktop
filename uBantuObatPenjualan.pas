@@ -50,7 +50,7 @@ begin
     begin
       close;
       sql.Clear;
-      SQL.Text := 'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id = b.id';
+      SQL.Text := 'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id = b.id order by b.stok asc, b.id asc';
       Open;
     end;
 end;
@@ -111,9 +111,15 @@ procedure TfBantuObatPenjualan.dbgrd1DrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn;
   State: TGridDrawState);
 begin
-  if dm.qryRelasiSetHarga.FieldByName('stok').AsString = '0' then
+  if dm.qryRelasiSetHarga.FieldByName('stok').AsInteger = 0 then
     begin
       dbgrd1.Canvas.Brush.Color := clSkyBlue;
+      dbgrd1.Canvas.Font.Color := clBlack;
+    end
+  else
+  if dm.qryRelasiSetHarga.FieldByName('stok').AsInteger < 5 then
+    begin
+      dbgrd1.Canvas.Brush.Color := clRed;
       dbgrd1.Canvas.Font.Color := clBlack;
     end;
   dbgrd1.DefaultDrawColumnCell(rect, datacol, column, state);

@@ -1,6 +1,6 @@
 object fSetHarga: TfSetHarga
-  Left = 507
-  Top = 136
+  Left = 711
+  Top = 135
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Set Harga Jual ::.'
@@ -23655,6 +23655,7 @@ object fSetHarga: TfSetHarga
       TitleFont.Height = -11
       TitleFont.Name = 'Arial'
       TitleFont.Style = []
+      OnDrawColumnCell = dbgrd1DrawColumnCell
       OnDblClick = dbgrd1DblClick
       Columns = <
         item
@@ -23671,6 +23672,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23705,6 +23707,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23830,6 +23833,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23846,6 +23850,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23862,6 +23867,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23878,6 +23884,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23894,6 +23901,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23910,6 +23918,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23920,6 +23929,7 @@ object fSetHarga: TfSetHarga
           Font.Height = -15
           Font.Name = 'Arial Narrow'
           Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23930,6 +23940,7 @@ object fSetHarga: TfSetHarga
           Font.Height = -15
           Font.Name = 'Arial Narrow'
           Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23947,6 +23958,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end>
     end

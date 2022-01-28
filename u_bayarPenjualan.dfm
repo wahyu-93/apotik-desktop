@@ -3,7 +3,7 @@ object fBayarPenjualan: TfBayarPenjualan
   Top = 253
   AutoScroll = False
   BorderIcons = []
-  Caption = 'fBayarPenjualan'
+  Caption = '.:: Form Bayar Penjualan ::.'
   ClientHeight = 419
   ClientWidth = 516
   Color = clGradientInactiveCaption

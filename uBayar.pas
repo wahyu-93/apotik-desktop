@@ -90,7 +90,7 @@ begin
 
   Fpenjualan.edtBayar.Text := edtByar.Text;
   Fpenjualan.edtKembali.Text := edtKmbalian.Text;
-  Fpenjualan.edtStatusPenjualan.Text := 'selesa';
+  Fpenjualan.edtStatusPenjualan.Text := 'selesai';
   Fpenjualan.btnProses.Click;
 
   Close;
