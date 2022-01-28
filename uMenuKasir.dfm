@@ -3,7 +3,7 @@ object fMenuKasir: TfMenuKasir
   Top = 134
   AutoScroll = False
   BorderIcons = []
-  Caption = '.:: Applikasi Kasir Apotik V.1 ::.'
+  Caption = '.:: Applikasi Kasir Apotik V.5 ::.'
   ClientHeight = 830
   ClientWidth = 1455
   Color = clGradientInactiveCaption

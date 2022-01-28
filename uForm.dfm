@@ -3,7 +3,7 @@ object FMenu: TFMenu
   Top = 86
   AutoScroll = False
   BorderIcons = []
-  Caption = '.:: Applikasi Kasir Apotek V.1 ::.'
+  Caption = '.:: Applikasi Kasir Apotek V.1.5 ::.'
   ClientHeight = 847
   ClientWidth = 1462
   Color = clGradientInactiveCaption

@@ -228,7 +228,7 @@ end;
 
 procedure TFpenjualan.konek(status: string);
 begin
-with dm.qryRelasiPenjualan do
+  with dm.qryRelasiPenjualan do
     begin
       close;
       sql.Clear;

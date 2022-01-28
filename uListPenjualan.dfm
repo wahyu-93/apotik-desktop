@@ -1,6 +1,6 @@
 object fListPenjualan: TfListPenjualan
-  Left = 348
-  Top = 180
+  Left = 615
+  Top = 115
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form List Penjualan ::.'
@@ -23423,6 +23423,7 @@ object fListPenjualan: TfListPenjualan
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnCellClick = dbgrd1CellClick
       OnDblClick = dbgrd1DblClick
       Columns = <
         item
@@ -23696,6 +23697,33 @@ object fListPenjualan: TfListPenjualan
       Font.Style = []
       ParentFont = False
       TabOrder = 4
+      OnClick = btnCetakClick
+    end
+    object btnProsesCetak: TBitBtn
+      Left = 8
+      Top = 504
+      Width = 75
+      Height = 25
+      Caption = 'btnProsesCetak'
+      TabOrder = 5
+      Visible = False
+      OnClick = btnProsesCetakClick
+    end
+    object btnBayar: TBitBtn
+      Left = 640
+      Top = 504
+      Width = 89
+      Height = 33
+      Caption = 'Bayar'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 6
+      Visible = False
+      OnClick = btnBayarClick
     end
   end
 end

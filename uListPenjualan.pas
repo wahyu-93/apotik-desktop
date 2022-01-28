@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, Grids, DBGrids, jpeg, ExtCtrls;
+  Dialogs, StdCtrls, Buttons, Grids, DBGrids, jpeg, ExtCtrls, U_cetak;
 
 type
   TfListPenjualan = class(TForm)
@@ -17,12 +17,18 @@ type
     btnKeluar: TBitBtn;
     btnDetail: TBitBtn;
     btnCetak: TBitBtn;
+    btnProsesCetak: TBitBtn;
+    btnBayar: TBitBtn;
     procedure btnKeluarClick(Sender: TObject);
     procedure edtpencarianKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     procedure btnDetailClick(Sender: TObject);
     procedure dbgrd1DblClick(Sender: TObject);
+    procedure btnCetakClick(Sender: TObject);
+    procedure btnProsesCetakClick(Sender: TObject);
+    procedure dbgrd1CellClick(Column: TColumn);
+    procedure btnBayarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -35,9 +41,47 @@ var
 implementation
 
 uses
-  dataModule, uDetailPenjualan;
+  dataModule, uDetailPenjualan, u_bayarPenjualan;
 
 {$R *.dfm}
+
+function hitungTotal(id_penjualan : string) : Real;
+var
+  i : Integer;
+  total : Real;
+begin
+  with dm.qryDetailPenjualan do
+    begin
+      close;
+      SQL.Clear;
+      SQL.Text := 'select * from tbL_detail_penjualan where penjualan_id = '+QuotedStr(id_penjualan)+'';
+      Open;
+
+      total := 0;
+      for i:=1 to RecordCount do
+        begin
+          RecNo := i;
+          total := total + (fieldbyname('jumlah_jual').AsInteger * fieldbyname('harga_jual').AsInteger);
+
+          Next;
+        end;
+
+      Result := total;
+    end;
+end;
+
+function hitungItem(id_penjualan : string) : Integer;
+begin
+  with dm.qryDetailPenjualan do
+    begin
+      close;
+      SQL.Clear;
+      SQL.Text := 'select * from tbL_detail_penjualan where penjualan_id = '+QuotedStr(id_penjualan)+'';
+      Open;
+
+      Result := RecordCount;
+    end;
+end;
 
 procedure konek;
 begin
@@ -88,6 +132,116 @@ end;
 procedure TfListPenjualan.dbgrd1DblClick(Sender: TObject);
 begin
   btnDetail.Click;
+end;
+
+procedure TfListPenjualan.btnCetakClick(Sender: TObject);
+begin
+  if dbgrd1.Fields[0].AsString = '' then Exit;
+  btnProsesCetak.Click;  
+end;
+
+procedure TfListPenjualan.btnProsesCetakClick(Sender: TObject);
+var
+txtFile: TextFile;
+nmfile, status : string;
+a, total : Integer;
+begin
+  with dm.qrySetting do
+    begin
+      Close;
+      sql.Clear;
+      sql.Text := 'select * from tbl_setting';
+      Open;
+    end;
+
+  with dm.qryPenjualan do
+    begin
+      Close;
+      sql.Clear;
+      SQL.Text := 'select * from tbl_penjualan where id = '+QuotedStr(dbgrd1.Fields[0].AsString)+'';
+      Open;
+    end;
+
+  with dm.qryRelasiPenjualan do
+    begin
+      close;
+      sql.Clear;
+      SQL.Text := 'select a.id as id_penjualan, a.no_faktur, a.tgl_penjualan, a.jumlah_item, '+
+                  'a.total, b.id as id_detail_penjualan, b.obat_id, b.jumlah_jual, b.harga_jual, c.kode, c.barcode, '+
+                  'c.nama_obat, c.tgl_obat, c.tgl_exp, d.jenis, e.satuan from tbl_penjualan a left join '+
+                  'tbl_detail_penjualan b on b.penjualan_id = a.id left join tbl_obat c on c.id = b.obat_id left join tbl_jenis d '+
+                  'on d.id=c.kode_jenis left join tbl_satuan e on e.id = c.kode_satuan where a.no_faktur='+QuotedStr(dbgrd1.Fields[1].AsString)+'';
+      open
+    end;
+
+  if dm.qryPenjualan.FieldByName('status').AsString = 'selesai' then status := 'Lunas' else status := 'Kredit';
+
+    // Buat File dengan Nama Struk.txt
+    nmfile := GetCurrentDir + '\struk.txt';
+    AssignFile(txtFile, nmfile);
+    Rewrite(txtFile);
+    WriteLn(txtFile, '     '+dm.qrySetting.fieldbyname('nama_toko').asString+'   ');
+    WriteLn(txtFile, ''+dm.qrySetting.fieldbyname('alamat').asString+' ');
+    WriteLn(txtFile, '        '+dm.qrySetting.fieldbyname('telp').asString+' ');
+    WriteLn(txtFile, '    Tersedia Obat-Obatan');
+    WriteLn(txtFile, '      Herbal dan Alkes');
+
+    WriteLn(txtFile, '----------------------------');
+    WriteLn(txtFile, 'No. Nota:' + dbgrd1.Fields[1].AsString );
+    WriteLn(txtFile, 'Tanggal :' + FormatDateTime('dd/mm/yyyy hh:mm:ss', now));
+    WriteLn(txtFile, 'Kasir   :' + dm.qryUser.fieldbyname('nama').asString);
+    WriteLn(txtFile, 'Status Jual :' + status);
+    WriteLn(txtFile, '----------------------------');
+    WriteLn(txtFile, 'Nama Barang');
+    WriteLn(txtFile, RataKanan('      QTY   Harga ', 'Sub Total', 28, ' '));
+    WriteLn(txtFile, '----------------------------');
+
+    a := 1;
+    with dm.qryRelasiPenjualan do
+      begin
+        for a:=1 to RecordCount do
+          begin
+            RecNo := a;
+            total := fieldbyname('jumlah_jual').AsInteger * fieldbyname('harga_jual').AsInteger;
+
+            WriteLn(txtFile,' '+fieldbyname('nama_obat').asString);
+            WriteLn(txtFile, RataKanan
+                ('      ' + fieldbyname('jumlah_jual').asString +' X '+FormatFloat('###,###,###',fieldbyname('harga_jual').AsInteger)+' ',FormatFloat('###,###,###',total), 28, ' '));
+
+            Next;
+          end;
+      end;
+
+    WriteLn(txtFile, '----------------------------');
+    WriteLn(txtFile, RataKanan('Total   : ', FormatFloat('Rp. ###,###,###', hitungTotal(dbgrd1.Fields[0].AsString)), 28,
+         ' '));
+    WriteLn(txtFile, '----------------------------');
+    WriteLn(txtFile, ' Jumlah Item  : ' + IntToStr(hitungItem(dbgrd1.Fields[0].AsString)));
+    WriteLn(txtFile, '----------------------------');
+    WriteLn(txtFile, '         Terima Kasih');
+    WriteLn(txtFile, '    Berelaan Jual Seadannya');
+    WriteLn(txtFile, #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 );
+    CloseFile(txtFile);
+    // Cetak File Struk.txt
+    cetakFile('struk.txt');
+    
+    MessageDlg('Cetak Struk Sukses',mtInformation,[mbOK],0);
+end;
+
+procedure TfListPenjualan.dbgrd1CellClick(Column: TColumn);
+begin
+  if dbgrd1.Fields[7].AsString = 'selesai' then
+    btnBayar.Visible := False
+  else
+    btnBayar.Visible := True;
+end;
+
+procedure TfListPenjualan.btnBayarClick(Sender: TObject);
+begin
+  fBayarPenjualan.edtIdPenjualan.Text := dbgrd1.Fields[0].AsString;
+  fBayarPenjualan.lblTotalDibayar.Caption := FormatFloat('Rp. ###,###,###', dbgrd1.Fields[5].AsFloat);
+
+  fBayarPenjualan.ShowModal;
 end;
 
 end.

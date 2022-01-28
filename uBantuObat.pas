@@ -27,6 +27,8 @@ type
     procedure FormShow(Sender: TObject);
     procedure dbgrd1DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -220,6 +222,15 @@ begin
       end;
     end;
   dbgrd1.DefaultDrawColumnCell(rect, datacol, column, state);
+end;
+
+procedure TfBantuObat.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  case Key of
+    VK_UP: dbgrd1.SetFocus;
+    VK_DOWN: dbgrd1.SetFocus;
+  end;
 end;
 
 end.
