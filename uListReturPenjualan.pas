@@ -49,7 +49,7 @@ begin
       Close;
       SQL.Clear;
       sql.Text := 'select *, count(b.obat_id) as jml_item from tbl_retur a LEFT JOIN tbl_stok b ON b.no_faktur = a.faktur_penjualan WHERE b.keterangan='+QuotedStr('retur-penjualan')+
-                  ' and date(a.tgl_retur)='+QuotedStr(FormatDateTime('yyyy-mm-dd',Now()))+' GROUP BY a.kode';
+                  ' and month(a.tgl_retur)='+QuotedStr(FormatDateTime('mm-yyyy',Now()))+' GROUP BY a.kode order by a.id desc';
       Open;
     end;
 
@@ -65,7 +65,7 @@ begin
       Close;
       SQL.Clear;
       sql.Text := 'select *, count(b.obat_id) as jml_item from tbl_retur a LEFT JOIN tbl_stok b ON b.no_faktur = a.faktur_penjualan WHERE b.keterangan='+QuotedStr('retur-penjualan')+
-                  ' and date(a.tgl_retur)='+QuotedStr(FormatDateTime('yyyy-mm-dd',Now()))+' and (a.kode like ''%'+edtpencarian.Text+'%'' or a.faktur_penjualan like ''%'+edtpencarian.Text+'%'') GROUP BY a.kode';
+                  ' and (a.kode like ''%'+edtpencarian.Text+'%'' or a.faktur_penjualan like ''%'+edtpencarian.Text+'%'') GROUP BY a.kode';
       Open;
     end;
 end;

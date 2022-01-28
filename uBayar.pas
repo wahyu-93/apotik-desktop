@@ -90,6 +90,7 @@ begin
 
   Fpenjualan.edtBayar.Text := edtByar.Text;
   Fpenjualan.edtKembali.Text := edtKmbalian.Text;
+  Fpenjualan.edtStatusPenjualan.Text := 'selesa';
   Fpenjualan.btnProses.Click;
 
   Close;
@@ -141,7 +142,8 @@ end;
 
 procedure TfBayar.btnPendingClick(Sender: TObject);
 begin
-  Fpenjualan.btnProsesPending.Click;
+  Fpenjualan.edtStatusPenjualan.Text := 'pending';
+  Fpenjualan.btnProses.Click;
   close;
 end;
 

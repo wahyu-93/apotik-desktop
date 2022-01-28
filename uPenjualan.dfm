@@ -24063,15 +24063,13 @@ object Fpenjualan: TFpenjualan
       State = cbChecked
       TabOrder = 17
     end
-    object btnProsesPending: TBitBtn
-      Left = 1136
-      Top = 16
-      Width = 75
-      Height = 25
-      Caption = 'btnProsesPending'
+    object edtStatusPenjualan: TEdit
+      Left = 1112
+      Top = 8
+      Width = 121
+      Height = 21
       TabOrder = 18
-      Visible = False
-      OnClick = btnProsesPendingClick
+      Text = 'edtStatusPenjualan'
     end
   end
 end

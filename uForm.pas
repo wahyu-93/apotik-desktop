@@ -156,7 +156,7 @@ begin
       Open;
 
       lblTotalPenjualan.Caption := 'Total Penjualan : ' + FormatFloat('Rp. ###,###,###', dm.qryTotalPenjualan.fieldbyname('total').AsFloat);
-      lbl4.Caption := 'Total Pembelian (Harian) : '+dm.qryTotalPenjualan.fieldbyname('jml_transaksi').AsString+' Transaksi';
+      lbl4.Caption := 'Total Penjualan (Harian) : '+dm.qryTotalPenjualan.fieldbyname('jml_transaksi').AsString+' Transaksi';
     end;
 
 
@@ -169,7 +169,7 @@ begin
       Open;
 
       lblTotalPembelian.Caption := 'Total Pembelian : ' + FormatFloat('Rp. ###,###,###', dm.qryTotalPembelian.fieldbyname('total').AsFloat);
-      lbl2.Caption := 'Total Penjualan (Harian) : '+dm.qryTotalPembelian.fieldbyname('jml_transaksi').AsString +' Transaksi';
+      lbl2.Caption := 'Total Pembelian (Harian) : '+dm.qryTotalPembelian.fieldbyname('jml_transaksi').AsString +' Transaksi';
     end;
 
 

@@ -26,6 +26,8 @@ type
       Shift: TShiftState);
     procedure dbgrd1DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -115,6 +117,15 @@ begin
       dbgrd1.Canvas.Font.Color := clBlack;
     end;
   dbgrd1.DefaultDrawColumnCell(rect, datacol, column, state);
+end;
+
+procedure TfBantuObatPenjualan.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  case Key of
+    VK_UP: dbgrd1.SetFocus;
+    VK_DOWN: dbgrd1.SetFocus;
+  end;
 end;
 
 end.

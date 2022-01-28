@@ -42,7 +42,7 @@ type
     edtBayar: TEdit;
     lbl4: TLabel;
     chkCetak: TCheckBox;
-    btnProsesPending: TBitBtn;
+    edtStatusPenjualan: TEdit;
     procedure btnKeluarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -487,7 +487,7 @@ begin
           close;
           sql.Clear;
           sql.Text := 'update tbl_penjualan set jumlah_item = '+QuotedStr(jumlahItem)+', total = '+QuotedStr(total)+
-                      ', status = '+QuotedStr('selesai')+', tgl_bayar = '+QuotedStr(FormatDateTime('yyyy-mm-dd hh:mm:ss',Now))+
+                      ', status = '+QuotedStr(edtStatusPenjualan.Text)+', tgl_bayar = '+QuotedStr(FormatDateTime('yyyy-mm-dd hh:mm:ss',Now))+
                       ' where no_faktur = '+QuotedStr(edtFaktur.Text)+'';
           ExecSQL;
         end;
@@ -540,7 +540,7 @@ end;
 procedure TFpenjualan.btnCetakClick(Sender: TObject);
 var
 txtFile: TextFile;
-nmfile : string;
+nmfile, status : string;
 a, total : Integer;
 begin
   with dm.qrySetting do
@@ -551,57 +551,68 @@ begin
       Open;
     end;
 
-  // Buat File dengan Nama Struk.txt
-        nmfile := GetCurrentDir + '\struk.txt';
-        AssignFile(txtFile, nmfile);
-        Rewrite(txtFile);
-        WriteLn(txtFile, '     '+dm.qrySetting.fieldbyname('nama_toko').asString+'   ');
-        WriteLn(txtFile, ''+dm.qrySetting.fieldbyname('alamat').asString+' ');
-        WriteLn(txtFile, '        '+dm.qrySetting.fieldbyname('telp').asString+' ');
-        WriteLn(txtFile, '    Tersedia Obat-Obatan');
-        WriteLn(txtFile, '      Herbal dan Alkes');
+  with dm.qryPenjualan do
+    begin
+      Close;
+      sql.Clear;
+      SQL.Text := 'select * from tbl_penjualan where id = '+QuotedStr(edtIdPembelian.Text)+'';
+      Open;
+    end;
 
-        WriteLn(txtFile, '----------------------------');
-        WriteLn(txtFile, 'No. Nota:' + edtFaktur.text );
-        WriteLn(txtFile, 'Tanggal :' + FormatDateTime('dd/mm/yyyy hh:mm:ss', now));
-        WriteLn(txtFile, 'Kasir   :' + dm.qryUser.fieldbyname('nama').asString);
-        WriteLn(txtFile, '----------------------------');
-        WriteLn(txtFile, 'Nama Barang');
-        WriteLn(txtFile, RataKanan('      QTY   Harga ', 'Sub Total', 28, ' '));
-        WriteLn(txtFile, '----------------------------');
+  if dm.qryPenjualan.FieldByName('status').AsString = 'selesai' then status := 'Lunas' else status := 'Kredit';
 
-        a := 1;
-        with dm.qryRelasiPenjualan do
+    // Buat File dengan Nama Struk.txt
+    nmfile := GetCurrentDir + '\struk.txt';
+    AssignFile(txtFile, nmfile);
+    Rewrite(txtFile);
+    WriteLn(txtFile, '     '+dm.qrySetting.fieldbyname('nama_toko').asString+'   ');
+    WriteLn(txtFile, ''+dm.qrySetting.fieldbyname('alamat').asString+' ');
+    WriteLn(txtFile, '        '+dm.qrySetting.fieldbyname('telp').asString+' ');
+    WriteLn(txtFile, '    Tersedia Obat-Obatan');
+    WriteLn(txtFile, '      Herbal dan Alkes');
+
+    WriteLn(txtFile, '----------------------------');
+    WriteLn(txtFile, 'No. Nota:' + edtFaktur.text );
+    WriteLn(txtFile, 'Tanggal :' + FormatDateTime('dd/mm/yyyy hh:mm:ss', now));
+    WriteLn(txtFile, 'Kasir   :' + dm.qryUser.fieldbyname('nama').asString);
+    WriteLn(txtFile, 'Status Jual :' + status);
+    WriteLn(txtFile, '----------------------------');
+    WriteLn(txtFile, 'Nama Barang');
+    WriteLn(txtFile, RataKanan('      QTY   Harga ', 'Sub Total', 28, ' '));
+    WriteLn(txtFile, '----------------------------');
+
+    a := 1;
+    with dm.qryRelasiPenjualan do
+      begin
+        for a:=1 to RecordCount do
           begin
-            for a:=1 to RecordCount do
-              begin
-                RecNo := a;
-                total := fieldbyname('jumlah_jual').AsInteger * fieldbyname('harga_jual').AsInteger;
+            RecNo := a;
+            total := fieldbyname('jumlah_jual').AsInteger * fieldbyname('harga_jual').AsInteger;
 
-                WriteLn(txtFile,' '+fieldbyname('nama_obat').asString);
-                WriteLn(txtFile, RataKanan
+            WriteLn(txtFile,' '+fieldbyname('nama_obat').asString);
+            WriteLn(txtFile, RataKanan
                 ('      ' + fieldbyname('jumlah_jual').asString +' X '+FormatFloat('###,###,###',fieldbyname('harga_jual').AsInteger)+' ',FormatFloat('###,###,###',total), 28, ' '));
 
-                Next;
-              end;
+            Next;
           end;
+      end;
 
-         WriteLn(txtFile, '----------------------------');
-         WriteLn(txtFile, RataKanan('Total   : ', FormatFloat('Rp. ###,###,###', hitungTotal(id_penjualan)), 28,
+    WriteLn(txtFile, '----------------------------');
+    WriteLn(txtFile, RataKanan('Total   : ', FormatFloat('Rp. ###,###,###', hitungTotal(id_penjualan)), 28,
          ' '));
-         WriteLn(txtFile, RataKanan('Bayar   : ', FormatFloat('Rp. ###,###,###', StrToInt(edtBayar.Text)), 28,
+    WriteLn(txtFile, RataKanan('Bayar   : ', FormatFloat('Rp. ###,###,###', StrToInt(edtBayar.Text)), 28,
          ' '));
-         WriteLn(txtFile, RataKanan('Kembali : ', FormatFloat('Rp. ###,###,###', StrToInt(edtKembali.Text)), 28,
+    WriteLn(txtFile, RataKanan('Kembali : ', FormatFloat('Rp. ###,###,###', StrToInt(edtKembali.Text)), 28,
          ' '));
-         WriteLn(txtFile, '----------------------------');
-         WriteLn(txtFile, ' Jumlah Item  : ' + IntToStr(hitungItem(id_penjualan)));
-         WriteLn(txtFile, '----------------------------');
-         WriteLn(txtFile, '         Terima Kasih');
-         WriteLn(txtFile, '    Berelaan Jual Seadannya');
-         WriteLn(txtFile, #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 );
-         CloseFile(txtFile);
-         // Cetak File Struk.txt
-   cetakFile('struk.txt');
+    WriteLn(txtFile, '----------------------------');
+    WriteLn(txtFile, ' Jumlah Item  : ' + IntToStr(hitungItem(id_penjualan)));
+    WriteLn(txtFile, '----------------------------');
+    WriteLn(txtFile, '         Terima Kasih');
+    WriteLn(txtFile, '    Berelaan Jual Seadannya');
+    WriteLn(txtFile, #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 );
+    CloseFile(txtFile);
+    // Cetak File Struk.txt
+    cetakFile('struk.txt');
 end;
 
 procedure TFpenjualan.btnProsesPendingClick(Sender: TObject);

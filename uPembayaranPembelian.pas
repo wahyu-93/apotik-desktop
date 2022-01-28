@@ -47,7 +47,7 @@ begin
       Close;
       sql.Clear;
       SQL.Text := 'select * from tbl_supplier left join tbl_pembelian on tbl_pembelian.supplier_id = tbl_supplier.id inner join tbl_user on tbl_user.id = tbl_pembelian.user_id '+
-                  'where date(tgl_pembelian) = '+QuotedStr(FormatDateTime('yyyy-mm-dd',Now))+' order by tbl_pembelian.id desc';
+                  'where month(tgl_pembelian) = '+QuotedStr(FormatDateTime('mm-yyyy',Now))+' order by tbl_pembelian.status desc, tbl_pembelian.id desc';
       Open;
     end;
 end;
@@ -80,6 +80,8 @@ end;
 
 procedure TfPembayaranPembelian.btnPilihClick(Sender: TObject);
 begin
+  if dbgrd1.Fields[0].AsString = '' then Exit;
+
   if dbgrd1.Fields[12].AsString = 'lunas' then
     begin
       MessageDlg('Status Pembelian Sudah Lunas',mtInformation,[mbOK],0);
