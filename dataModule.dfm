@@ -1236,13 +1236,8 @@ object dm: Tdm
         ' c.satuan from tbl_jenis a left join tbl_obat b on a.id = b.kode' +
         '_jenis INNER join tbl_satuan c on c.id = b.kode_satuan order by ' +
         'b.id;')
-    Left = 1144
-    Top = 40
-  end
-  object dsDashObat: TDataSource
-    DataSet = qryDashObat
-    Left = 1208
-    Top = 48
+    Left = 1192
+    Top = 136
   end
   object qryLabaPenjualan: TADOQuery
     Active = True
@@ -1266,8 +1261,8 @@ object dm: Tdm
         'where date(z.tgl_penjualan)='#39'2022-01-30'#39' AND COALESCE(a.status, ' +
         #39#39') <> '#39'retur'#39
       'group by a.obat_id')
-    Left = 1144
-    Top = 112
+    Left = 1128
+    Top = 32
     object qryLabaPenjualankode: TStringField
       FieldName = 'kode'
       Size = 30
@@ -1295,21 +1290,21 @@ object dm: Tdm
       FieldName = 'total_jual'
       ReadOnly = True
       DisplayFormat = '#,##;(#,##);#,##'
-      Precision = 42
+      Precision = 32
       Size = 0
     end
     object qryLabaPenjualanlaba: TBCDField
       FieldName = 'laba'
       ReadOnly = True
       DisplayFormat = '#,##;(#,##);#,##'
-      Precision = 43
+      Precision = 32
       Size = 0
     end
   end
   object dsLabaPenjualan: TDataSource
     DataSet = qryLabaPenjualan
-    Left = 1216
-    Top = 136
+    Left = 1200
+    Top = 56
   end
   object qryDashExp: TADOQuery
     Active = True
@@ -1320,12 +1315,19 @@ object dm: Tdm
       
         'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id' +
         ' = b.id where (DATEDIFF(b.tgl_exp,now())) < 100')
-    Left = 1152
-    Top = 200
+    Left = 1128
+    Top = 128
   end
-  object dsDashExp: TDataSource
-    DataSet = qryDashExp
-    Left = 1208
-    Top = 208
+  object qryDashSupplier: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 1256
+    Top = 144
+  end
+  object qryDashhObat: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 1256
+    Top = 200
   end
 end

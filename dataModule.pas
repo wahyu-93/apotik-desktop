@@ -267,14 +267,12 @@ type
     qryDetailReturstatus_1: TStringField;
     qryDetailReturstok: TIntegerField;
     qryDashObat: TADOQuery;
-    dsDashObat: TDataSource;
     qryDetailPenjualanstatus: TStringField;
     qryRelasiPenjualancatatan: TStringField;
     qryDetailPenjualancatatan: TStringField;
     qryLabaPenjualan: TADOQuery;
     dsLabaPenjualan: TDataSource;
     qryDashExp: TADOQuery;
-    dsDashExp: TDataSource;
     qryLabaPenjualankode: TStringField;
     qryLabaPenjualannama_obat: TStringField;
     qryLabaPenjualanharga_beli_terakhir: TIntegerField;
@@ -282,6 +280,8 @@ type
     qryLabaPenjualanjmlItemJual: TBCDField;
     qryLabaPenjualantotal_jual: TBCDField;
     qryLabaPenjualanlaba: TBCDField;
+    qryDashSupplier: TADOQuery;
+    qryDashhObat: TADOQuery;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

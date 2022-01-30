@@ -49,15 +49,37 @@ type
     ReturPenjualan1: TMenuItem;
     ListReturPenjualan1: TMenuItem;
     ReturPenjualan2: TMenuItem;
-    dbgrd1: TDBGrid;
-    lblAlert: TLabel;
     tmr3: TTimer;
     RefreshDashboard1: TMenuItem;
     N1: TMenuItem;
     LabaPenjualan1: TMenuItem;
-    lblAlertExp: TLabel;
-    dbgrd2: TDBGrid;
     tmr4: TTimer;
+    pnl3: TPanel;
+    pnl4: TPanel;
+    pnl7: TPanel;
+    lbl8: TLabel;
+    lblTotalReturPembelian: TLabel;
+    pnl8: TPanel;
+    pnl9: TPanel;
+    pnl10: TPanel;
+    lbl10: TLabel;
+    lblTtlReturPenjualan: TLabel;
+    pnl11: TPanel;
+    lbl12: TLabel;
+    lblTtlObat: TLabel;
+    pnl12: TPanel;
+    pnl5: TPanel;
+    lblTtlSupplier: TLabel;
+    lbl7: TLabel;
+    pnl6: TPanel;
+    pnl17: TPanel;
+    pnl18: TPanel;
+    lbl18: TLabel;
+    lblTtlStok: TLabel;
+    pnl19: TPanel;
+    lbl20: TLabel;
+    lblTtlExp: TLabel;
+    pnl20: TPanel;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
@@ -98,7 +120,7 @@ uses
   uJenisObat, uSatuan, uSupplier, uObat, uPembelian, uPembayaranPembelian, 
   uPenjualan, uSetHarga, dataModule, uPengguna, uSetting, uListPenjualan, 
   uLaporanPembelian, uListJualObat, uLaporanStok, uLaporanItemTerjual, uReturn, 
-  uListReturPenjualan, u_labaPenjualan;
+  uListReturPenjualan, u_labaPenjualan, DB;
 
 {$R *.dfm}
 
@@ -165,11 +187,10 @@ begin
     begin
       close;
       sql.Clear;
-      sql.Text := 'select count(id) as jml_transaksi, sum(total) as total from tbl_penjualan where tgl_penjualan like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%'' and status='+QuotedStr('selesai')+'';
+      sql.Text := 'select count(id) as jml_transaksi from tbl_penjualan where tgl_penjualan like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%'' and status='+QuotedStr('selesai')+'';
       Open;
 
-      lblTotalPenjualan.Caption := 'Total Penjualan : ' + FormatFloat('Rp. ###,###,###', dm.qryTotalPenjualan.fieldbyname('total').AsFloat);
-      lbl4.Caption := 'Total Penjualan (Harian) : '+dm.qryTotalPenjualan.fieldbyname('jml_transaksi').AsString+' Transaksi';
+      lblTotalPenjualan.Caption := FormatFloat('###,###;(###,###);###,###', dm.qryTotalPenjualan.fieldbyname('jml_transaksi').AsFloat);
     end;
 
 
@@ -178,11 +199,11 @@ begin
     begin
       close;
       sql.Clear;
-      sql.Text := 'select count(id) as jml_transaksi, sum(total) as total from tbl_pembelian where tgl_pembelian like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%'' and status='+QuotedStr('selesai')+'';
+      sql.Text := 'select count(id) as jml_transaksifrom from tbl_pembelian where tgl_pembelian like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%'' and status='+QuotedStr('selesai')+'';
       Open;
 
-      lblTotalPembelian.Caption := 'Total Pembelian : ' + FormatFloat('Rp. ###,###,###', dm.qryTotalPembelian.fieldbyname('total').AsFloat);
-      lbl2.Caption := 'Total Pembelian (Harian) : '+dm.qryTotalPembelian.fieldbyname('jml_transaksi').AsString +' Transaksi';
+
+      lblTotalPembelian.Caption := FormatFloat('###,###;(###,###);###,###', dm.qryTotalPembelian.fieldbyname('jml_transaksifrom').AsFloat);
     end;
 
   //alert stok
@@ -191,22 +212,17 @@ begin
     begin
       Close;
       sql.Clear;
-      SQL.Text := 'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_jenis, b.kode_satuan, b.stok, b.status, a.id as id_jenis, '+
-                  'a.kode as jenisKode, a.jenis, c.id as id_satuan, c.kode as satuanKode, c.satuan from tbl_jenis a left join tbl_obat b on a.id = b.kode_jenis '+
-                  'INNER join tbl_satuan c on c.id = b.kode_satuan where b.stok < 5 order by b.stok asc, b.id asc';
+      SQL.Text := 'select count(id) as jumlah from tbl_obat where stok < 5';
       Open;
 
       if IsEmpty then
         begin
           tmr3.Enabled := false;
-          lblAlert.Visible := False;
-          dbgrd1.Visible := False;
         end
       else
         begin
           tmr3.Enabled := True;
-          lblAlert.Visible := True;
-          dbgrd1.Visible := True;
+          lblTtlStok.Caption := fieldbyname('jumlah').AsString;
         end;
     end;
 
@@ -222,15 +238,34 @@ begin
         if IsEmpty then
           begin
             tmr4.Enabled := false;
-            lblAlertExp.Visible := False;
-            dbgrd2.Visible := False;
           end
         else
           begin
            tmr4.Enabled := True;
-           lblAlertExp.Visible := True;
-           dbgrd2.Visible := True;
+           lblTtlExp.Caption := IntToStr(RecordCount);
           end;
+      end;
+
+    // dashboard ttl obat
+    with dm.qryDashhObat do
+      begin
+        close;
+        SQL.Clear;
+        SQL.Text := 'select count(id) as jumlah from tbl_obat';
+        Open;
+
+        lblTtlObat.Caption := fieldbyname('jumlah').AsString;
+      end;
+
+    // dashboard supplier
+    with dm.qryDashSupplier do
+      begin
+        Close;
+        sql.Clear;
+        SQL.Text := 'select count(id) as jumlah from tbl_supplier';
+        Open;
+
+        lblTtlSupplier.Caption := fieldbyname('jumlah').AsString;
       end;
 end;
 
@@ -247,7 +282,7 @@ end;
 procedure TFMenu.tmr2Timer(Sender: TObject);
 begin
   stat1.Panels[2].Text := 'Tanggal ' + FormatDateTime('dd-mm-yyyy',Now) + ' : ' + TimeToStr(Now);
-  lblJam.Caption := hari(Now)+', '+FormatDateTime('dd-mm-yyyy',Now) + #13 + TimeToStr(Now);
+  lblJam.Caption := hari(Now)+', '+FormatDateTime('dd-mm-yyyy',Now) + ' - ' + TimeToStr(Now);
 end;
 
 procedure TFMenu.LaporanPembelian1Click(Sender: TObject);
@@ -302,7 +337,7 @@ end;
 
 procedure TFMenu.tmr3Timer(Sender: TObject);
 begin
-  if lblAlert.Visible = False then lblAlert.Visible := True else lblAlert.Visible := false;
+  //if lblAlert.Visible = False then lblAlert.Visible := True else lblAlert.Visible := false;
 end;
 
 procedure TFMenu.RefreshDashboard1Click(Sender: TObject);
@@ -317,7 +352,7 @@ end;
 
 procedure TFMenu.tmr4Timer(Sender: TObject);
 begin
-  if lblAlertExp.Visible = False then lblAlertExp.Visible := True else lblAlertExp.Visible := false;
+  //if lblAlertExp.Visible = False then lblAlertExp.Visible := True else lblAlertExp.Visible := false;
 end;
 
 end.
