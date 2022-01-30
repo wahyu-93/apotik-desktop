@@ -23672,7 +23672,6 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23707,7 +23706,6 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23833,7 +23831,6 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23850,7 +23847,6 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23867,7 +23863,6 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23884,7 +23879,6 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23901,7 +23895,6 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23918,7 +23911,6 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23929,7 +23921,6 @@ object fSetHarga: TfSetHarga
           Font.Height = -15
           Font.Name = 'Arial Narrow'
           Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23940,7 +23931,6 @@ object fSetHarga: TfSetHarga
           Font.Height = -15
           Font.Name = 'Arial Narrow'
           Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23958,7 +23948,6 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end>
     end
@@ -24097,6 +24086,7 @@ object fSetHarga: TfSetHarga
       Width = 217
       Height = 25
       Date = 44565.491122905090000000
+      Format = 'dd/MM/yyyy'
       Time = 44565.491122905090000000
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText

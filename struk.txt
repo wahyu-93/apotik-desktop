@@ -4,22 +4,22 @@ Jl.Suryagandamana Dpn Msjd Raya
     Tersedia Obat-Obatan
       Herbal dan Alkes
 ----------------------------
-No. Nota:PJ-1701202200003
-Tanggal :30/01/2022 16:28:55
+No. Nota:PJ-3001202200993
+Tanggal :30/01/2022 16:53:22
 Kasir   :Hamdi Farma
-Status Jual :Lunas
+Status Jual :Kredit
 ----------------------------
 Nama Barang
       QTY   Harga  Sub Total
 ----------------------------
- fdsfsdfdsf
-      0 X 1.000             
- addada ml
-      0 X 9.000             
+ Bodrex Biasa
+      1 X 4.000        4.000
 ----------------------------
-Total   :                Rp 
+Total   :           Rp 4.000
+Bayar   :           Rp 4.000
+Kembali :                Rp 
 ----------------------------
- Jumlah Item  : 2
+ Jumlah Item  : 1
 ----------------------------
          Terima Kasih
     Berelaan Jual Seadannya

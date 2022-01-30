@@ -23574,6 +23574,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23590,6 +23591,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23606,6 +23608,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23622,6 +23625,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23638,6 +23642,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23654,6 +23659,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23671,7 +23677,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 100
+          Width = 64
           Visible = True
         end
         item
@@ -23688,6 +23694,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23704,6 +23711,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23720,6 +23728,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23738,7 +23747,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 100
+          Width = 64
           Visible = True
         end
         item
@@ -23757,6 +23766,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23775,6 +23785,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23793,7 +23804,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 100
+          Width = 64
           Visible = True
         end
         item
@@ -23881,6 +23892,7 @@ object fReturn: TfReturn
       Width = 249
       Height = 25
       Date = 44561.580060370370000000
+      Format = 'dd/MM/yyyy'
       Time = 44561.580060370370000000
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23955,6 +23967,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23971,6 +23984,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23987,6 +24001,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -24003,6 +24018,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -24019,6 +24035,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -24036,7 +24053,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 100
+          Width = 64
           Visible = True
         end
         item
@@ -24053,6 +24070,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -24070,7 +24088,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 100
+          Width = 64
           Visible = True
         end
         item
@@ -24087,6 +24105,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -24104,7 +24123,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 100
+          Width = 64
           Visible = True
         end
         item
@@ -24121,7 +24140,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 100
+          Width = 64
           Visible = True
         end
         item
@@ -24138,6 +24157,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -24154,6 +24174,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -24170,6 +24191,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -24186,6 +24208,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item

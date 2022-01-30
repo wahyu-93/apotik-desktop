@@ -23427,7 +23427,6 @@ object Fpenjualan: TFpenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23444,7 +23443,6 @@ object Fpenjualan: TFpenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23461,7 +23459,6 @@ object Fpenjualan: TFpenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23478,7 +23475,6 @@ object Fpenjualan: TFpenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23495,7 +23491,6 @@ object Fpenjualan: TFpenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23512,7 +23507,6 @@ object Fpenjualan: TFpenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23529,7 +23523,6 @@ object Fpenjualan: TFpenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23546,7 +23539,6 @@ object Fpenjualan: TFpenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23563,7 +23555,6 @@ object Fpenjualan: TFpenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23580,7 +23571,6 @@ object Fpenjualan: TFpenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23597,7 +23587,6 @@ object Fpenjualan: TFpenjualan
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23835,6 +23824,7 @@ object Fpenjualan: TFpenjualan
       Width = 121
       Height = 25
       Date = 44561.580060370370000000
+      Format = 'dd/MM/yyyy'
       Time = 44561.580060370370000000
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText

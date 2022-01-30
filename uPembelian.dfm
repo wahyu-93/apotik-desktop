@@ -23413,7 +23413,7 @@ object fPembelian: TfPembelian
       ParentFont = False
     end
     object lbl2: TLabel
-      Left = 792
+      Left = 592
       Top = 16
       Width = 53
       Height = 17
@@ -23517,7 +23517,7 @@ object fPembelian: TfPembelian
       ParentFont = False
     end
     object lbl11: TLabel
-      Left = 1080
+      Left = 880
       Top = 16
       Width = 120
       Height = 17
@@ -23529,12 +23529,26 @@ object fPembelian: TfPembelian
       Font.Style = []
       ParentFont = False
     end
+    object lbl12: TLabel
+      Left = 1152
+      Top = 16
+      Width = 137
+      Height = 17
+      Caption = 'Tanggal Jatuh Tempo'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
     object dtpTanggalBeli: TDateTimePicker
       Left = 376
       Top = 40
-      Width = 409
+      Width = 209
       Height = 25
       Date = 44561.580060370370000000
+      Format = 'dd/MM/yyyy'
       Time = 44561.580060370370000000
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23560,7 +23574,7 @@ object fPembelian: TfPembelian
       Text = 'edtFaktur'
     end
     object dblkcbbSupplier: TDBLookupComboBox
-      Left = 792
+      Left = 592
       Top = 40
       Width = 281
       Height = 25
@@ -23650,6 +23664,7 @@ object fPembelian: TfPembelian
       Width = 361
       Height = 25
       Date = 44561.580060370370000000
+      Format = 'dd/MM/yyyy'
       Time = 44561.580060370370000000
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23753,9 +23768,9 @@ object fPembelian: TfPembelian
       Visible = False
     end
     object edtFakturSales: TEdit
-      Left = 1080
+      Left = 880
       Top = 40
-      Width = 313
+      Width = 265
       Height = 25
       Enabled = False
       Font.Charset = ANSI_CHARSET
@@ -23766,6 +23781,22 @@ object fPembelian: TfPembelian
       ParentFont = False
       TabOrder = 16
       Text = 'edtFaktur'
+    end
+    object dtpTglJatuhTempo: TDateTimePicker
+      Left = 1152
+      Top = 40
+      Width = 241
+      Height = 25
+      Date = 44561.580060370370000000
+      Format = 'dd/MM/yyyy'
+      Time = 44561.580060370370000000
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 17
     end
   end
   object grp2: TGroupBox

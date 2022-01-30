@@ -273,7 +273,7 @@ begin
             begin
               Append;
               FieldByName('no_faktur').AsString := edtFaktur.Text;
-              FieldByName('tgl_penjualan').AsDateTime := dtpTanggalBeli.Date;
+              FieldByName('tgl_penjualan').AsDateTime := dtpTanggalBeli.DateTime;
               FieldByName('id_pelanggan').AsString := dblkcbbPelanggan.KeyValue;
               FieldByName('jumlah_item').AsString := '0';
               FieldByName('total').AsString := '0';
@@ -359,6 +359,9 @@ begin
       btnSelesai.Enabled := True;
       btnTambah.Caption := 'Batal';
       btnHapus.enabled := false;
+
+      dtpTanggalBeli.Enabled := false;
+      dblkcbbPelanggan.Enabled := false;
     end
   else
     begin
