@@ -4,22 +4,22 @@ Jl.Suryagandamana Dpn Msjd Raya
     Tersedia Obat-Obatan
       Herbal dan Alkes
 ----------------------------
-No. Nota:PJ-2801202200013
-Tanggal :28/01/2022 18:23:08
+No. Nota:PJ-1701202200003
+Tanggal :30/01/2022 16:28:55
 Kasir   :Hamdi Farma
 Status Jual :Lunas
 ----------------------------
 Nama Barang
       QTY   Harga  Sub Total
 ----------------------------
- dddasdd
-      8 X 5.000       40.000
+ fdsfsdfdsf
+      0 X 1.000             
+ addada ml
+      0 X 9.000             
 ----------------------------
-Total   :          Rp 40.000
-Bayar   :          Rp 40.000
-Kembali :                Rp 
+Total   :                Rp 
 ----------------------------
- Jumlah Item  : 1
+ Jumlah Item  : 2
 ----------------------------
          Terima Kasih
     Berelaan Jual Seadannya
