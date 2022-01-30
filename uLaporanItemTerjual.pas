@@ -146,6 +146,7 @@ begin
       Open;
     end;
 end;
+
 procedure TfLaporanJumlahItemTerjual.cbbBulanKeyPress(Sender: TObject;
   var Key: Char);
 begin

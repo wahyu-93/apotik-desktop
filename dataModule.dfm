@@ -1251,79 +1251,59 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       
-        'select *, (a.harga_jual - a.harga_beli_terakhir) as laba from tb' +
-        'l_harga_jual a left join tbl_obat b on a.obat_id = b.id')
+        'select b.kode, b.nama_obat, c.harga_beli_terakhir, a.harga_jual,' +
+        ' sum(a.jumlah_jual) as jmlItemJual, sum(a.jumlah_jual * a.harga_' +
+        'jual) as total_jual, (sum(a.jumlah_jual * a.harga_jual) - c.harg' +
+        'a_beli_terakhir) as laba'
+      
+        'from tbl_penjualan z left join tbl_detail_penjualan a ON z.id = ' +
+        'a.penjualan_id'
+      
+        'left join tbl_obat b on a.obat_id = b.id left join tbl_satuan d ' +
+        'on d.id = b.kode_satuan'
+      'left join tbl_harga_jual c ON c.obat_id = b.id'
+      
+        'where date(z.tgl_penjualan)='#39'2022-01-30'#39' AND COALESCE(a.status, ' +
+        #39#39') <> '#39'retur'#39
+      'group by a.obat_id')
     Left = 1144
     Top = 112
-    object qryLabaPenjualanid: TAutoIncField
-      FieldName = 'id'
-      ReadOnly = True
-    end
-    object qryLabaPenjualanobat_id: TIntegerField
-      FieldName = 'obat_id'
-    end
-    object qryLabaPenjualanharga_jual: TFloatField
-      FieldName = 'harga_jual'
-      DisplayFormat = '#,##;(#,##);#,##'
-    end
-    object qryLabaPenjualanharga_beli_terakhir: TIntegerField
-      FieldName = 'harga_beli_terakhir'
-      DisplayFormat = '#,##;(#,##);#,##'
-    end
-    object qryLabaPenjualansupplier: TStringField
-      FieldName = 'supplier'
-      Size = 50
-    end
-    object qryLabaPenjualansatuan: TStringField
-      FieldName = 'satuan'
-      Size = 100
-    end
-    object qryLabaPenjualanjenis: TStringField
-      FieldName = 'jenis'
-      Size = 100
-    end
-    object qryLabaPenjualancreated_at: TDateTimeField
-      FieldName = 'created_at'
-    end
-    object qryLabaPenjualanid_1: TAutoIncField
-      FieldName = 'id_1'
-      ReadOnly = True
-    end
     object qryLabaPenjualankode: TStringField
       FieldName = 'kode'
       Size = 30
-    end
-    object qryLabaPenjualanbarcode: TStringField
-      FieldName = 'barcode'
-      Size = 100
     end
     object qryLabaPenjualannama_obat: TStringField
       FieldName = 'nama_obat'
       Size = 150
     end
-    object qryLabaPenjualankode_jenis: TIntegerField
-      FieldName = 'kode_jenis'
+    object qryLabaPenjualanharga_beli_terakhir: TIntegerField
+      FieldName = 'harga_beli_terakhir'
+      DisplayFormat = '#,##;(#,##);#,##'
     end
-    object qryLabaPenjualankode_satuan: TIntegerField
-      FieldName = 'kode_satuan'
+    object qryLabaPenjualanharga_jual: TIntegerField
+      FieldName = 'harga_jual'
+      DisplayFormat = '#,##;(#,##);#,##'
     end
-    object qryLabaPenjualantgl_obat: TDateField
-      FieldName = 'tgl_obat'
+    object qryLabaPenjualanjmlItemJual: TBCDField
+      FieldName = 'jmlItemJual'
+      ReadOnly = True
+      DisplayFormat = '#,##;(#,##);#,##'
+      Precision = 32
+      Size = 0
     end
-    object qryLabaPenjualantgl_exp: TDateField
-      FieldName = 'tgl_exp'
+    object qryLabaPenjualantotal_jual: TBCDField
+      FieldName = 'total_jual'
+      ReadOnly = True
+      DisplayFormat = '#,##;(#,##);#,##'
+      Precision = 42
+      Size = 0
     end
-    object qryLabaPenjualanstatus: TStringField
-      FieldName = 'status'
-      Size = 100
-    end
-    object qryLabaPenjualanstok: TIntegerField
-      FieldName = 'stok'
-    end
-    object qryLabaPenjualanlaba: TFloatField
+    object qryLabaPenjualanlaba: TBCDField
       FieldName = 'laba'
       ReadOnly = True
       DisplayFormat = '#,##;(#,##);#,##'
+      Precision = 43
+      Size = 0
     end
   end
   object dsLabaPenjualan: TDataSource

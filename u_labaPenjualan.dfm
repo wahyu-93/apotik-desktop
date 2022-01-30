@@ -1,10 +1,10 @@
 object fLabaPenjualan: TfLabaPenjualan
-  Left = 492
-  Top = 242
+  Left = 539
+  Top = 72
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Laporan Laba Penjualan ::.'
-  ClientHeight = 665
+  ClientHeight = 746
   ClientWidth = 1063
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
@@ -23402,11 +23402,11 @@ object fLabaPenjualan: TfLabaPenjualan
     Left = 8
     Top = 72
     Width = 1049
-    Height = 585
+    Height = 665
     TabOrder = 1
     object btnKeluar: TBitBtn
       Left = 952
-      Top = 544
+      Top = 624
       Width = 89
       Height = 33
       Caption = 'Keluar'
@@ -23421,7 +23421,7 @@ object fLabaPenjualan: TfLabaPenjualan
     end
     object pnl1: TPanel
       Left = 8
-      Top = 496
+      Top = 576
       Width = 1033
       Height = 41
       TabOrder = 1
@@ -23432,7 +23432,7 @@ object fLabaPenjualan: TfLabaPenjualan
         Height = 26
         Alignment = taCenter
         AutoSize = False
-        Caption = 'Laporan Stok Item'
+        Caption = '-'
         Font.Charset = ANSI_CHARSET
         Font.Color = clRed
         Font.Height = -16
@@ -23443,9 +23443,9 @@ object fLabaPenjualan: TfLabaPenjualan
     end
     object dbgrd1: TDBGrid
       Left = 8
-      Top = 16
-      Width = 1033
-      Height = 473
+      Top = 120
+      Width = 1025
+      Height = 449
       DataSource = dm.dsLabaPenjualan
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23463,325 +23463,211 @@ object fLabaPenjualan: TfLabaPenjualan
       Columns = <
         item
           Expanded = False
-          FieldName = 'id'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
-          Title.Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
           FieldName = 'kode'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Kode Obat'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
+          Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 198
+          Width = 141
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'obat_id'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
-          Title.Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
           FieldName = 'nama_obat'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Nama Obat'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
+          Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 198
+          Width = 255
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'harga_beli_terakhir'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Harga Beli'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
+          Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 198
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'harga_jual'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Harga Jual'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
+          Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 198
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'supplier'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
+          FieldName = 'jmlItemJual'
           Title.Alignment = taCenter
-          Title.Caption = 'Supplier'
+          Title.Caption = 'Jumlah Terjual'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
+          Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
-          Visible = False
+          Width = 121
+          Visible = True
         end
         item
-          Alignment = taCenter
           Expanded = False
-          FieldName = 'tgl_exp'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
+          FieldName = 'total_jual'
           Title.Alignment = taCenter
-          Title.Caption = 'Tanggal Exp'
+          Title.Caption = 'Total'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
+          Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'stok'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Caption = 'Stok'
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
-          Title.Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'created_at'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
-          Title.Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'id_1'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
-          Title.Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'kode_jenis'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
-          Title.Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'kode_satuan'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
-          Title.Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'tgl_obat'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
-          Title.Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'status'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
-          Title.Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'satuan'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'jenis'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
-          Width = -1
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'barcode'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Caption = 'Barcode'
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
-          Title.Font.Style = []
-          Width = -1
-          Visible = False
+          Width = 142
+          Visible = True
         end
         item
           Expanded = False
           FieldName = 'laba'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Laba'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -16
-          Title.Font.Name = 'Arial Narrow'
+          Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 198
+          Width = 129
           Visible = True
         end>
+    end
+    object rbTanggal: TRadioButton
+      Left = 16
+      Top = 16
+      Width = 113
+      Height = 17
+      Caption = 'Pertanggal'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 3
+      OnClick = rbTanggalClick
+    end
+    object rbBulan: TRadioButton
+      Left = 16
+      Top = 48
+      Width = 113
+      Height = 17
+      Caption = 'Perbulan'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 4
+      OnClick = rbBulanClick
+    end
+    object dtp1: TDateTimePicker
+      Left = 192
+      Top = 16
+      Width = 289
+      Height = 25
+      Date = 44571.412580787040000000
+      Time = 44571.412580787040000000
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 5
+    end
+    object cbbBulan: TComboBox
+      Left = 192
+      Top = 48
+      Width = 169
+      Height = 25
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ItemHeight = 17
+      ParentFont = False
+      TabOrder = 6
+      Text = 'cbbBulan'
+      OnKeyPress = cbbBulanKeyPress
+      Items.Strings = (
+        '-'
+        'Januari'
+        'Februari'
+        'Maret'
+        'April'
+        'Mei'
+        'Juni'
+        'Juli'
+        'Agustus'
+        'September'
+        'Oktober'
+        'November'
+        'Desember')
+    end
+    object cbbTahun: TComboBox
+      Left = 368
+      Top = 48
+      Width = 105
+      Height = 25
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ItemHeight = 17
+      ParentFont = False
+      TabOrder = 7
+      Text = 'cbb1'
+      Items.Strings = (
+        'Januari'
+        'Februari'
+        'Maret'
+        'April'
+        'Mei'
+        'Juni'
+        'Juli'
+        'Agustus'
+        'September'
+        'Oktober'
+        'November'
+        'Desember')
+    end
+    object btnLap: TBitBtn
+      Left = 192
+      Top = 80
+      Width = 161
+      Height = 33
+      Caption = 'Tampilkan Laporan'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 8
+      OnClick = btnLapClick
     end
   end
 end
