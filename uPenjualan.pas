@@ -153,6 +153,8 @@ begin
   dbgrd1.Enabled := false;
   chkCetak.Enabled := false;
   konek;
+
+  id_penjualan := 'kosong';
 end;
 
 procedure TFpenjualan.btnTambahClick(Sender: TObject);

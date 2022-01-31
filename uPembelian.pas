@@ -634,6 +634,8 @@ begin
   dtpTglJatuhTempo.Date := Now;
 
   konek;
+
+  id_pembelian := 'kosong';
 end;
 
 end.
