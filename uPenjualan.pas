@@ -387,8 +387,8 @@ end;
 
 procedure TFpenjualan.dbgrd1KeyPress(Sender: TObject; var Key: Char);
 var jumlahNew : Integer;
-    totalNew : Real;
-    id,catatan : string;
+    totalNew, hargaJual : Real;
+    id,catatan,jenisHarga : string;
 begin
   if key=#13 then
     begin
@@ -396,13 +396,34 @@ begin
       jumlahNew := dbgrd1.Fields[3].AsInteger;
       catatan := dbgrd1.Fields[16].AsString;
       id := dbgrd1.Fields[5].AsString;
+      jenisHarga := 'eceran';
+
+      // jika lebih dari jumlah max grosir gunakan harga grosir
+      with dm.qryHarga do
+        begin
+          close;
+          sql.Clear;
+          sql.Text := 'select * from tbl_harga_jual where obat_id = '+QuotedStr(dbgrd1.Fields[6].AsString)+'';
+          Open;
+
+          hargaJual := dm.qryHarga.fieldbyname('harga_jual').AsFloat;
+
+          if dm.qryHarga.FieldByName('qty_max_grosir').AsInteger <> 0 then
+            begin
+              if jumlahNew >= dm.qryHarga.FieldByName('qty_max_grosir').AsInteger then
+                begin
+                  hargaJual := dm.qryHarga.fieldbyname('harga_jual_grosir').AsFloat;
+                  jenisHarga := 'grosir';
+                end
+            end
+        end;
 
       with dm.qryDetailPenjualan do
         begin
           close;
           sql.Clear;
-          SQL.Text := 'update tbl_detail_penjualan set jumlah_jual = '+QuotedStr(IntToStr(jumlahNew))+', catatan = '+QuotedStr(catatan)+
-                      ' where obat_id = '+QuotedStr(dbgrd1.Fields[6].AsString)+' and penjualan_id = '+QuotedStr(dbgrd1.Fields[0].AsString)+'';
+          SQL.Text := 'update tbl_detail_penjualan set jumlah_jual = '+QuotedStr(IntToStr(jumlahNew))+', harga_jual = '+QuotedStr(FloatToStr(hargaJual))+', catatan = '+QuotedStr(catatan)+
+                      ', jenis_harga='+QuotedStr(jenisHarga)+' where obat_id = '+QuotedStr(dbgrd1.Fields[6].AsString)+' and penjualan_id = '+QuotedStr(dbgrd1.Fields[0].AsString)+'';
           ExecSQL;
         end;
 

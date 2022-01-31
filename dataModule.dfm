@@ -548,6 +548,12 @@ object dm: Tdm
     object qryRelasiSetHargastok: TIntegerField
       FieldName = 'stok'
     end
+    object qryRelasiSetHargaharga_jual_grosir: TFloatField
+      FieldName = 'harga_jual_grosir'
+    end
+    object qryRelasiSetHargaqty_max_grosir: TIntegerField
+      FieldName = 'qty_max_grosir'
+    end
   end
   object dsRelasiSetHarga: TDataSource
     DataSet = qryRelasiSetHarga
@@ -1329,5 +1335,11 @@ object dm: Tdm
     Parameters = <>
     Left = 1256
     Top = 200
+  end
+  object qryHarga: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 552
+    Top = 256
   end
 end

@@ -5,7 +5,7 @@ object fLaporanPembelian: TfLaporanPembelian
   BorderIcons = []
   Caption = '.:: Laporan Pembelian Iem ::.'
   ClientHeight = 753
-  ClientWidth = 1062
+  ClientWidth = 1134
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23381,14 +23381,16 @@ object fLaporanPembelian: TfLaporanPembelian
   object grp1: TGroupBox
     Left = 8
     Top = 8
-    Width = 1049
+    Width = 1121
     Height = 57
     TabOrder = 0
     object lbl1: TLabel
-      Left = 376
+      Left = 8
       Top = 16
-      Width = 262
+      Width = 1105
       Height = 27
+      Alignment = taCenter
+      AutoSize = False
       Caption = 'Laporan Pembelian Item'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23401,11 +23403,11 @@ object fLaporanPembelian: TfLaporanPembelian
   object grp2: TGroupBox
     Left = 8
     Top = 72
-    Width = 1049
+    Width = 1121
     Height = 673
     TabOrder = 1
     object btnKeluar: TBitBtn
-      Left = 952
+      Left = 1024
       Top = 632
       Width = 89
       Height = 33
@@ -23541,7 +23543,7 @@ object fLaporanPembelian: TfLaporanPembelian
     object dbgrdPembelian: TDBGrid
       Left = 8
       Top = 120
-      Width = 1033
+      Width = 1105
       Height = 465
       DataSource = dm.dsLaporanPembelian
       Font.Charset = ANSI_CHARSET
@@ -23723,7 +23725,7 @@ object fLaporanPembelian: TfLaporanPembelian
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 160
+          Width = 240
           Visible = True
         end
         item
@@ -23798,13 +23800,13 @@ object fLaporanPembelian: TfLaporanPembelian
     object pnl1: TPanel
       Left = 8
       Top = 592
-      Width = 1033
+      Width = 1105
       Height = 33
       TabOrder = 8
       object lblJumlah: TLabel
         Left = 8
         Top = 7
-        Width = 1017
+        Width = 1089
         Height = 18
         Alignment = taCenter
         AutoSize = False

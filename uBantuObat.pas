@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, Grids, DBGrids, jpeg, ExtCtrls;
+  Dialogs, StdCtrls, Buttons, Grids, DBGrids, jpeg, ExtCtrls, Math;
 
 type
   TfBantuObat = class(TForm)
@@ -107,7 +107,7 @@ begin
   else
   if edt1.Text = 'setHarga' then
     begin
-      if dbgrd1.Fields[2].AsString = '' then barcode := dbgrd1.Fields[1].AsString else barcode := dbgrd1.Fields[1].AsString+' - '+dbgrd1.Fields[2].AsString;
+      barcode := dbgrd1.Fields[1].AsString;
 
       fSetHarga.edtKode.Text := barcode;
       fSetHarga.lblNamaObat.Caption := dbgrd1.Fields[3].AsString;
@@ -122,8 +122,8 @@ begin
                       'd.id as id_obat, d.kode, d.barcode, d.nama_obat, d.tgl_exp, d.stok from tbl_supplier a left join tbl_pembelian b on b.supplier_id = a.id inner join '+
                       'tbl_stok c on c.no_faktur = b.no_faktur inner join tbl_obat d on d.id = c.obat_id where d.id = '+QuotedStr(dbgrd1.Fields[0].AsString)+' order by b.id desc';
           Open;
-          First;
-        end;
+          first;
+        end;         
 
       fSetHarga.lblHargaBeli.Caption := FormatFloat('Rp. ###,###,###', dm.qryRelasiStok.fieldbyname('harga').AsFloat);
       fSetHarga.lblSupplier.Caption := dm.qryRelasiStok.fieldbyname('nama_supplier').AsString;
@@ -134,11 +134,36 @@ begin
       fSetHarga.edtHargaBeli.Text := dm.qryRelasiStok.fieldbyname('harga').AsString;
       fSetHarga.dtpTglExp.Enabled := True;
 
+      fSetHarga.edtHargaGrosir.Enabled := True;
+      fSetHarga.edtMaxGrosir.Enabled := True;
 
       if fSetHarga.edtSupplier.Text = '' then
         begin
-          fSetHarga.edtHargaBeli.Enabled := True;
-          fSetHarga.edtHargaBeli.SetFocus;
+          // cek harga di tabel set harga
+          with dm.qryHarga do
+            begin
+              close;
+              SQL.Clear;
+              SQL.Text := 'select * from tbl_harga_jual where obat_id = '+QuotedStr(dbgrd1.Fields[0].AsString)+'';
+              Open;
+
+              if IsEmpty then
+                begin
+                  fSetHarga.edtHargaBeli.Enabled := True;
+                  fSetHarga.edtHargaBeli.SetFocus;
+                end
+              else
+                begin
+                  fSetHarga.edtHargaBeli.Text := dm.qryHarga.fieldbyname('harga_beli_terakhir').AsString;
+                  fSetHarga.edtHarga.Text := dm.qryHarga.fieldbyname('harga_jual').AsString;
+                  fSetHarga.edtHargaGrosir.Text := dm.qryHarga.fieldbyname('harga_jual_grosir').AsString;
+                  fSetHarga.edtMaxGrosir.Text := dm.qryHarga.fieldbyname('qty_max_grosir').AsString;
+
+                  fSetHarga.edtLabaHarga.Text := FloatToStr(dm.qryHarga.fieldbyname('harga_jual').AsFloat - dm.qryHarga.fieldbyname('harga_beli_terakhir').AsFloat);
+
+                  fSetHarga.edtLabaHargaGrosir.Text := FloatToStr(dm.qryHarga.fieldbyname('harga_jual_grosir').AsFloat - dm.qryHarga.fieldbyname('harga_beli_terakhir').AsFloat);
+                end;
+            end;
          end
       else
         begin

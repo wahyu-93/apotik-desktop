@@ -282,6 +282,9 @@ type
     qryLabaPenjualanlaba: TBCDField;
     qryDashSupplier: TADOQuery;
     qryDashhObat: TADOQuery;
+    qryHarga: TADOQuery;
+    qryRelasiSetHargaharga_jual_grosir: TFloatField;
+    qryRelasiSetHargaqty_max_grosir: TIntegerField;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

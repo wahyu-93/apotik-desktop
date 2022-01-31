@@ -1,6 +1,6 @@
 object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
-  Left = 192
-  Top = 125
+  Left = 331
+  Top = 148
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Laporan Jumlah Item Terjual ::.'
@@ -23640,7 +23640,7 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 240
+          Width = 100
           Visible = True
         end
         item
@@ -23666,7 +23666,7 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 240
+          Width = 465
           Visible = True
         end
         item
@@ -23775,7 +23775,7 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 240
+          Width = 303
           Visible = True
         end
         item
@@ -23789,7 +23789,7 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 240
+          Width = 124
           Visible = True
         end>
     end

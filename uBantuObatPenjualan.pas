@@ -50,7 +50,7 @@ begin
     begin
       close;
       sql.Clear;
-      SQL.Text := 'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id = b.id order by b.stok asc, b.id asc';
+      SQL.Text := 'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id = b.id order by b.stok desc, b.id asc';
       Open;
     end;
 end;

@@ -1,11 +1,11 @@
 object fSetHarga: TfSetHarga
-  Left = 711
-  Top = 135
+  Left = 492
+  Top = 100
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Set Harga Jual ::.'
   ClientHeight = 784
-  ClientWidth = 817
+  ClientWidth = 1026
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23383,14 +23383,16 @@ object fSetHarga: TfSetHarga
   object grp1: TGroupBox
     Left = 8
     Top = 8
-    Width = 801
+    Width = 1009
     Height = 57
     TabOrder = 0
     object lbl1: TLabel
-      Left = 296
+      Left = 8
       Top = 16
-      Width = 223
+      Width = 993
       Height = 27
+      Alignment = taCenter
+      AutoSize = False
       Caption = 'Form Set Harga Jual'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23403,7 +23405,7 @@ object fSetHarga: TfSetHarga
   object grp2: TGroupBox
     Left = 8
     Top = 72
-    Width = 801
+    Width = 1009
     Height = 705
     TabOrder = 1
     object lbl2: TLabel
@@ -23536,21 +23538,8 @@ object fSetHarga: TfSetHarga
       Font.Style = [fsBold, fsItalic]
       ParentFont = False
     end
-    object lbl21: TLabel
-      Left = 8
-      Top = 200
-      Width = 155
-      Height = 17
-      Caption = 'Harga Beli Terakhir (Rp)'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
-    end
     object lblHargaBeli: TLabel
-      Left = 384
+      Left = 488
       Top = 48
       Width = 68
       Height = 20
@@ -23564,7 +23553,7 @@ object fSetHarga: TfSetHarga
       Visible = False
     end
     object lblSupplier: TLabel
-      Left = 384
+      Left = 488
       Top = 72
       Width = 51
       Height = 20
@@ -23577,55 +23566,16 @@ object fSetHarga: TfSetHarga
       ParentFont = False
       Visible = False
     end
-    object lbl22: TLabel
-      Left = 8
-      Top = 136
-      Width = 53
-      Height = 17
-      Caption = 'Supplier'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
-    end
-    object lbl23: TLabel
-      Left = 8
-      Top = 230
-      Width = 102
-      Height = 17
-      Caption = 'Harga Jual (Rp)'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
-    end
-    object lbl9: TLabel
-      Left = 8
-      Top = 168
-      Width = 115
-      Height = 17
-      Caption = 'Tanggal Exp Obat'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
-    end
     object bvl1: TBevel
       Left = 8
       Top = 120
-      Width = 777
+      Width = 993
       Height = 1
     end
     object edtKode: TEdit
       Left = 96
       Top = 16
-      Width = 649
+      Width = 857
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23638,9 +23588,9 @@ object fSetHarga: TfSetHarga
     end
     object dbgrd1: TDBGrid
       Left = 8
-      Top = 256
-      Width = 785
-      Height = 369
+      Top = 248
+      Width = 993
+      Height = 377
       DataSource = dm.dsRelasiSetHarga
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23689,7 +23639,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 100
+          Width = 72
           Visible = True
         end
         item
@@ -23723,7 +23673,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 100
+          Width = 285
           Visible = True
         end
         item
@@ -23741,7 +23691,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 100
+          Width = 84
           Visible = True
         end
         item
@@ -23759,7 +23709,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 100
+          Width = 81
           Visible = True
         end
         item
@@ -23777,7 +23727,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 100
+          Width = 138
           Visible = True
         end
         item
@@ -23796,7 +23746,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 100
+          Width = 130
           Visible = True
         end
         item
@@ -23814,7 +23764,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 100
+          Width = 68
           Visible = True
         end
         item
@@ -23949,12 +23899,22 @@ object fSetHarga: TfSetHarga
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
           Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'harga_jual_grosir'
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'qty_max_grosir'
+          Visible = False
         end>
     end
     object edtpencarian: TEdit
       Left = 8
       Top = 632
-      Width = 785
+      Width = 993
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -24012,7 +23972,7 @@ object fSetHarga: TfSetHarga
       OnClick = btnHapusClick
     end
     object btnKeluar: TBitBtn
-      Left = 704
+      Left = 912
       Top = 664
       Width = 89
       Height = 33
@@ -24027,7 +23987,7 @@ object fSetHarga: TfSetHarga
       OnClick = btnKeluarClick
     end
     object btnBantuObat: TBitBtn
-      Left = 752
+      Left = 960
       Top = 16
       Width = 41
       Height = 25
@@ -24041,75 +24001,285 @@ object fSetHarga: TfSetHarga
       TabOrder = 7
       OnClick = btnBantuObatClick
     end
-    object edtHarga: TEdit
-      Left = 168
-      Top = 226
-      Width = 193
-      Height = 25
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 8
-      Text = 'edtKode'
-      OnKeyPress = edtHargaKeyPress
-    end
     object edtIdObat: TEdit
-      Left = 488
+      Left = 592
       Top = 48
       Width = 121
       Height = 21
-      TabOrder = 9
+      TabOrder = 8
       Text = 'edtIdObat'
       Visible = False
     end
-    object edtHargaBeli: TEdit
-      Left = 168
-      Top = 192
-      Width = 193
-      Height = 25
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
+    object grp3: TGroupBox
+      Left = 8
+      Top = 128
+      Width = 473
+      Height = 113
+      TabOrder = 9
+      object lbl22: TLabel
+        Left = 8
+        Top = 16
+        Width = 53
+        Height = 17
+        Caption = 'Supplier'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lbl9: TLabel
+        Left = 8
+        Top = 48
+        Width = 115
+        Height = 17
+        Caption = 'Tanggal Exp Obat'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lbl21: TLabel
+        Left = 8
+        Top = 80
+        Width = 155
+        Height = 17
+        Caption = 'Harga Beli Terakhir (Rp)'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object edtHargaBeli: TEdit
+        Left = 168
+        Top = 80
+        Width = 193
+        Height = 25
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        Text = 'edtHargaBeli'
+        OnKeyPress = edtHargaBeliKeyPress
+      end
+      object dtpTglExp: TDateTimePicker
+        Left = 168
+        Top = 48
+        Width = 217
+        Height = 25
+        Date = 44565.491122905090000000
+        Format = 'dd/MM/yyyy'
+        Time = 44565.491122905090000000
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+      end
+      object edtSupplier: TEdit
+        Left = 168
+        Top = 16
+        Width = 289
+        Height = 25
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+        Text = 'PT. HArapan jaya Brsaa'
+        OnKeyPress = edtHargaKeyPress
+      end
+    end
+    object grp4: TGroupBox
+      Left = 488
+      Top = 128
+      Width = 513
+      Height = 113
       TabOrder = 10
-      Text = 'edtHargaBeli'
-      OnKeyPress = edtHargaBeliKeyPress
-    end
-    object dtpTglExp: TDateTimePicker
-      Left = 168
-      Top = 160
-      Width = 217
-      Height = 25
-      Date = 44565.491122905090000000
-      Format = 'dd/MM/yyyy'
-      Time = 44565.491122905090000000
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 11
-    end
-    object edtSupplier: TEdit
-      Left = 168
-      Top = 130
-      Width = 377
-      Height = 25
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 12
-      Text = 'edtKode'
-      OnKeyPress = edtHargaKeyPress
+      object lbl23: TLabel
+        Left = 3
+        Top = 16
+        Width = 153
+        Height = 17
+        Caption = 'Harga Jual Eceran (Rp)'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lbl10: TLabel
+        Left = 3
+        Top = 48
+        Width = 146
+        Height = 17
+        Caption = 'Harga Jual Grosir (Rp)'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lbl11: TLabel
+        Left = 3
+        Top = 80
+        Width = 121
+        Height = 17
+        Caption = 'Jumlah Max Grosir'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lbl12: TLabel
+        Left = 323
+        Top = 16
+        Width = 32
+        Height = 17
+        Caption = 'Laba'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lbl13: TLabel
+        Left = 323
+        Top = 48
+        Width = 32
+        Height = 17
+        Caption = 'Laba'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object edtHarga: TEdit
+        Left = 160
+        Top = 16
+        Width = 153
+        Height = 25
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        Text = 'edtKode'
+        OnKeyPress = edtHargaKeyPress
+        OnKeyUp = edtHargaKeyUp
+      end
+      object edtHargaGrosir: TEdit
+        Left = 160
+        Top = 48
+        Width = 153
+        Height = 25
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+        Text = 'edtKode'
+        OnKeyPress = edtHargaGrosirKeyPress
+        OnKeyUp = edtHargaGrosirKeyUp
+      end
+      object edtMaxGrosir: TEdit
+        Left = 160
+        Top = 80
+        Width = 57
+        Height = 25
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+        Text = 'edtKode'
+        OnKeyPress = edtMaxGrosirKeyPress
+      end
+      object edtLabaHarga: TEdit
+        Left = 360
+        Top = 16
+        Width = 81
+        Height = 25
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 3
+        Text = 'edtKode'
+        OnKeyPress = edtHargaKeyPress
+      end
+      object edtLabaHargaGrosir: TEdit
+        Left = 360
+        Top = 48
+        Width = 81
+        Height = 25
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 4
+        Text = 'edtKode'
+        OnKeyPress = edtHargaKeyPress
+      end
+      object edtLabaPersenHarga: TEdit
+        Left = 448
+        Top = 16
+        Width = 57
+        Height = 25
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 5
+        Text = 'edtKode'
+        OnKeyPress = edtHargaKeyPress
+      end
+      object edtLabaPersenGrosir: TEdit
+        Left = 448
+        Top = 48
+        Width = 57
+        Height = 25
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 6
+        Text = 'edtKode'
+        OnKeyPress = edtHargaKeyPress
+      end
     end
   end
 end

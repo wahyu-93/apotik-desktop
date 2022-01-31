@@ -1,6 +1,6 @@
 object fBantuObat: TfBantuObat
-  Left = 401
-  Top = 181
+  Left = 133
+  Top = 214
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form List Obat ::.'
@@ -23418,6 +23418,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23431,7 +23432,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 150
           Visible = True
         end
         item
@@ -23457,7 +23458,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 150
           Visible = True
         end
         item
@@ -23493,6 +23494,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23517,7 +23519,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 150
           Visible = True
         end
         item
@@ -23529,6 +23531,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23553,7 +23556,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
+          Width = 150
           Visible = True
         end
         item
@@ -23566,6 +23569,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = 150
           Visible = True
         end
         item
@@ -23578,6 +23582,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end>
     end

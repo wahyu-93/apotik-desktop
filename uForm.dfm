@@ -1,6 +1,6 @@
 object FMenu: TFMenu
   Left = 243
-  Top = 122
+  Top = 59
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Applikasi Kasir Apotek V.1.5 ::.'
@@ -19,7 +19,7 @@ object FMenu: TFMenu
   PixelsPerInch = 96
   TextHeight = 13
   object img1: TImage
-    Left = -32
+    Left = -40
     Top = -24
     Width = 1809
     Height = 937
@@ -23424,7 +23424,7 @@ object FMenu: TFMenu
     Width = 233
     Height = 137
     Color = clActiveCaption
-    TabOrder = 13
+    TabOrder = 12
   end
   object pnl20: TPanel
     Left = 1008
@@ -23440,15 +23440,15 @@ object FMenu: TFMenu
     Width = 225
     Height = 137
     Color = clActiveCaption
-    TabOrder = 11
+    TabOrder = 10
   end
   object pnl8: TPanel
-    Left = 736
+    Left = 728
     Top = 304
     Width = 225
     Height = 137
     Color = clActiveCaption
-    TabOrder = 7
+    TabOrder = 6
   end
   object pnl4: TPanel
     Left = 448
@@ -23456,7 +23456,7 @@ object FMenu: TFMenu
     Width = 225
     Height = 137
     Color = clActiveCaption
-    TabOrder = 5
+    TabOrder = 4
   end
   object pnl3: TPanel
     Left = 168
@@ -23464,7 +23464,7 @@ object FMenu: TFMenu
     Width = 233
     Height = 137
     Color = clActiveCaption
-    TabOrder = 4
+    TabOrder = 3
   end
   object stat1: TStatusBar
     Left = 0
@@ -23490,7 +23490,7 @@ object FMenu: TFMenu
     Top = 8
     Width = 1441
     Height = 73
-    TabOrder = 1
+    TabOrder = 0
     object lbl1: TLabel
       Left = 8
       Top = 16
@@ -23513,7 +23513,7 @@ object FMenu: TFMenu
     Width = 233
     Height = 137
     Color = clGradientActiveCaption
-    TabOrder = 2
+    TabOrder = 1
     object lblTotalPembelian: TLabel
       Left = 8
       Top = 68
@@ -23549,7 +23549,7 @@ object FMenu: TFMenu
     Width = 225
     Height = 137
     Color = clGradientActiveCaption
-    TabOrder = 3
+    TabOrder = 2
     object lbl4: TLabel
       Left = 8
       Top = 24
@@ -23580,12 +23580,12 @@ object FMenu: TFMenu
     end
   end
   object pnl7: TPanel
-    Left = 728
+    Left = 720
     Top = 296
     Width = 225
     Height = 137
     Color = clGradientActiveCaption
-    TabOrder = 6
+    TabOrder = 5
     object lbl8: TLabel
       Left = 8
       Top = 24
@@ -23616,20 +23616,20 @@ object FMenu: TFMenu
     end
   end
   object pnl9: TPanel
-    Left = 1024
+    Left = 1008
     Top = 304
     Width = 225
     Height = 137
     Color = clActiveCaption
-    TabOrder = 8
+    TabOrder = 7
   end
   object pnl10: TPanel
-    Left = 1016
+    Left = 1000
     Top = 296
     Width = 225
     Height = 137
     Color = clGradientActiveCaption
-    TabOrder = 9
+    TabOrder = 8
     object lbl10: TLabel
       Left = 8
       Top = 24
@@ -23665,7 +23665,7 @@ object FMenu: TFMenu
     Width = 225
     Height = 137
     Color = clGradientActiveCaption
-    TabOrder = 10
+    TabOrder = 9
     object lbl12: TLabel
       Left = 8
       Top = 24
@@ -23703,7 +23703,7 @@ object FMenu: TFMenu
     Width = 233
     Height = 137
     Color = clGradientActiveCaption
-    TabOrder = 12
+    TabOrder = 11
     object lblTtlSupplier: TLabel
       Left = 8
       Top = 68
@@ -23741,7 +23741,7 @@ object FMenu: TFMenu
     Width = 225
     Height = 137
     Color = clActiveCaption
-    TabOrder = 14
+    TabOrder = 13
   end
   object pnl18: TPanel
     Left = 720
@@ -23749,7 +23749,7 @@ object FMenu: TFMenu
     Width = 225
     Height = 137
     Color = clGradientActiveCaption
-    TabOrder = 15
+    TabOrder = 14
     object lbl18: TLabel
       Left = 8
       Top = 24
@@ -23787,7 +23787,7 @@ object FMenu: TFMenu
     Width = 225
     Height = 137
     Color = clGradientActiveCaption
-    TabOrder = 16
+    TabOrder = 15
     object lbl20: TLabel
       Left = 8
       Top = 24
