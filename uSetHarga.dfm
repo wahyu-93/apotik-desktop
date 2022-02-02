@@ -1,11 +1,11 @@
 object fSetHarga: TfSetHarga
-  Left = 492
-  Top = 100
+  Left = 258
+  Top = 102
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Set Harga Jual ::.'
   ClientHeight = 784
-  ClientWidth = 1026
+  ClientWidth = 1163
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,7 +22,7 @@ object fSetHarga: TfSetHarga
   object img1: TImage
     Left = -8
     Top = 0
-    Width = 1041
+    Width = 1169
     Height = 841
     Picture.Data = {
       0A544A504547496D6167650C670B00FFD8FFE000104A46494600010201004800
@@ -23383,13 +23383,13 @@ object fSetHarga: TfSetHarga
   object grp1: TGroupBox
     Left = 8
     Top = 8
-    Width = 1009
+    Width = 1145
     Height = 57
     TabOrder = 0
     object lbl1: TLabel
       Left = 8
       Top = 16
-      Width = 993
+      Width = 1129
       Height = 27
       Alignment = taCenter
       AutoSize = False
@@ -23405,7 +23405,7 @@ object fSetHarga: TfSetHarga
   object grp2: TGroupBox
     Left = 8
     Top = 72
-    Width = 1009
+    Width = 1145
     Height = 705
     TabOrder = 1
     object lbl2: TLabel
@@ -23569,13 +23569,13 @@ object fSetHarga: TfSetHarga
     object bvl1: TBevel
       Left = 8
       Top = 120
-      Width = 993
+      Width = 1121
       Height = 1
     end
     object edtKode: TEdit
       Left = 96
       Top = 16
-      Width = 857
+      Width = 993
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23589,7 +23589,7 @@ object fSetHarga: TfSetHarga
     object dbgrd1: TDBGrid
       Left = 8
       Top = 248
-      Width = 993
+      Width = 1129
       Height = 377
       DataSource = dm.dsRelasiSetHarga
       Font.Charset = ANSI_CHARSET
@@ -23622,7 +23622,6 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23657,7 +23656,6 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23675,7 +23673,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 130
+          Width = 245
           Visible = True
         end
         item
@@ -23693,7 +23691,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 130
+          Width = 81
           Visible = True
         end
         item
@@ -23711,7 +23709,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 130
+          Width = 88
           Visible = True
         end
         item
@@ -23766,7 +23764,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 130
+          Width = 67
           Visible = True
         end
         item
@@ -23799,7 +23797,6 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23816,7 +23813,6 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23833,7 +23829,6 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23850,7 +23845,6 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23867,7 +23861,6 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23878,7 +23871,6 @@ object fSetHarga: TfSetHarga
           Font.Height = -15
           Font.Name = 'Arial Narrow'
           Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23889,7 +23881,6 @@ object fSetHarga: TfSetHarga
           Font.Height = -15
           Font.Name = 'Arial Narrow'
           Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23907,26 +23898,38 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'harga_jual_grosir'
-          Width = -1
-          Visible = False
+          Title.Alignment = taCenter
+          Title.Caption = 'Harga Groisr'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -16
+          Title.Font.Name = 'Arial Narrow'
+          Title.Font.Style = []
+          Visible = True
         end
         item
           Expanded = False
           FieldName = 'qty_max_grosir'
-          Width = -1
-          Visible = False
+          Title.Alignment = taCenter
+          Title.Caption = 'Jml Max Grosir'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -16
+          Title.Font.Name = 'Arial Narrow'
+          Title.Font.Style = []
+          Width = 110
+          Visible = True
         end>
     end
     object edtpencarian: TEdit
       Left = 8
       Top = 632
-      Width = 993
+      Width = 1129
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23984,7 +23987,7 @@ object fSetHarga: TfSetHarga
       OnClick = btnHapusClick
     end
     object btnKeluar: TBitBtn
-      Left = 912
+      Left = 1048
       Top = 664
       Width = 89
       Height = 33
@@ -23999,7 +24002,7 @@ object fSetHarga: TfSetHarga
       OnClick = btnKeluarClick
     end
     object btnBantuObat: TBitBtn
-      Left = 960
+      Left = 1096
       Top = 16
       Width = 41
       Height = 25
@@ -24025,7 +24028,7 @@ object fSetHarga: TfSetHarga
     object grp3: TGroupBox
       Left = 8
       Top = 128
-      Width = 473
+      Width = 609
       Height = 113
       TabOrder = 9
       object lbl22: TLabel
@@ -24085,7 +24088,7 @@ object fSetHarga: TfSetHarga
       object dtpTglExp: TDateTimePicker
         Left = 168
         Top = 48
-        Width = 217
+        Width = 297
         Height = 25
         Date = 44565.491122905090000000
         Format = 'dd/MM/yyyy'
@@ -24101,7 +24104,7 @@ object fSetHarga: TfSetHarga
       object edtSupplier: TEdit
         Left = 168
         Top = 16
-        Width = 289
+        Width = 433
         Height = 25
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -24115,7 +24118,7 @@ object fSetHarga: TfSetHarga
       end
     end
     object grp4: TGroupBox
-      Left = 488
+      Left = 624
       Top = 128
       Width = 513
       Height = 113

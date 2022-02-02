@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 236
-  Top = 406
+  Left = 199
+  Top = 219
   Height = 456
   Width = 1406
   object XPManifest1: TXPManifest
@@ -1295,14 +1295,14 @@ object dm: Tdm
       FieldName = 'total_jual'
       ReadOnly = True
       DisplayFormat = '#,##;(#,##);#,##'
-      Precision = 42
+      Precision = 32
       Size = 0
     end
     object qryLabaPenjualanlaba: TBCDField
       FieldName = 'laba'
       ReadOnly = True
       DisplayFormat = '#,##;(#,##);#,##'
-      Precision = 43
+      Precision = 32
       Size = 0
     end
     object qryLabaPenjualanjenis_harga: TStringField
@@ -1395,14 +1395,14 @@ object dm: Tdm
       FieldName = 'total_jual'
       ReadOnly = True
       DisplayFormat = '#,##;(#,##);#,##'
-      Precision = 42
+      Precision = 32
       Size = 0
     end
     object qryLabaPenjualanGrosirlaba: TBCDField
       FieldName = 'laba'
       ReadOnly = True
       DisplayFormat = '#,##;(#,##);#,##'
-      Precision = 43
+      Precision = 32
       Size = 0
     end
     object qryLabaPenjualanGrosirjenis_harga: TStringField

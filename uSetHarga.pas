@@ -84,6 +84,7 @@ type
 
 var
   fSetHarga: TfSetHarga;
+  untung, persentase : real;
 
 implementation
 
@@ -162,8 +163,8 @@ begin
       btnSimpan.Enabled := True;
       btnTambah.Caption := 'Batal[F1]';
 
-      edtHargaGrosir.Enabled := True;
-      edtMaxGrosir.Enabled := True;
+      edtHargaGrosir.Enabled := True; edtHargaGrosir.Text := '0';
+      edtMaxGrosir.Enabled := True; edtMaxGrosir.Text := '0';
 
     end
   else
@@ -197,16 +198,6 @@ begin
           MessageDlg('Harga Jual Belum Diisi' ,mtInformation,[mbOK],0);
           edtHarga.SetFocus;
           Exit;
-        end;
-
-      if edtMaxGrosir.Text = '' then
-        begin
-          if edtHargaGrosir.Text = '' then Exit else
-            begin
-              MessageDlg('Jumlah Max Grosir Diisi',mtInformation,[mbok],0);
-              edtMaxGrosir.SetFocus;
-              Exit;
-            end;
         end;
 
       if edtHargaBeli.Text = '' then hargabeli := '0' else hargabeli := edtHargaBeli.Text;
@@ -307,6 +298,29 @@ begin
   edtHargaGrosir.Text := dbgrd1.Fields[18].AsString;
   edtMaxGrosir.Text := dbgrd1.Fields[19].AsString;
 
+  edtLabaPersenGrosir.Clear;
+  edtLabaHarga.Clear;
+  edtLabaPersenHarga.Clear;
+  edtLabaHargaGrosir.Clear;
+
+  if edtHarga.Text <> '0' then
+    begin
+       untung := StrToFloat(edtHarga.Text) - StrToFloat(edtHargaBeli.Text);
+       edtLabaHarga.Text := FloatToStr(untung);
+
+       persentase := (untung / StrToFloat(edtHargaBeli.Text)) * (100);
+       edtLabaPersenHarga.Text := FloatToStr(Floor(persentase)) + '%';
+    end;
+
+  if edtHargaGrosir.Text <> '0' then
+    begin
+      untung := StrToFloat(edtHargaGrosir.Text) - StrToFloat(edtHargaBeli.Text);
+      edtLabaHargaGrosir.Text := FloatToStr(untung);
+
+      persentase := (untung / StrToFloat(edtHargaBeli.Text)) * (100);
+      edtLabaPersenGrosir.Text := FloatToStr(Floor(persentase)) + '%';
+    end;
+
   btnTambah.Caption := 'Batal[F1]';
   btnBantuObat.Enabled := false;
   btnHapus.Enabled := false;
@@ -402,7 +416,6 @@ end;
 
 procedure TfSetHarga.edtHargaKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
-var untung, persentase : real;
 begin
   if edtHargaBeli.Text = '' then
     begin
@@ -435,7 +448,6 @@ end;
 
 procedure TfSetHarga.edtHargaGrosirKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
-var untung, persentase : Real;
 begin
   if edtHargaBeli.Text = '' then
     begin

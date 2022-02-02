@@ -81,6 +81,7 @@ end;
 
 procedure TfBantuObat.btnPilihClick(Sender: TObject);
 var barcode : string;
+    untung, persentase : real;
 begin
   if edt1.Text = 'pembelian' then
     begin
@@ -175,6 +176,28 @@ begin
       else
         fSetHarga.dtpTglExp.Date := dm.qryRelasiStok.fieldbyname('tgl_exp').AsDateTime;
 
+      if fSetHarga.edtHargaBeli.Text <> '' then
+        begin
+          if fSetHarga.edtHarga.Text <> '' then
+            begin
+               untung := StrToFloat(fSetHarga.edtHarga.Text) - StrToFloat(fSetHarga.edtHargaBeli.Text);
+               fSetHarga.edtLabaHarga.Text := FloatToStr(untung);
+
+               persentase := (untung / StrToFloat(fSetHarga.edtHargaBeli.Text)) * (100);
+               fSetHarga.edtLabaPersenHarga.Text := FloatToStr(Floor(persentase)) + '%';
+            end;
+
+          if fSetHarga.edtHargaGrosir.Text <> '' then
+            begin
+              untung := StrToFloat(fSetHarga.edtHargaGrosir.Text) - StrToFloat(fSetHarga.edtHargaBeli.Text);
+              fSetHarga.edtLabaHargaGrosir.Text := FloatToStr(untung);
+
+              persentase := (untung / StrToFloat(fSetHarga.edtHargaBeli.Text)) * (100);
+              fSetHarga.edtLabaPersenGrosir.Text := FloatToStr(Floor(persentase)) + '%';
+            end;
+
+        end;
+
       close;
     end;
 
@@ -188,9 +211,7 @@ end;
 procedure TfBantuObat.dbgrd1KeyPress(Sender: TObject; var Key: Char);
 begin
   btnPilih.Click;
-end;
-
-
+end;    
 
 procedure TfBantuObat.konek(status: string);
 begin
