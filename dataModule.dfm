@@ -1255,7 +1255,7 @@ object dm: Tdm
         'select b.kode, b.nama_obat, c.harga_beli_terakhir, a.harga_jual,' +
         ' sum(a.jumlah_jual) as jmlItemJual, sum(a.jumlah_jual * a.harga_' +
         'jual) as total_jual, (sum(a.jumlah_jual * a.harga_jual) - c.harg' +
-        'a_beli_terakhir) as laba'
+        'a_beli_terakhir) as laba, a.jenis_harga'
       
         'from tbl_penjualan z left join tbl_detail_penjualan a ON z.id = ' +
         'a.penjualan_id'
@@ -1288,7 +1288,6 @@ object dm: Tdm
     object qryLabaPenjualanjmlItemJual: TBCDField
       FieldName = 'jmlItemJual'
       ReadOnly = True
-      DisplayFormat = '#,##;(#,##);#,##'
       Precision = 32
       Size = 0
     end
@@ -1296,21 +1295,25 @@ object dm: Tdm
       FieldName = 'total_jual'
       ReadOnly = True
       DisplayFormat = '#,##;(#,##);#,##'
-      Precision = 32
+      Precision = 42
       Size = 0
     end
     object qryLabaPenjualanlaba: TBCDField
       FieldName = 'laba'
       ReadOnly = True
       DisplayFormat = '#,##;(#,##);#,##'
-      Precision = 32
+      Precision = 43
       Size = 0
+    end
+    object qryLabaPenjualanjenis_harga: TStringField
+      FieldName = 'jenis_harga'
+      Size = 100
     end
   end
   object dsLabaPenjualan: TDataSource
     DataSet = qryLabaPenjualan
     Left = 1200
-    Top = 56
+    Top = 72
   end
   object qryDashExp: TADOQuery
     Active = True
@@ -1341,5 +1344,75 @@ object dm: Tdm
     Parameters = <>
     Left = 552
     Top = 256
+  end
+  object qryLabaPenjualanGrosir: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select b.kode, b.nama_obat, c.harga_beli_terakhir, a.harga_jual,' +
+        ' sum(a.jumlah_jual) as jmlItemJual, sum(a.jumlah_jual * a.harga_' +
+        'jual) as total_jual, (sum(a.jumlah_jual * a.harga_jual) - c.harg' +
+        'a_beli_terakhir) as laba, a.jenis_harga'
+      
+        'from tbl_penjualan z left join tbl_detail_penjualan a ON z.id = ' +
+        'a.penjualan_id'
+      
+        'left join tbl_obat b on a.obat_id = b.id left join tbl_satuan d ' +
+        'on d.id = b.kode_satuan'
+      'left join tbl_harga_jual c ON c.obat_id = b.id'
+      
+        'where date(z.tgl_penjualan)='#39'2022-01-30'#39' AND COALESCE(a.status, ' +
+        #39#39') <> '#39'retur'#39
+      'group by a.obat_id')
+    Left = 1224
+    Top = 16
+    object qryLabaPenjualanGrosirkode: TStringField
+      FieldName = 'kode'
+      Size = 30
+    end
+    object qryLabaPenjualanGrosirnama_obat: TStringField
+      FieldName = 'nama_obat'
+      Size = 150
+    end
+    object qryLabaPenjualanGrosirharga_beli_terakhir: TIntegerField
+      FieldName = 'harga_beli_terakhir'
+      DisplayFormat = '#,##;(#,##);#,##'
+    end
+    object qryLabaPenjualanGrosirharga_jual: TIntegerField
+      FieldName = 'harga_jual'
+      DisplayFormat = '#,##;(#,##);#,##'
+    end
+    object qryLabaPenjualanGrosirjmlItemJual: TBCDField
+      FieldName = 'jmlItemJual'
+      ReadOnly = True
+      Precision = 32
+      Size = 0
+    end
+    object qryLabaPenjualanGrosirtotal_jual: TBCDField
+      FieldName = 'total_jual'
+      ReadOnly = True
+      DisplayFormat = '#,##;(#,##);#,##'
+      Precision = 42
+      Size = 0
+    end
+    object qryLabaPenjualanGrosirlaba: TBCDField
+      FieldName = 'laba'
+      ReadOnly = True
+      DisplayFormat = '#,##;(#,##);#,##'
+      Precision = 43
+      Size = 0
+    end
+    object qryLabaPenjualanGrosirjenis_harga: TStringField
+      FieldName = 'jenis_harga'
+      Size = 100
+    end
+  end
+  object dsLabaPenjualanGrosir: TDataSource
+    DataSet = qryLabaPenjualanGrosir
+    Left = 1280
+    Top = 64
   end
 end

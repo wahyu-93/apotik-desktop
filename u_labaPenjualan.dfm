@@ -1,11 +1,11 @@
 object fLabaPenjualan: TfLabaPenjualan
-  Left = 539
-  Top = 72
+  Left = 366
+  Top = 57
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Laporan Laba Penjualan ::.'
-  ClientHeight = 746
-  ClientWidth = 1063
+  ClientHeight = 783
+  ClientWidth = 1062
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23402,11 +23402,11 @@ object fLabaPenjualan: TfLabaPenjualan
     Left = 8
     Top = 72
     Width = 1049
-    Height = 665
+    Height = 705
     TabOrder = 1
     object btnKeluar: TBitBtn
       Left = 952
-      Top = 624
+      Top = 664
       Width = 89
       Height = 33
       Caption = 'Keluar'
@@ -23421,7 +23421,7 @@ object fLabaPenjualan: TfLabaPenjualan
     end
     object pnl1: TPanel
       Left = 8
-      Top = 576
+      Top = 616
       Width = 1033
       Height = 41
       TabOrder = 1
@@ -23441,116 +23441,6 @@ object fLabaPenjualan: TfLabaPenjualan
         ParentFont = False
       end
     end
-    object dbgrd1: TDBGrid
-      Left = 8
-      Top = 120
-      Width = 1025
-      Height = 449
-      DataSource = dm.dsLabaPenjualan
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Arial'
-      Font.Style = []
-      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
-      ParentFont = False
-      TabOrder = 2
-      TitleFont.Charset = ANSI_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -11
-      TitleFont.Name = 'Arial'
-      TitleFont.Style = []
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 'kode'
-          Title.Alignment = taCenter
-          Title.Caption = 'Kode Obat'
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Width = 141
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'nama_obat'
-          Title.Alignment = taCenter
-          Title.Caption = 'Nama Obat'
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Width = 255
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'harga_beli_terakhir'
-          Title.Alignment = taCenter
-          Title.Caption = 'Harga Beli'
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'harga_jual'
-          Title.Alignment = taCenter
-          Title.Caption = 'Harga Jual'
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'jmlItemJual'
-          Title.Alignment = taCenter
-          Title.Caption = 'Jumlah Terjual'
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Width = 121
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'total_jual'
-          Title.Alignment = taCenter
-          Title.Caption = 'Total'
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Width = 142
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'laba'
-          Title.Alignment = taCenter
-          Title.Caption = 'Laba'
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -16
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Width = 129
-          Visible = True
-        end>
-    end
     object rbTanggal: TRadioButton
       Left = 16
       Top = 16
@@ -23563,7 +23453,7 @@ object fLabaPenjualan: TfLabaPenjualan
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 2
       OnClick = rbTanggalClick
     end
     object rbBulan: TRadioButton
@@ -23578,7 +23468,7 @@ object fLabaPenjualan: TfLabaPenjualan
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      TabOrder = 4
+      TabOrder = 3
       OnClick = rbBulanClick
     end
     object dtp1: TDateTimePicker
@@ -23594,7 +23484,7 @@ object fLabaPenjualan: TfLabaPenjualan
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      TabOrder = 5
+      TabOrder = 4
     end
     object cbbBulan: TComboBox
       Left = 192
@@ -23608,7 +23498,7 @@ object fLabaPenjualan: TfLabaPenjualan
       Font.Style = []
       ItemHeight = 17
       ParentFont = False
-      TabOrder = 6
+      TabOrder = 5
       Text = 'cbbBulan'
       OnKeyPress = cbbBulanKeyPress
       Items.Strings = (
@@ -23638,7 +23528,7 @@ object fLabaPenjualan: TfLabaPenjualan
       Font.Style = []
       ItemHeight = 17
       ParentFont = False
-      TabOrder = 7
+      TabOrder = 6
       Text = 'cbb1'
       Items.Strings = (
         'Januari'
@@ -23666,8 +23556,249 @@ object fLabaPenjualan: TfLabaPenjualan
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      TabOrder = 8
+      TabOrder = 7
       OnClick = btnLapClick
+    end
+    object pgc1: TPageControl
+      Left = 8
+      Top = 112
+      Width = 1033
+      Height = 497
+      ActivePage = ts2
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial Narrow'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 8
+      object ts1: TTabSheet
+        Caption = 'Eceran'
+        object dbgrd1: TDBGrid
+          Left = 0
+          Top = 1
+          Width = 1025
+          Height = 464
+          DataSource = dm.dsLabaPenjualan
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = []
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+          ParentFont = False
+          TabOrder = 0
+          TitleFont.Charset = ANSI_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Arial'
+          TitleFont.Style = []
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'kode'
+              Title.Alignment = taCenter
+              Title.Caption = 'Kode Obat'
+              Title.Font.Charset = ANSI_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -16
+              Title.Font.Name = 'Arial'
+              Title.Font.Style = []
+              Width = 141
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'nama_obat'
+              Title.Alignment = taCenter
+              Title.Caption = 'Nama Obat'
+              Title.Font.Charset = ANSI_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -16
+              Title.Font.Name = 'Arial'
+              Title.Font.Style = []
+              Width = 255
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'harga_beli_terakhir'
+              Title.Alignment = taCenter
+              Title.Caption = 'Harga Beli'
+              Title.Font.Charset = ANSI_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -16
+              Title.Font.Name = 'Arial'
+              Title.Font.Style = []
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'harga_jual'
+              Title.Alignment = taCenter
+              Title.Caption = 'Harga Jual'
+              Title.Font.Charset = ANSI_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -16
+              Title.Font.Name = 'Arial'
+              Title.Font.Style = []
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'jmlItemJual'
+              Title.Alignment = taCenter
+              Title.Caption = 'Jumlah Terjual'
+              Title.Font.Charset = ANSI_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -16
+              Title.Font.Name = 'Arial'
+              Title.Font.Style = []
+              Width = 121
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'total_jual'
+              Title.Alignment = taCenter
+              Title.Caption = 'Total'
+              Title.Font.Charset = ANSI_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -16
+              Title.Font.Name = 'Arial'
+              Title.Font.Style = []
+              Width = 142
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'laba'
+              Title.Alignment = taCenter
+              Title.Caption = 'Laba'
+              Title.Font.Charset = ANSI_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -16
+              Title.Font.Name = 'Arial'
+              Title.Font.Style = []
+              Width = 129
+              Visible = True
+            end>
+        end
+      end
+      object ts2: TTabSheet
+        Caption = 'Grosir'
+        ImageIndex = 1
+        object dbgrd2: TDBGrid
+          Left = 0
+          Top = 1
+          Width = 1025
+          Height = 464
+          DataSource = dm.dsLabaPenjualanGrosir
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = []
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+          ParentFont = False
+          TabOrder = 0
+          TitleFont.Charset = ANSI_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Arial'
+          TitleFont.Style = []
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'kode'
+              Title.Alignment = taCenter
+              Title.Caption = 'Kode Obat'
+              Title.Font.Charset = ANSI_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -16
+              Title.Font.Name = 'Arial'
+              Title.Font.Style = []
+              Width = 141
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'nama_obat'
+              Title.Alignment = taCenter
+              Title.Caption = 'Nama Obat'
+              Title.Font.Charset = ANSI_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -16
+              Title.Font.Name = 'Arial'
+              Title.Font.Style = []
+              Width = 255
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'harga_beli_terakhir'
+              Title.Alignment = taCenter
+              Title.Caption = 'Harga Beli'
+              Title.Font.Charset = ANSI_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -16
+              Title.Font.Name = 'Arial'
+              Title.Font.Style = []
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'harga_jual'
+              Title.Alignment = taCenter
+              Title.Caption = 'Harga Jual'
+              Title.Font.Charset = ANSI_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -16
+              Title.Font.Name = 'Arial'
+              Title.Font.Style = []
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'jmlItemJual'
+              Title.Alignment = taCenter
+              Title.Caption = 'Jumlah Terjual'
+              Title.Font.Charset = ANSI_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -16
+              Title.Font.Name = 'Arial'
+              Title.Font.Style = []
+              Width = 121
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'total_jual'
+              Title.Alignment = taCenter
+              Title.Caption = 'Total'
+              Title.Font.Charset = ANSI_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -16
+              Title.Font.Name = 'Arial'
+              Title.Font.Style = []
+              Width = 142
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'laba'
+              Title.Alignment = taCenter
+              Title.Caption = 'Laba'
+              Title.Font.Charset = ANSI_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -16
+              Title.Font.Name = 'Arial'
+              Title.Font.Style = []
+              Width = 129
+              Visible = True
+            end>
+        end
+      end
     end
   end
 end
