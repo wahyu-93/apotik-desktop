@@ -23622,6 +23622,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23639,7 +23640,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 72
+          Width = 130
           Visible = True
         end
         item
@@ -23656,6 +23657,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23673,7 +23675,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 285
+          Width = 130
           Visible = True
         end
         item
@@ -23691,7 +23693,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 84
+          Width = 130
           Visible = True
         end
         item
@@ -23709,7 +23711,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 81
+          Width = 130
           Visible = True
         end
         item
@@ -23727,7 +23729,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 138
+          Width = 130
           Visible = True
         end
         item
@@ -23764,7 +23766,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
-          Width = 68
+          Width = 130
           Visible = True
         end
         item
@@ -23797,6 +23799,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23813,6 +23816,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23829,6 +23833,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23845,6 +23850,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23861,6 +23867,7 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23871,6 +23878,7 @@ object fSetHarga: TfSetHarga
           Font.Height = -15
           Font.Name = 'Arial Narrow'
           Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23881,6 +23889,7 @@ object fSetHarga: TfSetHarga
           Font.Height = -15
           Font.Name = 'Arial Narrow'
           Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23898,16 +23907,19 @@ object fSetHarga: TfSetHarga
           Title.Font.Height = -16
           Title.Font.Name = 'Arial Narrow'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'harga_jual_grosir'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'qty_max_grosir'
+          Width = -1
           Visible = False
         end>
     end

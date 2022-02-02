@@ -23483,96 +23483,115 @@ object fDetailReturPenjualan: TfDetailReturPenjualan
         item
           Expanded = False
           FieldName = 'id'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'kode'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'tgl_retur'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'faktur_penjualan'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'jenis_retur'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'status'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'id_1'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'no_faktur'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'obat_id'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'keterangan'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'created_at'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'id_2'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'barcode'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'kode_jenis'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'kode_satuan'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'tgl_obat'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'tgl_exp'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'status_1'
+          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'stok'
+          Width = -1
           Visible = False
         end
         item
@@ -23591,6 +23610,7 @@ object fDetailReturPenjualan: TfDetailReturPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = 180
           Visible = True
         end
         item
@@ -23608,7 +23628,7 @@ object fDetailReturPenjualan: TfDetailReturPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 200
+          Width = 180
           Visible = True
         end
         item
@@ -23627,7 +23647,7 @@ object fDetailReturPenjualan: TfDetailReturPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 100
+          Width = 180
           Visible = True
         end
         item
@@ -23646,7 +23666,7 @@ object fDetailReturPenjualan: TfDetailReturPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 100
+          Width = 180
           Visible = True
         end
         item
@@ -23664,7 +23684,7 @@ object fDetailReturPenjualan: TfDetailReturPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 200
+          Width = 180
           Visible = True
         end>
     end

@@ -23502,6 +23502,7 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = -1
           Visible = False
         end
         item
@@ -23587,7 +23588,7 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 130
+          Width = 140
           Visible = True
         end
         item
@@ -23657,7 +23658,7 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 173
+          Width = 140
           Visible = True
         end
         item
@@ -23676,7 +23677,7 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 130
+          Width = 140
           Visible = True
         end
         item
@@ -23695,7 +23696,7 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 130
+          Width = 140
           Visible = True
         end
         item
@@ -23714,7 +23715,7 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 130
+          Width = 140
           Visible = True
         end
         item
@@ -23733,7 +23734,7 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 130
+          Width = 140
           Visible = True
         end
         item
@@ -23751,7 +23752,7 @@ object fDetailPenjualan: TfDetailPenjualan
           Title.Font.Height = -16
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 151
+          Width = 140
           Visible = True
         end>
     end

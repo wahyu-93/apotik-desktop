@@ -28,6 +28,7 @@ type
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure edtpencarianKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -92,7 +93,7 @@ end;
 procedure TfBantuObatPenjualan.dbgrd1KeyPress(Sender: TObject;
   var Key: Char);
 begin
-  btnPilih.Click;
+  if key=#13 then btnPilih.Click;
 end;
 
 procedure TfBantuObatPenjualan.edtpencarianKeyUp(Sender: TObject;
@@ -132,6 +133,12 @@ begin
     VK_UP: dbgrd1.SetFocus;
     VK_DOWN: dbgrd1.SetFocus;
   end;
+end;
+
+procedure TfBantuObatPenjualan.edtpencarianKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if key=#13 then btnPilih.Click;
 end;
 
 end.
