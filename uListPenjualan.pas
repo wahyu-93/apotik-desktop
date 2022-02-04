@@ -186,15 +186,15 @@ begin
     WriteLn(txtFile, '    Tersedia Obat-Obatan');
     WriteLn(txtFile, '      Herbal dan Alkes');
 
-    WriteLn(txtFile, '----------------------------');
+    WriteLn(txtFile, '---------------------------------');
     WriteLn(txtFile, 'No. Nota:' + dbgrd1.Fields[1].AsString );
     WriteLn(txtFile, 'Tanggal :' + FormatDateTime('dd/mm/yyyy hh:mm:ss', now));
     WriteLn(txtFile, 'Kasir   :' + dm.qryUser.fieldbyname('nama').asString);
     WriteLn(txtFile, 'Status Jual :' + status);
-    WriteLn(txtFile, '----------------------------');
+    WriteLn(txtFile, '---------------------------------');
     WriteLn(txtFile, 'Nama Barang');
-    WriteLn(txtFile, RataKanan('      QTY   Harga ', 'Sub Total', 28, ' '));
-    WriteLn(txtFile, '----------------------------');
+    WriteLn(txtFile, RataKanan('      QTY   Harga ', 'Sub Total', 32, ' '));
+    WriteLn(txtFile, '---------------------------------');
 
     a := 1;
     with dm.qryRelasiPenjualan do
@@ -206,18 +206,18 @@ begin
 
             WriteLn(txtFile,' '+fieldbyname('nama_obat').asString);
             WriteLn(txtFile, RataKanan
-                ('      ' + fieldbyname('jumlah_jual').asString +' X '+FormatFloat('###,###,###',fieldbyname('harga_jual').AsInteger)+' ',FormatFloat('###,###,###',total), 28, ' '));
+                ('      ' + fieldbyname('jumlah_jual').asString +' X '+FormatFloat('###,###,###',fieldbyname('harga_jual').AsInteger)+' ',FormatFloat('###,###,###',total), 32, ' '));
 
             Next;
           end;
       end;
 
-    WriteLn(txtFile, '----------------------------');
-    WriteLn(txtFile, RataKanan('Total   : ', FormatFloat('Rp. ###,###,###', hitungTotal(dbgrd1.Fields[0].AsString)), 28,
+    WriteLn(txtFile, '---------------------------------');
+    WriteLn(txtFile, RataKanan('Total   : ', FormatFloat('Rp. ###,###,###', hitungTotal(dbgrd1.Fields[0].AsString)), 32,
          ' '));
-    WriteLn(txtFile, '----------------------------');
+    WriteLn(txtFile, '---------------------------------');
     WriteLn(txtFile, ' Jumlah Item  : ' + IntToStr(hitungItem(dbgrd1.Fields[0].AsString)));
-    WriteLn(txtFile, '----------------------------');
+    WriteLn(txtFile, '---------------------------------');
     WriteLn(txtFile, '         Terima Kasih');
     WriteLn(txtFile, '    Berelaan Jual Seadannya');
     WriteLn(txtFile, #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 );

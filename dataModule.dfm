@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 199
-  Top = 219
+  Left = 301
+  Top = 156
   Height = 456
   Width = 1406
   object XPManifest1: TXPManifest
@@ -1327,18 +1327,6 @@ object dm: Tdm
     Left = 1128
     Top = 128
   end
-  object qryDashSupplier: TADOQuery
-    Connection = con1
-    Parameters = <>
-    Left = 1256
-    Top = 144
-  end
-  object qryDashhObat: TADOQuery
-    Connection = con1
-    Parameters = <>
-    Left = 1256
-    Top = 200
-  end
   object qryHarga: TADOQuery
     Connection = con1
     Parameters = <>
@@ -1414,5 +1402,100 @@ object dm: Tdm
     DataSet = qryLabaPenjualanGrosir
     Left = 1280
     Top = 64
+  end
+  object qryDashListObat: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select b.id, b.kode as kodeObat, b.barcode, b.nama_obat, b.kode_' +
+        'jenis, b.kode_satuan, b.stok, b.status, a.id as id_jenis, a.kode' +
+        ' as jenisKode, a.jenis, c.id as id_satuan, c.kode as satuanKode,' +
+        ' c.satuan, d.harga_jual, d.harga_jual_grosir, d.qty_max_grosir f' +
+        'rom tbl_jenis a left join tbl_obat b on a.id = b.kode_jenis INNE' +
+        'R join tbl_satuan c on c.id = b.kode_satuan LEFt JOIN tbl_harga_' +
+        'jual d ON d.obat_id = b.id  '
+      'ORDER BY `kodeObat` ASC')
+    Left = 1208
+    Top = 272
+    object qryDashListObatid: TIntegerField
+      FieldName = 'id'
+    end
+    object qryDashListObatkodeObat: TStringField
+      FieldName = 'kodeObat'
+      Size = 30
+    end
+    object qryDashListObatbarcode: TStringField
+      FieldName = 'barcode'
+      Size = 100
+    end
+    object qryDashListObatnama_obat: TStringField
+      FieldName = 'nama_obat'
+      Size = 150
+    end
+    object qryDashListObatkode_jenis: TIntegerField
+      FieldName = 'kode_jenis'
+    end
+    object qryDashListObatkode_satuan: TIntegerField
+      FieldName = 'kode_satuan'
+    end
+    object qryDashListObatstok: TIntegerField
+      FieldName = 'stok'
+    end
+    object qryDashListObatstatus: TStringField
+      FieldName = 'status'
+      Size = 100
+    end
+    object qryDashListObatid_jenis: TIntegerField
+      FieldName = 'id_jenis'
+    end
+    object qryDashListObatjenisKode: TStringField
+      FieldName = 'jenisKode'
+    end
+    object qryDashListObatjenis: TStringField
+      FieldName = 'jenis'
+      Size = 100
+    end
+    object qryDashListObatid_satuan: TIntegerField
+      FieldName = 'id_satuan'
+    end
+    object qryDashListObatsatuanKode: TStringField
+      FieldName = 'satuanKode'
+    end
+    object qryDashListObatsatuan: TStringField
+      FieldName = 'satuan'
+      Size = 100
+    end
+    object qryDashListObatharga_jual: TFloatField
+      FieldName = 'harga_jual'
+      DisplayFormat = '#,##;(#,##);#,##'
+    end
+    object qryDashListObatharga_jual_grosir: TFloatField
+      FieldName = 'harga_jual_grosir'
+      DisplayFormat = '#,##;(#,##);#,##'
+    end
+    object qryDashListObatqty_max_grosir: TIntegerField
+      FieldName = 'qty_max_grosir'
+      DisplayFormat = '#,##;(#,##);#,##'
+    end
+  end
+  object qryDashhObat: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 1256
+    Top = 200
+  end
+  object qryDashSupplier: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 1280
+    Top = 152
+  end
+  object dsDashListObat: TDataSource
+    DataSet = qryDashListObat
+    Left = 1280
+    Top = 280
   end
 end

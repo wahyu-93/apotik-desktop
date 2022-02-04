@@ -23519,6 +23519,7 @@ object FMenu: TFMenu
       Top = 68
       Width = 209
       Height = 43
+      Cursor = crHandPoint
       Alignment = taCenter
       AutoSize = False
       Caption = '0'
@@ -23528,6 +23529,7 @@ object FMenu: TFMenu
       Font.Name = 'Arial Narrow'
       Font.Style = [fsItalic]
       ParentFont = False
+      OnClick = lblTotalPembelianClick
     end
     object lbl2: TLabel
       Left = 8
@@ -23568,6 +23570,7 @@ object FMenu: TFMenu
       Top = 68
       Width = 209
       Height = 43
+      Cursor = crHandPoint
       Alignment = taCenter
       AutoSize = False
       Caption = '0'
@@ -23577,6 +23580,7 @@ object FMenu: TFMenu
       Font.Name = 'Arial Narrow'
       Font.Style = [fsItalic]
       ParentFont = False
+      OnClick = lblTotalPenjualanClick
     end
   end
   object pnl7: TPanel
@@ -23686,6 +23690,7 @@ object FMenu: TFMenu
       Top = 68
       Width = 209
       Height = 43
+      Cursor = crHandPoint
       Alignment = taCenter
       AutoSize = False
       Caption = '0'
@@ -23695,6 +23700,7 @@ object FMenu: TFMenu
       Font.Name = 'Arial Narrow'
       Font.Style = [fsItalic]
       ParentFont = False
+      OnClick = lblTtlObatClick
     end
   end
   object pnl5: TPanel
@@ -23709,6 +23715,7 @@ object FMenu: TFMenu
       Top = 68
       Width = 209
       Height = 43
+      Cursor = crHandPoint
       Alignment = taCenter
       AutoSize = False
       Caption = '0'
@@ -23718,6 +23725,7 @@ object FMenu: TFMenu
       Font.Name = 'Arial Narrow'
       Font.Style = [fsItalic]
       ParentFont = False
+      OnClick = lblTtlSupplierClick
     end
     object lbl7: TLabel
       Left = 8
@@ -23770,6 +23778,7 @@ object FMenu: TFMenu
       Top = 68
       Width = 209
       Height = 43
+      Cursor = crHandPoint
       Alignment = taCenter
       AutoSize = False
       Caption = '0'
@@ -23808,6 +23817,7 @@ object FMenu: TFMenu
       Top = 68
       Width = 209
       Height = 43
+      Cursor = crHandPoint
       Alignment = taCenter
       AutoSize = False
       Caption = '0'
@@ -23878,6 +23888,15 @@ object FMenu: TFMenu
         object ReturPenjualan2: TMenuItem
           Caption = 'Retur Penjualan'
           OnClick = ReturPenjualan2Click
+        end
+      end
+      object ReturPembelian1: TMenuItem
+        Caption = 'Retur Pembelian'
+        object ListReturPembelian1: TMenuItem
+          Caption = 'List Retur Pembelian'
+        end
+        object ReturPembelian2: TMenuItem
+          Caption = 'Retur Pembelian'
         end
       end
     end

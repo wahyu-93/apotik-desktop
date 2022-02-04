@@ -33,7 +33,11 @@ uses
   uListReturPenjualan in 'uListReturPenjualan.pas' {fListReturPenjualan},
   uDetailReturPenjualan in 'uDetailReturPenjualan.pas' {fDetailReturPenjualan},
   u_bayarPenjualan in 'u_bayarPenjualan.pas' {fBayarPenjualan},
-  u_labaPenjualan in 'u_labaPenjualan.pas' {fLabaPenjualan};
+  u_labaPenjualan in 'u_labaPenjualan.pas' {fLabaPenjualan},
+  u_dashboardPembelian in 'u_dashboardPembelian.pas' {fDashboardPembelian},
+  u_dashboardPenjualan in 'u_dashboardPenjualan.pas' {fDashboardPenjualan},
+  u_dashboardSupplier in 'u_dashboardSupplier.pas' {fDashboardSupplier},
+  u_dashboardObat in 'u_dashboardObat.pas' {fDashboardObat};
 
 {$R *.res}
 
@@ -41,6 +45,7 @@ begin
   Application.Initialize;
   Application.CreateForm(Tdm, dm);
   Application.CreateForm(TfLogin, fLogin);
+  Application.CreateForm(TfDashboardPembelian, fDashboardPembelian);
   Application.CreateForm(TfReturn, fReturn);
   Application.CreateForm(TFMenu, FMenu);
   Application.CreateForm(TfJenisObat, fJenisObat);
@@ -71,5 +76,8 @@ begin
   Application.CreateForm(TfDetailReturPenjualan, fDetailReturPenjualan);
   Application.CreateForm(TfBayarPenjualan, fBayarPenjualan);
   Application.CreateForm(TfLabaPenjualan, fLabaPenjualan);
+  Application.CreateForm(TfDashboardPenjualan, fDashboardPenjualan);
+  Application.CreateForm(TfDashboardSupplier, fDashboardSupplier);
+  Application.CreateForm(TfDashboardObat, fDashboardObat);
   Application.Run;
 end.

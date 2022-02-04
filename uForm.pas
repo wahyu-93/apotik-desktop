@@ -80,6 +80,9 @@ type
     lbl20: TLabel;
     lblTtlExp: TLabel;
     pnl20: TPanel;
+    ReturPembelian1: TMenuItem;
+    ListReturPembelian1: TMenuItem;
+    ReturPembelian2: TMenuItem;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
@@ -105,6 +108,10 @@ type
     procedure RefreshDashboard1Click(Sender: TObject);
     procedure LabaPenjualan1Click(Sender: TObject);
     procedure tmr4Timer(Sender: TObject);
+    procedure lblTotalPembelianClick(Sender: TObject);
+    procedure lblTotalPenjualanClick(Sender: TObject);
+    procedure lblTtlSupplierClick(Sender: TObject);
+    procedure lblTtlObatClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -120,7 +127,8 @@ uses
   uJenisObat, uSatuan, uSupplier, uObat, uPembelian, uPembayaranPembelian, 
   uPenjualan, uSetHarga, dataModule, uPengguna, uSetting, uListPenjualan, 
   uLaporanPembelian, uListJualObat, uLaporanStok, uLaporanItemTerjual, uReturn, 
-  uListReturPenjualan, u_labaPenjualan, DB;
+  uListReturPenjualan, u_labaPenjualan, DB, u_dashboardPembelian, 
+  u_dashboardPenjualan, u_dashboardSupplier, u_dashboardObat;
 
 {$R *.dfm}
 
@@ -353,6 +361,26 @@ end;
 procedure TFMenu.tmr4Timer(Sender: TObject);
 begin
   //if lblAlertExp.Visible = False then lblAlertExp.Visible := True else lblAlertExp.Visible := false;
+end;
+
+procedure TFMenu.lblTotalPembelianClick(Sender: TObject);
+begin
+  fDashboardPembelian.ShowModal;
+end;
+
+procedure TFMenu.lblTotalPenjualanClick(Sender: TObject);
+begin
+  fDashboardPenjualan.ShowModal;
+end;
+
+procedure TFMenu.lblTtlSupplierClick(Sender: TObject);
+begin
+  fDashboardSupplier.ShowModal;
+end;
+
+procedure TFMenu.lblTtlObatClick(Sender: TObject);
+begin
+  fDashboardObat.ShowModal;
 end;
 
 end.
