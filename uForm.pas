@@ -49,11 +49,9 @@ type
     ReturPenjualan1: TMenuItem;
     ListReturPenjualan1: TMenuItem;
     ReturPenjualan2: TMenuItem;
-    tmr3: TTimer;
     RefreshDashboard1: TMenuItem;
     N1: TMenuItem;
     LabaPenjualan1: TMenuItem;
-    tmr4: TTimer;
     pnl3: TPanel;
     pnl4: TPanel;
     pnl7: TPanel;
@@ -104,14 +102,15 @@ type
     procedure Penjualan2Click(Sender: TObject);
     procedure ReturPenjualan2Click(Sender: TObject);
     procedure ListReturPenjualan1Click(Sender: TObject);
-    procedure tmr3Timer(Sender: TObject);
     procedure RefreshDashboard1Click(Sender: TObject);
     procedure LabaPenjualan1Click(Sender: TObject);
-    procedure tmr4Timer(Sender: TObject);
     procedure lblTotalPembelianClick(Sender: TObject);
     procedure lblTotalPenjualanClick(Sender: TObject);
     procedure lblTtlSupplierClick(Sender: TObject);
     procedure lblTtlObatClick(Sender: TObject);
+    procedure lblTtlStokClick(Sender: TObject);
+    procedure lblTtlExpClick(Sender: TObject);
+    procedure lblTtlReturPenjualanClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -128,7 +127,8 @@ uses
   uPenjualan, uSetHarga, dataModule, uPengguna, uSetting, uListPenjualan, 
   uLaporanPembelian, uListJualObat, uLaporanStok, uLaporanItemTerjual, uReturn, 
   uListReturPenjualan, u_labaPenjualan, DB, u_dashboardPembelian, 
-  u_dashboardPenjualan, u_dashboardSupplier, u_dashboardObat;
+  u_dashboardPenjualan, u_dashboardSupplier, u_dashboardObat, 
+  u_dashboardObatStok, u_dashboardExp, u_dashboardReturPenjualan;
 
 {$R *.dfm}
 
@@ -198,9 +198,15 @@ begin
       sql.Text := 'select count(id) as jml_transaksi from tbl_penjualan where tgl_penjualan like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%''';
       Open;
 
-      lblTotalPenjualan.Caption := FormatFloat('###,###;(###,###);###,###', dm.qryTotalPenjualan.fieldbyname('jml_transaksi').AsFloat);
+     if FieldByName('jml_transaksi').AsInteger > 0 then
+      begin
+          lblTotalPenjualan.Caption := FormatFloat('###,###;(###,###);###,###', dm.qryTotalPenjualan.fieldbyname('jml_transaksi').AsFloat);
+      end
+     else
+      begin
+        lblTotalPenjualan.Caption := '0';
+      end;
     end;
-
 
   //total pembelian
   with dm.qryTotalPembelian do
@@ -210,12 +216,17 @@ begin
       sql.Text := 'select count(id) as jml_transaksifrom from tbl_pembelian where tgl_pembelian like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%''';
       Open;
 
-
-      lblTotalPembelian.Caption := FormatFloat('###,###;(###,###);###,###', dm.qryTotalPembelian.fieldbyname('jml_transaksifrom').AsFloat);
+      if FieldByName('jml_transaksifrom').AsInteger > 0 then
+        begin
+          lblTotalPembelian.Caption := FormatFloat('###,###;(###,###);###,###', dm.qryTotalPembelian.fieldbyname('jml_transaksifrom').AsFloat);
+        end
+      else
+        begin
+          lblTotalPembelian.Caption := '0';
+        end;
     end;
 
   //alert stok
-  tmr3.Enabled := false;
   with dm.qryDashObat do
     begin
       Close;
@@ -223,19 +234,17 @@ begin
       SQL.Text := 'select count(id) as jumlah from tbl_obat where stok < 5';
       Open;
 
-      if IsEmpty then
+      if FieldByName('jumlah').AsInteger = 0 then
         begin
-          tmr3.Enabled := false;
+          lblTtlStok.Caption := '0';
         end
       else
         begin
-          tmr3.Enabled := True;
           lblTtlStok.Caption := fieldbyname('jumlah').AsString;
         end;
     end;
 
     //alert exp
-    tmr4.Enabled := false;
     with dm.qryDashExp do
       begin
         close;
@@ -245,11 +254,10 @@ begin
 
         if IsEmpty then
           begin
-            tmr4.Enabled := false;
+            lblTtlExp.Caption := '0';
           end
         else
           begin
-           tmr4.Enabled := True;
            lblTtlExp.Caption := IntToStr(RecordCount);
           end;
       end;
@@ -262,7 +270,14 @@ begin
         SQL.Text := 'select count(id) as jumlah from tbl_obat';
         Open;
 
-        lblTtlObat.Caption := fieldbyname('jumlah').AsString;
+        if FieldByName('jumlah').AsInteger > 0 then
+          begin
+            lblTtlObat.Caption := fieldbyname('jumlah').AsString;
+          end
+        else
+          begin
+            lblTtlObat.Caption := '0';
+          end;
       end;
 
     // dashboard supplier
@@ -273,7 +288,32 @@ begin
         SQL.Text := 'select count(id) as jumlah from tbl_supplier';
         Open;
 
-        lblTtlSupplier.Caption := fieldbyname('jumlah').AsString;
+        if FieldByName('jumlah').AsInteger > 0 then
+          begin
+            lblTtlSupplier.Caption := fieldbyname('jumlah').AsString;
+          end
+        else
+          begin
+            lblTtlSupplier.Caption := '0';
+          end;
+      end;
+
+    // dashboard retur penjualan
+    with dm.qryDashReturPenjualan do
+      begin
+        close;
+        sql.Clear;
+        SQL.Text := 'select count(id) as jumlah from tbl_retur where tgl_retur like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%'' and jenis_retur = '+QuotedStr('penjualan')+'';
+        Open;
+
+        if FieldByName('jumlah').AsInteger > 0then
+          begin
+             lblTtlReturPenjualan.Caption :=  fieldbyname('jumlah').AsString;
+          end
+        else
+          begin
+            lblTtlReturPenjualan.Caption := '0';
+          end;
       end;
 end;
 
@@ -343,11 +383,6 @@ begin
   fListReturPenjualan.ShowModal;
 end;
 
-procedure TFMenu.tmr3Timer(Sender: TObject);
-begin
-  //if lblAlert.Visible = False then lblAlert.Visible := True else lblAlert.Visible := false;
-end;
-
 procedure TFMenu.RefreshDashboard1Click(Sender: TObject);
 begin
   FormShow(Sender);
@@ -356,11 +391,6 @@ end;
 procedure TFMenu.LabaPenjualan1Click(Sender: TObject);
 begin
   fLabaPenjualan.ShowModal;
-end;
-
-procedure TFMenu.tmr4Timer(Sender: TObject);
-begin
-  //if lblAlertExp.Visible = False then lblAlertExp.Visible := True else lblAlertExp.Visible := false;
 end;
 
 procedure TFMenu.lblTotalPembelianClick(Sender: TObject);
@@ -381,6 +411,21 @@ end;
 procedure TFMenu.lblTtlObatClick(Sender: TObject);
 begin
   fDashboardObat.ShowModal;
+end;
+
+procedure TFMenu.lblTtlStokClick(Sender: TObject);
+begin
+  fDashboardObatStok.ShowModal;
+end;
+
+procedure TFMenu.lblTtlExpClick(Sender: TObject);
+begin
+  fDashboardExp.ShowModal;
+end;
+
+procedure TFMenu.lblTtlReturPenjualanClick(Sender: TObject);
+begin
+  fDashboardReturPenjualan.ShowModal;
 end;
 
 end.

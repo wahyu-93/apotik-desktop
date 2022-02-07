@@ -3,7 +3,7 @@ object fDashboardObat: TfDashboardObat
   Top = 151
   AutoScroll = False
   BorderIcons = []
-  Caption = 'fDashboardObat'
+  Caption = '.:: List Obat ::.'
   ClientHeight = 677
   ClientWidth = 1190
   Color = clGradientInactiveCaption
@@ -23481,28 +23481,17 @@ object fDashboardObat: TfDashboardObat
         item
           Expanded = False
           FieldName = 'id'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'kodeObat'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Kode Obat'
           Title.Font.Charset = ANSI_CHARSET
@@ -23516,11 +23505,6 @@ object fDashboardObat: TfDashboardObat
         item
           Expanded = False
           FieldName = 'barcode'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Barcode'
           Title.Font.Charset = ANSI_CHARSET
@@ -23528,17 +23512,11 @@ object fDashboardObat: TfDashboardObat
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'nama_obat'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Nama Obat'
           Title.Font.Charset = ANSI_CHARSET
@@ -23552,79 +23530,50 @@ object fDashboardObat: TfDashboardObat
         item
           Expanded = False
           FieldName = 'kode_jenis'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'kode_satuan'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'id_jenis'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'jenisKode'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'jenis'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Jenis Obat'
           Title.Font.Charset = ANSI_CHARSET
@@ -23638,45 +23587,28 @@ object fDashboardObat: TfDashboardObat
         item
           Expanded = False
           FieldName = 'id_satuan'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'satuanKode'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'satuan'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Satuan Obat'
           Title.Font.Charset = ANSI_CHARSET
@@ -23691,11 +23623,6 @@ object fDashboardObat: TfDashboardObat
           Alignment = taCenter
           Expanded = False
           FieldName = 'stok'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Stok'
           Title.Font.Charset = ANSI_CHARSET
@@ -23709,11 +23636,6 @@ object fDashboardObat: TfDashboardObat
         item
           Expanded = False
           FieldName = 'harga_jual'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Harga Jual'
           Title.Font.Charset = ANSI_CHARSET
@@ -23727,11 +23649,6 @@ object fDashboardObat: TfDashboardObat
         item
           Expanded = False
           FieldName = 'harga_jual_grosir'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Harga Grosir'
           Title.Font.Charset = ANSI_CHARSET
@@ -23745,11 +23662,6 @@ object fDashboardObat: TfDashboardObat
         item
           Expanded = False
           FieldName = 'qty_max_grosir'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
           Title.Alignment = taCenter
           Title.Caption = 'Qty Grosir'
           Title.Font.Charset = ANSI_CHARSET

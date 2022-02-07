@@ -37,7 +37,10 @@ uses
   u_dashboardPembelian in 'u_dashboardPembelian.pas' {fDashboardPembelian},
   u_dashboardPenjualan in 'u_dashboardPenjualan.pas' {fDashboardPenjualan},
   u_dashboardSupplier in 'u_dashboardSupplier.pas' {fDashboardSupplier},
-  u_dashboardObat in 'u_dashboardObat.pas' {fDashboardObat};
+  u_dashboardObat in 'u_dashboardObat.pas' {fDashboardObat},
+  u_dashboardObatStok in 'u_dashboardObatStok.pas' {fDashboardObatStok},
+  u_dashboardExp in 'u_dashboardExp.pas' {fDashboardExp},
+  u_dashboardReturPenjualan in 'u_dashboardReturPenjualan.pas' {fDashboardReturPenjualan};
 
 {$R *.res}
 
@@ -79,5 +82,8 @@ begin
   Application.CreateForm(TfDashboardPenjualan, fDashboardPenjualan);
   Application.CreateForm(TfDashboardSupplier, fDashboardSupplier);
   Application.CreateForm(TfDashboardObat, fDashboardObat);
+  Application.CreateForm(TfDashboardObatStok, fDashboardObatStok);
+  Application.CreateForm(TfDashboardExp, fDashboardExp);
+  Application.CreateForm(TfDashboardReturPenjualan, fDashboardReturPenjualan);
   Application.Run;
 end.

@@ -23420,7 +23420,7 @@ object FMenu: TFMenu
   end
   object pnl6: TPanel
     Left = 168
-    Top = 496
+    Top = 528
     Width = 233
     Height = 137
     Color = clActiveCaption
@@ -23428,7 +23428,7 @@ object FMenu: TFMenu
   end
   object pnl20: TPanel
     Left = 1008
-    Top = 496
+    Top = 528
     Width = 225
     Height = 137
     Color = clActiveCaption
@@ -23436,7 +23436,7 @@ object FMenu: TFMenu
   end
   object pnl12: TPanel
     Left = 448
-    Top = 496
+    Top = 528
     Width = 225
     Height = 137
     Color = clActiveCaption
@@ -23444,7 +23444,7 @@ object FMenu: TFMenu
   end
   object pnl8: TPanel
     Left = 728
-    Top = 304
+    Top = 336
     Width = 225
     Height = 137
     Color = clActiveCaption
@@ -23452,7 +23452,7 @@ object FMenu: TFMenu
   end
   object pnl4: TPanel
     Left = 448
-    Top = 304
+    Top = 336
     Width = 225
     Height = 137
     Color = clActiveCaption
@@ -23460,7 +23460,7 @@ object FMenu: TFMenu
   end
   object pnl3: TPanel
     Left = 168
-    Top = 304
+    Top = 336
     Width = 233
     Height = 137
     Color = clActiveCaption
@@ -23509,7 +23509,7 @@ object FMenu: TFMenu
   end
   object pnl1: TPanel
     Left = 160
-    Top = 296
+    Top = 328
     Width = 233
     Height = 137
     Color = clGradientActiveCaption
@@ -23547,7 +23547,7 @@ object FMenu: TFMenu
   end
   object pnl2: TPanel
     Left = 440
-    Top = 296
+    Top = 328
     Width = 225
     Height = 137
     Color = clGradientActiveCaption
@@ -23585,7 +23585,7 @@ object FMenu: TFMenu
   end
   object pnl7: TPanel
     Left = 720
-    Top = 296
+    Top = 328
     Width = 225
     Height = 137
     Color = clGradientActiveCaption
@@ -23608,6 +23608,7 @@ object FMenu: TFMenu
       Top = 68
       Width = 209
       Height = 43
+      Cursor = crHandPoint
       Alignment = taCenter
       AutoSize = False
       Caption = '0'
@@ -23621,7 +23622,7 @@ object FMenu: TFMenu
   end
   object pnl9: TPanel
     Left = 1008
-    Top = 304
+    Top = 336
     Width = 225
     Height = 137
     Color = clActiveCaption
@@ -23629,7 +23630,7 @@ object FMenu: TFMenu
   end
   object pnl10: TPanel
     Left = 1000
-    Top = 296
+    Top = 328
     Width = 225
     Height = 137
     Color = clGradientActiveCaption
@@ -23652,6 +23653,7 @@ object FMenu: TFMenu
       Top = 68
       Width = 209
       Height = 43
+      Cursor = crHandPoint
       Alignment = taCenter
       AutoSize = False
       Caption = '0'
@@ -23661,11 +23663,12 @@ object FMenu: TFMenu
       Font.Name = 'Arial Narrow'
       Font.Style = [fsItalic]
       ParentFont = False
+      OnClick = lblTtlReturPenjualanClick
     end
   end
   object pnl11: TPanel
     Left = 440
-    Top = 488
+    Top = 520
     Width = 225
     Height = 137
     Color = clGradientActiveCaption
@@ -23705,7 +23708,7 @@ object FMenu: TFMenu
   end
   object pnl5: TPanel
     Left = 160
-    Top = 488
+    Top = 520
     Width = 233
     Height = 137
     Color = clGradientActiveCaption
@@ -23745,7 +23748,7 @@ object FMenu: TFMenu
   end
   object pnl17: TPanel
     Left = 728
-    Top = 496
+    Top = 528
     Width = 225
     Height = 137
     Color = clActiveCaption
@@ -23753,7 +23756,7 @@ object FMenu: TFMenu
   end
   object pnl18: TPanel
     Left = 720
-    Top = 488
+    Top = 520
     Width = 225
     Height = 137
     Color = clGradientActiveCaption
@@ -23788,11 +23791,12 @@ object FMenu: TFMenu
       Font.Name = 'Arial Narrow'
       Font.Style = [fsItalic]
       ParentFont = False
+      OnClick = lblTtlStokClick
     end
   end
   object pnl19: TPanel
     Left = 1000
-    Top = 488
+    Top = 520
     Width = 225
     Height = 137
     Color = clGradientActiveCaption
@@ -23827,6 +23831,7 @@ object FMenu: TFMenu
       Font.Name = 'Arial Narrow'
       Font.Style = [fsItalic]
       ParentFont = False
+      OnClick = lblTtlExpClick
     end
   end
   object mm1: TMainMenu
@@ -23956,16 +23961,5 @@ object FMenu: TFMenu
     OnTimer = tmr2Timer
     Left = 80
     Top = 8
-  end
-  object tmr3: TTimer
-    Interval = 500
-    OnTimer = tmr3Timer
-    Left = 128
-    Top = 16
-  end
-  object tmr4: TTimer
-    OnTimer = tmr4Timer
-    Left = 176
-    Top = 24
   end
 end

@@ -3,7 +3,7 @@ object fDashboardPenjualan: TfDashboardPenjualan
   Top = 146
   AutoScroll = False
   BorderIcons = []
-  Caption = 'fDashboardPenjualan'
+  Caption = '.:: List Penjualan ::.'
   ClientHeight = 708
   ClientWidth = 1187
   Color = clGradientInactiveCaption

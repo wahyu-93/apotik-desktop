@@ -1,9 +1,9 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 301
-  Top = 156
+  Left = 163
+  Top = 205
   Height = 456
-  Width = 1406
+  Width = 1702
   object XPManifest1: TXPManifest
     Left = 128
     Top = 32
@@ -540,6 +540,7 @@ object dm: Tdm
     end
     object qryRelasiSetHargatgl_exp: TDateField
       FieldName = 'tgl_exp'
+      DisplayFormat = 'dd/mm/yyyy'
     end
     object qryRelasiSetHargastatus: TStringField
       FieldName = 'status'
@@ -738,6 +739,7 @@ object dm: Tdm
     object qryLaporanPembeliantgl_pembelian: TDateField
       Alignment = taCenter
       FieldName = 'tgl_pembelian'
+      DisplayFormat = 'dd/mm/yyyy'
     end
     object qryLaporanPembeliansupplier_id: TIntegerField
       FieldName = 'supplier_id'
@@ -1497,5 +1499,46 @@ object dm: Tdm
     DataSet = qryDashListObat
     Left = 1280
     Top = 280
+  end
+  object qryDashListExp: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id' +
+        ' = b.id where (DATEDIFF(b.tgl_exp,now())) < 100')
+    Left = 1208
+    Top = 336
+  end
+  object dsDashListExp: TDataSource
+    DataSet = qryDashListExp
+    Left = 1280
+    Top = 344
+  end
+  object qryDashReturPenjualan: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 1408
+    Top = 280
+  end
+  object qryListDashReturPenjualan: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select *, count(b.obat_id) as jml_item from tbl_retur a LEFT JOI' +
+        'N tbl_stok b ON b.no_faktur = a.faktur_penjualan WHERE b.keteran' +
+        'gan='#39'retur-penjualan'#39' GROUP BY a.kode;')
+    Left = 1480
+    Top = 336
+  end
+  object dsListDashReturPenjulan: TDataSource
+    DataSet = qryListDashReturPenjualan
+    Left = 1528
+    Top = 312
   end
 end

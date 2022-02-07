@@ -315,6 +315,11 @@ type
     qryDashListObatharga_jual: TFloatField;
     qryDashListObatharga_jual_grosir: TFloatField;
     qryDashListObatqty_max_grosir: TIntegerField;
+    qryDashListExp: TADOQuery;
+    dsDashListExp: TDataSource;
+    qryDashReturPenjualan: TADOQuery;
+    qryListDashReturPenjualan: TADOQuery;
+    dsListDashReturPenjulan: TDataSource;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

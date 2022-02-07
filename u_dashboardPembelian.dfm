@@ -3,7 +3,7 @@ object fDashboardPembelian: TfDashboardPembelian
   Top = 213
   AutoScroll = False
   BorderIcons = []
-  Caption = 'fDashboardPembelian'
+  Caption = '.:: List Pembelian ::.'
   ClientHeight = 706
   ClientWidth = 1184
   Color = clGradientInactiveCaption
@@ -23426,7 +23426,7 @@ object fDashboardPembelian: TfDashboardPembelian
       Top = 8
       Width = 1153
       Height = 529
-      ActivePage = ts1
+      ActivePage = ts2
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -23471,6 +23471,7 @@ object fDashboardPembelian: TfDashboardPembelian
               Title.Font.Height = -15
               Title.Font.Name = 'Arial'
               Title.Font.Style = []
+              Width = -1
               Visible = False
             end
             item
@@ -23539,7 +23540,7 @@ object fDashboardPembelian: TfDashboardPembelian
               Title.Font.Height = -15
               Title.Font.Name = 'Arial'
               Title.Font.Style = []
-              Width = 64
+              Width = 124
               Visible = True
             end
             item
@@ -23558,7 +23559,7 @@ object fDashboardPembelian: TfDashboardPembelian
               Title.Font.Height = -15
               Title.Font.Name = 'Arial'
               Title.Font.Style = []
-              Width = 64
+              Width = 150
               Visible = True
             end
             item
@@ -23593,7 +23594,7 @@ object fDashboardPembelian: TfDashboardPembelian
               Title.Font.Height = -15
               Title.Font.Name = 'Arial'
               Title.Font.Style = []
-              Width = 64
+              Width = 309
               Visible = True
             end
             item
@@ -23611,7 +23612,7 @@ object fDashboardPembelian: TfDashboardPembelian
               Title.Font.Height = -15
               Title.Font.Name = 'Arial'
               Title.Font.Style = []
-              Width = 64
+              Width = 109
               Visible = True
             end
             item
@@ -23630,7 +23631,7 @@ object fDashboardPembelian: TfDashboardPembelian
               Title.Font.Height = -15
               Title.Font.Name = 'Arial'
               Title.Font.Style = []
-              Width = 64
+              Width = 87
               Visible = True
             end
             item
@@ -23648,7 +23649,7 @@ object fDashboardPembelian: TfDashboardPembelian
               Title.Font.Height = -15
               Title.Font.Name = 'Arial'
               Title.Font.Style = []
-              Width = 64
+              Width = 95
               Visible = True
             end
             item
@@ -23769,7 +23770,7 @@ object fDashboardPembelian: TfDashboardPembelian
               Title.Font.Height = -15
               Title.Font.Name = 'Arial'
               Title.Font.Style = []
-              Width = 64
+              Width = 110
               Visible = True
             end
             item
@@ -23787,7 +23788,7 @@ object fDashboardPembelian: TfDashboardPembelian
               Title.Font.Height = -15
               Title.Font.Name = 'Arial'
               Title.Font.Style = []
-              Width = 135
+              Width = 111
               Visible = True
             end>
         end
@@ -23962,7 +23963,7 @@ object fDashboardPembelian: TfDashboardPembelian
               Title.Font.Height = -13
               Title.Font.Name = 'Arial'
               Title.Font.Style = []
-              Width = 135
+              Width = 354
               Visible = True
             end
             item
@@ -23980,7 +23981,7 @@ object fDashboardPembelian: TfDashboardPembelian
               Title.Font.Height = -13
               Title.Font.Name = 'Arial'
               Title.Font.Style = []
-              Width = 135
+              Width = 115
               Visible = True
             end
             item
@@ -23999,7 +24000,7 @@ object fDashboardPembelian: TfDashboardPembelian
               Title.Font.Height = -13
               Title.Font.Name = 'Arial'
               Title.Font.Style = []
-              Width = 135
+              Width = 98
               Visible = True
             end
             item
@@ -24017,7 +24018,7 @@ object fDashboardPembelian: TfDashboardPembelian
               Title.Font.Height = -13
               Title.Font.Name = 'Arial'
               Title.Font.Style = []
-              Width = 135
+              Width = 70
               Visible = True
             end
             item
@@ -24127,7 +24128,7 @@ object fDashboardPembelian: TfDashboardPembelian
               Title.Font.Height = -13
               Title.Font.Name = 'Arial'
               Title.Font.Style = []
-              Width = 135
+              Width = 88
               Visible = True
             end
             item
@@ -24145,7 +24146,7 @@ object fDashboardPembelian: TfDashboardPembelian
               Title.Font.Height = -13
               Title.Font.Name = 'Arial'
               Title.Font.Style = []
-              Width = 135
+              Width = 75
               Visible = True
             end>
         end

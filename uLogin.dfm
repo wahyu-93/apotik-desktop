@@ -1,10 +1,10 @@
 object fLogin: TfLogin
-  Left = 678
-  Top = 443
+  Left = 365
+  Top = 284
   AutoScroll = False
   BorderIcons = []
-  Caption = '.:: Login Aplikasi Kasir ::.'
-  ClientHeight = 276
+  Caption = '.:: Login Aplikasi ::.'
+  ClientHeight = 286
   ClientWidth = 539
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
@@ -18,8 +18,8 @@ object fLogin: TfLogin
   PixelsPerInch = 96
   TextHeight = 13
   object img1: TImage
-    Left = -8
-    Top = -386
+    Left = 0
+    Top = -322
     Width = 1041
     Height = 1022
     Picture.Data = {
@@ -23400,7 +23400,7 @@ object fLogin: TfLogin
   end
   object grp2: TGroupBox
     Left = 8
-    Top = 72
+    Top = 80
     Width = 521
     Height = 193
     TabOrder = 1
@@ -23430,6 +23430,39 @@ object fLogin: TfLogin
       Font.Style = []
       ParentFont = False
     end
+    object edtPass: TEdit
+      Left = 8
+      Top = 104
+      Width = 505
+      Height = 25
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      MaxLength = 20
+      ParentFont = False
+      PasswordChar = '*'
+      TabOrder = 0
+      Text = 'edtNama'
+      OnKeyPress = edtPassKeyPress
+    end
+    object edtUsername: TEdit
+      Left = 8
+      Top = 40
+      Width = 505
+      Height = 25
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      MaxLength = 20
+      ParentFont = False
+      TabOrder = 1
+      Text = 'edtUsername'
+      OnKeyPress = edtUsernameKeyPress
+    end
     object btnLogin: TBitBtn
       Left = 8
       Top = 144
@@ -23442,7 +23475,7 @@ object fLogin: TfLogin
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      TabOrder = 0
+      TabOrder = 2
       OnClick = btnLoginClick
     end
     object btnKeluar: TBitBtn
@@ -23457,41 +23490,8 @@ object fLogin: TfLogin
       Font.Name = 'Arial'
       Font.Style = []
       ParentFont = False
-      TabOrder = 1
-      OnClick = btnKeluarClick
-    end
-    object edtUsername: TEdit
-      Left = 8
-      Top = 40
-      Width = 505
-      Height = 25
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = []
-      MaxLength = 20
-      ParentFont = False
-      TabOrder = 2
-      Text = 'edtUsername'
-      OnKeyPress = edtUsernameKeyPress
-    end
-    object edtPass: TEdit
-      Left = 8
-      Top = 104
-      Width = 505
-      Height = 25
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = []
-      MaxLength = 20
-      ParentFont = False
-      PasswordChar = '*'
       TabOrder = 3
-      Text = 'edtNama'
-      OnKeyPress = edtPassKeyPress
+      OnClick = btnKeluarClick
     end
   end
 end

@@ -14,10 +14,10 @@ type
     grp2: TGroupBox;
     lbl2: TLabel;
     lbl3: TLabel;
+    edtPass: TEdit;
+    edtUsername: TEdit;
     btnLogin: TBitBtn;
     btnKeluar: TBitBtn;
-    edtUsername: TEdit;
-    edtPass: TEdit;
     procedure FormShow(Sender: TObject);
     procedure btnKeluarClick(Sender: TObject);
     procedure btnLoginClick(Sender: TObject);

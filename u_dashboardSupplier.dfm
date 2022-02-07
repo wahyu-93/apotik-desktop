@@ -1,9 +1,9 @@
 object fDashboardSupplier: TfDashboardSupplier
-  Left = 775
-  Top = 265
+  Left = 607
+  Top = 271
   AutoScroll = False
   BorderIcons = []
-  Caption = 'fDashboardSupplier'
+  Caption = '.:: List Supplier ::.'
   ClientHeight = 675
   ClientWidth = 1184
   Color = clGradientInactiveCaption
@@ -23491,7 +23491,6 @@ object fDashboardSupplier: TfDashboardSupplier
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
