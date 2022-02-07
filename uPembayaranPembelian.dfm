@@ -1,11 +1,11 @@
 object fPembayaranPembelian: TfPembayaranPembelian
-  Left = 379
-  Top = 127
+  Left = 207
+  Top = 227
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form List Pembelian Obat ::.'
   ClientHeight = 626
-  ClientWidth = 1065
+  ClientWidth = 1228
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23381,14 +23381,16 @@ object fPembayaranPembelian: TfPembayaranPembelian
   object grp1: TGroupBox
     Left = 8
     Top = 8
-    Width = 1049
+    Width = 1209
     Height = 57
     TabOrder = 0
     object lbl1: TLabel
-      Left = 376
+      Left = 8
       Top = 16
-      Width = 281
+      Width = 1193
       Height = 27
+      Alignment = taCenter
+      AutoSize = False
       Caption = 'Form List Pembelian Obat'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23401,13 +23403,13 @@ object fPembayaranPembelian: TfPembayaranPembelian
   object grp2: TGroupBox
     Left = 8
     Top = 72
-    Width = 1049
+    Width = 1209
     Height = 545
     TabOrder = 1
     object dbgrd1: TDBGrid
       Left = 8
       Top = 16
-      Width = 1033
+      Width = 1185
       Height = 449
       DataSource = dm.dsListPembelian
       Font.Charset = ANSI_CHARSET
@@ -23439,7 +23441,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23456,7 +23457,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23473,7 +23473,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23490,7 +23489,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23512,6 +23510,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Visible = True
         end
         item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'tgl_pembelian'
           Font.Charset = ANSI_CHARSET
@@ -23543,7 +23542,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23561,7 +23559,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 287
           Visible = True
         end
         item
@@ -23579,10 +23577,11 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 106
           Visible = True
         end
         item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'jumlah_item'
           Font.Charset = ANSI_CHARSET
@@ -23597,7 +23596,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 82
           Visible = True
         end
         item
@@ -23615,7 +23614,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 111
           Visible = True
         end
         item
@@ -23632,7 +23631,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23650,7 +23648,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 89
           Visible = True
         end
         item
@@ -23667,7 +23665,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23684,7 +23681,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23701,7 +23697,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23718,7 +23713,6 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23735,27 +23729,51 @@ object fPembayaranPembelian: TfPembayaranPembelian
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'tgl_pembayaran'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
           Title.Alignment = taCenter
-          Title.Caption = 'Tanggal Pembayaran'
+          Title.Caption = 'Tgl Pembayaran'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 120
+          Width = 110
+          Visible = True
+        end
+        item
+          Alignment = taCenter
+          Expanded = False
+          FieldName = 'tgl_jatuh_tempo'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Caption = 'Tgl Jatuh Tempo'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -13
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = 110
           Visible = True
         end>
     end
     object edtpencarian: TEdit
       Left = 8
       Top = 472
-      Width = 1033
+      Width = 1185
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23768,7 +23786,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
       OnKeyUp = edtpencarianKeyUp
     end
     object btnPilih: TBitBtn
-      Left = 856
+      Left = 1008
       Top = 504
       Width = 89
       Height = 33
@@ -23783,7 +23801,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
       OnClick = btnPilihClick
     end
     object btnKeluar: TBitBtn
-      Left = 952
+      Left = 1104
       Top = 504
       Width = 89
       Height = 33
@@ -23798,7 +23816,7 @@ object fPembayaranPembelian: TfPembayaranPembelian
       OnClick = btnKeluarClick
     end
     object btnDetail: TBitBtn
-      Left = 760
+      Left = 912
       Top = 504
       Width = 89
       Height = 33

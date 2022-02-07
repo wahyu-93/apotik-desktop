@@ -320,6 +320,10 @@ type
     qryDashReturPenjualan: TADOQuery;
     qryListDashReturPenjualan: TADOQuery;
     dsListDashReturPenjulan: TDataSource;
+    qryListPembelianno_faktur_supplier: TStringField;
+    qryListPembeliantgl_jatuh_tempo: TDateField;
+    qryLaporanPembelianno_faktur_supplier: TStringField;
+    qryLaporanPembeliantgl_jatuh_tempo: TDateField;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

@@ -23609,7 +23609,7 @@ object fLaporanPembelian: TfLaporanPembelian
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 160
+          Width = 90
           Visible = True
         end
         item
@@ -23645,6 +23645,25 @@ object fLaporanPembelian: TfLaporanPembelian
           Visible = False
         end
         item
+          Alignment = taCenter
+          Expanded = False
+          FieldName = 'tgl_jatuh_tempo'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Caption = 'Tgl Jatuh Tempo'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -15
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = 131
+          Visible = True
+        end
+        item
           Expanded = False
           FieldName = 'user_id'
           Font.Charset = ANSI_CHARSET
@@ -23675,7 +23694,7 @@ object fLaporanPembelian: TfLaporanPembelian
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 160
+          Width = 107
           Visible = True
         end
         item
@@ -23725,7 +23744,7 @@ object fLaporanPembelian: TfLaporanPembelian
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 240
+          Width = 328
           Visible = True
         end
         item
@@ -23775,7 +23794,7 @@ object fLaporanPembelian: TfLaporanPembelian
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 160
+          Width = 72
           Visible = True
         end
         item

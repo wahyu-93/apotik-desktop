@@ -367,6 +367,7 @@ object dm: Tdm
     end
     object qryListPembeliantgl_pembelian: TDateField
       FieldName = 'tgl_pembelian'
+      DisplayFormat = 'dd/mm/yyyy'
     end
     object qryListPembeliansupplier_id: TIntegerField
       FieldName = 'supplier_id'
@@ -388,6 +389,7 @@ object dm: Tdm
     end
     object qryListPembeliantgl_pembayaran: TDateField
       FieldName = 'tgl_pembayaran'
+      DisplayFormat = 'dd/mm/yyyy'
     end
     object qryListPembelianid_2: TIntegerField
       FieldName = 'id_2'
@@ -407,6 +409,14 @@ object dm: Tdm
     object qryListPembelianrole: TStringField
       FieldName = 'role'
       Size = 50
+    end
+    object qryListPembelianno_faktur_supplier: TStringField
+      FieldName = 'no_faktur_supplier'
+      Size = 50
+    end
+    object qryListPembeliantgl_jatuh_tempo: TDateField
+      FieldName = 'tgl_jatuh_tempo'
+      DisplayFormat = 'dd/mm/yyyy'
     end
   end
   object dsListPembelian: TDataSource
@@ -781,6 +791,14 @@ object dm: Tdm
     object qryLaporanPembeliantelp_suplier: TStringField
       FieldName = 'telp_suplier'
       Size = 15
+    end
+    object qryLaporanPembelianno_faktur_supplier: TStringField
+      FieldName = 'no_faktur_supplier'
+      Size = 50
+    end
+    object qryLaporanPembeliantgl_jatuh_tempo: TDateField
+      FieldName = 'tgl_jatuh_tempo'
+      DisplayFormat = 'dd/mm/yyyy'
     end
   end
   object qryLaporanPenjualan: TADOQuery
