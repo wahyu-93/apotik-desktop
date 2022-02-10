@@ -324,6 +324,10 @@ type
     qryListPembeliantgl_jatuh_tempo: TDateField;
     qryLaporanPembelianno_faktur_supplier: TStringField;
     qryLaporanPembeliantgl_jatuh_tempo: TDateField;
+    qryDtlRetur: TADOQuery;
+    dsDtlRetur: TDataSource;
+    qryPembelianSupplier: TADOQuery;
+    qryDetailReturTable: TADOQuery;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

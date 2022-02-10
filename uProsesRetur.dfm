@@ -23385,10 +23385,12 @@ object fProsesRetur: TfProsesRetur
     Height = 57
     TabOrder = 0
     object lbl1: TLabel
-      Left = 240
+      Left = 8
       Top = 16
-      Width = 200
+      Width = 697
       Height = 27
+      Alignment = taCenter
+      AutoSize = False
       Caption = 'Proses Retur Obat'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText

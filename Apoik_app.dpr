@@ -40,7 +40,9 @@ uses
   u_dashboardObat in 'u_dashboardObat.pas' {fDashboardObat},
   u_dashboardObatStok in 'u_dashboardObatStok.pas' {fDashboardObatStok},
   u_dashboardExp in 'u_dashboardExp.pas' {fDashboardExp},
-  u_dashboardReturPenjualan in 'u_dashboardReturPenjualan.pas' {fDashboardReturPenjualan};
+  u_dashboardReturPenjualan in 'u_dashboardReturPenjualan.pas' {fDashboardReturPenjualan},
+  u_returPembelian in 'u_returPembelian.pas' {fReturPembelian},
+  u_returAllPembelian in 'u_returAllPembelian.pas' {fReturAllPembelian};
 
 {$R *.res}
 
@@ -48,9 +50,11 @@ begin
   Application.Initialize;
   Application.CreateForm(Tdm, dm);
   Application.CreateForm(TfLogin, fLogin);
-  Application.CreateForm(TfDashboardPembelian, fDashboardPembelian);
-  Application.CreateForm(TfReturn, fReturn);
+  Application.CreateForm(TfListPenjualan, fListPenjualan);
   Application.CreateForm(TFMenu, FMenu);
+  Application.CreateForm(TfReturPembelian, fReturPembelian);
+  Application.CreateForm(TfReturn, fReturn);
+  Application.CreateForm(TfDashboardPembelian, fDashboardPembelian);
   Application.CreateForm(TfJenisObat, fJenisObat);
   Application.CreateForm(TFSatuan, FSatuan);
   Application.CreateForm(TFsupplier, Fsupplier);
@@ -63,7 +67,6 @@ begin
   Application.CreateForm(TfBantuObatPenjualan, fBantuObatPenjualan);
   Application.CreateForm(TfBayar, fBayar);
   Application.CreateForm(TfBayarPembelian, fBayarPembelian);
-  Application.CreateForm(TfListPenjualan, fListPenjualan);
   Application.CreateForm(TfPengguna, fPengguna);
   Application.CreateForm(TfSetting, fSetting);
   Application.CreateForm(TfMenuKasir, fMenuKasir);
@@ -85,5 +88,6 @@ begin
   Application.CreateForm(TfDashboardObatStok, fDashboardObatStok);
   Application.CreateForm(TfDashboardExp, fDashboardExp);
   Application.CreateForm(TfDashboardReturPenjualan, fDashboardReturPenjualan);
+  Application.CreateForm(TfReturAllPembelian, fReturAllPembelian);
   Application.Run;
 end.

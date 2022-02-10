@@ -23902,6 +23902,7 @@ object FMenu: TFMenu
         end
         object ReturPembelian2: TMenuItem
           Caption = 'Retur Pembelian'
+          OnClick = ReturPembelian2Click
         end
       end
     end

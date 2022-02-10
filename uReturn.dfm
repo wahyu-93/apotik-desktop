@@ -1,10 +1,10 @@
 object fReturn: TfReturn
-  Left = 343
-  Top = 234
+  Left = 404
+  Top = 148
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form Retur Penjualan Obat'
-  ClientHeight = 592
+  ClientHeight = 731
   ClientWidth = 1098
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
@@ -23420,7 +23420,7 @@ object fReturn: TfReturn
     Left = 8
     Top = 72
     Width = 1081
-    Height = 513
+    Height = 649
     TabOrder = 1
     object lbl3: TLabel
       Left = 8
@@ -23527,7 +23527,7 @@ object fReturn: TfReturn
       Left = 8
       Top = 144
       Width = 529
-      Height = 321
+      Height = 457
       DataSource = dm.dsRelasiPenjualan
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23558,7 +23558,6 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23678,7 +23677,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 100
+          Width = 74
           Visible = True
         end
         item
@@ -23748,7 +23747,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 178
+          Width = 273
           Visible = True
         end
         item
@@ -23805,7 +23804,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 100
+          Width = 64
           Visible = True
         end
         item
@@ -23824,7 +23823,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 100
+          Width = 68
           Visible = True
         end>
     end
@@ -23844,7 +23843,7 @@ object fReturn: TfReturn
     end
     object btnRetualAll: TBitBtn
       Left = 296
-      Top = 472
+      Top = 608
       Width = 89
       Height = 33
       Caption = 'Retur All'
@@ -23859,7 +23858,7 @@ object fReturn: TfReturn
     end
     object btnRetur: TBitBtn
       Left = 200
-      Top = 472
+      Top = 608
       Width = 89
       Height = 33
       Caption = 'Retur'
@@ -23874,7 +23873,7 @@ object fReturn: TfReturn
     end
     object btnKeluar: TBitBtn
       Left = 984
-      Top = 472
+      Top = 608
       Width = 89
       Height = 33
       Caption = 'Keluar'
@@ -23905,7 +23904,7 @@ object fReturn: TfReturn
     end
     object btnTambah: TBitBtn
       Left = 8
-      Top = 472
+      Top = 608
       Width = 89
       Height = 33
       Caption = 'Tambah'
@@ -23922,7 +23921,7 @@ object fReturn: TfReturn
       Left = 544
       Top = 144
       Width = 529
-      Height = 321
+      Height = 457
       DataSource = dm.dsRelasiReturObat
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23952,7 +23951,6 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -24055,7 +24053,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 100
+          Width = 91
           Visible = True
         end
         item
@@ -24090,7 +24088,7 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 176
+          Width = 263
           Visible = True
         end
         item
@@ -24125,7 +24123,6 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 100
           Visible = True
         end
         item
@@ -24137,12 +24134,13 @@ object fReturn: TfReturn
           Font.Name = 'Arial Narrow'
           Font.Style = []
           Title.Alignment = taCenter
+          Title.Caption = 'Harga'
           Title.Font.Charset = ANSI_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 100
+          Width = 64
           Visible = True
         end
         item
@@ -24227,13 +24225,12 @@ object fReturn: TfReturn
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end>
     end
     object btnSelesai: TBitBtn
       Left = 104
-      Top = 472
+      Top = 608
       Width = 89
       Height = 33
       Caption = 'Selesai'

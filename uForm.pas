@@ -111,6 +111,7 @@ type
     procedure lblTtlStokClick(Sender: TObject);
     procedure lblTtlExpClick(Sender: TObject);
     procedure lblTtlReturPenjualanClick(Sender: TObject);
+    procedure ReturPembelian2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -128,7 +129,8 @@ uses
   uLaporanPembelian, uListJualObat, uLaporanStok, uLaporanItemTerjual, uReturn, 
   uListReturPenjualan, u_labaPenjualan, DB, u_dashboardPembelian, 
   u_dashboardPenjualan, u_dashboardSupplier, u_dashboardObat, 
-  u_dashboardObatStok, u_dashboardExp, u_dashboardReturPenjualan;
+  u_dashboardObatStok, u_dashboardExp, u_dashboardReturPenjualan, 
+  u_returPembelian;
 
 {$R *.dfm}
 
@@ -426,6 +428,11 @@ end;
 procedure TFMenu.lblTtlReturPenjualanClick(Sender: TObject);
 begin
   fDashboardReturPenjualan.ShowModal;
+end;
+
+procedure TFMenu.ReturPembelian2Click(Sender: TObject);
+begin
+  fReturPembelian.ShowModal;
 end;
 
 end.

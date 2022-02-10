@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 163
-  Top = 205
+  Left = 131
+  Top = 388
   Height = 456
   Width = 1702
   object XPManifest1: TXPManifest
@@ -1558,5 +1558,38 @@ object dm: Tdm
     DataSet = qryListDashReturPenjualan
     Left = 1528
     Top = 312
+  end
+  object qryDtlRetur: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select * from tbl_retur a left join tbl_detail_retur b on b.retu' +
+        'r_id = a.id inner join tbl_obat c on c.id = b.obat_id')
+    Left = 1464
+    Top = 40
+  end
+  object dsDtlRetur: TDataSource
+    DataSet = qryDtlRetur
+    Left = 1504
+    Top = 56
+  end
+  object qryPembelianSupplier: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 1472
+    Top = 128
+  end
+  object qryDetailReturTable: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from tbl_detail_retur')
+    Left = 1416
+    Top = 56
   end
 end

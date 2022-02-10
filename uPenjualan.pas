@@ -255,7 +255,7 @@ begin
           begin
             close;
             SQL.Clear;
-            SQL.Text := 'select * from tbl_penjualan where no_faktur like ''%'+FormatDateTime('yyyy',Now)+'%''';
+            SQL.Text := 'select * from tbl_penjualan where no_faktur like ''%'+FormatDateTime('mmyyyy',Now)+'%''';
             Open;
 
             if IsEmpty then
