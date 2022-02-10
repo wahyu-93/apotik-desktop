@@ -42,7 +42,11 @@ uses
   u_dashboardExp in 'u_dashboardExp.pas' {fDashboardExp},
   u_dashboardReturPenjualan in 'u_dashboardReturPenjualan.pas' {fDashboardReturPenjualan},
   u_returPembelian in 'u_returPembelian.pas' {fReturPembelian},
-  u_returAllPembelian in 'u_returAllPembelian.pas' {fReturAllPembelian};
+  u_returAllPembelian in 'u_returAllPembelian.pas' {fReturAllPembelian},
+  u_listReturPembelian in 'u_listReturPembelian.pas' {fListReturPembelian},
+  u_detailReturPembelian in 'u_detailReturPembelian.pas' {fDetailReturPembelian},
+  u_dashboardReturPembelian in 'u_dashboardReturPembelian.pas' {fDashboardListPembelian},
+  u_laporanRetur in 'u_laporanRetur.pas' {fLaporanRetur};
 
 {$R *.res}
 
@@ -89,5 +93,9 @@ begin
   Application.CreateForm(TfDashboardExp, fDashboardExp);
   Application.CreateForm(TfDashboardReturPenjualan, fDashboardReturPenjualan);
   Application.CreateForm(TfReturAllPembelian, fReturAllPembelian);
+  Application.CreateForm(TfListReturPembelian, fListReturPembelian);
+  Application.CreateForm(TfDetailReturPembelian, fDetailReturPembelian);
+  Application.CreateForm(TfDashboardListPembelian, fDashboardListPembelian);
+  Application.CreateForm(TfLaporanRetur, fLaporanRetur);
   Application.Run;
 end.

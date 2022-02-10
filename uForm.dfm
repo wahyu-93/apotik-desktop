@@ -23618,6 +23618,7 @@ object FMenu: TFMenu
       Font.Name = 'Arial Narrow'
       Font.Style = [fsItalic]
       ParentFont = False
+      OnClick = lblTotalReturPembelianClick
     end
   end
   object pnl9: TPanel
@@ -23899,6 +23900,7 @@ object FMenu: TFMenu
         Caption = 'Retur Pembelian'
         object ListReturPembelian1: TMenuItem
           Caption = 'List Retur Pembelian'
+          OnClick = ListReturPembelian1Click
         end
         object ReturPembelian2: TMenuItem
           Caption = 'Retur Pembelian'
@@ -23923,6 +23925,10 @@ object FMenu: TFMenu
       object LaporanItemLaris1: TMenuItem
         Caption = 'Laporan Jumlah Item Terjual'
         OnClick = LaporanItemLaris1Click
+      end
+      object LaporanRetur1: TMenuItem
+        Caption = 'Laporan Retur'
+        OnClick = LaporanRetur1Click
       end
       object N1: TMenuItem
         Caption = '-'

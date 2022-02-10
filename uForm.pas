@@ -81,6 +81,7 @@ type
     ReturPembelian1: TMenuItem;
     ListReturPembelian1: TMenuItem;
     ReturPembelian2: TMenuItem;
+    LaporanRetur1: TMenuItem;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
@@ -112,6 +113,9 @@ type
     procedure lblTtlExpClick(Sender: TObject);
     procedure lblTtlReturPenjualanClick(Sender: TObject);
     procedure ReturPembelian2Click(Sender: TObject);
+    procedure ListReturPembelian1Click(Sender: TObject);
+    procedure lblTotalReturPembelianClick(Sender: TObject);
+    procedure LaporanRetur1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -130,7 +134,8 @@ uses
   uListReturPenjualan, u_labaPenjualan, DB, u_dashboardPembelian, 
   u_dashboardPenjualan, u_dashboardSupplier, u_dashboardObat, 
   u_dashboardObatStok, u_dashboardExp, u_dashboardReturPenjualan, 
-  u_returPembelian;
+  u_returPembelian, u_listReturPembelian, u_dashboardReturPembelian, 
+  u_laporanRetur;
 
 {$R *.dfm}
 
@@ -317,6 +322,24 @@ begin
             lblTtlReturPenjualan.Caption := '0';
           end;
       end;
+
+    // dashboard retur pembelian
+    with dm.qryDashReturPembelian do
+      begin
+        close;
+        sql.Clear;
+        SQL.Text := 'select count(id) as jumlah from tbl_retur where tgl_retur like ''%'+FormatDateTime('yyyy-mm-dd',Now)+'%'' and jenis_retur = '+QuotedStr('pembelian')+'';
+        Open;
+
+        if FieldByName('jumlah').AsInteger > 0then
+          begin
+             lblTotalReturPembelian.Caption :=  fieldbyname('jumlah').AsString;
+          end
+        else
+          begin
+            lblTotalReturPembelian.Caption := '0';
+          end;
+      end;
 end;
 
 procedure TFMenu.Pengguna1Click(Sender: TObject);
@@ -433,6 +456,21 @@ end;
 procedure TFMenu.ReturPembelian2Click(Sender: TObject);
 begin
   fReturPembelian.ShowModal;
+end;
+
+procedure TFMenu.ListReturPembelian1Click(Sender: TObject);
+begin
+  fListReturPembelian.ShowModal;
+end;
+
+procedure TFMenu.lblTotalReturPembelianClick(Sender: TObject);
+begin
+   fDashboardListPembelian.ShowModal;
+end;
+
+procedure TFMenu.LaporanRetur1Click(Sender: TObject);
+begin
+  fLaporanRetur.ShowModal;
 end;
 
 end.

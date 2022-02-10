@@ -23385,10 +23385,12 @@ object fLaporanPenjualan: TfLaporanPenjualan
     Height = 57
     TabOrder = 0
     object lbl1: TLabel
-      Left = 400
+      Left = 8
       Top = 16
-      Width = 257
+      Width = 1033
       Height = 27
+      Alignment = taCenter
+      AutoSize = False
       Caption = 'Laporan Penjualan Item'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText

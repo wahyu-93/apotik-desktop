@@ -1,6 +1,6 @@
 object fDashboardReturPenjualan: TfDashboardReturPenjualan
-  Left = 254
-  Top = 194
+  Left = 62
+  Top = 79
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: List Retur Penjualan ::.'
@@ -23481,67 +23481,56 @@ object fDashboardReturPenjualan: TfDashboardReturPenjualan
         item
           Expanded = False
           FieldName = 'id'
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'jenis_retur'
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'status'
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'id_1'
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'no_faktur'
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'obat_id'
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'jumlah'
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'harga'
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'keterangan'
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'alasan'
-          Width = -1
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'created_at'
-          Width = -1
           Visible = False
         end
         item

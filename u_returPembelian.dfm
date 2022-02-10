@@ -1,11 +1,11 @@
 object fReturPembelian: TfReturPembelian
-  Left = 121
-  Top = 90
+  Left = 299
+  Top = 132
   AutoScroll = False
   BorderIcons = []
-  Caption = 'fReturPembelian'
+  Caption = '.:: Form Retur Pembelian Obat ::.'
   ClientHeight = 731
-  ClientWidth = 1098
+  ClientWidth = 1219
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23381,14 +23381,16 @@ object fReturPembelian: TfReturPembelian
   object grp1: TGroupBox
     Left = 8
     Top = 8
-    Width = 1081
+    Width = 1201
     Height = 57
     TabOrder = 0
     object lbl1: TLabel
-      Left = 384
+      Left = 8
       Top = 16
-      Width = 303
+      Width = 1185
       Height = 27
+      Alignment = taCenter
+      AutoSize = False
       Caption = 'Form Retur Pembelian Obat'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23419,7 +23421,7 @@ object fReturPembelian: TfReturPembelian
   object grp2: TGroupBox
     Left = 8
     Top = 72
-    Width = 1081
+    Width = 1201
     Height = 649
     TabOrder = 1
     object lbl3: TLabel
@@ -23436,7 +23438,7 @@ object fReturPembelian: TfReturPembelian
       ParentFont = False
     end
     object lbl2: TLabel
-      Left = 648
+      Left = 768
       Top = 15
       Width = 93
       Height = 17
@@ -23449,7 +23451,7 @@ object fReturPembelian: TfReturPembelian
       ParentFont = False
     end
     object lbl4: TLabel
-      Left = 880
+      Left = 1000
       Top = 15
       Width = 60
       Height = 17
@@ -23494,7 +23496,7 @@ object fReturPembelian: TfReturPembelian
       Height = 1
     end
     object lbl7: TLabel
-      Left = 240
+      Left = 320
       Top = 15
       Width = 53
       Height = 17
@@ -23509,7 +23511,7 @@ object fReturPembelian: TfReturPembelian
     object edtFaktur: TEdit
       Left = 8
       Top = 40
-      Width = 225
+      Width = 305
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23524,7 +23526,7 @@ object fReturPembelian: TfReturPembelian
     object btnCari: TBitBtn
       Left = 8
       Top = 72
-      Width = 1065
+      Width = 1185
       Height = 33
       Caption = 'Cari'
       Font.Charset = ANSI_CHARSET
@@ -23837,7 +23839,7 @@ object fReturPembelian: TfReturPembelian
         end>
     end
     object edtTanggalJual: TEdit
-      Left = 648
+      Left = 768
       Top = 40
       Width = 225
       Height = 25
@@ -23882,7 +23884,7 @@ object fReturPembelian: TfReturPembelian
       OnClick = btnReturClick
     end
     object btnKeluar: TBitBtn
-      Left = 984
+      Left = 1104
       Top = 608
       Width = 89
       Height = 33
@@ -23897,7 +23899,7 @@ object fReturPembelian: TfReturPembelian
       OnClick = btnKeluarClick
     end
     object dtpTanggalRetur: TDateTimePicker
-      Left = 880
+      Left = 1000
       Top = 40
       Width = 193
       Height = 25
@@ -23930,7 +23932,7 @@ object fReturPembelian: TfReturPembelian
     object dbgrd2: TDBGrid
       Left = 544
       Top = 144
-      Width = 529
+      Width = 649
       Height = 457
       DataSource = dm.dsDtlRetur
       Font.Charset = ANSI_CHARSET
@@ -24094,22 +24096,6 @@ object fReturPembelian: TfReturPembelian
         item
           Expanded = False
           FieldName = 'status_1'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Arial Narrow'
-          Font.Style = []
-          Title.Alignment = taCenter
-          Title.Font.Charset = ANSI_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -15
-          Title.Font.Name = 'Arial'
-          Title.Font.Style = []
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'catatan'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -15
@@ -24326,6 +24312,24 @@ object fReturPembelian: TfReturPembelian
           Expanded = False
           FieldName = 'jumlah_item'
           Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'catatan'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = 'Arial Narrow'
+          Font.Style = []
+          Title.Alignment = taCenter
+          Title.Caption = 'Catatan'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -15
+          Title.Font.Name = 'Arial'
+          Title.Font.Style = []
+          Width = 138
+          Visible = True
         end>
     end
     object btnSelesai: TBitBtn
@@ -24344,9 +24348,9 @@ object fReturPembelian: TfReturPembelian
       OnClick = btnSelesaiClick
     end
     object edtSupplier: TEdit
-      Left = 240
+      Left = 320
       Top = 40
-      Width = 401
+      Width = 441
       Height = 25
       Enabled = False
       Font.Charset = ANSI_CHARSET
@@ -24358,15 +24362,6 @@ object fReturPembelian: TfReturPembelian
       TabOrder = 11
       Text = 'edtKode'
       OnKeyPress = edtFakturKeyPress
-    end
-    object mmo1: TMemo
-      Left = 648
-      Top = 336
-      Width = 185
-      Height = 89
-      Lines.Strings = (
-        'mmo1')
-      TabOrder = 12
     end
   end
 end

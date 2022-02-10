@@ -23443,7 +23443,7 @@ object fLogin: TfLogin
       MaxLength = 20
       ParentFont = False
       PasswordChar = '*'
-      TabOrder = 0
+      TabOrder = 1
       Text = 'edtNama'
       OnKeyPress = edtPassKeyPress
     end
@@ -23459,7 +23459,7 @@ object fLogin: TfLogin
       Font.Style = []
       MaxLength = 20
       ParentFont = False
-      TabOrder = 1
+      TabOrder = 0
       Text = 'edtUsername'
       OnKeyPress = edtUsernameKeyPress
     end

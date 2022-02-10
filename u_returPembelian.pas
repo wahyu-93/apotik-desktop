@@ -33,7 +33,6 @@ type
     btnSelesai: TBitBtn;
     edtSupplier: TEdit;
     lbl7: TLabel;
-    mmo1: TMemo;
     procedure btnKeluarClick(Sender: TObject);
     procedure edtFakturKeyPress(Sender: TObject; var Key: Char);
     procedure btnCariClick(Sender: TObject);
@@ -336,20 +335,21 @@ begin
 end;
 
 procedure TfReturPembelian.dbgrd2KeyPress(Sender: TObject; var Key: Char);
-var idObat, idRetur : string;
+var idObat, idRetur, catatan : string;
     jmlItem, jmlRetur : Integer;
 begin
   if Key=#13 then
     begin
       idRetur := dbgrd2.Fields[7].AsString;
       idObat := dbgrd2.Fields[8].AsString;
-      jmlItem := dbgrd2.Fields[23].AsInteger;
-      jmlRetur := dbgrd2.Fields[21].AsInteger;
+      jmlItem := dbgrd2.Fields[22].AsInteger;
+      jmlRetur := dbgrd2.Fields[20].AsInteger;
+      catatan := dbgrd2.Fields[23].AsString;
 
       if jmlRetur > jmlItem then
         begin
           MessageDlg('Cek Kembali Jumlah Barang Di Retur',mtInformation,[mbOK],0);
-          dbgrd2.Fields[21].AsInteger := jmlItem;
+          dbgrd2.Fields[20].AsInteger := jmlItem;
           Exit;
         end
       else
@@ -359,7 +359,17 @@ begin
             begin
               close;
               SQL.Clear;
-              SQL.Text := 'update tbl_detail_retur set jumlah_retur = '+QuotedStr(IntToStr(jmlRetur))+' where retur_id = '+QuotedStr(idRetur)+'';
+              SQL.Text := 'update tbl_detail_retur set jumlah_retur = '+QuotedStr(IntToStr(jmlRetur))+', catatan = '+QuotedStr(catatan)+' where retur_id = '+QuotedStr(idRetur)+'';
+              ExecSQL;
+            end;
+
+          //update tbl_stok
+          with dm.qryStok do
+            begin
+              close;
+              sql.Clear;
+              SQL.Text := 'update tbl_stok set jumlah = '+QuotedStr(IntToStr(jmlRetur))+', alasan = '+QuotedStr(catatan)+' where no_faktur = '+QuotedStr(edtFaktur.Text)+' and '+
+                          'obat_id = '+QuotedStr(idObat)+' and keterangan = '+QuotedStr('retur-pembelian')+'';
               ExecSQL;
             end;
         end;
@@ -407,9 +417,20 @@ begin
                       '( '+QuotedStr(idRetur)+', '+QuotedStr(idObat)+', '+QuotedStr(hargaRetur)+', '+QuotedStr(jmlRetur)+', '+QuotedStr(jmlItem)+', '+QuotedStr(status)+')';
           ExecSQL;
 
+          // simpan tbl_stok
+          with dm.qryStok do
+            begin
+              Close;
+              sql.Clear;
+              SQL.Text := 'insert into tbl_stok (no_faktur, obat_id, jumlah, harga, keterangan) values ('+QuotedStr(edtFaktur.Text)+', '+QuotedStr(idObat)+
+                          ','+QuotedStr(jmlRetur)+','+QuotedStr(hargaRetur)+','+QuotedStr('retur-pembelian')+')';
+              ExecSQL;
+            end;
+
           konekRelasiReturObat(edtFaktur.Text);
           btnRetualAll.Enabled := false;
           btnSelesai.Enabled := True;
+          edtfaktur.enabled := false;
         end;
     end;
 end;

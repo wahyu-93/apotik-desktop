@@ -1,6 +1,6 @@
 object fListReturPenjualan: TfListReturPenjualan
-  Left = 464
-  Top = 199
+  Left = 238
+  Top = 118
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form List Retur Penjualan ::.'
@@ -23385,10 +23385,12 @@ object fListReturPenjualan: TfListReturPenjualan
     Height = 57
     TabOrder = 0
     object lbl1: TLabel
-      Left = 376
+      Left = 8
       Top = 16
-      Width = 282
+      Width = 1033
       Height = 27
+      Alignment = taCenter
+      AutoSize = False
       Caption = 'Form List Retur Penjualan'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText

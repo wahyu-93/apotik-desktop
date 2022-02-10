@@ -3,7 +3,7 @@ object fReturAllPembelian: TfReturAllPembelian
   Top = 327
   AutoScroll = False
   BorderIcons = []
-  Caption = 'fReturAllPembelian'
+  Caption = '.:: Form Konfirmasi Retur Pembelian ::.'
   ClientHeight = 266
   ClientWidth = 571
   Color = clGradientInactiveCaption

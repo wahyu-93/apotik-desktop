@@ -1592,4 +1592,20 @@ object dm: Tdm
     Left = 1416
     Top = 56
   end
+  object qryDashReturPembelian: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 1496
+    Top = 256
+  end
+  object dsDashReturPenjualan: TDataSource
+    DataSet = qryDashReturPenjualan
+    Left = 1416
+    Top = 232
+  end
+  object dsDashReturPembelian: TDataSource
+    DataSet = qryDashReturPembelian
+    Left = 1520
+    Top = 216
+  end
 end
