@@ -53,7 +53,7 @@ begin
       sql.Text := 'select a.id as id_pelanggan, a.jenis_pelanggan, b.id as id_penjualan, b.no_faktur, b.tgl_penjualan, '+
                   'b.jumlah_item, b.total, b.status, b.tgl_bayar, c.id as id_user, c.nama, c.role from tbl_pelanggan a left join tbl_penjualan b '+
                   'on b.id_pelanggan = a.id inner JOIN tbl_user c on c.id = b.user_id where date(tgl_penjualan) = '+QuotedStr(FormatDateTime('yyyy-mm-dd',Now))+
-                  ' and b.status = '+QuotedStr(status)+' order by b.id desc, b.status desc';
+                  ' and b.status like ''%'+status+'%'' order by b.id desc, b.status desc';
       Open;
     end;
 end;
@@ -89,7 +89,7 @@ begin
       sql.Text := 'select a.id as id_pelanggan, a.jenis_pelanggan, b.id as id_penjualan, b.no_faktur, b.tgl_penjualan, '+
                   'b.jumlah_item, b.total, b.status, b.tgl_bayar, c.id as id_user, c.nama, c.role from tbl_pelanggan a left join tbl_penjualan b '+
                   'on b.id_pelanggan = a.id inner JOIN tbl_user c on c.id = b.user_id where date(tgl_penjualan) = '+QuotedStr(FormatDateTime('yyyy-mm-dd',Now))+
-                  ' and b.status = '+QuotedStr('selesai')+' and b.no_faktur like ''%'+edtpencarian.Text+'%'' order by b.id desc, b.status desc';
+                  ' and b.status like ''%'+'selesai'+'%'' and b.no_faktur like ''%'+edtpencarian.Text+'%'' order by b.id desc, b.status desc';
       Open;
     end;
 end;
