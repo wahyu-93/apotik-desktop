@@ -303,6 +303,24 @@ begin
                     end;
                 end;
 
+              // update tbl_penjualan
+              with dm.qryBantu do
+                begin
+                  close;
+                  sql.Clear;
+                  SQL.Text := 'select count(penjualan_id) as jmlItem, sum(harga_jual*jumlah_jual) as total from tbl_detail_penjualan where penjualan_id = '+QuotedStr(edtIdPenjualan.Text)+'';
+                  Open;
+
+                  with dm.qryPenjualan do
+                    begin
+                      close;
+                      sql.Clear;
+                      SQL.Text := 'update tbl_penjualan set jumlah_item = '+QuotedStr(dm.qryBantu.fieldbyname('jmlItem').AsString)+', '+
+                                  'total = '+QuotedStr(dm.qryBantu.fieldbyname('total').AsString)+', status = '+QuotedStr('selesai-retur')+' where id = '+QuotedStr(edtIdPenjualan.Text)+'';
+                      ExecSQL;
+                    end;
+                end;
+
                 MessageDlg('Transaksi Berhasil Disimpan', mtInformation,[mbOK],0);
                 FormShow(Sender);
             end;

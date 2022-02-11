@@ -1,10 +1,10 @@
 object Fsupplier: TFsupplier
-  Left = 718
-  Top = 456
+  Left = 389
+  Top = 5
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form Supplier ::.'
-  ClientHeight = 624
+  ClientHeight = 630
   ClientWidth = 727
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
@@ -23402,7 +23402,7 @@ object Fsupplier: TFsupplier
     Left = 8
     Top = 72
     Width = 713
-    Height = 545
+    Height = 553
     TabOrder = 1
     object lbl2: TLabel
       Left = 8
@@ -23537,7 +23537,7 @@ object Fsupplier: TFsupplier
     end
     object edtpencarian: TEdit
       Left = 8
-      Top = 464
+      Top = 480
       Width = 697
       Height = 25
       Font.Charset = ANSI_CHARSET
@@ -23552,7 +23552,7 @@ object Fsupplier: TFsupplier
     end
     object btnTambah: TBitBtn
       Left = 8
-      Top = 504
+      Top = 512
       Width = 89
       Height = 33
       Caption = 'Tambah'
@@ -23567,7 +23567,7 @@ object Fsupplier: TFsupplier
     end
     object btnSimpan: TBitBtn
       Left = 104
-      Top = 504
+      Top = 512
       Width = 89
       Height = 33
       Caption = 'Simpan'
@@ -23582,7 +23582,7 @@ object Fsupplier: TFsupplier
     end
     object btnHapus: TBitBtn
       Left = 200
-      Top = 504
+      Top = 512
       Width = 89
       Height = 33
       Caption = 'Hapus'
@@ -23597,7 +23597,7 @@ object Fsupplier: TFsupplier
     end
     object btnKeluar: TBitBtn
       Left = 616
-      Top = 504
+      Top = 512
       Width = 89
       Height = 33
       Caption = 'Keluar'

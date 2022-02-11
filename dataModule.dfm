@@ -1608,4 +1608,10 @@ object dm: Tdm
     Left = 1520
     Top = 216
   end
+  object qryBantu: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 1600
+    Top = 112
+  end
 end

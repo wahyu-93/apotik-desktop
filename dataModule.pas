@@ -331,6 +331,7 @@ type
     qryDashReturPembelian: TADOQuery;
     dsDashReturPenjualan: TDataSource;
     dsDashReturPembelian: TDataSource;
+    qryBantu: TADOQuery;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

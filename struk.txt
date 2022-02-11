@@ -4,22 +4,22 @@ Jl.Suryagandamana Dpn Msjd Raya
     Tersedia Obat-Obatan
       Herbal dan Alkes
 ---------------------------------
-No. Nota:PJ-0402202201003
-Tanggal :10/02/2022 13:05:42
+No. Nota:PJ-1102202201005
+Tanggal :11/02/2022 16:17:06
 Kasir   :Hamdi Farma
 Status Jual :Lunas
 ---------------------------------
 Nama Barang
       QTY   Harga      Sub Total
 ---------------------------------
- Tissue Magic Hitam
-      1 X 3.000            3.000
- Amlodipine Besilate 5mg (OGB dexa)
-      1 X 5.000            5.000
+ Permen Antangin
+      2 X 3.000            6.000
 ---------------------------------
-Total   :               Rp 8.000
+Total   :               Rp 6.000
+Bayar   :               Rp 6.000
+Kembali :                    Rp 
 ---------------------------------
- Jumlah Item  : 2
+ Jumlah Item  : 1
 ---------------------------------
          Terima Kasih
     Berelaan Jual Seadannya
