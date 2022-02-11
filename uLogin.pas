@@ -9,15 +9,12 @@ uses
 type
   TfLogin = class(TForm)
     img1: TImage;
-    grp1: TGroupBox;
-    lbl1: TLabel;
-    grp2: TGroupBox;
-    lbl2: TLabel;
-    lbl3: TLabel;
-    edtPass: TEdit;
     edtUsername: TEdit;
+    edtPass: TEdit;
     btnLogin: TBitBtn;
     btnKeluar: TBitBtn;
+    lbl2: TLabel;
+    lbl3: TLabel;
     procedure FormShow(Sender: TObject);
     procedure btnKeluarClick(Sender: TObject);
     procedure btnLoginClick(Sender: TObject);
