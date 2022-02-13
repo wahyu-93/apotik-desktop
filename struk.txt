@@ -5,7 +5,7 @@ Jl.Suryagandamana Dpn Msjd Raya
       Herbal dan Alkes
 ---------------------------------
 No. Nota:PJ-1102202201005
-Tanggal :11/02/2022 16:17:06
+Tanggal :13/02/2022 14:00:06
 Kasir   :Hamdi Farma
 Status Jual :Lunas
 ---------------------------------
@@ -13,16 +13,20 @@ Nama Barang
       QTY   Harga      Sub Total
 ---------------------------------
  Permen Antangin
-      2 X 3.000            6.000
+      1 X 3.000            3.000
 ---------------------------------
-Total   :               Rp 6.000
-Bayar   :               Rp 6.000
-Kembali :                    Rp 
+Total   :               Rp 3.000
 ---------------------------------
  Jumlah Item  : 1
 ---------------------------------
          Terima Kasih
     Berelaan Jual Seadannya
+
+
+
+
+
+
 
 
 

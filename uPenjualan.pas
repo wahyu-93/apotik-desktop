@@ -152,6 +152,10 @@ begin
   btnBantuObat.Enabled := false;
   dbgrd1.Enabled := false;
   chkCetak.Enabled := false;
+
+  edtBayar.Text := '0';
+  edtKembali.Text := '0';
+  
   konek;
 
   id_penjualan := 'kosong';
@@ -503,8 +507,14 @@ procedure TFpenjualan.btnProsesClick(Sender: TObject);
 var
   jumlahItem, total : string;
   a : integer;
+  pesan : string;
 begin
-  if MessageDlg('Apakah Transaksi Akan Diselesaikan ?',mtConfirmation,[mbYes,mbno],0)=mryes then
+  if edtStatusPenjualan.Text = 'selesai' then
+    pesan := 'Apakah Transaksi Akan Diselesaikan ?'
+  else
+    pesan := 'Apakah Transaksi Akan Dipending Pembayaran ?';
+
+  if MessageDlg(pesan,mtConfirmation,[mbYes,mbno],0)=mryes then
     begin
       jumlahItem := IntToStr(hitungItem(id_penjualan));
       total := FloatToStr(hitungTotal(id_penjualan));
@@ -566,10 +576,12 @@ end;
 
 procedure TFpenjualan.btnCetakClick(Sender: TObject);
 var
+Enter : string;
 txtFile: TextFile;
 nmfile, status : string;
 a, total : Integer;
 begin
+  Enter := #13 + #10;
   with dm.qrySetting do
     begin
       Close;
@@ -582,7 +594,7 @@ begin
     begin
       Close;
       sql.Clear;
-      SQL.Text := 'select * from tbl_penjualan where id = '+QuotedStr(edtIdPembelian.Text)+'';
+      SQL.Text := 'select * from tbl_penjualan where no_faktur = '+QuotedStr(edtFaktur.Text)+'';
       Open;
     end;
 
@@ -636,7 +648,7 @@ begin
     WriteLn(txtFile, '---------------------------------');
     WriteLn(txtFile, '         Terima Kasih');
     WriteLn(txtFile, '    Berelaan Jual Seadannya');
-    WriteLn(txtFile, #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 );
+    WriteLn(txtFile, Enter + Enter + Enter + Enter + Enter + Enter + Enter + Enter + Enter + Enter );
     CloseFile(txtFile);
     // Cetak File Struk.txt
     cetakFile('struk.txt');

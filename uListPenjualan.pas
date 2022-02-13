@@ -142,10 +142,12 @@ end;
 
 procedure TfListPenjualan.btnProsesCetakClick(Sender: TObject);
 var
+Enter : string;
 txtFile: TextFile;
 nmfile, status : string;
 a, total : Integer;
 begin
+  Enter := #13 + #10;
   with dm.qrySetting do
     begin
       Close;
@@ -174,7 +176,7 @@ begin
       open
     end;
 
-  if dm.qryPenjualan.FieldByName('status').AsString = 'selesai' then status := 'Lunas' else status := 'Kredit';
+  if (dm.qryPenjualan.FieldByName('status').AsString = 'selesai') or (dm.qryPenjualan.FieldByName('status').AsString = 'selesai-retur') then status := 'Lunas' else status := 'Kredit';
 
     // Buat File dengan Nama Struk.txt
     nmfile := GetCurrentDir + '\struk.txt';
@@ -220,7 +222,7 @@ begin
     WriteLn(txtFile, '---------------------------------');
     WriteLn(txtFile, '         Terima Kasih');
     WriteLn(txtFile, '    Berelaan Jual Seadannya');
-    WriteLn(txtFile, #13 + #10 + #13 + #10 + #13 + #10 + #13 + #10 );
+    WriteLn(txtFile, Enter + Enter + Enter + Enter + Enter + Enter + Enter + Enter + Enter + Enter );
     CloseFile(txtFile);
     // Cetak File Struk.txt
     cetakFile('struk.txt');
@@ -230,7 +232,7 @@ end;
 
 procedure TfListPenjualan.dbgrd1CellClick(Column: TColumn);
 begin
-  if dbgrd1.Fields[7].AsString = 'selesai' then
+  if (dbgrd1.Fields[7].AsString = 'selesai') or (dbgrd1.Fields[7].AsString = 'selesai-retur') then
     btnBayar.Visible := False
   else
     btnBayar.Visible := True;

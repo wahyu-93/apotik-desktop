@@ -5,7 +5,7 @@ object fBayar: TfBayar
   BorderIcons = []
   Caption = '.:: Form Bayar ::.'
   ClientHeight = 512
-  ClientWidth = 598
+  ClientWidth = 601
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

@@ -105,7 +105,6 @@ procedure TfBayar.FormShow(Sender: TObject);
 begin
   edtByar.Enabled := True; edtBayar.SetFocus;
   Ribuan(edtTotalBayar);
-  edtKembalian.Text := '0'; edtKmbalian.Text := '0';
 end;
 
 procedure TfBayar.edtBayarKeyUp(Sender: TObject; var Key: Word;
@@ -115,6 +114,13 @@ begin
     begin
       edtByar.Text := '0';
       edtKembalian.Text := '0';
+      Exit;
+    end;
+
+  if edtBayar.Text = '0' then
+    begin
+      edtKmbalian.Text := '0';
+      edtByar.Text := '0';
       Exit;
     end;
 
@@ -142,6 +148,9 @@ end;
 
 procedure TfBayar.btnPendingClick(Sender: TObject);
 begin
+  edtBayar.Text := '0';
+  edtKembalian.Text := '0';
+
   Fpenjualan.edtStatusPenjualan.Text := 'pending';
   Fpenjualan.btnProses.Click;
   close;
