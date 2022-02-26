@@ -68,7 +68,7 @@ begin
   konek();
   lunas := dm.qryListPenjualan.RecordCount;
 
-  lblJumlah.Caption := 'Penjualan Selesai : '+IntToStr(pending) +', Penjualan Pending : '+IntToStr(lunas);
+  lblJumlah.Caption := 'Penjualan Selesai : '+IntToStr(lunas) +', Penjualan Pending : '+IntToStr(pending);
   
   edtpencarian.Clear;
   edtPencarian2.Clear;

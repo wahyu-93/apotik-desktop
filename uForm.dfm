@@ -1,6 +1,6 @@
 object FMenu: TFMenu
-  Left = 243
-  Top = 59
+  Left = 178
+  Top = 161
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Applikasi Kasir Apotek V.1.5 ::.'
@@ -23498,7 +23498,7 @@ object FMenu: TFMenu
       Height = 43
       Alignment = taCenter
       AutoSize = False
-      Caption = 'Apotik Hamdi Farma'
+      Caption = 'Apotek Sample'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -37
@@ -23947,6 +23947,10 @@ object FMenu: TFMenu
       object Apotik1: TMenuItem
         Caption = 'Apotik'
         OnClick = Apotik1Click
+      end
+      object BackupDatabase1: TMenuItem
+        Caption = 'Backup Database'
+        OnClick = BackupDatabase1Click
       end
       object RefreshDashboard1: TMenuItem
         Caption = 'Refresh Dashboard'

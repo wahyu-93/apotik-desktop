@@ -82,6 +82,7 @@ type
     ListReturPembelian1: TMenuItem;
     ReturPembelian2: TMenuItem;
     LaporanRetur1: TMenuItem;
+    BackupDatabase1: TMenuItem;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
@@ -116,6 +117,7 @@ type
     procedure ListReturPembelian1Click(Sender: TObject);
     procedure lblTotalReturPembelianClick(Sender: TObject);
     procedure LaporanRetur1Click(Sender: TObject);
+    procedure BackupDatabase1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -135,7 +137,7 @@ uses
   u_dashboardPenjualan, u_dashboardSupplier, u_dashboardObat, 
   u_dashboardObatStok, u_dashboardExp, u_dashboardReturPenjualan, 
   u_returPembelian, u_listReturPembelian, u_dashboardReturPembelian, 
-  u_laporanRetur;
+  u_laporanRetur, uBackup;
 
 {$R *.dfm}
 
@@ -471,6 +473,11 @@ end;
 procedure TFMenu.LaporanRetur1Click(Sender: TObject);
 begin
   fLaporanRetur.ShowModal;
+end;
+
+procedure TFMenu.BackupDatabase1Click(Sender: TObject);
+begin
+  fbackup.ShowModal;
 end;
 
 end.

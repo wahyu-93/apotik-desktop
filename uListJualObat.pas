@@ -102,7 +102,7 @@ begin
           Next;
         end;
 
-      lblJumlah.Caption := 'Jumlah Transaksi : '+ IntToStr(RecordCount)+ ' - Total Pembelian : ' + FormatFloat('Rp. ###,###,###', total);
+      lblJumlah.Caption := 'Jumlah Transaksi : '+ IntToStr(RecordCount)+ ' - Total Penjualan : ' + FormatFloat('Rp. ###,###,###', total);
     end;
 end;
 
@@ -159,7 +159,7 @@ begin
           Next;
         end;
 
-      lblJumlah.Caption := 'Jumlah Transaksi : '+ IntToStr(RecordCount)+ ' - Total Pembelian : ' + FormatFloat('Rp. ###,###,###', total);
+      lblJumlah.Caption := 'Jumlah Transaksi : '+ IntToStr(RecordCount)+ ' - Total Penjualan : ' + FormatFloat('Rp. ###,###,###', total);
     end;
 end;
 
