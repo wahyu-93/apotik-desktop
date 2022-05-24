@@ -1,8 +1,8 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 131
-  Top = 388
-  Height = 456
+  Left = 307
+  Top = 392
+  Height = 537
   Width = 1702
   object XPManifest1: TXPManifest
     Left = 128
@@ -1613,5 +1613,100 @@ object dm: Tdm
     Parameters = <>
     Left = 1600
     Top = 112
+  end
+  object qryListPembelianPending: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      
+        'select * from tbl_supplier left join tbl_pembelian on tbl_pembel' +
+        'ian.supplier_id = tbl_supplier.id inner join tbl_user on tbl_use' +
+        'r.id = tbl_pembelian.user_id order by tbl_pembelian.id desc;')
+    Left = 240
+    Top = 408
+    object qryListPembelianPendingid: TIntegerField
+      FieldName = 'id'
+    end
+    object qryListPembelianPendingkode: TStringField
+      FieldName = 'kode'
+    end
+    object qryListPembelianPendingnama_supplier: TStringField
+      FieldName = 'nama_supplier'
+      Size = 100
+    end
+    object qryListPembelianPendingalamat_supplier: TMemoField
+      FieldName = 'alamat_supplier'
+      BlobType = ftMemo
+    end
+    object qryListPembelianPendingtelp_suplier: TStringField
+      FieldName = 'telp_suplier'
+      Size = 15
+    end
+    object qryListPembelianPendingid_1: TIntegerField
+      FieldName = 'id_1'
+    end
+    object qryListPembelianPendingno_faktur: TStringField
+      FieldName = 'no_faktur'
+      Size = 50
+    end
+    object qryListPembelianPendingtgl_pembelian: TDateField
+      FieldName = 'tgl_pembelian'
+    end
+    object qryListPembelianPendingsupplier_id: TIntegerField
+      FieldName = 'supplier_id'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object qryListPembelianPendingjumlah_item: TIntegerField
+      FieldName = 'jumlah_item'
+      DisplayFormat = '#,#0;(#,#0);#,#0'
+    end
+    object qryListPembelianPendingtotal: TFloatField
+      FieldName = 'total'
+      DisplayFormat = '#,#0;(#,#0);#,#0'
+    end
+    object qryListPembelianPendinguser_id: TIntegerField
+      FieldName = 'user_id'
+    end
+    object qryListPembelianPendingstatus: TStringField
+      FieldName = 'status'
+      Size = 25
+    end
+    object qryListPembelianPendingtgl_pembayaran: TDateField
+      FieldName = 'tgl_pembayaran'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object qryListPembelianPendingno_faktur_supplier: TStringField
+      FieldName = 'no_faktur_supplier'
+      Size = 50
+    end
+    object qryListPembelianPendingtgl_jatuh_tempo: TDateField
+      FieldName = 'tgl_jatuh_tempo'
+    end
+    object qryListPembelianPendingid_2: TIntegerField
+      FieldName = 'id_2'
+    end
+    object qryListPembelianPendingnama: TStringField
+      FieldName = 'nama'
+      Size = 50
+    end
+    object qryListPembelianPendingusername: TStringField
+      FieldName = 'username'
+      Size = 25
+    end
+    object qryListPembelianPendingpassword: TStringField
+      FieldName = 'password'
+      Size = 25
+    end
+    object qryListPembelianPendingrole: TStringField
+      FieldName = 'role'
+      Size = 50
+    end
+  end
+  object dsListPembelianPending: TDataSource
+    DataSet = qryListPembelianPending
+    Left = 280
+    Top = 424
   end
 end
