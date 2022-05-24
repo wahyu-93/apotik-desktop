@@ -104,14 +104,16 @@ begin
                'from tbl_penjualan z left join tbl_detail_penjualan a ON z.id = a.penjualan_id '+
                'left join tbl_obat b on a.obat_id = b.id left join tbl_satuan d on d.id = b.kode_satuan '+
                'left join tbl_harga_jual c ON c.obat_id = b.id '+
-               'where date(z.tgl_penjualan)='+QuotedStr(FormatDateTime('yyyy-mm-dd',dtp1.Date))+' AND a.jenis_harga='+QuotedStr('eceran')+' group by a.obat_id';
+               'where date(z.tgl_penjualan)='+QuotedStr(FormatDateTime('yyyy-mm-dd',dtp1.Date))+' AND a.jenis_harga='+QuotedStr('eceran')+' AND '+
+               'a.status is null group by a.obat_id';
 
       queryGrosir := 'select b.kode, b.nama_obat, c.harga_beli_terakhir, a.harga_jual, sum(a.jumlah_jual) as jmlItemJual, sum(a.jumlah_jual * a.harga_jual) as total_jual, '+
                '(sum(a.harga_jual - c.harga_beli_terakhir) * a.jumlah_jual) as laba, a.jenis_harga '+
                'from tbl_penjualan z left join tbl_detail_penjualan a ON z.id = a.penjualan_id '+
                'left join tbl_obat b on a.obat_id = b.id left join tbl_satuan d on d.id = b.kode_satuan '+
                'left join tbl_harga_jual c ON c.obat_id = b.id '+
-               'where date(z.tgl_penjualan)='+QuotedStr(FormatDateTime('yyyy-mm-dd',dtp1.Date))+' AND a.jenis_harga='+QuotedStr('grosir')+' group by a.obat_id';
+               'where date(z.tgl_penjualan)='+QuotedStr(FormatDateTime('yyyy-mm-dd',dtp1.Date))+' AND a.jenis_harga='+QuotedStr('grosir')+' AND '+
+               'a.status is null group by a.obat_id';
     end
   else if rbBulan.Checked = True then
     begin
@@ -129,14 +131,16 @@ begin
                        'from tbl_penjualan z left join tbl_detail_penjualan a ON z.id = a.penjualan_id '+
                        'left join tbl_obat b on a.obat_id = b.id left join tbl_satuan d on d.id = b.kode_satuan '+
                        'left join tbl_harga_jual c ON c.obat_id = b.id '+
-                       'where month(z.tgl_penjualan)='+QuotedStr(IntToStr(cbbBulan.ItemIndex)+'-'+cbbTahun.Text)+' AND a.jenis_harga='+QuotedStr('eceran')+' group by a.obat_id';
+                       'where month(z.tgl_penjualan)='+QuotedStr(IntToStr(cbbBulan.ItemIndex)+'-'+cbbTahun.Text)+' AND a.jenis_harga='+QuotedStr('eceran')+' AND '+
+                       'a.status is null group by a.obat_id';
 
              queryGrosir := 'select b.kode, b.nama_obat, c.harga_beli_terakhir, a.harga_jual, sum(a.jumlah_jual) as jmlItemJual, sum(a.jumlah_jual * a.harga_jual) as total_jual, '+
                        '(sum(a.harga_jual - c.harga_beli_terakhir) * a.jumlah_jual) as laba, a.jenis_harga '+
                        'from tbl_penjualan z left join tbl_detail_penjualan a ON z.id = a.penjualan_id '+
                        'left join tbl_obat b on a.obat_id = b.id left join tbl_satuan d on d.id = b.kode_satuan '+
                        'left join tbl_harga_jual c ON c.obat_id = b.id '+
-                       'where month(z.tgl_penjualan)='+QuotedStr(IntToStr(cbbBulan.ItemIndex)+'-'+cbbTahun.Text)+' AND a.jenis_harga='+QuotedStr('grosir')+' group by a.obat_id';
+                       'where month(z.tgl_penjualan)='+QuotedStr(IntToStr(cbbBulan.ItemIndex)+'-'+cbbTahun.Text)+' AND a.jenis_harga='+QuotedStr('grosir')+' AND '+
+                       'a.status is null group by a.obat_id';
 
             end
           else
@@ -146,14 +150,16 @@ begin
                        'from tbl_penjualan z left join tbl_detail_penjualan a ON z.id = a.penjualan_id '+
                        'left join tbl_obat b on a.obat_id = b.id left join tbl_satuan d on d.id = b.kode_satuan '+
                        'left join tbl_harga_jual c ON c.obat_id = b.id '+
-                       'where year(z.tgl_penjualan)='+QuotedStr(cbbTahun.Text)+' AND a.jenis_harga='+QuotedStr('eceran')+' group by a.obat_id';
+                       'where year(z.tgl_penjualan)='+QuotedStr(cbbTahun.Text)+' AND a.jenis_harga='+QuotedStr('eceran')+' AND '+
+                       'a.status is null group by a.obat_id';
 
              queryGrosir := 'select b.kode, b.nama_obat, c.harga_beli_terakhir, a.harga_jual, sum(a.jumlah_jual) as jmlItemJual, sum(a.jumlah_jual * a.harga_jual) as total_jual, '+
                        '(sum(a.harga_jual - c.harga_beli_terakhir) * a.jumlah_jual) as laba, a.jenis_harga '+
                        'from tbl_penjualan z left join tbl_detail_penjualan a ON z.id = a.penjualan_id '+
                        'left join tbl_obat b on a.obat_id = b.id left join tbl_satuan d on d.id = b.kode_satuan '+
                        'left join tbl_harga_jual c ON c.obat_id = b.id '+
-                       'where year(z.tgl_penjualan)='+QuotedStr(cbbTahun.Text)+' AND a.jenis_harga='+QuotedStr('grosir')+' group by a.obat_id';
+                       'where year(z.tgl_penjualan)='+QuotedStr(cbbTahun.Text)+' AND a.jenis_harga='+QuotedStr('grosir')+' AND '+
+                       'a.status is null group by a.obat_id';
 
             end;
         end;
@@ -216,12 +222,13 @@ begin
   if totalLaba <= 0 then
     begin
       MessageDlg('Data Tidak Ditemukan',mtInformation,[mbOK],0);
+      lblJumlah.Caption := '-';
       Exit;
     end
   else
     begin
       lblJumlah.Caption := 'Jumlah Laba : ' + FormatFloat('Rp. ###,###,###', totalLaba);
-    end;
+    end;    
 end;
 
 procedure TfLabaPenjualan.cbbBulanKeyPress(Sender: TObject; var Key: Char);

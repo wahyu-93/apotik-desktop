@@ -1,6 +1,6 @@
 object fLabaPenjualan: TfLabaPenjualan
-  Left = 784
-  Top = 101
+  Left = 342
+  Top = 113
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Laporan Laba Penjualan ::.'
@@ -23564,7 +23564,7 @@ object fLabaPenjualan: TfLabaPenjualan
       Top = 112
       Width = 1033
       Height = 497
-      ActivePage = ts2
+      ActivePage = ts1
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
