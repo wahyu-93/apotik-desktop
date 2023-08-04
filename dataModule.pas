@@ -355,6 +355,9 @@ type
     qryListPembelianPendingusername: TStringField;
     qryListPembelianPendingpassword: TStringField;
     qryListPembelianPendingrole: TStringField;
+    qryHapusPenjualan: TADOQuery;
+    qryHapusDetailPenjualan: TADOQuery;
+    qryHapusStok: TADOQuery;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

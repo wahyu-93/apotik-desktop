@@ -23956,6 +23956,10 @@ object FMenu: TFMenu
         Caption = 'Refresh Dashboard'
         OnClick = RefreshDashboard1Click
       end
+      object BersihkanTabel1: TMenuItem
+        Caption = 'Optimasi Database'
+        OnClick = BersihkanTabel1Click
+      end
     end
     object Keluar1: TMenuItem
       Caption = 'Keluar'

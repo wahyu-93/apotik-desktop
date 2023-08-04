@@ -83,6 +83,7 @@ type
     ReturPembelian2: TMenuItem;
     LaporanRetur1: TMenuItem;
     BackupDatabase1: TMenuItem;
+    BersihkanTabel1: TMenuItem;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
@@ -118,6 +119,7 @@ type
     procedure lblTotalReturPembelianClick(Sender: TObject);
     procedure LaporanRetur1Click(Sender: TObject);
     procedure BackupDatabase1Click(Sender: TObject);
+    procedure BersihkanTabel1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -137,7 +139,7 @@ uses
   u_dashboardPenjualan, u_dashboardSupplier, u_dashboardObat, 
   u_dashboardObatStok, u_dashboardExp, u_dashboardReturPenjualan, 
   u_returPembelian, u_listReturPembelian, u_dashboardReturPembelian, 
-  u_laporanRetur, uBackup;
+  u_laporanRetur, uBackup, ADODB;
 
 {$R *.dfm}
 
@@ -478,6 +480,72 @@ end;
 procedure TFMenu.BackupDatabase1Click(Sender: TObject);
 begin
   fbackup.ShowModal;
+end;
+
+procedure TFMenu.BersihkanTabel1Click(Sender: TObject);
+var tahun, bulan, faktur, newfaktur, idFaktur, newIdFaktur : string;
+    a : Integer;
+begin
+  MessageDlg('Pastikan Backup Database Sebelum Melanjutkan Proses',mtConfirmation,[mbOK],0);
+  if MessageDlg('Yakin Proses Dilanjutkan?', mtConfirmation, [mbYes,mbNo],0)=mryes then
+    begin
+      tahun := FormatDateTime('yyyy',Now);
+      bulan := FormatDateTime('mm', Now);
+
+      with dm.qryHapusPenjualan do
+        begin
+          close;
+          SQL.Clear;
+          SQL.Text := 'select * from tbl_penjualan where tgl_penjualan not like ''%'+tahun+'-'+bulan+'%''';
+          Open;
+
+          faktur := '(';
+          idFaktur := '(';
+
+          for a:=1 to RecordCount do
+            begin
+              RecNo:= a;
+              faktur := faktur + ''''+fieldbyname('no_faktur').AsString +''',';
+              idFaktur := idFaktur + ''''+fieldbyname('id').AsString +''',';
+            end;
+            a:=a+1;
+
+            newfaktur := Copy(faktur,1,Length(faktur)-1);
+            newfaktur := newfaktur + ')';
+
+            newIdFaktur := Copy(idFaktur,1,Length(idFaktur)-1);
+            newIdFaktur := newIdFaktur + ')';
+        end;
+
+        // hapus table stok
+        with dm.qryHapusStok do
+          begin
+            close;
+            sql.Clear;
+            SQL.Text := 'delete from tbl_stok where no_faktur in'+ newfaktur;
+            ExecSQL;
+          end;
+
+        // hapus table detail penjualan
+        with dm.qryHapusDetailPenjualan do
+          begin
+            close;
+            sql.Clear;
+            sql.Text := 'delete from tbl_detail_penjualan where penjualan_id in'+newIdFaktur;
+            ExecSQL;
+          end;
+
+        // hapus table penjualan
+        with dm.qryHapusPenjualan do
+          begin
+            close;
+            sql.Clear;
+            sql.Text := 'delete from tbl_penjualan where id in'+newIdFaktur;
+            ExecSQL;
+          end;
+
+        MessageDlg('Proses Sukses',mtInformation,[mbok],0);
+    end;
 end;
 
 end.

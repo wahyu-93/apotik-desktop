@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 307
-  Top = 392
+  Left = 142
+  Top = 300
   Height = 537
   Width = 1702
   object XPManifest1: TXPManifest
@@ -1708,5 +1708,23 @@ object dm: Tdm
     DataSet = qryListPembelianPending
     Left = 280
     Top = 424
+  end
+  object qryHapusPenjualan: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 480
+    Top = 416
+  end
+  object qryHapusDetailPenjualan: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 544
+    Top = 408
+  end
+  object qryHapusStok: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 632
+    Top = 416
   end
 end
