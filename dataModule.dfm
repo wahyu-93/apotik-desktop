@@ -23,7 +23,6 @@ object dm: Tdm
     Top = 80
   end
   object qryJenis: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -257,7 +256,7 @@ object dm: Tdm
         'pembelian a left join tbl_detail_pembelian b on b.pembelian_id =' +
         ' a.id left join tbl_obat c on c.id = b.obat_id left join tbl_jen' +
         'is d on d.id=c.kode_jenis left join tbl_satuan e on e.id = c.kod' +
-        'e_satuan '#10)
+        'e_satuan limit 10 offset 0 '#10)
     Left = 264
     Top = 144
     object qryRelasiPembelianid_pembelian: TAutoIncField
@@ -337,7 +336,8 @@ object dm: Tdm
       
         'select * from tbl_supplier left join tbl_pembelian on tbl_pembel' +
         'ian.supplier_id = tbl_supplier.id inner join tbl_user on tbl_use' +
-        'r.id = tbl_pembelian.user_id order by tbl_pembelian.id desc;')
+        'r.id = tbl_pembelian.user_id order by tbl_pembelian.id desc limi' +
+        't 10 offset 0')
     Left = 256
     Top = 232
     object qryListPembelianid: TIntegerField
@@ -430,7 +430,7 @@ object dm: Tdm
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'select * from tbl_penjualan')
+      'select * from tbl_penjualan limit 10 offset 0')
     Left = 488
     Top = 120
   end
@@ -440,7 +440,7 @@ object dm: Tdm
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'select * from tbl_stok')
+      'select * from tbl_stok limit 10 offset 0')
     Left = 248
     Top = 320
     object qryStokid: TAutoIncField
@@ -478,7 +478,7 @@ object dm: Tdm
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'select * from tbl_harga_jual')
+      'select * from tbl_harga_jual limit 10 offset 0')
     Left = 488
     Top = 192
   end
@@ -490,7 +490,7 @@ object dm: Tdm
     SQL.Strings = (
       
         'select * from tbl_harga_jual a left join tbl_obat b on a.obat_id' +
-        ' = b.id;')
+        ' = b.id limit 10 offset 0')
     Left = 488
     Top = 248
     object qryRelasiSetHargaid: TAutoIncField
@@ -623,7 +623,8 @@ object dm: Tdm
         'at, c.tgl_exp, d.jenis, e.satuan, b.catatan from tbl_penjualan a' +
         ' left join tbl_detail_penjualan b on b.penjualan_id = a.id left ' +
         'join tbl_obat c on c.id = b.obat_id left join tbl_jenis d on d.i' +
-        'd=c.kode_jenis left join tbl_satuan e on e.id = c.kode_satuan')
+        'd=c.kode_jenis left join tbl_satuan e on e.id = c.kode_satuan li' +
+        'mit 10 offset 0')
     Left = 552
     Top = 104
     object qryRelasiPenjualanid_penjualan: TAutoIncField
@@ -735,7 +736,7 @@ object dm: Tdm
     SQL.Strings = (
       
         'select * from tbl_pembelian left join tbl_supplier on tbl_pembel' +
-        'ian.supplier_id = tbl_supplier.id')
+        'ian.supplier_id = tbl_supplier.id limit 10 offset 0')
     Left = 720
     Top = 48
     object qryLaporanPembelianid: TAutoIncField
@@ -809,7 +810,7 @@ object dm: Tdm
     SQL.Strings = (
       
         'select * from tbl_penjualan left JOIN tbl_pelanggan on tbl_penju' +
-        'alan.id_pelanggan = tbl_pelanggan.id')
+        'alan.id_pelanggan = tbl_pelanggan.id limit 10 offset 0')
     Left = 728
     Top = 112
     object qryLaporanPenjualanid: TAutoIncField
@@ -862,7 +863,7 @@ object dm: Tdm
       
         'select * from tbl_obat a left join tbl_satuan b on a.kode_satuan' +
         ' = b.id left join tbl_harga_jual c on c.obat_id = a.id order by ' +
-        'a.id;')
+        'a.id limit 10 offset 0')
     Left = 728
     Top = 176
     object qryLaporanStokid: TIntegerField
@@ -947,7 +948,8 @@ object dm: Tdm
       
         'select *, sum(a.jumlah_jual) as jmlItemJual from tbl_detail_penj' +
         'ualan a left join tbl_obat b on a.obat_id = b.id left join tbl_s' +
-        'atuan d on d.id = b.kode_satuan group by a.obat_id')
+        'atuan d on d.id = b.kode_satuan group by a.obat_id limit 10 offs' +
+        'et 0')
     Left = 728
     Top = 240
   end
@@ -1039,7 +1041,7 @@ object dm: Tdm
         'alan, b.no_faktur, b.tgl_penjualan, b.jumlah_item, b.total, b.st' +
         'atus, b.tgl_bayar, c.id as id_user, c.nama, c.role from tbl_pela' +
         'nggan a left join tbl_penjualan b on b.id_pelanggan = a.id inner' +
-        ' JOIN tbl_user c on c.id = b.user_id')
+        ' JOIN tbl_user c on c.id = b.user_id limit 10 offset 0')
     Left = 488
     Top = 24
     object qryListPenjualanid_pelanggan: TAutoIncField
@@ -1118,7 +1120,7 @@ object dm: Tdm
     SQL.Strings = (
       
         'select * from tbl_stok left join tbl_obat on tbl_obat.id = tbl_s' +
-        'tok.obat_id')
+        'tok.obat_id limit 10 offset 0')
     Left = 944
     Top = 328
   end
@@ -1623,7 +1625,8 @@ object dm: Tdm
       
         'select * from tbl_supplier left join tbl_pembelian on tbl_pembel' +
         'ian.supplier_id = tbl_supplier.id inner join tbl_user on tbl_use' +
-        'r.id = tbl_pembelian.user_id order by tbl_pembelian.id desc;')
+        'r.id = tbl_pembelian.user_id order by tbl_pembelian.id desc limi' +
+        't 10 offset 0')
     Left = 240
     Top = 408
     object qryListPembelianPendingid: TIntegerField
