@@ -1,6 +1,6 @@
 object fLogin: TfLogin
-  Left = 478
-  Top = 251
+  Left = 549
+  Top = 378
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Login Aplikasi ::.'

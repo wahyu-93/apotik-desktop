@@ -1,6 +1,6 @@
 object Fpenjualan: TFpenjualan
-  Left = 479
-  Top = 168
+  Left = 330
+  Top = 310
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form Penjualan ::.'

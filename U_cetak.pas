@@ -7,6 +7,7 @@ uses
 procedure cetakFile(Const sFilename: string);
 function RataKanan(const VField, VItem: String; const VLength: Integer;
   const VSpace: Char): string;
+function RataTengah(const Teks: string; const LebarBaris: Integer): string;
 
 implementation
 
@@ -24,6 +25,17 @@ begin
   while __Length + Length(Result) < VLength do
     Result := Result + VSpace;
   Result := __SStart + Result + __SStop;
+end;
+
+function RataTengah(const Teks: string; const LebarBaris: Integer): string;
+var
+  Padding: Integer;
+begin
+  Padding := (LebarBaris - Length(Teks)) div 2;
+  if Padding > 0 then
+    Result := StringOfChar(' ', Padding) + Teks
+  else
+    Result := Teks; // jika teks lebih panjang dari lebar baris
 end;
 
 procedure cetakFile(Const sFilename: string);

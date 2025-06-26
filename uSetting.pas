@@ -22,11 +22,14 @@ type
     mmoAlamat: TMemo;
     edtTelp: TEdit;
     chkCetak: TCheckBox;
+    lbl6: TLabel;
+    cbbKertas: TComboBox;
     procedure btnKeluarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnSimpanClick(Sender: TObject);
     procedure edtNamaChange(Sender: TObject);
     procedure mmoAlamatChange(Sender: TObject);
+    procedure cbbKertasKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -112,6 +115,7 @@ begin
       edtNama.Text := fieldbyname('nama_toko').AsString;
       mmoAlamat.Text := fieldbyname('alamat').AsString;
       edtTelp.Text := fieldbyname('telp').AsString;
+      cbbKertas.Text := fieldbyname('kertas').AsString;
 
       if FieldByName('cetak').AsString = '0' then
         chkCetak.Checked := False
@@ -123,6 +127,7 @@ begin
   mmoAlamat.Enabled := false;
   edtTelp.Enabled := False;
   chkCetak.Enabled := False;
+  cbbKertas.Enabled := false;
 
   btnSimpan.Caption := 'Edit[F5]';
 end;
@@ -138,6 +143,7 @@ begin
       edtTelp.Enabled := True;
       mmoAlamat.Enabled := True;
       chkCetak.Enabled := True;
+      cbbKertas.Enabled := True;
     end
   else
     begin
@@ -150,6 +156,7 @@ begin
           FieldByName('alamat').AsString := mmoAlamat.Text;
           FieldByName('telp').AsString := edtTelp.Text;
           FieldByName('cetak').AsString := cetak;
+          FieldByName('kertas').AsString := cbbKertas.Text;
           Post;
         end;
 
@@ -167,6 +174,11 @@ end;
 procedure TfSetting.mmoAlamatChange(Sender: TObject);
 begin
   upperCaseMemo(Sender);
+end;
+
+procedure TfSetting.cbbKertasKeyPress(Sender: TObject; var Key: Char);
+begin
+  Key:=#0;
 end;
 
 end.

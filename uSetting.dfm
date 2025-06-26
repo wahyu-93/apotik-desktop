@@ -1,10 +1,10 @@
 object fSetting: TfSetting
-  Left = 552
-  Top = 335
+  Left = 752
+  Top = 224
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form Setting ::.'
-  ClientHeight = 322
+  ClientHeight = 362
   ClientWidth = 729
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
@@ -23402,7 +23402,7 @@ object fSetting: TfSetting
     Left = 8
     Top = 72
     Width = 713
-    Height = 241
+    Height = 281
     TabOrder = 1
     object lbl2: TLabel
       Left = 8
@@ -23445,7 +23445,7 @@ object fSetting: TfSetting
     end
     object lbl5: TLabel
       Left = 8
-      Top = 152
+      Top = 160
       Width = 38
       Height = 17
       Caption = 'Cetak'
@@ -23456,9 +23456,22 @@ object fSetting: TfSetting
       Font.Style = []
       ParentFont = False
     end
+    object lbl6: TLabel
+      Left = 8
+      Top = 200
+      Width = 43
+      Height = 17
+      Caption = 'Kertas'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
     object btnSimpan: TBitBtn
       Left = 8
-      Top = 192
+      Top = 240
       Width = 89
       Height = 33
       Caption = 'Simpan[F5]'
@@ -23473,7 +23486,7 @@ object fSetting: TfSetting
     end
     object btnKeluar: TBitBtn
       Left = 104
-      Top = 192
+      Top = 240
       Width = 97
       Height = 33
       Caption = 'Keluar[10]'
@@ -23537,7 +23550,7 @@ object fSetting: TfSetting
     object chkCetak: TCheckBox
       Left = 112
       Top = 152
-      Width = 289
+      Width = 321
       Height = 41
       Caption = 'Cetak Struk Penjulan'
       Font.Charset = ANSI_CHARSET
@@ -23547,6 +23560,25 @@ object fSetting: TfSetting
       Font.Style = []
       ParentFont = False
       TabOrder = 5
+    end
+    object cbbKertas: TComboBox
+      Left = 112
+      Top = 200
+      Width = 145
+      Height = 28
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clGradientInactiveCaption
+      Font.Height = -15
+      Font.Name = 'Arial Narrow'
+      Font.Style = []
+      ItemHeight = 20
+      ParentFont = False
+      TabOrder = 6
+      Text = 'cbbKertas'
+      OnKeyPress = cbbKertasKeyPress
+      Items.Strings = (
+        '80'
+        '58')
     end
   end
 end

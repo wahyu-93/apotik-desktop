@@ -1,26 +1,37 @@
-     Apotek Hamdi Farma   
-Jl.Suryagandamana Dpn Msjd Raya 
-        081256566056 
-    Tersedia Obat-Obatan
-      Herbal dan Alkes
+       Apotek Hamdi Farma
+Jl.Suryagandamana Dpn Msjd Raya
+       Telp: 081256566056
+      Tersedia Obat-Obatan
+        Herbal dan Alkes
 ---------------------------------
-No. Nota:PJ-1102202201005
-Tanggal :13/02/2022 14:00:06
+No. Nota:PJ-0406202300779
+Tanggal :26/06/2025 23:36:58
 Kasir   :Hamdi Farma
 Status Jual :Lunas
 ---------------------------------
 Nama Barang
       QTY   Harga      Sub Total
 ---------------------------------
- Permen Antangin
-      1 X 3.000            3.000
+ Jess cool
+      1 X 2.000            2.000
+ FreshCare Kuning
+      1 X 12.000          12.000
+ FreshCare Green Tea
+      1 X 12.000          12.000
+ FreshCare Lavender
+      1 X 12.000          12.000
+ FreshCare Hot
+      1 X 12.000          12.000
+ Oktabumin
+      1 X 60.000          60.000
 ---------------------------------
-Total   :               Rp 3.000
+Total   :             Rp 110.000
 ---------------------------------
- Jumlah Item  : 1
+ Jumlah Item  : 6
 ---------------------------------
-         Terima Kasih
-    Berelaan Jual Seadannya
+          Terima Kasih
+     Berelaan Jual Seadanya
+      Semoga Lekas Sembuh
 
 
 

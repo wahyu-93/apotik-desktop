@@ -23534,13 +23534,13 @@ object FMenu: TFMenu
     object lbl2: TLabel
       Left = 8
       Top = 24
-      Width = 212
-      Height = 24
+      Width = 215
+      Height = 26
       Caption = 'Total Pembelian (Harian)'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -21
-      Font.Name = 'Baskerville Old Face'
+      Font.Height = -19
+      Font.Name = 'Comic Sans MS'
       Font.Style = []
       ParentFont = False
     end
@@ -23555,13 +23555,13 @@ object FMenu: TFMenu
     object lbl4: TLabel
       Left = 8
       Top = 24
-      Width = 205
-      Height = 24
+      Width = 213
+      Height = 26
       Caption = 'Total Penjualan (Harian)'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -21
-      Font.Name = 'Baskerville Old Face'
+      Font.Height = -19
+      Font.Name = 'Comic Sans MS'
       Font.Style = []
       ParentFont = False
     end
@@ -23591,15 +23591,15 @@ object FMenu: TFMenu
     Color = clGradientActiveCaption
     TabOrder = 5
     object lbl8: TLabel
-      Left = 8
+      Left = 5
       Top = 24
-      Width = 214
-      Height = 24
+      Width = 218
+      Height = 26
       Caption = 'Retur Pembelian (Harian)'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -21
-      Font.Name = 'Baskerville Old Face'
+      Font.Height = -19
+      Font.Name = 'Comic Sans MS'
       Font.Style = []
       ParentFont = False
     end
@@ -23637,15 +23637,15 @@ object FMenu: TFMenu
     Color = clGradientActiveCaption
     TabOrder = 8
     object lbl10: TLabel
-      Left = 8
+      Left = 6
       Top = 24
-      Width = 207
-      Height = 24
+      Width = 216
+      Height = 26
       Caption = 'Retur Penjualan (Harian)'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -21
-      Font.Name = 'Baskerville Old Face'
+      Font.Height = -19
+      Font.Name = 'Comic Sans MS'
       Font.Style = []
       ParentFont = False
     end
@@ -23684,8 +23684,8 @@ object FMenu: TFMenu
       Caption = 'Total Obat'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -21
-      Font.Name = 'Baskerville Old Face'
+      Font.Height = -19
+      Font.Name = 'Comic Sans MS'
       Font.Style = []
       ParentFont = False
     end
@@ -23741,8 +23741,8 @@ object FMenu: TFMenu
       Caption = 'Total Supplier'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -21
-      Font.Name = 'Baskerville Old Face'
+      Font.Height = -19
+      Font.Name = 'Comic Sans MS'
       Font.Style = []
       ParentFont = False
     end
@@ -23772,8 +23772,8 @@ object FMenu: TFMenu
       Caption = 'Stok < 5'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -21
-      Font.Name = 'Baskerville Old Face'
+      Font.Height = -19
+      Font.Name = 'Comic Sans MS'
       Font.Style = []
       ParentFont = False
     end
@@ -23812,8 +23812,8 @@ object FMenu: TFMenu
       Caption = 'Exp Obat < 100 Hari'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -21
-      Font.Name = 'Baskerville Old Face'
+      Font.Height = -19
+      Font.Name = 'Comic Sans MS'
       Font.Style = []
       ParentFont = False
     end
