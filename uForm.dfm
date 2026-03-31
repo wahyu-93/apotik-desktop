@@ -1,6 +1,6 @@
 object FMenu: TFMenu
-  Left = 178
-  Top = 161
+  Left = 179
+  Top = 76
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Applikasi Kasir Apotek V.1.5 ::.'

@@ -717,7 +717,7 @@ begin
     end;
 
   // Cetak File Struk.txt
-  cetakFile('struk.txt');
+  cetakFile('struk.txt');    
 end;
 
 procedure TFpenjualan.btnProsesPendingClick(Sender: TObject);

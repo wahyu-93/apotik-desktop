@@ -1,6 +1,6 @@
 object fLaporanPenjualan: TfLaporanPenjualan
-  Left = 380
-  Top = 167
+  Left = 203
+  Top = 150
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Laporan Penjualan Item ::.'

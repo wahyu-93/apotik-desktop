@@ -132,13 +132,14 @@ begin
           if cbbBulan.Text <> '-' then
             begin
                query := 'select * from tbl_penjualan left JOIN tbl_pelanggan on tbl_penjualan.id_pelanggan = tbl_pelanggan.id '+
-                        'where month(tbl_penjualan.tgl_penjualan) = '+QuotedStr(IntToStr(cbbBulan.ItemIndex)+'-'+cbbTahun.Text)+' order by tbl_penjualan.id asc';
+                        'where month(tbl_penjualan.tgl_penjualan) = '+IntToStr(cbbBulan.ItemIndex)+' and year(tbl_penjualan.tgl_penjualan) = '+cbbTahun.Text+'  and status='+QuotedStr('selesai')+
+                        'order by tbl_penjualan.id asc';
 
             end
           else
             begin
               query := 'select * from tbl_penjualan left JOIN tbl_pelanggan on tbl_penjualan.id_pelanggan = tbl_pelanggan.id '+
-               'where year(tbl_penjualan.tgl_penjualan) = '+QuotedStr(cbbTahun.Text)+' order by tbl_penjualan.id asc';
+               'where year(tbl_penjualan.tgl_penjualan) = '+cbbTahun.Text+'  and status='+QuotedStr('selesai')+' order by tbl_penjualan.id asc';
             end;
         end;
     end;

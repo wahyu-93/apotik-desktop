@@ -491,12 +491,12 @@ begin
     begin
       tahun := FormatDateTime('yyyy',Now);
       bulan := FormatDateTime('mm', Now);
-
+      
       with dm.qryHapusPenjualan do
         begin
           close;
           SQL.Clear;
-          SQL.Text := 'select * from tbl_penjualan where tgl_penjualan not like ''%'+tahun+'-'+bulan+'%''';
+          SQL.Text := 'select * from tbl_penjualan where tgl_penjualan not like ''%'+tahun+'%''';
           Open;
 
           faktur := '(';
@@ -542,7 +542,7 @@ begin
             sql.Clear;
             sql.Text := 'delete from tbl_penjualan where id in'+newIdFaktur;
             ExecSQL;
-          end;
+          end;      
 
         MessageDlg('Proses Sukses',mtInformation,[mbok],0);
     end;
