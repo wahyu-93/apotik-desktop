@@ -358,6 +358,7 @@ type
     qryHapusPenjualan: TADOQuery;
     qryHapusDetailPenjualan: TADOQuery;
     qryHapusStok: TADOQuery;
+    qryBatchObat: TADOQuery;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

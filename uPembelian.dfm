@@ -1,10 +1,10 @@
 object fPembelian: TfPembelian
-  Left = 283
-  Top = 151
+  Left = 225
+  Top = 129
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form Pembelian ::.'
-  ClientHeight = 727
+  ClientHeight = 778
   ClientWidth = 1416
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
@@ -23384,7 +23384,7 @@ object fPembelian: TfPembelian
     Left = 8
     Top = 8
     Width = 1401
-    Height = 193
+    Height = 241
     TabOrder = 0
     object lbl6: TLabel
       Left = 376
@@ -23491,7 +23491,7 @@ object fPembelian: TfPembelian
       ParentFont = False
     end
     object lbl9: TLabel
-      Left = 376
+      Left = 472
       Top = 128
       Width = 145
       Height = 17
@@ -23504,7 +23504,7 @@ object fPembelian: TfPembelian
       ParentFont = False
     end
     object lbl10: TLabel
-      Left = 792
+      Left = 968
       Top = 128
       Width = 120
       Height = 17
@@ -23535,6 +23535,32 @@ object fPembelian: TfPembelian
       Width = 137
       Height = 17
       Caption = 'Tanggal Jatuh Tempo'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lbl13: TLabel
+      Left = 8
+      Top = 184
+      Width = 59
+      Height = 17
+      Caption = 'NIE Obat'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lbl14: TLabel
+      Left = 376
+      Top = 184
+      Width = 60
+      Height = 17
+      Caption = 'No Batch'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -23661,7 +23687,7 @@ object fPembelian: TfPembelian
     object dtpTanggalKadaluarsa: TDateTimePicker
       Left = 8
       Top = 152
-      Width = 361
+      Width = 457
       Height = 25
       Date = 44561.580060370370000000
       Format = 'dd/MM/yyyy'
@@ -23675,9 +23701,9 @@ object fPembelian: TfPembelian
       TabOrder = 8
     end
     object edtHarga: TEdit
-      Left = 376
+      Left = 472
       Top = 152
-      Width = 409
+      Width = 489
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23690,9 +23716,9 @@ object fPembelian: TfPembelian
       OnKeyPress = edtHargaKeyPress
     end
     object edtJumlahBeli: TEdit
-      Left = 792
+      Left = 968
       Top = 152
-      Width = 281
+      Width = 425
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23705,8 +23731,8 @@ object fPembelian: TfPembelian
       OnKeyPress = edtJumlahBeliKeyPress
     end
     object btnSimpan: TBitBtn
-      Left = 1104
-      Top = 144
+      Left = 752
+      Top = 200
       Width = 89
       Height = 33
       Caption = 'Simpan'
@@ -23720,8 +23746,8 @@ object fPembelian: TfPembelian
       OnClick = btnSimpanClick
     end
     object btnHapus: TBitBtn
-      Left = 1200
-      Top = 144
+      Left = 848
+      Top = 200
       Width = 89
       Height = 33
       Caption = 'Hapus[F6]'
@@ -23735,8 +23761,8 @@ object fPembelian: TfPembelian
       OnClick = btnHapusClick
     end
     object btnSelesai: TBitBtn
-      Left = 1296
-      Top = 144
+      Left = 944
+      Top = 200
       Width = 89
       Height = 33
       Caption = 'Selesai[F5]'
@@ -23798,10 +23824,40 @@ object fPembelian: TfPembelian
       ParentFont = False
       TabOrder = 17
     end
+    object edtNie: TEdit
+      Left = 8
+      Top = 208
+      Width = 361
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 18
+      Text = 'edtFaktur'
+    end
+    object edtNoBatch: TEdit
+      Left = 376
+      Top = 208
+      Width = 361
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 19
+      Text = 'edtFaktur'
+    end
   end
   object grp2: TGroupBox
     Left = 8
-    Top = 208
+    Top = 256
     Width = 1401
     Height = 513
     TabOrder = 1

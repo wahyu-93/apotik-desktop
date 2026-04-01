@@ -50,6 +50,10 @@ type
     edtFakturSales: TEdit;
     lbl12: TLabel;
     dtpTglJatuhTempo: TDateTimePicker;
+    lbl13: TLabel;
+    lbl14: TLabel;
+    edtNie: TEdit;
+    edtNoBatch: TEdit;
     procedure clearEntitasBarang;
     procedure fokusDbgrid;
     procedure btnKeluarClick(Sender: TObject);
@@ -145,6 +149,8 @@ begin
   dtpTanggalKadaluarsa.Date := Now;
   edtHarga.Clear;
   edtJumlahBeli.Clear;
+
+  edtNie.Clear; edtNoBatch.Clear;
 end;
 
 procedure TfPembelian.fokusDbgrid;
@@ -165,6 +171,8 @@ begin
 
   edtHarga.Enabled := False;
   edtJumlahBeli.Enabled := false;
+
+  edtNie.Enabled := False; edtNoBatch.Enabled := false;
 end;
 
 procedure TfPembelian.btnKeluarClick(Sender: TObject);
@@ -194,6 +202,8 @@ begin
 
       btnKeluar.Enabled := false;
       dtpTglJatuhTempo.Enabled := True;
+
+      edtNie.Enabled := True; edtNoBatch.Enabled := True;
     end
   else
     begin
@@ -233,6 +243,15 @@ begin
                   close;
                   SQL.Clear;
                   SQL.Text := 'delete from tbl_stok where no_faktur = '+QuotedStr(edtFaktur.Text)+'';
+                  ExecSQL;
+                end;
+
+              //hapus batch
+              with dm.qryBatchObat do
+                begin
+                  close;
+                  sql.Clear;
+                  sql.Text:= 'delete from tbl_batch where pembelian_id = '+QuotedStr(id_pembelian )+'';
                   ExecSQL;
                 end;
             end;
@@ -295,6 +314,13 @@ begin
     begin
       MessageDlg('No Faktur dari Supplier Diisi', mtInformation,[mbOK],0);
       edtFakturSales.SetFocus;
+      Exit;
+    end;
+
+  if edtNoBatch.Text = '' then
+    begin
+      MessageDlg('No Batch Diisi', mtInformation,[mbOK],0);
+      edtNoBatch.SetFocus;
       Exit;
     end;
 
@@ -377,6 +403,44 @@ begin
             end;
         end;
 
+      // batch
+      with dm.qryBatchObat do
+      begin
+        close;
+        sql.Clear;
+        SQL.Text := 'select * from tbl_batch where obat_id = '+QuotedStr(edtIdObat.Text)+' and no_batch = '+QuotedStr(edtNoBatch.Text)+'';
+        Open;
+
+        if IsEmpty then
+          begin
+            Append;
+            FieldByName('obat_id').AsString       := edtIdObat.Text;
+            FieldByName('pembelian_id').AsString  := id_pembelian;
+            FieldByName('no_batch').AsString      := edtNoBatch.Text;
+            FieldByName('nie_number').AsString    := edtNie.Text;
+            FieldByName('tgl_expired').AsDateTime := dtpTanggalKadaluarsa.Date;
+            FieldByName('jumlah_awal').AsString   := edtJumlahBeli.Text;
+            FieldByName('jumlah_sisa').AsInteger  := StrToIntDef(edtJumlahBeli.Text, 0);
+            FieldByName('status').AsInteger       := 1;
+            Post;
+          end
+        else
+          begin
+             with dm.qryBatchObat do
+                begin
+                  close;
+                  sql.Clear;
+                   sql.Text := 'update tbl_batch set '
+                                + 'jumlah_awal = jumlah_awal + ' + edtJumlahBeli.Text + ', '
+                                + 'jumlah_sisa = jumlah_sisa + ' + edtJumlahBeli.Text + ', '
+                                + 'nie_number = ' + QuotedStr(edtNie.Text) + ' '
+                                + 'where no_batch = ' + QuotedStr(edtNoBatch.Text)
+                                + ' and obat_id = '  + QuotedStr(edtIdObat.Text);
+                  ExecSQL;
+                end;
+          end;
+      end;
+
       //stok
       with dm.qryStok do
         begin
@@ -405,7 +469,6 @@ begin
                               ' where no_faktur = '+QuotedStr(edtFaktur.Text)+' and obat_id = '+QuotedStr(edtIdObat.Text)+'';
                   ExecSQL;
                 end;
-
             end;
         end;
 
@@ -636,6 +699,8 @@ begin
   konek;
 
   id_pembelian := 'kosong';
+
+  edtNie.Clear; edtNoBatch.Clear;
 end;
 
 end.

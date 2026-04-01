@@ -1,11 +1,11 @@
 object Fobat: TFobat
-  Left = 249
-  Top = 25
+  Left = 510
+  Top = 207
   AutoScroll = False
   BorderIcons = [biSystemMenu]
   Caption = '.:: Form Obat ::.'
   ClientHeight = 652
-  ClientWidth = 882
+  ClientWidth = 873
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23381,7 +23381,7 @@ object Fobat: TFobat
   object grp1: TGroupBox
     Left = 8
     Top = 8
-    Width = 865
+    Width = 857
     Height = 57
     TabOrder = 0
     object lbl1: TLabel
@@ -23401,7 +23401,7 @@ object Fobat: TFobat
   object grp2: TGroupBox
     Left = 8
     Top = 72
-    Width = 865
+    Width = 857
     Height = 569
     TabOrder = 1
     object lbl2: TLabel
@@ -23418,8 +23418,8 @@ object Fobat: TFobat
       ParentFont = False
     end
     object lbl3: TLabel
-      Left = 8
-      Top = 48
+      Left = 296
+      Top = 16
       Width = 55
       Height = 17
       Caption = 'Barcode'
@@ -23432,7 +23432,7 @@ object Fobat: TFobat
     end
     object lbl4: TLabel
       Left = 8
-      Top = 80
+      Top = 48
       Width = 75
       Height = 17
       Caption = 'Nama Obat'
@@ -23445,7 +23445,7 @@ object Fobat: TFobat
     end
     object lbl5: TLabel
       Left = 8
-      Top = 112
+      Top = 80
       Width = 70
       Height = 17
       Caption = 'Jenis Obat'
@@ -23458,7 +23458,7 @@ object Fobat: TFobat
     end
     object lbl6: TLabel
       Left = 8
-      Top = 144
+      Top = 112
       Width = 82
       Height = 17
       Caption = 'Satuan Obat'
@@ -23471,7 +23471,7 @@ object Fobat: TFobat
     end
     object lbl7: TLabel
       Left = 8
-      Top = 176
+      Top = 144
       Width = 29
       Height = 17
       Caption = 'Stok'
@@ -23497,9 +23497,9 @@ object Fobat: TFobat
       Text = 'edtKode'
     end
     object edtBarcode: TEdit
-      Left = 104
-      Top = 48
-      Width = 377
+      Left = 352
+      Top = 16
+      Width = 497
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23512,9 +23512,9 @@ object Fobat: TFobat
     end
     object dbgrd1: TDBGrid
       Left = 16
-      Top = 208
-      Width = 841
-      Height = 281
+      Top = 192
+      Width = 833
+      Height = 297
       DataSource = dm.dsObat
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23540,7 +23540,6 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23566,7 +23565,6 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23591,7 +23589,6 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23603,7 +23600,6 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23615,7 +23611,6 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23627,7 +23622,6 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23652,7 +23646,6 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23664,7 +23657,6 @@ object Fobat: TFobat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23698,7 +23690,7 @@ object Fobat: TFobat
     object edtpencarian: TEdit
       Left = 8
       Top = 496
-      Width = 849
+      Width = 841
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23772,7 +23764,7 @@ object Fobat: TFobat
     end
     object edtNama: TEdit
       Left = 104
-      Top = 80
+      Top = 48
       Width = 745
       Height = 25
       Font.Charset = ANSI_CHARSET
@@ -23787,7 +23779,7 @@ object Fobat: TFobat
     end
     object dblkcbbJenisObat: TDBLookupComboBox
       Left = 104
-      Top = 112
+      Top = 80
       Width = 297
       Height = 25
       Font.Charset = ANSI_CHARSET
@@ -23803,7 +23795,7 @@ object Fobat: TFobat
     end
     object dblkcbbSatuanObat: TDBLookupComboBox
       Left = 104
-      Top = 144
+      Top = 112
       Width = 161
       Height = 25
       Font.Charset = ANSI_CHARSET
@@ -23819,7 +23811,7 @@ object Fobat: TFobat
     end
     object edtStok: TEdit
       Left = 104
-      Top = 176
+      Top = 144
       Width = 169
       Height = 25
       Font.Charset = ANSI_CHARSET
@@ -23833,8 +23825,8 @@ object Fobat: TFobat
       OnKeyPress = edtStokKeyPress
     end
     object edtIdObat: TEdit
-      Left = 304
-      Top = 16
+      Left = 104
+      Top = 8
       Width = 121
       Height = 21
       TabOrder = 12

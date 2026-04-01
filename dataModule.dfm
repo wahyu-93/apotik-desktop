@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 145
-  Top = 415
+  Left = 106
+  Top = 268
   Height = 537
   Width = 1702
   object XPManifest1: TXPManifest
@@ -1729,5 +1729,15 @@ object dm: Tdm
     Parameters = <>
     Left = 632
     Top = 416
+  end
+  object qryBatchObat: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from tbl_batch')
+    Left = 352
+    Top = 48
   end
 end
