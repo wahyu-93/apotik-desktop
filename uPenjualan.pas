@@ -59,6 +59,9 @@ type
     procedure btnProsesClick(Sender: TObject);
     procedure btnCetakClick(Sender: TObject);
     procedure btnProsesPendingClick(Sender: TObject);
+    procedure AdjustBatchFIFO(ObatID, JumlahBaru, PenjualanID: Integer);
+    procedure KembalikanBatchSebagian(ObatID, JumlahKembali, PenjualanID: Integer);
+    procedure KembalikanBatch(PenjualanID: Integer);
   private
     { Private declarations }
   public
@@ -72,9 +75,243 @@ var
 implementation
 
 uses
-  dataModule, StrUtils, uBantuObatPenjualan, uBayar, DateUtils;
+  dataModule, StrUtils, uBantuObatPenjualan, uBayar, DateUtils, ADODB;
 
 {$R *.dfm}
+
+procedure TFpenjualan.AdjustBatchFIFO(ObatID, JumlahBaru, PenjualanID: Integer);
+var
+  qryCek    : TADOQuery;
+  qryBatch  : TADOQuery;
+  qryUpdate : TADOQuery;
+  qryLog    : TADOQuery;
+  JumlahLama, Delta, SisaKurangi, Ambil, BatchID, SisaBatch: Integer;
+begin
+  qryCek    := TADOQuery.Create(nil);
+  qryBatch  := TADOQuery.Create(nil);
+  qryUpdate := TADOQuery.Create(nil);
+  qryLog    := TADOQuery.Create(nil);
+
+  try
+    qryCek.Connection    := dm.con1;
+    qryBatch.Connection  := dm.con1;
+    qryUpdate.Connection := dm.con1;
+    qryLog.Connection    := dm.con1;
+
+    // cek sudah berapa yang tercatat untuk penjualan + obat ini
+    qryCek.SQL.Text :=
+      'SELECT COALESCE(SUM(pb.jumlah), 0) AS total_tercatat ' +
+      'FROM tbl_penjualan_batch pb ' +
+      'JOIN tbl_batch b ON b.id = pb.batch_id ' +
+      'WHERE pb.penjualan_id = ' + IntToStr(PenjualanID) +
+      '  AND b.obat_id = ' + IntToStr(ObatID);
+    qryCek.Open;
+    JumlahLama := qryCek.FieldByName('total_tercatat').AsInteger;
+
+    Delta := JumlahBaru - JumlahLama;
+
+    // tidak ada perubahan, skip
+    if Delta = 0 then Exit;
+
+    if Delta > 0 then
+    begin
+      // jumlah bertambah — kurangi batch sejumlah delta
+      SisaKurangi := Delta;
+
+      qryBatch.SQL.Text :=
+        'SELECT id, jumlah_sisa FROM tbl_batch ' +
+        'WHERE obat_id = ' + IntToStr(ObatID) +
+        '  AND jumlah_sisa > 0 ' +
+        '  AND status = 1 ' +
+        'ORDER BY tgl_expired ASC';
+      qryBatch.Open;
+
+      if qryBatch.IsEmpty then Exit;
+
+      while (not qryBatch.Eof) and (SisaKurangi > 0) do
+        begin
+          BatchID   := qryBatch.FieldByName('id').AsInteger;
+          SisaBatch := qryBatch.FieldByName('jumlah_sisa').AsInteger;
+
+          if SisaBatch >= SisaKurangi then
+            Ambil := SisaKurangi
+          else
+            Ambil := SisaBatch;
+
+          // kurangi jumlah_sisa
+          qryUpdate.SQL.Text :=
+            'UPDATE tbl_batch SET jumlah_sisa = jumlah_sisa - ' + IntToStr(Ambil) +
+            ' WHERE id = ' + IntToStr(BatchID);
+          qryUpdate.ExecSQL;
+
+          // status otomatis menyesuaikan sisa
+          qryUpdate.SQL.Text :=
+            'UPDATE tbl_batch SET status = CASE WHEN jumlah_sisa = 0 THEN 0 ELSE 1 END' +
+            ' WHERE id = ' + IntToStr(BatchID);
+          qryUpdate.ExecSQL;
+
+          qryLog.SQL.Text :=
+            'INSERT INTO tbl_penjualan_batch ' +
+            '(penjualan_id, batch_id, jumlah, is_estimasi, created_at) VALUES (' +
+            IntToStr(PenjualanID) + ', ' +
+            IntToStr(BatchID)     + ', ' +
+            IntToStr(Ambil)       + ', 1, NOW())';
+          qryLog.ExecSQL;
+
+          SisaKurangi := SisaKurangi - Ambil;
+          qryBatch.Next;
+        end;
+    end
+    else
+      begin
+        // jumlah berkurang — kembalikan batch sejumlah abs(delta)
+        // pakai procedure KembalikanSebagian yang akan kita buat
+        KembalikanBatchSebagian(ObatID, Abs(Delta), PenjualanID);
+      end;
+
+  except
+    // ditelan
+  end;
+
+  qryCek.Free;
+  qryBatch.Free;
+  qryUpdate.Free;
+  qryLog.Free;
+end;
+
+procedure TFpenjualan.KembalikanBatchSebagian(ObatID, JumlahKembali, PenjualanID: Integer);
+var
+  qryLog    : TADOQuery;
+  qryUpdate : TADOQuery;
+  SisaKembali, Ambil, BatchID, JumlahTercatat: Integer;
+begin
+  SisaKembali := JumlahKembali;
+
+  qryLog    := TADOQuery.Create(nil);
+  qryUpdate := TADOQuery.Create(nil);
+
+  try
+    qryLog.Connection    := dm.con1;
+    qryUpdate.Connection := dm.con1;
+
+    // ambil log batch untuk penjualan+obat ini, urut expired terjauh dulu
+    // (kembalikan ke batch yang paling jauh expirednya duluan — kebalikan FIFO)
+    qryLog.SQL.Text :=
+      'SELECT pb.id, pb.batch_id, pb.jumlah, ' +
+      '(SELECT tgl_expired FROM tbl_batch WHERE id = pb.batch_id) AS tgl_exp ' +
+      'FROM tbl_penjualan_batch pb ' +
+      'WHERE pb.penjualan_id = ' + IntToStr(PenjualanID) +
+      '  AND pb.batch_id IN (' +
+      '    SELECT id FROM tbl_batch WHERE obat_id = ' + IntToStr(ObatID) +
+      '  ) ' +
+      'ORDER BY tgl_exp DESC';
+    qryLog.Open;
+
+    while (not qryLog.Eof) and (SisaKembali > 0) do
+    begin
+      BatchID        := qryLog.FieldByName('batch_id').AsInteger;
+      JumlahTercatat := qryLog.FieldByName('jumlah').AsInteger;
+
+      if JumlahTercatat >= SisaKembali then
+        Ambil := SisaKembali
+      else
+        Ambil := JumlahTercatat;
+
+      // kembalikan ke tbl_batch
+      qryUpdate.SQL.Text :=
+        'UPDATE tbl_batch SET jumlah_sisa = jumlah_sisa + ' + IntToStr(Ambil) +
+        ' WHERE id = ' + IntToStr(BatchID);
+      qryUpdate.ExecSQL;
+
+      // status otomatis menyesuaikan sisa
+      qryUpdate.SQL.Text :=
+        'UPDATE tbl_batch SET status = CASE WHEN jumlah_sisa = 0 THEN 0 ELSE 1 END' +
+        ' WHERE id = ' + IntToStr(BatchID);
+      qryUpdate.ExecSQL;
+
+      // kurangi atau hapus record log
+      if JumlahTercatat = Ambil then
+        begin
+          qryUpdate.SQL.Text :=
+            'DELETE FROM tbl_penjualan_batch WHERE id = ' +
+            qryLog.FieldByName('id').AsString;
+          qryUpdate.ExecSQL;
+        end
+      else
+        begin
+          qryUpdate.SQL.Text :=
+            'UPDATE tbl_penjualan_batch SET jumlah = jumlah - ' + IntToStr(Ambil) +
+            ' WHERE id = ' + qryLog.FieldByName('id').AsString;
+          qryUpdate.ExecSQL;
+        end;
+
+      SisaKembali := SisaKembali - Ambil;
+      qryLog.Next;
+    end;
+
+  except
+    on E: Exception do
+    ShowMessage('KembalikanBatchSebagian error: ' + E.Message);
+  end;
+
+  qryLog.Free;
+  qryUpdate.Free;
+end;
+
+procedure TFpenjualan.KembalikanBatch(PenjualanID: Integer);
+var
+  qryLog    : TADOQuery;
+  qryUpdate : TADOQuery;
+begin
+  qryLog    := TADOQuery.Create(nil);
+  qryUpdate := TADOQuery.Create(nil);
+
+  try
+    qryLog.Connection    := dm.con1;
+    qryUpdate.Connection := dm.con1;
+
+    // ambil semua record batch yang terkait penjualan ini
+    qryLog.SQL.Text :=
+      'SELECT batch_id, jumlah FROM tbl_penjualan_batch ' +
+      'WHERE penjualan_id = ' + IntToStr(PenjualanID);
+    qryLog.Open;
+
+    while not qryLog.Eof do
+      begin
+        // kembalikan jumlah_sisa ke tbl_batch
+        qryUpdate.SQL.Text :=
+          'UPDATE tbl_batch SET jumlah_sisa = jumlah_sisa + ' +
+          qryLog.FieldByName('jumlah').AsString +
+          ' WHERE id = ' + qryLog.FieldByName('batch_id').AsString;
+        qryUpdate.ExecSQL;
+
+        // status otomatis menyesuaikan sisa
+        qryUpdate.SQL.Text :=
+          'UPDATE tbl_batch SET status = CASE WHEN jumlah_sisa = 0 THEN 0 ELSE 1 END' +
+          ' WHERE id = ' + qryLog.FieldByName('batch_id').AsString;
+        qryUpdate.ExecSQL;
+
+        qryLog.Next;
+      end;
+
+    // hapus log batch penjualan ini
+    qryUpdate.SQL.Text :=
+      'DELETE FROM tbl_penjualan_batch ' +
+      'WHERE penjualan_id = ' + IntToStr(PenjualanID);
+    qryUpdate.ExecSQL;
+
+  except
+    on E: Exception do
+    begin
+      // ditelan — tidak ganggu proses batal
+      // uncomment untuk debug:
+      // ShowMessage('Kembalikan batch error: ' + E.Message);
+    end;
+  end;
+
+  qryLog.Free;
+  qryUpdate.Free;
+end;
 
 function hitungItem(id_penjualan : string) : Integer;
 begin
@@ -219,6 +456,9 @@ begin
                   SQL.Text := 'delete from tbl_stok where no_faktur = '+QuotedStr(edtFaktur.Text)+'';
                   ExecSQL;
                 end;
+
+              //hapus data batch
+              KembalikanBatch(StrToInt(id_penjualan));
             end;
 
           MessageDlg('Transaksi Dibatalkan',mtInformation,[mbOk],0);
@@ -294,7 +534,6 @@ begin
       if dm.qryPenjualan.Locate('no_faktur',edtFaktur.Text,[]) then id_penjualan := dm.qryPenjualan.fieldbyname('id').AsString;
 
       //cek stok
-      
 
       //simpan ke tabel detail penjualan
       with dm.qryDetailPenjualan do
@@ -357,6 +596,17 @@ begin
               ExecSQL; 
             end;      
         end;
+
+      // ================================================================
+      // BATCH FIFO — ditambahkan setelah proses stok lama selesai
+      // Kalau batch belum ada untuk obat ini, otomatis skip
+      // Tidak mempengaruhi transaksi kasir sama sekali
+      // ================================================================
+      AdjustBatchFIFO(
+        StrToInt(edtIdObat.Text),   // obat_id
+        1,                          // per klik Simpan selalu 1 unit
+        StrToInt(id_penjualan)      // id penjualan yang baru disimpan
+      );
 
       konek(edtFaktur.Text);
       lblItem.Caption := IntToStr(hitungItem(id_penjualan));
@@ -440,6 +690,12 @@ begin
           ExecSQL;
         end;
 
+      AdjustBatchFIFO(
+        StrToInt(edtIdObat.Text),   // obat_id
+        jumlahNew,                  // per klik Simpan selalu 1 unit
+        StrToInt(id_penjualan)      // id penjualan yang baru disimpan
+      );
+
       konek(edtFaktur.Text);
 
       lblItem.Caption := IntToStr(hitungItem(id_penjualan));
@@ -463,6 +719,8 @@ begin
           SQL.Text := 'delete from tbl_detail_penjualan where penjualan_id = '+QuotedStr(edtIdPembelian.Text)+' and obat_id = '+QuotedStr(edtIdObat.Text)+'';
           ExecSQL;
         end;
+
+      KembalikanBatch(StrToInt(id_penjualan));
 
       MessageDlg('Item Berhasil Dihapus',mtInformation,[mbOK],0);
       konek(edtFaktur.Text);

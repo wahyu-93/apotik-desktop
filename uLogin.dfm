@@ -3,7 +3,7 @@ object fLogin: TfLogin
   Top = 378
   AutoScroll = False
   BorderIcons = []
-  Caption = '.:: Login Aplikasi ::.'
+  Caption = '.:: Form Login ::.'
   ClientHeight = 421
   ClientWidth = 477
   Color = clGradientInactiveCaption
