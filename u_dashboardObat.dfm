@@ -1,6 +1,6 @@
 object fDashboardObat: TfDashboardObat
-  Left = 557
-  Top = 151
+  Left = 368
+  Top = 212
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: List Obat ::.'

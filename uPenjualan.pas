@@ -150,13 +150,43 @@ begin
             ' WHERE id = ' + IntToStr(BatchID);
           qryUpdate.ExecSQL;
 
-          qryLog.SQL.Text :=
+          {qryLog.SQL.Text :=
             'INSERT INTO tbl_penjualan_batch ' +
             '(penjualan_id, batch_id, jumlah, is_estimasi, created_at) VALUES (' +
             IntToStr(PenjualanID) + ', ' +
             IntToStr(BatchID)     + ', ' +
             IntToStr(Ambil)       + ', 1, NOW())';
-          qryLog.ExecSQL;
+          qryLog.ExecSQL;      }
+
+          // BARU — insert atau update jika sudah ada
+          qryLog.SQL.Text :=
+            'SELECT id FROM tbl_penjualan_batch ' +
+            'WHERE penjualan_id = ' + IntToStr(PenjualanID) +
+            '  AND batch_id = ' + IntToStr(BatchID);
+          qryLog.Open;
+
+          if qryLog.IsEmpty then
+          begin
+            qryLog.Close;
+            qryLog.SQL.Text :=
+              'INSERT INTO tbl_penjualan_batch ' +
+              '(penjualan_id, batch_id, jumlah, is_estimasi, created_at) VALUES (' +
+              IntToStr(PenjualanID) + ', ' +
+              IntToStr(BatchID)     + ', ' +
+              IntToStr(Ambil)       + ', 1, NOW())';
+            qryLog.ExecSQL;
+          end
+          else
+          begin
+            qryLog.Close;
+            qryLog.SQL.Text :=
+              'UPDATE tbl_penjualan_batch ' +
+              'SET jumlah = jumlah + ' + IntToStr(Ambil) +
+              ' WHERE penjualan_id = ' + IntToStr(PenjualanID) +
+              '   AND batch_id = ' + IntToStr(BatchID);
+            qryLog.ExecSQL;
+          end;
+          qryLog.Close;
 
           SisaKurangi := SisaKurangi - Ambil;
           qryBatch.Next;
@@ -469,6 +499,7 @@ end;
 
 procedure TFpenjualan.btnBantuObatClick(Sender: TObject);
 begin
+  fBantuObatPenjualan.edtType.Text := 'penjualan';
   fBantuObatPenjualan.ShowModal;
 end;
 

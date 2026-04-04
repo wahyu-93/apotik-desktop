@@ -84,6 +84,7 @@ type
     LaporanRetur1: TMenuItem;
     BackupDatabase1: TMenuItem;
     BersihkanTabel1: TMenuItem;
+    KartuStokObat1: TMenuItem;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
@@ -120,6 +121,7 @@ type
     procedure LaporanRetur1Click(Sender: TObject);
     procedure BackupDatabase1Click(Sender: TObject);
     procedure BersihkanTabel1Click(Sender: TObject);
+    procedure KartuStokObat1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -139,7 +141,7 @@ uses
   u_dashboardPenjualan, u_dashboardSupplier, u_dashboardObat, 
   u_dashboardObatStok, u_dashboardExp, u_dashboardReturPenjualan, 
   u_returPembelian, u_listReturPembelian, u_dashboardReturPembelian, 
-  u_laporanRetur, uBackup, ADODB;
+  u_laporanRetur, uBackup, ADODB, uKartuStok;
 
 {$R *.dfm}
 
@@ -546,6 +548,11 @@ begin
 
         MessageDlg('Proses Sukses',mtInformation,[mbok],0);
     end;
+end;
+
+procedure TFMenu.KartuStokObat1Click(Sender: TObject);
+begin
+  fKartuStok.ShowModal;
 end;
 
 end.

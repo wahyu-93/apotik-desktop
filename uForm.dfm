@@ -23937,6 +23937,10 @@ object FMenu: TFMenu
         Caption = 'Laba Penjualan'
         OnClick = LabaPenjualan1Click
       end
+      object KartuStokObat1: TMenuItem
+        Caption = 'Kartu Stok Obat'
+        OnClick = KartuStokObat1Click
+      end
     end
     object Setting1: TMenuItem
       Caption = 'Setting'

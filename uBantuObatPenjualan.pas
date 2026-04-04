@@ -16,6 +16,7 @@ type
     grp1: TGroupBox;
     lbl1: TLabel;
     img1: TImage;
+    edtType: TEdit;
     procedure konek;
     procedure FormShow(Sender: TObject);
     procedure btnKeluarClick(Sender: TObject);
@@ -41,7 +42,7 @@ var
 implementation
 
 uses
-  dataModule, uPenjualan;
+  dataModule, uPenjualan, uKartuStok, DB;
 
 {$R *.dfm}
 
@@ -76,12 +77,21 @@ begin
       Exit;
     end;
 
-  Fpenjualan.edtKode.Text := dbgrd1.Fields[2].AsString;
-  Fpenjualan.edtIdObat.Text := dbgrd1.Fields[1].AsString;
-  Fpenjualan.edtHarga.Text := dbgrd1.Fields[4].AsString;
-  Fpenjualan.btnHapus.Enabled := false;
-  Fpenjualan.btnSimpan.Click;
-
+  if edtType.Text = 'penjualan' then
+    begin
+      Fpenjualan.edtKode.Text := dbgrd1.Fields[2].AsString;
+      Fpenjualan.edtIdObat.Text := dbgrd1.Fields[1].AsString;
+      Fpenjualan.edtHarga.Text := dbgrd1.Fields[4].AsString;
+      Fpenjualan.btnHapus.Enabled := false;
+      Fpenjualan.btnSimpan.Click;
+    end
+  else
+    begin
+      fKartuStok.edtObatId.Text   := dbgrd1.Fields[1].AsString;
+      fKartuStok.edtNamaObat.Text := dbgrd1.Fields[3].AsString;
+      fKartuStok.edtStokAwal.Text := dbgrd1.Fields[7].AsString;
+    end;
+    
   Close;
 end;
 

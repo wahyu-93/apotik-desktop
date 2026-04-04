@@ -47,7 +47,8 @@ uses
   u_detailReturPembelian in 'u_detailReturPembelian.pas' {fDetailReturPembelian},
   u_dashboardReturPembelian in 'u_dashboardReturPembelian.pas' {fDashboardListPembelian},
   u_laporanRetur in 'u_laporanRetur.pas' {fLaporanRetur},
-  uBackup in 'uBackup.pas' {fbackup};
+  uBackup in 'uBackup.pas' {fbackup},
+  uKartuStok in 'uKartuStok.pas' {fKartuStok};
 
 {$R *.res}
 
@@ -99,5 +100,6 @@ begin
   Application.CreateForm(TfDashboardListPembelian, fDashboardListPembelian);
   Application.CreateForm(TfLaporanRetur, fLaporanRetur);
   Application.CreateForm(Tfbackup, fbackup);
+  Application.CreateForm(TfKartuStok, fKartuStok);
   Application.Run;
 end.
