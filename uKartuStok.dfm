@@ -1,11 +1,11 @@
 object fKartuStok: TfKartuStok
-  Left = 549
-  Top = 146
+  Left = 532
+  Top = 185
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Kartu Stok ::.'
   ClientHeight = 779
-  ClientWidth = 891
+  ClientWidth = 892
   Color = clGradientActiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,6 +14,7 @@ object fKartuStok: TfKartuStok
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  Scaled = False
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -23890,7 +23891,7 @@ object fKartuStok: TfKartuStok
   object pnlStatus: TPanel
     Left = 0
     Top = 738
-    Width = 891
+    Width = 892
     Height = 41
     Align = alBottom
     TabOrder = 4
@@ -23928,6 +23929,70 @@ object fKartuStok: TfKartuStok
     TitleFont.Height = -16
     TitleFont.Name = 'Arial Narrow'
     TitleFont.Style = [fsBold]
+  end
+  object qckrpQRpt: TQuickRep
+    Left = 912
+    Top = 24
+    Width = 816
+    Height = 1056
+    Frame.Color = clBlack
+    Frame.DrawTop = False
+    Frame.DrawBottom = False
+    Frame.DrawLeft = False
+    Frame.DrawRight = False
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = []
+    Functions.Strings = (
+      'PAGENUMBER'
+      'COLUMNNUMBER'
+      'REPORTTITLE')
+    Functions.DATA = (
+      '0'
+      '0'
+      #39#39)
+    Options = [FirstPageHeader, LastPageFooter]
+    Page.Columns = 1
+    Page.Orientation = poPortrait
+    Page.PaperSize = Default
+    Page.Values = (
+      127.000000000000000000
+      2794.000000000000000000
+      127.000000000000000000
+      2159.000000000000000000
+      127.000000000000000000
+      127.000000000000000000
+      0.000000000000000000)
+    PrinterSettings.Copies = 1
+    PrinterSettings.Duplex = False
+    PrinterSettings.FirstPage = 0
+    PrinterSettings.LastPage = 0
+    PrinterSettings.OutputBin = Auto
+    PrintIfEmpty = True
+    SnapToGrid = True
+    Units = Inches
+    Zoom = 100
+    object qrbnd1: TQRBand
+      Left = 48
+      Top = 48
+      Width = 720
+      Height = 40
+      Frame.Color = clBlack
+      Frame.DrawTop = False
+      Frame.DrawBottom = False
+      Frame.DrawLeft = False
+      Frame.DrawRight = False
+      AlignToBottom = False
+      Color = clWhite
+      ForceNewColumn = False
+      ForceNewPage = False
+      Size.Values = (
+        105.833333333333300000
+        1905.000000000000000000)
+      BandType = rbTitle
+    end
   end
   object qryKartu: TADOQuery
     Parameters = <>

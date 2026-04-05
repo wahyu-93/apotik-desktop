@@ -23439,7 +23439,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23457,7 +23456,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
           Visible = True
         end
         item
@@ -23475,7 +23473,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
           Visible = True
         end
         item
@@ -23493,7 +23490,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
           Visible = True
         end
         item
@@ -23511,7 +23507,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
           Visible = True
         end
         item
@@ -23529,7 +23524,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
           Visible = True
         end
         item
@@ -23547,7 +23541,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 64
           Visible = True
         end
         item
@@ -23564,7 +23557,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23581,7 +23573,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23598,7 +23589,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23615,7 +23605,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23632,7 +23621,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23649,7 +23637,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23666,7 +23653,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23683,7 +23669,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23700,7 +23685,6 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23722,9 +23706,9 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
         end>
     end
     object edtpencarian: TEdit
-      Left = 8
+      Left = 16
       Top = 472
-      Width = 961
+      Width = 953
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
