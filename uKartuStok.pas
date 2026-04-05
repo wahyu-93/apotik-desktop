@@ -61,7 +61,6 @@ type
     btnKeluar: TBitBtn;
     edtStokAwal: TEdit;
     qckrpQRpt: TQuickRep;
-    qrbnd1: TQRBand;
     procedure FormCreate(Sender: TObject);
     procedure btnPrintClick(Sender: TObject);
     procedure btnTampilClick(Sender: TObject);
@@ -69,14 +68,14 @@ type
     procedure btnCariObatClick(Sender: TObject);
   private
     { Private declarations }
-    FObatID   : Integer;
-    FSisaAwal : Integer;
+    FObatID     : Integer;
+    FSisaAwal   : Integer;
     FqryKartu   : TADOQuery;
     FdsKartu    : TDataSource;
     FPrintRow   : Integer;
     FcdsGrid    : TClientDataSet;
     FdsGrid     : TDataSource;
-    FlblD       : array[0..8] of TQRLabel;
+    FlblD       : array[0..9] of TQRLabel;
     FqryPrint   : TADOQuery;
     qryInfoObat : TADOQuery;
     procedure SetupGrid;
@@ -124,6 +123,7 @@ var
   noUrut    : Integer;
   masuk     : Integer;
   keluar    : Integer;
+  tglExp    : string;
 begin
   // ?? VALIDASI WAJIB
   if not Assigned(FcdsGrid) then
@@ -149,7 +149,8 @@ begin
     'CREATE TEMPORARY TABLE tmp_kartu_stok (' +
     '  no INT, tgl DATE, no_faktur VARCHAR(50), ' +
     '  no_batch VARCHAR(50), tgl_expired VARCHAR(20), ' +
-    '  keterangan VARCHAR(50), masuk INT, keluar INT, sisa INT' +
+    '  keterangan VARCHAR(50), masuk INT, keluar INT, sisa INT, ' +
+    '  nie VARCHAR(30)' +
     ')';
   FqryPrint.ExecSQL;
 
@@ -165,17 +166,23 @@ begin
     keluar := FcdsGrid.FieldByName('keluar').AsInteger;
     sisa   := FcdsGrid.FieldByName('sisa').AsInteger;
 
+    if FcdsGrid.FieldByName('tgl_expired').AsString = '-' then
+      tglExp := '-'
+    else
+      tglExp := FormatDateTime('dd-mm-yyyy', FcdsGrid.FieldByName('tgl_expired').AsDateTime);
+
     FqryPrint.SQL.Text :=
       'INSERT INTO tmp_kartu_stok VALUES (' +
       IntToStr(noUrut) + ', ' +
       QuotedStr(FormatDateTime('yyyy-mm-dd', FcdsGrid.FieldByName('tgl').AsDateTime)) + ', ' +
       QuotedStr(FcdsGrid.FieldByName('no_faktur').AsString) + ', ' +
       QuotedStr(FcdsGrid.FieldByName('no_batch').AsString) + ', ' +
-      QuotedStr(FcdsGrid.FieldByName('tgl_expired').AsString) + ', ' +
+      QuotedStr(tglExp) + ', ' +
       QuotedStr(FcdsGrid.FieldByName('keterangan').AsString) + ', ' +
       IntToStr(masuk) + ', ' +
       IntToStr(keluar) + ', ' +
-      IntToStr(sisa) + ')';
+      IntToStr(sisa) + ', '+
+      QuotedStr(FcdsGrid.FieldByName('nie').AsString) + ')';
     FqryPrint.ExecSQL;
 
     FcdsGrid.Next;
@@ -190,8 +197,8 @@ procedure TFKartuStok.SetupQuickReport;
 var
   bandHeader, bandColHead, bandDetail, bandSummary: TQRBand;
   lbl: TQRLabel;
-  lblH: array[0..8] of TQRLabel;
-  colLeft, colWidth: array[0..8] of Integer;
+  lblH: array[0..9] of TQRLabel;
+  colLeft, colWidth: array[0..9] of Integer;
   i, x: Integer;
 
   line : TQRShape;
@@ -224,18 +231,18 @@ begin
   // ================= SET REPORT =================
   qckrpQRpt.DataSet := nil;
   qckrpQRpt.Page.PaperSize := A4;
-  qckrpQRpt.Page.Orientation := poPortrait;
-
-  // ?? pakai pixel (stabil)
-  qckrpQRpt.Width := 800;
+  qckrpQRpt.Page.Orientation := poPortrait; // ? ganti ke landscape supaya muat
 
   qckrpQRpt.DataSet := FqryPrint;
 
+  // ?? pakai pixel (stabil)
+  qckrpQRpt.Width := 780;
+
   // ================= HEADER =================
   bandHeader := TQRBand.Create(qckrpQRpt);
-  bandHeader.Parent := qckrpQRpt;
+  bandHeader.Parent   := qckrpQRpt;
   bandHeader.BandType := rbPageHeader;
-  bandHeader.Height := 105;
+  bandHeader.Height   := 100; // ? tambah tinggi supaya ada jarak ke tabel
 
   // Judul
   lbl := TQRLabel.Create(bandHeader);
@@ -246,7 +253,6 @@ begin
   lbl.AlignToBand := True;
   lbl.SetBounds(0, 5, qckrpQRpt.Width, 20);
   lbl.Font.Style := [fsBold];
-  lbl.Font.Name := 'Arial';
 
   // Nama Apotek (CENTER FIX)
   lbl := TQRLabel.Create(bandHeader);
@@ -258,54 +264,80 @@ begin
   lbl.SetBounds(0, 25, qckrpQRpt.Width, 20);
   lbl.Font.Size := 12;
   lbl.Font.Style := [fsBold];
-  lbl.Font.Name := 'Arial';
 
-  // Info Obat
-  {if Assigned(qryInfoObat) and not qryInfoObat.IsEmpty then
-  begin
-    lbl := TQRLabel.Create(bandHeader);
-    lbl.Parent := bandHeader;
-    lbl.Caption := 'Nama Obat: ' + qryInfoObat.FieldByName('nama_obat').AsString;
-    lbl.SetBounds(10, 70, 500, 15);
-
-    lbl := TQRLabel.Create(bandHeader);
-    lbl.Parent := bandHeader;
-    lbl.Caption := 'Satuan: ' + qryInfoObat.FieldByName('satuan').AsString;
-    lbl.SetBounds(10, 90, 500, 15);
-  end;   }
-
-  // GANTI dengan ini — ambil dari label form yang sudah terisi
+  // info obat
+  // nama obat
   lbl := TQRLabel.Create(bandHeader);
   lbl.Parent    := bandHeader;
-  lbl.Caption   := 'NIE       : ' + lblNIEVal.Caption;
-  lbl.SetBounds(10, 50, 500, 15);
+  lbl.Caption   := 'Nama Obat';
+  lbl.SetBounds(10, 45, 70, 15);
   lbl.Font.Size := 9;
 
   lbl := TQRLabel.Create(bandHeader);
   lbl.Parent    := bandHeader;
-  lbl.Caption   := 'Nama Obat : ' + lblNamaVal.Caption;
-  lbl.SetBounds(10, 65, 500, 15);
+  lbl.Caption   := ':';
+  lbl.SetBounds(82, 45, 10, 15);
   lbl.Font.Size := 9;
 
   lbl := TQRLabel.Create(bandHeader);
   lbl.Parent    := bandHeader;
-  lbl.Caption   := 'Satuan    : ' + lblSatuanVal.Caption;
-  lbl.SetBounds(10, 80, 500, 15);
+  lbl.Caption   := lblNamaVal.Caption;
+  lbl.SetBounds(95, 45, 600, 15);
   lbl.Font.Size := 9;
-      
+
+  // NIE
+  lbl := TQRLabel.Create(bandHeader);
+  lbl.Parent    := bandHeader;
+  lbl.Caption   := 'NIE';
+  lbl.SetBounds(10, 60, 70, 15);
+  lbl.Font.Size := 9;
+
+  lbl := TQRLabel.Create(bandHeader);
+  lbl.Parent    := bandHeader;
+  lbl.Caption   := ':';
+  lbl.SetBounds(82, 60, 10, 15);
+  lbl.Font.Size := 9;
+
+  lbl := TQRLabel.Create(bandHeader);
+  lbl.Parent    := bandHeader;
+  lbl.Caption   := lblNIEVal.Caption;
+  lbl.SetBounds(95, 60, 600, 15);
+  lbl.Font.Size := 9;
+
+  // Satuan
+  lbl := TQRLabel.Create(bandHeader);
+  lbl.Parent    := bandHeader;
+  lbl.Caption   := 'Satuan';
+  lbl.SetBounds(10, 75, 70, 15);
+  lbl.Font.Size := 9;
+
+  lbl := TQRLabel.Create(bandHeader);
+  lbl.Parent    := bandHeader;
+  lbl.Caption   := ':';
+  lbl.SetBounds(82, 75, 10, 15);
+  lbl.Font.Size := 9;
+
+  lbl := TQRLabel.Create(bandHeader);
+  lbl.Parent    := bandHeader;
+  lbl.Caption   := lblSatuanVal.Caption;
+  lbl.SetBounds(95, 75, 600, 15);
+  lbl.Font.Size := 9;
+
   // ================= KOLOM =================
-  colWidth[0] := 30;
-  colWidth[1] := 70;
-  colWidth[2] := 220;
-  colWidth[3] := 70;
-  colWidth[4] := 70;
-  colWidth[5] := 60;
-  colWidth[6] := 60;
-  colWidth[7] := 60;
-  colWidth[8] := 50;
+  colWidth[0] := 65;   // Tanggal
+  colWidth[1] := 98;   // Nomer Dokumen
+  colWidth[2] := 160;  // Sumber/Tujuan
+  colWidth[3] := 105;  // NIE
+  colWidth[4] := 50;   // Masuk
+  colWidth[5] := 50;   // Keluar
+  colWidth[6] := 55;   // Sisa Stok
+  colWidth[7] := 80;   // No Batch
+  colWidth[8] := 70;   // EXP Date
+  colWidth[9] := 40;   // Ket
+  // total = 720 + offset 10 = 730
 
   x := 0;
-  for i := 0 to 8 do
+  for i := 0 to 9 do
   begin
     colLeft[i] := x;
     x := x + colWidth[i];
@@ -315,58 +347,64 @@ begin
   bandColHead := TQRBand.Create(qckrpQRpt);
   bandColHead.Parent := qckrpQRpt;
   bandColHead.BandType := rbColumnHeader;
-  bandColHead.Height := 25;
+  bandColHead.Height := 28;
 
-  for i := 0 to 8 do
+  for i := 0 to 9 do
   begin
     //kotak
     line := TQRShape.Create(bandColHead);
     line.Parent := bandColHead;
     line.Shape := qrsRectangle;
-    line.SetBounds(colLeft[i], 0, colWidth[i], 26);
+    line.SetBounds(colLeft[i], 0, colWidth[i], 29);
     line.Pen.Width := 1;
 
     lblH[i] := TQRLabel.Create(bandColHead);
     lblH[i].Parent := bandColHead;
-    lblH[i].SetBounds(colLeft[i], 5, colWidth[i], 20);
+    lblH[i].SetBounds(colLeft[i], 5, colWidth[i], 24);
     lblH[i].Alignment := taCenter;
     lblH[i].Font.Style := [fsBold];
     lblH[i].Font.Size := 8;
     lbl.Font.Name := 'Arial';
   end;
 
-  lblH[0].Caption := 'No';
-  lblH[1].Caption := 'Tanggal';
-  lblH[2].Caption := 'Keterangan';
-  lblH[3].Caption := 'Batch';
-  lblH[4].Caption := 'ED';
+  lblH[0].Caption := 'Tanggal';
+  lblH[1].Caption := 'Nomer Dokumen';
+  lblH[2].Caption := 'Sumber / Tujuan';
+  lblH[3].Caption := 'NIE';
+  lblH[4].Caption := 'Masuk';
   lblH[5].Caption := 'Keluar';
-  lblH[6].Caption := 'Masuk';
-  lblH[7].Caption := 'Sisa';
-  lblH[8].Caption := 'Paraf';
+  lblH[6].Caption := 'Sisa Stok';
+  lblH[7].Caption := 'No Batch';
+  lblH[8].Caption := 'EXP Date';
+  lblH[9].Caption := 'Ket';
 
   // ================= DETAIL =================
   bandDetail := TQRBand.Create(qckrpQRpt);
   bandDetail.Parent := qckrpQRpt;
   bandDetail.BandType := rbDetail;
-  bandDetail.Height := 20;
+  bandDetail.Height := 28;
 
-  for i := 0 to 8 do
+  for i := 0 to 9 do
   begin
     // ?? kotak tiap cell
     line := TQRShape.Create(bandDetail);
     line.Parent := bandDetail;
     line.Shape := qrsRectangle;
-    line.SetBounds(colLeft[i], 0, colWidth[i], 20);
+    line.SetBounds(colLeft[i], 0, colWidth[i], 28);
     line.Pen.Width := 1;
 
     FlblD[i] := TQRLabel.Create(bandDetail);
     FlblD[i].Parent := bandDetail;
-    FlblD[i].SetBounds(colLeft[i], 2, colWidth[i], 16);
+    FlblD[i].SetBounds(colLeft[i], 2, colWidth[i], 24);
     FlblD[i].Alignment := taCenter;
     FlblD[i].Font.Size := 8;
     lbl.Font.Name := 'Arial';
   end;
+
+  FlblD[1].WordWrap := True;
+  FlblD[1].AutoSize := False;
+  FlblD[1].Width    := colWidth[1] - 4;
+  FlblD[1].Height   := bandDetail.Height - 4;
 
   FlblD[2].Alignment := taLeftJustify;
   FlblD[2].Left := colLeft[2] + 5;
@@ -386,7 +424,7 @@ begin
 
   GetLocaleFormatSettings(0, fs);
   fs.ThousandSeparator := '.';
-  fs.DecimalSeparator := ',';
+  fs.DecimalSeparator  := ',';
 
   if not Assigned(FqryPrint) then Exit;
   if not FqryPrint.Active    then Exit;
@@ -395,25 +433,26 @@ begin
   keluar := FqryPrint.FieldByName('keluar').AsInteger;
   masuk  := FqryPrint.FieldByName('masuk').AsInteger;
 
-  FlblD[0].Caption := FqryPrint.FieldByName('no').AsString;
-  FlblD[1].Caption := FormatDateTime('dd/mm/yyyy', FqryPrint.FieldByName('tgl').AsDateTime);
+  FlblD[0].Caption := FormatDateTime('dd-mm-yyyy', FqryPrint.FieldByName('tgl').AsDateTime);
+  FlblD[1].Caption := '';  // Nomer Dokumen — kosong, tulis tangan
   FlblD[2].Caption := FqryPrint.FieldByName('no_faktur').AsString + ' / ' +
                       FqryPrint.FieldByName('keterangan').AsString;
-  FlblD[3].Caption := FqryPrint.FieldByName('no_batch').AsString;
-  FlblD[4].Caption := FqryPrint.FieldByName('tgl_expired').AsString;
+  FlblD[3].Caption := FqryPrint.FieldByName('nie').AsString;
+
+  if masuk > 0 then
+    FlblD[4].Caption := FormatFloat('#,##0', FqryPrint.FieldByName('masuk').AsFloat, fs)
+  else
+    FlblD[4].Caption := '';
 
   if keluar > 0 then
-    FlblD[5].Caption := FormatFloat('#,##0',FqryPrint.FieldByName('keluar').AsFloat, fs)
+    FlblD[5].Caption := FormatFloat('#,##0', FqryPrint.FieldByName('keluar').AsFloat, fs)
   else
     FlblD[5].Caption := '';
 
-  if masuk > 0 then
-    FlblD[6].Caption := FormatFloat('#,##0',FqryPrint.FieldByName('masuk').AsFloat, fs)
-  else
-    FlblD[6].Caption := '';
-
-  FlblD[7].Caption := FormatFloat('#,##0',FqryPrint.FieldByName('sisa').AsFloat, fs);
-  FlblD[8].Caption := '';
+  FlblD[6].Caption := FormatFloat('#,##0', FqryPrint.FieldByName('sisa').AsFloat, fs);
+  FlblD[7].Caption := FqryPrint.FieldByName('no_batch').AsString;
+  FlblD[8].Caption := FqryPrint.FieldByName('tgl_expired').AsString;
+  FlblD[9].Caption := '';  // Ket — kosong
 end;
 
 procedure TfKartuStok.FormCreate(Sender: TObject);
@@ -553,8 +592,9 @@ begin
     cds.FieldDefs.Add('no',          ftInteger,  0, False);
     cds.FieldDefs.Add('tgl',         ftDate,     0, False);
     cds.FieldDefs.Add('no_faktur',   ftString,  50, False);
+    cds.FieldDefs.Add('nie',         ftString,  30, False);
     cds.FieldDefs.Add('no_batch',    ftString,  50, False);
-    cds.FieldDefs.Add('tgl_expired', ftString, 20, False);
+    cds.FieldDefs.Add('tgl_expired', ftString,  20, False);
     cds.FieldDefs.Add('keterangan',  ftString,  20, False);
     cds.FieldDefs.Add('masuk',       ftInteger,  0, False);
     cds.FieldDefs.Add('keluar',      ftInteger,  0, False);
@@ -568,6 +608,7 @@ begin
     cds.FieldByName('no').AsInteger         := noUrut;
     cds.FieldByName('tgl').AsDateTime       := dtpAwal.DateTime;
     cds.FieldByName('no_faktur').AsString   := '-';
+    cds.FieldByName('nie').AsString         := '-';
     cds.FieldByName('no_batch').AsString    := '-';
     cds.FieldByName('tgl_expired').AsString := '-';
     cds.FieldByName('keterangan').AsString  := 'Stok Awal';
@@ -593,6 +634,7 @@ begin
       cds.FieldByName('no').AsInteger          := noUrut;
       cds.FieldByName('tgl').AsDateTime        := qryKartu.FieldByName('tgl').AsDateTime;
       cds.FieldByName('no_faktur').AsString    := qryKartu.FieldByName('no_faktur').AsString;
+      cds.FieldByName('nie').AsString          := qryKartu.FieldByName('nie').AsString;
       cds.FieldByName('no_batch').AsString     := qryKartu.FieldByName('no_batch').AsString;
       cds.FieldByName('tgl_expired').AsString  := FormatDateTime('dd/mm/yyyy', qryKartu.FieldByName('tgl_expired').AsDateTime);
       cds.FieldByName('keterangan').AsString   := qryKartu.FieldByName('keterangan').AsString;
@@ -664,10 +706,11 @@ begin
   qryKartu.Close;
   qryKartu.SQL.Clear;
   qryKartu.SQL.Text :=
-    'SELECT DATE(tgl) AS tgl, no_faktur, no_batch, tgl_expired, keterangan, masuk, keluar ' +
+    'SELECT DATE(tgl) AS tgl, no_faktur, no_batch, tgl_expired, keterangan, masuk, keluar, nie ' +
     'FROM ( ' +
     '  SELECT DATE(p.tgl_pembelian) AS tgl, p.no_faktur, b.no_batch, b.tgl_expired, ' +
-    '    ''Pembelian'' AS keterangan, dp.jumlah_beli AS masuk, 0 AS keluar ' +
+    '    ''Pembelian'' AS keterangan, dp.jumlah_beli AS masuk, 0 AS keluar, ' +
+    '    b.nie_number AS nie ' +
     '  FROM tbl_detail_pembelian dp ' +
     '  JOIN tbl_pembelian p ON p.id = dp.pembelian_id ' +
     '  JOIN tbl_batch b ON b.obat_id = dp.obat_id AND b.pembelian_id = dp.pembelian_id ' +
@@ -677,7 +720,8 @@ begin
     '    AND ' + QuotedStr(FormatDateTime('yyyy-mm-dd', dtpAkhir.DateTime)) +
     '  UNION ALL ' +
     '  SELECT DATE(pj.tgl_penjualan) AS tgl, pj.no_faktur, b.no_batch, b.tgl_expired, ' +
-    '    ''Penjualan'' AS keterangan, 0 AS masuk, pb.jumlah AS keluar ' +
+    '    ''Penjualan'' AS keterangan, 0 AS masuk, pb.jumlah AS keluar, ' +
+    '    b.nie_number AS nie ' +
     '  FROM tbl_penjualan_batch pb ' +
     '  JOIN tbl_batch b ON b.id = pb.batch_id ' +
     '  JOIN tbl_penjualan pj ON pj.id = pb.penjualan_id ' +
@@ -687,7 +731,6 @@ begin
     '    AND ' + QuotedStr(FormatDateTime('yyyy-mm-dd', dtpAkhir.DateTime)) +
     ') AS kartu ' +
     'ORDER BY tgl ASC, keterangan DESC';
-
   qryKartu.Open;
 
   HitungSummary;

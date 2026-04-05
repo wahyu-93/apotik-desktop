@@ -1,11 +1,11 @@
 object fKartuStok: TfKartuStok
-  Left = 532
-  Top = 185
+  Left = 119
+  Top = 22
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Kartu Stok ::.'
-  ClientHeight = 779
-  ClientWidth = 892
+  ClientHeight = 772
+  ClientWidth = 895
   Color = clGradientActiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,8 +19,8 @@ object fKartuStok: TfKartuStok
   PixelsPerInch = 96
   TextHeight = 13
   object img1: TImage
-    Left = -5
-    Top = -276
+    Left = 0
+    Top = 0
     Width = 894
     Height = 1013
     Picture.Data = {
@@ -23380,8 +23380,8 @@ object fKartuStok: TfKartuStok
     Stretch = True
   end
   object grp1: TGroupBox
-    Left = 6
-    Top = 8
+    Left = 11
+    Top = 4
     Width = 875
     Height = 57
     TabOrder = 0
@@ -23402,8 +23402,8 @@ object fKartuStok: TfKartuStok
     end
   end
   object pnlFilter: TPanel
-    Left = 8
-    Top = 72
+    Left = 13
+    Top = 68
     Width = 873
     Height = 81
     BevelOuter = bvNone
@@ -23581,8 +23581,8 @@ object fKartuStok: TfKartuStok
     end
   end
   object pnlInfo: TPanel
-    Left = 8
-    Top = 160
+    Left = 13
+    Top = 156
     Width = 873
     Height = 97
     BevelOuter = bvNone
@@ -23749,8 +23749,8 @@ object fKartuStok: TfKartuStok
     end
   end
   object pnlSummary: TPanel
-    Left = 8
-    Top = 264
+    Left = 13
+    Top = 260
     Width = 873
     Height = 81
     BevelOuter = bvNone
@@ -23890,8 +23890,8 @@ object fKartuStok: TfKartuStok
   end
   object pnlStatus: TPanel
     Left = 0
-    Top = 738
-    Width = 892
+    Top = 731
+    Width = 895
     Height = 41
     Align = alBottom
     TabOrder = 4
@@ -23910,8 +23910,8 @@ object fKartuStok: TfKartuStok
     end
   end
   object dbgrd1: TDBGrid
-    Left = 8
-    Top = 352
+    Left = 13
+    Top = 348
     Width = 873
     Height = 377
     DataSource = dsKartu
@@ -23931,8 +23931,8 @@ object fKartuStok: TfKartuStok
     TitleFont.Style = [fsBold]
   end
   object qckrpQRpt: TQuickRep
-    Left = 912
-    Top = 24
+    Left = 909
+    Top = 4
     Width = 816
     Height = 1056
     Frame.Color = clBlack
@@ -23943,7 +23943,7 @@ object fKartuStok: TfKartuStok
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
-    Font.Name = 'Arial'
+    Font.Name = 'Arial Narrow'
     Font.Style = []
     Functions.Strings = (
       'PAGENUMBER'
@@ -23962,8 +23962,8 @@ object fKartuStok: TfKartuStok
       2794.000000000000000000
       127.000000000000000000
       2159.000000000000000000
-      127.000000000000000000
-      127.000000000000000000
+      25.400000000000000000
+      25.400000000000000000
       0.000000000000000000)
     PrinterSettings.Copies = 1
     PrinterSettings.Duplex = False
@@ -23974,25 +23974,6 @@ object fKartuStok: TfKartuStok
     SnapToGrid = True
     Units = Inches
     Zoom = 100
-    object qrbnd1: TQRBand
-      Left = 48
-      Top = 48
-      Width = 720
-      Height = 40
-      Frame.Color = clBlack
-      Frame.DrawTop = False
-      Frame.DrawBottom = False
-      Frame.DrawLeft = False
-      Frame.DrawRight = False
-      AlignToBottom = False
-      Color = clWhite
-      ForceNewColumn = False
-      ForceNewPage = False
-      Size.Values = (
-        105.833333333333300000
-        1905.000000000000000000)
-      BandType = rbTitle
-    end
   end
   object qryKartu: TADOQuery
     Parameters = <>
