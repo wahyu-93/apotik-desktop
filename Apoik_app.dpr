@@ -48,7 +48,8 @@ uses
   u_dashboardReturPembelian in 'u_dashboardReturPembelian.pas' {fDashboardListPembelian},
   u_laporanRetur in 'u_laporanRetur.pas' {fLaporanRetur},
   uBackup in 'uBackup.pas' {fbackup},
-  uKartuStok in 'uKartuStok.pas' {fKartuStok};
+  uKartuStok in 'uKartuStok.pas' {fKartuStok},
+  UReportItemTerlaris in 'UReportItemTerlaris.pas' {QuickReportJumlahItemTerjual: TQuickRep};
 
 {$R *.res}
 
@@ -101,5 +102,6 @@ begin
   Application.CreateForm(TfLaporanRetur, fLaporanRetur);
   Application.CreateForm(Tfbackup, fbackup);
   Application.CreateForm(TfKartuStok, fKartuStok);
+  Application.CreateForm(TQuickReportJumlahItemTerjual, QuickReportJumlahItemTerjual);
   Application.Run;
 end.

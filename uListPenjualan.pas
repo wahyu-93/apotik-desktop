@@ -180,60 +180,51 @@ begin
 
   if dm.qrySetting.FieldByName('kertas').AsString = '80' then
    begin
-     ShowMessage('80');
       // Buat File dengan Nama Struk.txt
       nmfile := GetCurrentDir + '\struk.txt';
       AssignFile(txtFile, nmfile);
       Rewrite(txtFile);
 
-      WriteLn(txtFile, RataTengah(dm.qrySetting.FieldByName('nama_toko').AsString, 32));
-      WriteLn(txtFile, RataTengah(dm.qrySetting.FieldByName('alamat').AsString, 32));
-      WriteLn(txtFile, RataTengah('Telp: ' + dm.qrySetting.FieldByName('telp').AsString, 32));
-      WriteLn(txtFile, RataTengah('Tersedia Obat-Obatan',32));
-      WriteLn(txtFile, RataTengah('Herbal dan Alkes',32));
-
-      WriteLn(txtFile, '---------------------------------');
-      WriteLn(txtFile, 'No. Nota:' + dbgrd1.Fields[1].AsString );
-      WriteLn(txtFile, 'Tanggal :' + FormatDateTime('dd/mm/yyyy hh:mm:ss', now));
-      WriteLn(txtFile, 'Kasir   :' + dm.qryUser.fieldbyname('nama').asString);
-      WriteLn(txtFile, 'Status Jual :' + status);
-      WriteLn(txtFile, '---------------------------------');
+      WriteLn(txtFile, RataTengah(dm.qrySetting.FieldByName('nama_toko').AsString, 42));
+      WriteLn(txtFile, RataTengah(dm.qrySetting.FieldByName('alamat').AsString, 42));
+      WriteLn(txtFile, RataTengah('Telp: ' + dm.qrySetting.FieldByName('telp').AsString, 42));
+      WriteLn(txtFile, RataTengah('Tersedia Obat-Obatan', 42));
+      WriteLn(txtFile, RataTengah('Herbal dan Alkes', 42));
+      WriteLn(txtFile, StringOfChar('-', 42));
+      WriteLn(txtFile, 'No. Nota : ' + dbgrd1.Fields[1].AsString);
+      WriteLn(txtFile, 'Tanggal  : ' + FormatDateTime('dd/mm/yyyy hh:mm:ss', Now));
+      WriteLn(txtFile, 'Kasir    : ' + dm.qryUser.FieldByName('nama').AsString);
+      WriteLn(txtFile, 'Status   : ' + status);
+      WriteLn(txtFile, StringOfChar('-', 42));
       WriteLn(txtFile, 'Nama Barang');
-      WriteLn(txtFile, RataKanan('      QTY   Harga ', 'Sub Total', 32, ' '));
-      WriteLn(txtFile, '---------------------------------');
+      WriteLn(txtFile, RataKanan('      QTY   Harga ', 'Sub Total', 42, ' '));
+      WriteLn(txtFile, StringOfChar('-', 42));
 
-      a := 1;
       with dm.qryRelasiPenjualan do
+        for a := 1 to RecordCount do
         begin
-          for a:=1 to RecordCount do
-            begin
-              RecNo := a;
-              total := fieldbyname('jumlah_jual').AsInteger * fieldbyname('harga_jual').AsInteger;
-
-              WriteLn(txtFile,' '+fieldbyname('nama_obat').asString);
-              WriteLn(txtFile, RataKanan
-                  ('      ' + fieldbyname('jumlah_jual').asString +' X '+FormatFloat('###,###,###',fieldbyname('harga_jual').AsInteger)+' ',FormatFloat('###,###,###',total), 32, ' '));
-
-              Next;
-            end;
+          RecNo := a;
+          total := FieldByName('jumlah_jual').AsInteger * FieldByName('harga_jual').AsInteger;
+          WriteLn(txtFile, ' ' + FieldByName('nama_obat').AsString);
+          WriteLn(txtFile, RataKanan(
+            '      ' + FieldByName('jumlah_jual').AsString +
+            ' X ' + FormatFloat('###,###,###', FieldByName('harga_jual').AsInteger) + ' ',
+            FormatFloat('###,###,###', total), 42, ' '));
         end;
 
-      WriteLn(txtFile, '---------------------------------');
-      WriteLn(txtFile, RataKanan('Total   : ', FormatFloat('Rp. ###,###,###', hitungTotal(dbgrd1.Fields[0].AsString)), 32,
-           ' '));
-      WriteLn(txtFile, '---------------------------------');
-      WriteLn(txtFile, ' Jumlah Item  : ' + IntToStr(hitungItem(dbgrd1.Fields[0].AsString)));
-      WriteLn(txtFile, '---------------------------------');
-      WriteLn(txtFile, RataTengah('Terima Kasih',32));
-      WriteLn(txtFile, RataTengah('Berelaan Jual Seadanya',32));
-      WriteLn(txtFile, RataTengah('Semoga Lekas Sembuh',32));
-      
-      WriteLn(txtFile, Enter + Enter + Enter + Enter + Enter + Enter + Enter + Enter + Enter + Enter );
+      WriteLn(txtFile, StringOfChar('-', 42));
+      WriteLn(txtFile, RataKanan('Total   : ',
+        FormatFloat('Rp. ###,###,###', hitungTotal(dbgrd1.Fields[0].AsString)), 42, ' '));
+      WriteLn(txtFile, StringOfChar('-', 42));
+      WriteLn(txtFile, ' Jumlah Item : ' + IntToStr(hitungItem(dbgrd1.Fields[0].AsString)));
+      WriteLn(txtFile, StringOfChar('-', 42));
+      WriteLn(txtFile, RataTengah('Terima Kasih', 42));
+      WriteLn(txtFile, RataTengah('Berelaan Jual Seadanya', 42));
+      WriteLn(txtFile, Enter);
       CloseFile(txtFile);
    end
   else
     begin
-      ShowMessage('58');
       nmfile := GetCurrentDir + '\struk.txt';
       AssignFile(txtFile, nmfile);
       Rewrite(txtFile);
@@ -279,16 +270,14 @@ begin
       WriteLn(txtFile, StringOfChar('-', 32));;
       WriteLn(txtFile, RataTengah('Terima Kasih',32));
       WriteLn(txtFile, RataTengah('Berelaan Jual Seadanya',32));
-      WriteLn(txtFile, RataTengah('Semoga Lekas Sembuh',32));
 
       WriteLn(txtFile, Enter);
       CloseFile(txtFile);
     end;
+  // Cetak File Struk.txt
+  cetakFile('struk.txt');
 
-    // Cetak File Struk.txt
-    cetakFile('struk.txt');
-    
-    MessageDlg('Cetak Struk Sukses',mtInformation,[mbOK],0);
+  MessageDlg('Cetak Struk Sukses',mtInformation,[mbOK],0);
 end;
 
 procedure TfListPenjualan.dbgrd1CellClick(Column: TColumn);

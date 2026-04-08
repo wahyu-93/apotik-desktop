@@ -107,63 +107,75 @@ begin
 end;
 
 procedure TfLaporanPenjualan.btnLapClick(Sender: TObject);
-var query : string;
+var
+  query      : string;
+  queryTotal : string;
+  whereClause: string;
 begin
-  if (rbTanggal.Checked = false) and (rbBulan.Checked = False) then
+  if (not rbTanggal.Checked) and (not rbBulan.Checked) then
+  begin
+    MessageDlg('Jenis Laporan Belum Dipilih', mtInformation, [mbOK], 0);
+    Exit;
+  end;
+
+  if rbTanggal.Checked then
+  begin
+    whereClause :=
+      'date(tbl_penjualan.tgl_penjualan) = ' +
+      QuotedStr(FormatDateTime('yyyy-mm-dd', dtp1.Date));
+  end
+  else
+  begin
+    if cbbTahun.Text = '' then
     begin
-      MessageDlg('Jenis Laporan Belum Dipilih',mtInformation, [mbOK], 0);
+      MessageDlg('Tahun Wajib Diisi', mtInformation, [mbOK], 0);
       Exit;
     end;
 
-  if rbTanggal.Checked = True then
-    begin
-      query := 'select * from tbl_penjualan left JOIN tbl_pelanggan on tbl_penjualan.id_pelanggan = tbl_pelanggan.id '+
-               'where date(tbl_penjualan.tgl_penjualan) = '+QuotedStr(FormatDateTime('yyyy-mm-dd',dtp1.Date))+' order by tbl_penjualan.id asc';
-    end
-  else if rbBulan.Checked = True then
-    begin
-      if cbbTahun.Text = '' then
-        begin
-          MessageDlg('Tahun Wajib Diisi',mtInformation,[mbOK],0);
-          Exit;
-        end
-      else
-        begin
-          if cbbBulan.Text <> '-' then
-            begin
-               query := 'select * from tbl_penjualan left JOIN tbl_pelanggan on tbl_penjualan.id_pelanggan = tbl_pelanggan.id '+
-                        'where month(tbl_penjualan.tgl_penjualan) = '+IntToStr(cbbBulan.ItemIndex)+' and year(tbl_penjualan.tgl_penjualan) = '+cbbTahun.Text+'  and status='+QuotedStr('selesai')+
-                        'order by tbl_penjualan.id asc';
+    whereClause :=
+      'year(tbl_penjualan.tgl_penjualan) = ' + QuotedStr(cbbTahun.Text) +
+      ' and tbl_penjualan.status = ' + QuotedStr('selesai');
 
-            end
-          else
-            begin
-              query := 'select * from tbl_penjualan left JOIN tbl_pelanggan on tbl_penjualan.id_pelanggan = tbl_pelanggan.id '+
-               'where year(tbl_penjualan.tgl_penjualan) = '+cbbTahun.Text+'  and status='+QuotedStr('selesai')+' order by tbl_penjualan.id asc';
-            end;
-        end;
-    end;
+    if cbbBulan.Text <> '-' then
+      whereClause :=
+        'month(tbl_penjualan.tgl_penjualan) = ' +
+        IntToStr(cbbBulan.ItemIndex + 1) +
+        ' and ' + whereClause;
+  end;
+
+  // Query utama — select * seperti aslinya, tidak ada tambahan field
+  query :=
+    'select * from tbl_penjualan ' +
+    'left join tbl_pelanggan on tbl_penjualan.id_pelanggan = tbl_pelanggan.id ' +
+    'where ' + whereClause +
+    ' order by tbl_penjualan.id asc';
+
+  // Query total — MySQL yang hitung, bukan loop Delphi
+  queryTotal :=
+    'select count(*) as jumlah, coalesce(sum(total), 0) as grand_total ' +
+    'from tbl_penjualan where ' + whereClause;
 
   with dm.qryLaporanPenjualan do
-    begin
-      close;
-      SQL.Clear;
-      sql.Text := query;
-      Open;
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Text := query;
+    Open;
+  end;
 
-      total := 0;
-      for a:= 1 to RecordCount do
-        begin
-          RecNo := a;
-          total := total + (fieldbyname('total').AsFloat);
-         
-          Next;
-        end;
-
-      lblJumlah.Caption := 'Jumlah Transaksi : '+ IntToStr(RecordCount)+ ' - Total Penjualan : ' + FormatFloat('Rp. ###,###,###', total);
-    end;
+  with dm.qryTemp do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Text := queryTotal;
+    Open;
+    lblJumlah.Caption :=
+      'Jumlah Transaksi : ' + FieldByName('jumlah').AsString +
+      '  —  Total Penjualan : ' +
+      FormatFloat('Rp. ###,###,###', FieldByName('grand_total').AsFloat);
+    Close;
+  end;
 end;
-
 
 procedure TfLaporanPenjualan.rbTanggalClick(Sender: TObject);
 begin

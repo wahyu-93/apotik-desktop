@@ -23497,7 +23497,7 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
     object cbbTahun: TComboBox
       Left = 368
       Top = 48
-      Width = 105
+      Width = 113
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -23567,7 +23567,6 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23640,7 +23639,7 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 100
+          Width = 64
           Visible = True
         end
         item
@@ -23666,7 +23665,7 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 465
+          Width = 64
           Visible = True
         end
         item
@@ -23775,7 +23774,7 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 303
+          Width = 64
           Visible = True
         end
         item
@@ -23792,6 +23791,21 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Width = 124
           Visible = True
         end>
+    end
+    object btnPreview: TBitBtn
+      Left = 360
+      Top = 80
+      Width = 121
+      Height = 33
+      Caption = 'Preview'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial Narrow'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 8
+      OnClick = btnPreviewClick
     end
   end
 end

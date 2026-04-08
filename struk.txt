@@ -1,39 +1,25 @@
-       Apotek Hamdi Farma
-Jl.Suryagandamana Dpn Msjd Raya
-       Telp: 081256566056
-      Tersedia Obat-Obatan
-        Herbal dan Alkes
----------------------------------
-No. Nota:PJ-0404202600006
-Tanggal :04/04/2026 14:22:50
-Kasir   :Hamdi Farma
-Status Jual :Lunas
----------------------------------
+            Apotek Hamdi Farma
+     Jl.Suryagandamana Dpn Msjd Raya
+            Telp: 081256566056
+           Tersedia Obat-Obatan
+             Herbal dan Alkes
+------------------------------------------
+No. Nota : PJ-0504202600011
+Tanggal  : 06/04/2026 20:51:21
+Kasir    : Hamdi Farma
+Status   : Lunas
+------------------------------------------
 Nama Barang
-      QTY   Harga      Sub Total
----------------------------------
- Paramex Biasa
-      1 X 3.000            3.000
- VIT C
-      1 X 1.000            1.000
----------------------------------
-Total   :               Rp 4.000
-Bayar   :               Rp 4.000
-Kembali :                    Rp 
----------------------------------
- Jumlah Item  : 2
----------------------------------
-          Terima Kasih
-     Berelaan Jual Seadanya
-      Semoga Lekas Sembuh
-
-
-
-
-
-
-
-
-
+      QTY   Harga                Sub Total
+------------------------------------------
+ Spuit 1 CC
+      1 X 2.000                      2.000
+------------------------------------------
+Total   :                         Rp 2.000
+------------------------------------------
+ Jumlah Item : 1
+------------------------------------------
+               Terima Kasih
+          Berelaan Jual Seadanya
 
 

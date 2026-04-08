@@ -1,0 +1,46 @@
+nambah 2 table untuk batch
+	
+CREATE TABLE tbl_batch (
+  id            INT          NOT NULL AUTO_INCREMENT,
+  obat_id       INT          NOT NULL,
+  pembelian_id  INT          NULL,
+  no_batch      VARCHAR(50)  NOT NULL,
+  nie_number    VARCHAR(30)  NULL        COMMENT 'NIE dari kardus obat',
+  nie_expiry    DATE         NULL        COMMENT 'Masa berlaku izin edar NIE',
+  tgl_produksi  DATE         NULL,
+  tgl_expired   DATE         NOT NULL    COMMENT 'Expired stok fisik, sama dg tgl_exp yg diinput di form pembelian',
+  jumlah_awal   INT          NOT NULL    DEFAULT 0,
+  jumlah_sisa   INT          NOT NULL    DEFAULT 0,
+  status        TINYINT(1)   NOT NULL    DEFAULT 1 COMMENT '1=aktif, 0=habis',
+  created_at    TIMESTAMP    NOT NULL    DEFAULT CURRENT_TIMESTAMP,
+
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_obat_batch (obat_id, no_batch),
+  KEY idx_pembelian (pembelian_id),
+  KEY idx_status_exp (status, tgl_expired),
+
+  CONSTRAINT fk_batch_obat
+    FOREIGN KEY (obat_id) REFERENCES tbl_obat(id),
+  CONSTRAINT fk_batch_pembelian
+    FOREIGN KEY (pembelian_id) REFERENCES tbl_pembelian(id)
+    ON DELETE SET NULL
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+  COMMENT='Pencatatan batch dan NIE per penerimaan barang';
+
+///
+CREATE TABLE tbl_penjualan_batch (
+    id           INT AUTO_INCREMENT PRIMARY KEY,
+    penjualan_id INT NOT NULL,
+    batch_id     INT NOT NULL,
+    jumlah       INT NOT NULL,
+    is_estimasi  TINYINT DEFAULT 1,
+    created_at   DATETIME,
+    INDEX idx_penjualan (penjualan_id),
+    INDEX idx_batch (batch_id)
+);
+
+// tabah field di table-obat
+ALTER TABLE tbl_obat 
+ADD COLUMN produsen VARCHAR(100) NULL,
+ADD COLUMN lokasi_simpan VARCHAR(50) NULL;

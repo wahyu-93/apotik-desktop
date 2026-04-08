@@ -1,13 +1,19 @@
 unit U_Cetak;
-
 interface
-
 uses
   SysUtils, Printers, WinSpool;
+
 procedure cetakFile(Const sFilename: string);
+procedure SendCutCommand; // baru
 function RataKanan(const VField, VItem: String; const VLength: Integer;
   const VSpace: Char): string;
 function RataTengah(const Teks: string; const LebarBaris: Integer): string;
+
+// Konstanta lebar karakter per ukuran kertas
+const
+  LEBAR_58MM  = 32;
+  LEBAR_80MM  = 42;  // koreksi dari 32 -> 42 karakter
+  LEBAR_96MM  = 56;  // ukuran baru
 
 implementation
 
@@ -35,45 +41,95 @@ begin
   if Padding > 0 then
     Result := StringOfChar(' ', Padding) + Teks
   else
-    Result := Teks; // jika teks lebih panjang dari lebar baris
+    Result := Teks;
 end;
 
-procedure cetakFile(Const sFilename: string);
-const
-  cBUFSIZE = 16385;
-type
-  TDoc_Info_1 = record
-    pDocname: PChar;
-    pOutputFile: PChar;
-    pDataType: PChar;
-  end;
+// --- Kirim ESC/POS command langsung ke printer (tanpa file) ---
+procedure SendRawToPrinter(const Data: AnsiString);
 var
-  Count: Cardinal;
-  BytesWritten: Cardinal;
   hPrinter: THandle;
   hDeviceMode: THandle;
-  Device: Array [0 .. 255] Of Char;
-  Driver: Array [0 .. 255] Of Char;
-  Port: Array [0 .. 255] Of Char;
-  DocInfo: TDoc_Info_1;
-  f: File;
-  Buffer: Pointer;
+  Device: Array [0..255] Of Char;
+  Driver: Array [0..255] Of Char;
+  Port:   Array [0..255] Of Char;
+  DocInfo: record
+    pDocname:    PChar;
+    pOutputFile: PChar;
+    pDataType:   PChar;
+  end;
+  BytesWritten: Cardinal;
 begin
   Printer.PrinterIndex := -1;
   Printer.GetPrinter(Device, Driver, Port, hDeviceMode);
-  If Not WinSpool.OpenPrinter(@Device, hPrinter, Nil) Then
-    Exit;
-  DocInfo.pDocname := 'Report';
-  DocInfo.pOutputFile := Nil;
-  DocInfo.pDataType := 'RAW';
+  if not WinSpool.OpenPrinter(@Device, hPrinter, nil) then Exit;
 
-  If StartDocPrinter(hPrinter, 1, @DocInfo) = 0 Then
+  DocInfo.pDocname    := 'CutCmd';
+  DocInfo.pOutputFile := nil;
+  DocInfo.pDataType   := 'RAW';
+
+  if StartDocPrinter(hPrinter, 1, @DocInfo) = 0 then
   begin
     WinSpool.ClosePrinter(hPrinter);
     Exit;
   end;
 
-  If Not StartPagePrinter(hPrinter) Then
+  if StartPagePrinter(hPrinter) then
+  begin
+    WritePrinter(hPrinter, PAnsiChar(Data), Length(Data), BytesWritten);
+    EndPagePrinter(hPrinter);
+  end;
+
+  EndDocPrinter(hPrinter);
+  WinSpool.ClosePrinter(hPrinter);
+end;
+
+// --- Auto Cut Command ESC/POS ---
+procedure SendCutCommand;
+var
+  CutCmd: AnsiString;
+begin
+  // Feed 4 baris dulu biar struk tidak kepotong terlalu mepet
+  CutCmd := AnsiChar(27) + AnsiChar(100) + AnsiChar(4);  // ESC d 4 (feed 4 lines)
+  // Full cut: GS V 0
+  CutCmd := CutCmd + AnsiChar(29) + AnsiChar(86) + AnsiChar(0);
+  SendRawToPrinter(CutCmd);
+end;
+
+// --- Cetak File RAW (tidak berubah dari aslinya) ---
+procedure cetakFile(Const sFilename: string);
+const
+  cBUFSIZE = 16385;
+var
+  Count: Cardinal;
+  BytesWritten: Cardinal;
+  hPrinter: THandle;
+  hDeviceMode: THandle;
+  Device: Array [0..255] Of Char;
+  Driver: Array [0..255] Of Char;
+  Port:   Array [0..255] Of Char;
+  DocInfo: record
+    pDocname:    PChar;
+    pOutputFile: PChar;
+    pDataType:   PChar;
+  end;
+  f: File;
+  Buffer: Pointer;
+begin
+  Printer.PrinterIndex := -1;
+  Printer.GetPrinter(Device, Driver, Port, hDeviceMode);
+  if not WinSpool.OpenPrinter(@Device, hPrinter, nil) then Exit;
+
+  DocInfo.pDocname    := 'Report';
+  DocInfo.pOutputFile := nil;
+  DocInfo.pDataType   := 'RAW';
+
+  if StartDocPrinter(hPrinter, 1, @DocInfo) = 0 then
+  begin
+    WinSpool.ClosePrinter(hPrinter);
+    Exit;
+  end;
+
+  if not StartPagePrinter(hPrinter) then
   begin
     EndDocPrinter(hPrinter);
     WinSpool.ClosePrinter(hPrinter);
@@ -84,27 +140,26 @@ begin
   try
     Reset(f, 1);
     GetMem(Buffer, cBUFSIZE);
-    While Not Eof(f) Do
-    begin
-      Blockread(f, Buffer^, cBUFSIZE, Count);
-      If Count > 0 Then
+    try
+      while not Eof(f) do
       begin
-        If Not WritePrinter(hPrinter, Buffer, Count, BytesWritten) Then
-        begin
-          EndPagePrinter(hPrinter);
-          EndDocPrinter(hPrinter);
-          WinSpool.ClosePrinter(hPrinter);
-          FreeMem(Buffer, cBUFSIZE);
-          Exit;
-        end;
+        Blockread(f, Buffer^, cBUFSIZE, Count);
+        if Count > 0 then
+          if not WritePrinter(hPrinter, Buffer, Count, BytesWritten) then Break;
       end;
+    finally
+      FreeMem(Buffer, cBUFSIZE);
     end;
-    FreeMem(Buffer, cBUFSIZE);
-    EndDocPrinter(hPrinter);
-    WinSpool.ClosePrinter(hPrinter);
   finally
     System.CloseFile(f);
   end;
+
+  EndPagePrinter(hPrinter);
+  EndDocPrinter(hPrinter);
+  WinSpool.ClosePrinter(hPrinter);
+
+  // ? Kirim auto cut setelah file selesai dicetak
+  SendCutCommand;
 end;
 
 end.

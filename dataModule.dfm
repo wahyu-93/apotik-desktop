@@ -1721,8 +1721,8 @@ object dm: Tdm
   object qryHapusDetailPenjualan: TADOQuery
     Connection = con1
     Parameters = <>
-    Left = 544
-    Top = 408
+    Left = 552
+    Top = 400
   end
   object qryHapusStok: TADOQuery
     Connection = con1
@@ -1739,5 +1739,11 @@ object dm: Tdm
       'select * from tbl_batch')
     Left = 352
     Top = 48
+  end
+  object qryTemp: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 736
+    Top = 408
   end
 end

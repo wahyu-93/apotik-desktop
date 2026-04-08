@@ -23567,7 +23567,7 @@ object fSetting: TfSetting
       Width = 145
       Height = 28
       Font.Charset = ANSI_CHARSET
-      Font.Color = clGradientInactiveCaption
+      Font.Color = clBlack
       Font.Height = -15
       Font.Name = 'Arial Narrow'
       Font.Style = []

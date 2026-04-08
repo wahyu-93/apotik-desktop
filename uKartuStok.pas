@@ -247,7 +247,7 @@ begin
   // Judul
   lbl := TQRLabel.Create(bandHeader);
   lbl.Parent := bandHeader;
-  lbl.Caption := 'KARTU STOK OBAT';
+  lbl.Caption := 'KARTU STOK';
   lbl.AutoSize := False;
   lbl.Alignment := taCenter;
   lbl.AlignToBand := True;
@@ -325,8 +325,8 @@ begin
 
   // ================= KOLOM =================
   colWidth[0] := 65;   // Tanggal
-  colWidth[1] := 98;   // Nomer Dokumen
-  colWidth[2] := 160;  // Sumber/Tujuan
+  colWidth[1] := 160;   // Nomer Dokumen
+  colWidth[2] := 98;   // Sumber/Tujuan
   colWidth[3] := 105;  // NIE
   colWidth[4] := 50;   // Masuk
   colWidth[5] := 50;   // Keluar
@@ -401,16 +401,16 @@ begin
     lbl.Font.Name := 'Arial';
   end;
 
-  FlblD[1].WordWrap := True;
-  FlblD[1].AutoSize := False;
-  FlblD[1].Width    := colWidth[1] - 4;
-  FlblD[1].Height   := bandDetail.Height - 4;
-
-  FlblD[2].Alignment := taLeftJustify;
-  FlblD[2].Left := colLeft[2] + 5;
-  FlblD[2].Width := colWidth[2] - 10;
+  {FlblD[2].WordWrap := True;
   FlblD[2].AutoSize := False;
-  FlblD[2].WordWrap := True;
+  FlblD[2].Width    := colWidth[1] - 4;
+  FlblD[2].Height   := bandDetail.Height - 4;
+
+  FlblD[1].Alignment := taLeftJustify;
+  FlblD[1].Left := colLeft[2] + 5;
+  FlblD[1].Width := colWidth[2] - 10;
+  FlblD[1].AutoSize := False;
+  FlblD[1].WordWrap := True;  }
 
   bandDetail.BeforePrint := DetailBeforePrint;
 end;
@@ -434,20 +434,26 @@ begin
   masuk  := FqryPrint.FieldByName('masuk').AsInteger;
 
   FlblD[0].Caption := FormatDateTime('dd-mm-yyyy', FqryPrint.FieldByName('tgl').AsDateTime);
-  FlblD[1].Caption := '';  // Nomer Dokumen — kosong, tulis tangan
-  FlblD[2].Caption := FqryPrint.FieldByName('no_faktur').AsString + ' / ' +
+  FlblD[1].Caption := FqryPrint.FieldByName('no_faktur').AsString + ' / ' +
                       FqryPrint.FieldByName('keterangan').AsString;
+
+
+  if FqryPrint.FieldByName('keterangan').AsString = 'Stok Awal' then
+    FlblD[2].Caption := '-'  // Nomer Dokumen — kosong, tulis tangan
+  else
+    FlblD[2].Caption := '';  // Nomer Dokumen — kosong, tulis tangan
+
   FlblD[3].Caption := FqryPrint.FieldByName('nie').AsString;
 
   if masuk > 0 then
     FlblD[4].Caption := FormatFloat('#,##0', FqryPrint.FieldByName('masuk').AsFloat, fs)
   else
-    FlblD[4].Caption := '';
+    FlblD[4].Caption := '-';
 
   if keluar > 0 then
     FlblD[5].Caption := FormatFloat('#,##0', FqryPrint.FieldByName('keluar').AsFloat, fs)
   else
-    FlblD[5].Caption := '';
+    FlblD[5].Caption := '-';
 
   FlblD[6].Caption := FormatFloat('#,##0', FqryPrint.FieldByName('sisa').AsFloat, fs);
   FlblD[7].Caption := FqryPrint.FieldByName('no_batch').AsString;
@@ -475,7 +481,7 @@ begin
   qryKartu.Connection := dm.con1;
   qryInfo.Connection  := dm.con1;
   dsKartu.DataSet     := qryKartu;
-  dbgrd1.DataSource  := dsKartu;
+  dbgrd1.DataSource   := dsKartu;
 
   SetupGrid;
 end;
@@ -564,9 +570,6 @@ begin
 
     FSisaAwal              := qry.FieldByName('stok_awal').AsInteger;
     lblStokAwalVal.Caption := IntToStr(FSisaAwal);   }
-
-    
-
   finally
     qry.Free;
   end;
@@ -648,7 +651,7 @@ begin
     end;
 
     ds.DataSet         := cds;
-    dbgrd1.DataSource := ds;
+    dbgrd1.DataSource  := ds;
 
     FcdsGrid := cds;
     FdsGrid  := ds;
