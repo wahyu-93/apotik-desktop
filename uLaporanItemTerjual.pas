@@ -102,7 +102,7 @@ begin
   konek;
 end;
 
-procedure TfLaporanJumlahItemTerjual.btnLapClick(Sender: TObject);
+{procedure TfLaporanJumlahItemTerjual.btnLapClick(Sender: TObject);
 var
   query       : string;
   whereClause : string;
@@ -164,6 +164,113 @@ begin
       begin
         btnPreview.Enabled := True;
       end;
+  end;
+end;  }
+
+procedure TfLaporanJumlahItemTerjual.btnLapClick(Sender: TObject);
+var
+  sWhere : string;
+  sQuery : string;
+  iBulan : Integer;
+begin
+  { -- Validasi jenis laporan -- }
+  if (not rbTanggal.Checked) and (not rbBulan.Checked) then
+  begin
+    MessageDlg('Jenis Laporan Belum Dipilih', mtInformation, [mbOK], 0);
+    Exit;
+  end;
+ 
+  { ============================================================
+    Bangun WHERE clause
+    ============================================================ }
+  if rbTanggal.Checked then
+  begin
+    { Filter per tanggal spesifik }
+    sWhere :=
+      'DATE(z.tgl_penjualan) = ' +
+      QuotedStr(FormatDateTime('yyyy-mm-dd', dtp1.Date));
+  end
+  else
+  begin
+    { Filter per bulan/tahun }
+    if Trim(cbbTahun.Text) = '' then
+    begin
+      MessageDlg('Tahun Wajib Diisi', mtInformation, [mbOK], 0);
+      Exit;
+    end;
+ 
+    { Tahun selalu wajib }
+    sWhere := 'YEAR(z.tgl_penjualan) = ' + QuotedStr(Trim(cbbTahun.Text));
+ 
+    { Bulan opsional: ItemIndex 0 = '-' (semua bulan) }
+    if cbbBulan.ItemIndex > 0 then
+    begin
+      iBulan := cbbBulan.ItemIndex; { ItemIndex 1=Jan, 2=Feb, dst }
+      sWhere :=
+        'MONTH(z.tgl_penjualan) = ' + IntToStr(iBulan) +
+        ' AND ' + sWhere;
+    end;
+  end;
+ 
+  { ============================================================
+    Query utama: UNION ALL antara tabel aktif + arsip
+    Supaya laporan tetap bisa tampil meski data sudah diarsip
+    ============================================================ }
+  sQuery :=
+    'SELECT ' +
+    '  ob.kode, ' +
+    '  ob.nama_obat, ' +
+    '  sat.satuan, ' +
+    '  SUM(det.jmlItemJual) AS jmlItemJual ' +
+    'FROM ( ' +
+ 
+    { -- Sumber 1: tbl_penjualan (data aktif) -- }
+    '  SELECT ' +
+    '    a.obat_id, ' +
+    '    a.jumlah_jual AS jmlItemJual, ' +
+    '    z.tgl_penjualan ' +
+    '  FROM tbl_penjualan z ' +
+    '  LEFT JOIN tbl_detail_penjualan a ON z.id = a.penjualan_id ' +
+    '  WHERE ' + sWhere +
+ 
+    '  UNION ALL ' +
+ 
+    { -- Sumber 2: arsip_penjualan (data > 1 tahun) -- }
+    '  SELECT ' +
+    '    a.obat_id, ' +
+    '    a.jumlah_jual AS jmlItemJual, ' +
+    '    z.tgl_penjualan ' +
+    '  FROM arsip_penjualan z ' +
+    '  LEFT JOIN arsip_detail_penjualan a ON z.id = a.penjualan_id ' +
+    '  WHERE ' + sWhere +
+ 
+    ') AS det ' +
+    'LEFT JOIN tbl_obat   ob  ON ob.id  = det.obat_id ' +
+    'LEFT JOIN tbl_satuan sat ON sat.id = ob.kode_satuan ' +
+    'WHERE det.obat_id IS NOT NULL ' +
+    'GROUP BY det.obat_id, ob.kode, ob.nama_obat, sat.satuan ' +
+    'ORDER BY jmlItemJual DESC';
+ 
+  { ============================================================
+    Jalankan query
+    ============================================================ }
+  with dm.qryLaporanItemLaris do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Text := sQuery;
+    Open;
+ 
+    if IsEmpty then
+    begin
+      MessageDlg(
+        'Tidak Ada Data Pada Periode Ini',
+        mtInformation, [mbOK], 0
+      );
+      btnPreview.Enabled := False;
+    end
+    else
+      btnPreview.Enabled := True;
   end;
 end;
 

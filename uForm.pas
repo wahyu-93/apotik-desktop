@@ -484,7 +484,7 @@ begin
   fbackup.ShowModal;
 end;
 
-procedure TFMenu.BersihkanTabel1Click(Sender: TObject);
+{procedure TFMenu.BersihkanTabel1Click(Sender: TObject);
 var tahun, bulan, faktur, newfaktur, idFaktur, newIdFaktur : string;
     a : Integer;
 begin
@@ -548,6 +548,186 @@ begin
 
         MessageDlg('Proses Sukses',mtInformation,[mbok],0);
     end;
+end; }
+
+procedure TFMenu.BersihkanTabel1Click(Sender: TObject);
+var
+  sBatasTanggal : string;   // batas tanggal arsip (1 tahun lalu)
+  sBulanSnapshot: string;   // bulan snapshot, format YYYY-MM-01
+  iJmlPenjualan : Integer;  // jumlah record yang akan diarsip
+begin
+  { -- Konfirmasi dua tahap -- }
+  MessageDlg(
+    'Pastikan Backup Database sudah dilakukan sebelum melanjutkan!',
+    mtWarning, [mbOK], 0
+  );
+ 
+  if MessageDlg(
+    'Proses akan mengarsip data penjualan lebih dari 1 tahun lalu.' + #13#10 +
+    'Data dipindah ke tabel arsip sebelum dihapus.' + #13#10#13#10 +
+    'Lanjutkan?',
+    mtConfirmation, [mbYes, mbNo], 0
+  ) <> mrYes then
+    Exit;
+ 
+  { -- Hitung batas tanggal: hari ini dikurangi 12 bulan -- }
+  sBatasTanggal  := FormatDateTime('yyyy-mm-dd', IncMonth(Now));
+  sBulanSnapshot := FormatDateTime('yyyy-mm-01', Now);
+  ShowMessage(sBatasTanggal);
+  Screen.Cursor := crHourGlass;
+  try
+ 
+    { ============================================================
+      LANGKAH 1: Cek dulu ada data yang perlu diarsip atau tidak
+      Hindari error SQL jika ternyata kosong
+      ============================================================ }
+    with dm.qryHapusPenjualan do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Text :=
+        'SELECT COUNT(*) AS jml FROM tbl_penjualan ' +
+        'WHERE tgl_penjualan < ' + QuotedStr(sBatasTanggal);
+      Open;
+      iJmlPenjualan := FieldByName('jml').AsInteger;
+      Close;
+    end;
+ 
+    if iJmlPenjualan = 0 then
+    begin
+      Screen.Cursor := crDefault;
+      MessageDlg(
+        'Tidak ada data sebelum ' + sBatasTanggal + ' yang perlu diarsip.',
+        mtInformation, [mbOK], 0
+      );
+      Exit;
+    end;
+ 
+    { ============================================================
+      LANGKAH 2: Buat snapshot saldo stok sebelum data dihapus
+      Snapshot ini menjaga kartu stok tetap akurat setelah arsip
+      ============================================================ }
+    with dm.qryHapusPenjualan do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Text :=
+        'INSERT INTO tbl_stok_snapshot ' +
+        '  (bulan, obat_id, batch_id, no_batch, saldo_masuk, saldo_keluar, saldo_akhir) ' +
+        'SELECT ' +
+        '  ' + QuotedStr(sBulanSnapshot) + ' AS bulan, ' +
+        '  b.obat_id, ' +
+        '  b.id AS batch_id, ' +
+        '  b.no_batch, ' +
+        '  COALESCE(SUM(dp.jumlah_beli), 0) AS saldo_masuk, ' +
+        '  COALESCE(SUM(pb.jumlah), 0)      AS saldo_keluar, ' +
+        '  COALESCE(SUM(dp.jumlah_beli), 0) - COALESCE(SUM(pb.jumlah), 0) AS saldo_akhir ' +
+        'FROM tbl_batch b ' +
+        'LEFT JOIN tbl_detail_pembelian dp ON dp.obat_id = b.obat_id ' +
+        '                                 AND dp.pembelian_id = b.pembelian_id ' +
+        'LEFT JOIN tbl_penjualan_batch pb  ON pb.batch_id = b.id ' +
+        'LEFT JOIN tbl_penjualan pj        ON pj.id = pb.penjualan_id ' +
+        '                                 AND pj.tgl_penjualan < ' + QuotedStr(sBatasTanggal) +
+        'GROUP BY b.obat_id, b.id, b.no_batch ' +
+        'ON DUPLICATE KEY UPDATE ' +
+        '  saldo_masuk  = VALUES(saldo_masuk), ' +
+        '  saldo_keluar = VALUES(saldo_keluar), ' +
+        '  saldo_akhir  = VALUES(saldo_akhir), ' +
+        '  dibuat_pada  = NOW()';
+      ExecSQL;
+    end;
+ 
+    { ============================================================
+      LANGKAH 3: Arsip header penjualan lama
+      ============================================================ }
+    with dm.qryHapusPenjualan do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Text :=
+        'INSERT INTO arsip_penjualan ' +
+        'SELECT * FROM tbl_penjualan ' +
+        'WHERE tgl_penjualan < ' + QuotedStr(sBatasTanggal);
+      ExecSQL;
+    end;
+ 
+    { ============================================================
+      LANGKAH 4: Arsip detail penjualan lama
+      (join ke penjualan supaya filter tanggalnya tepat)
+      ============================================================ }
+    with dm.qryHapusDetailPenjualan do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Text :=
+        'INSERT INTO arsip_detail_penjualan ' +
+        'SELECT d.* FROM tbl_detail_penjualan d ' +
+        'JOIN tbl_penjualan p ON p.id = d.penjualan_id ' +
+        'WHERE p.tgl_penjualan < ' + QuotedStr(sBatasTanggal);
+      ExecSQL;
+    end;
+ 
+    { ============================================================
+      LANGKAH 5: Hapus stok terkait penjualan lama
+      Harus hapus ini SEBELUM hapus detail dan penjualan
+      ============================================================ }
+    with dm.qryHapusStok do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Text :=
+        'DELETE s FROM tbl_stok s ' +
+        'JOIN tbl_penjualan p ON p.no_faktur = s.no_faktur ' +
+        'WHERE p.tgl_penjualan < ' + QuotedStr(sBatasTanggal);
+      ExecSQL;
+    end;
+ 
+    { ============================================================
+      LANGKAH 6: Hapus detail penjualan lama
+      ============================================================ }
+    with dm.qryHapusDetailPenjualan do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Text :=
+        'DELETE d FROM tbl_detail_penjualan d ' +
+        'JOIN tbl_penjualan p ON p.id = d.penjualan_id ' +
+        'WHERE p.tgl_penjualan < ' + QuotedStr(sBatasTanggal);
+      ExecSQL;
+    end;
+ 
+    { ============================================================
+      LANGKAH 7: Hapus header penjualan lama (terakhir!)
+      ============================================================ }
+    with dm.qryHapusPenjualan do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Text :=
+        'DELETE FROM tbl_penjualan ' +
+        'WHERE tgl_penjualan < ' + QuotedStr(sBatasTanggal);
+      ExecSQL;
+    end;
+ 
+    Screen.Cursor := crDefault;
+    MessageDlg(
+      'Proses arsip selesai.' + #13#10 +
+      IntToStr(iJmlPenjualan) + ' transaksi dipindah ke tabel arsip.' + #13#10 +
+      'Data sebelum ' + sBatasTanggal + ' telah dihapus dari tabel aktif.',
+      mtInformation, [mbOK], 0
+    );
+ 
+  except
+    on E: Exception do
+    begin
+      Screen.Cursor := crDefault;
+      MessageDlg(
+        'Terjadi error saat proses arsip:' + #13#10 + E.Message + #13#10#13#10 +
+        'Periksa apakah tabel arsip sudah dibuat (jalankan 00_Setup_Tabel_Arsip.sql)',
+        mtError, [mbOK], 0
+      );
+    end;
+  end;
 end;
 
 procedure TFMenu.KartuStokObat1Click(Sender: TObject);

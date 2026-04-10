@@ -516,6 +516,12 @@ begin
                   'on d.id=c.kode_jenis left join tbl_satuan e on e.id = c.kode_satuan where a.no_faktur='+QuotedStr(status)+'';
       open
     end;
+
+  with dm.qryPelanggan do
+    begin
+      Active := False;
+      active := True;
+    end;
 end;
 
 procedure TFpenjualan.btnSimpanClick(Sender: TObject);
@@ -576,6 +582,7 @@ begin
 
           if IsEmpty then
             begin
+              jmlEdit := '1';
               Append;
               FieldByName('penjualan_id').AsString := id_penjualan;
               FieldByName('obat_id').AsString := edtIdObat.Text;
@@ -635,7 +642,7 @@ begin
       // ================================================================
       AdjustBatchFIFO(
         StrToInt(edtIdObat.Text),   // obat_id
-        1,                          // per klik Simpan selalu 1 unit
+        StrToInt(jmlEdit),          // per klik Simpan selalu 1 unit
         StrToInt(id_penjualan)      // id penjualan yang baru disimpan
       );
 

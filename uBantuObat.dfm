@@ -23418,7 +23418,6 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23432,7 +23431,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 150
+          Width = 64
           Visible = True
         end
         item
@@ -23458,7 +23457,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 150
+          Width = 64
           Visible = True
         end
         item
@@ -23494,7 +23493,6 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23519,7 +23517,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 150
+          Width = 64
           Visible = True
         end
         item
@@ -23531,7 +23529,6 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end
         item
@@ -23556,7 +23553,7 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 150
+          Width = 64
           Visible = True
         end
         item
@@ -23569,7 +23566,6 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 150
           Visible = True
         end
         item
@@ -23582,7 +23578,6 @@ object fBantuObat: TfBantuObat
           Title.Font.Height = -13
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = -1
           Visible = False
         end>
     end

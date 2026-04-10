@@ -103,6 +103,9 @@ begin
       fPembelian.edtHarga.Enabled := True;
       fPembelian.edtJumlahBeli.Enabled := True;
 
+      fPembelian.edtNoBatch.Enabled := True;
+      fPembelian.edtNie.Enabled := True;
+
       Close;
     end
   else

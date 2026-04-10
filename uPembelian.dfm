@@ -23854,6 +23854,24 @@ object fPembelian: TfPembelian
       TabOrder = 19
       Text = 'edtFaktur'
     end
+    object edtNoBatchLama: TEdit
+      Left = 456
+      Top = 184
+      Width = 121
+      Height = 21
+      TabOrder = 20
+      Text = 'edtNoBatchLama'
+      Visible = False
+    end
+    object edtIdBatch: TEdit
+      Left = 576
+      Top = 184
+      Width = 121
+      Height = 21
+      TabOrder = 21
+      Text = 'edtIdBatch'
+      Visible = False
+    end
   end
   object grp2: TGroupBox
     Left = 8
@@ -23872,13 +23890,17 @@ object fPembelian: TfPembelian
       Top = 16
       Width = 1385
       Height = 345
+      Color = clWhite
       DataSource = dm.dsRelasiPembelian
-      Font.Charset = ANSI_CHARSET
+      Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -21
-      Font.Name = 'Arial'
+      Font.Height = 20
+      Font.Name = 'Tahoma'
       Font.Style = []
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection]
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = False
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText

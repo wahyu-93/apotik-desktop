@@ -1,6 +1,6 @@
 object fKartuStok: TfKartuStok
-  Left = 119
-  Top = 22
+  Left = 526
+  Top = 100
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Kartu Stok ::.'
@@ -23920,7 +23920,7 @@ object fKartuStok: TfKartuStok
     Font.Height = -15
     Font.Name = 'Arial Narrow'
     Font.Style = []
-    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
     ParentFont = False
     ReadOnly = True
     TabOrder = 5

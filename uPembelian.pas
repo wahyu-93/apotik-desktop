@@ -54,6 +54,8 @@ type
     lbl14: TLabel;
     edtNie: TEdit;
     edtNoBatch: TEdit;
+    edtNoBatchLama: TEdit;
+    edtIdBatch: TEdit;
     procedure clearEntitasBarang;
     procedure fokusDbgrid;
     procedure btnKeluarClick(Sender: TObject);
@@ -138,6 +140,12 @@ begin
                   'tbl_jenis d on d.id=c.kode_jenis left join tbl_satuan e on e.id = c.kode_satuan where a.no_faktur='+QuotedStr(id_pembelian)+'';
       Open;
     end;
+
+  with dm.qrySupplier do
+    begin
+      Active := false;
+      Active := True;
+    end;
 end;
 
 procedure TfPembelian.clearEntitasBarang;
@@ -155,7 +163,7 @@ end;
 
 procedure TfPembelian.fokusDbgrid;
 begin
-  edtKode.Text := dbgrd1.Fields[9].AsString + ' - ' + dbgrd1.Fields[10].AsString;
+  edtKode.Text := dbgrd1.Fields[7].AsString + ' - ' + dbgrd1.Fields[8].AsString;
   edtNama.Text := dbgrd1.Fields[11].AsString;
   edtSatuan.Text := dbgrd1.Fields[13].AsString;
   edtJenis.Text := dbgrd1.Fields[12].AsString;
@@ -165,9 +173,23 @@ begin
   dtpTanggalKadaluarsa.Date := dbgrd1.Fields[10].AsDateTime;
   edtIdPembelian.Text := dbgrd1.Fields[5].AsString;
 
+  with dm.qryBatchObat do
+    begin
+      close;
+      sql.Clear;
+      SQL.Text := 'select * from tbl_batch where pembelian_id = '+QuotedStr(dbgrd1.Fields[0].AsString)+' and obat_id = '+QuotedStr(edtIdObat.Text)+'';
+      Open;
+
+      edtNie.Text := fieldByName('nie_number').AsString;
+      edtNoBatch.Text := fieldByName('no_batch').AsString;
+      edtNoBatchLama.Text := fieldByName('no_batch').AsString;
+      edtIdBatch.Text := fieldByname('id').AsString;
+    end;
+
   btnSimpan.Caption := 'Edit';
   btnHapus.Enabled := True;
   btnSelesai.Enabled := false;
+  btnHapus.Caption := 'Hapus[F6]';
 
   edtHarga.Enabled := False;
   edtJumlahBeli.Enabled := false;
@@ -219,6 +241,15 @@ begin
 
           if dm.qryPembelian.RecordCount > 0 then
             begin
+              //hapus batch
+              with dm.qryBatchObat do
+                begin
+                  close;
+                  sql.Clear;
+                  sql.Text:= 'delete from tbl_batch where pembelian_id = '+QuotedStr(id_pembelian )+'';
+                  ExecSQL;
+                end;
+                
               // hapus detail transaksi
               with dm.qryDetailPembelian do
                 begin
@@ -243,15 +274,6 @@ begin
                   close;
                   SQL.Clear;
                   SQL.Text := 'delete from tbl_stok where no_faktur = '+QuotedStr(edtFaktur.Text)+'';
-                  ExecSQL;
-                end;
-
-              //hapus batch
-              with dm.qryBatchObat do
-                begin
-                  close;
-                  sql.Clear;
-                  sql.Text:= 'delete from tbl_batch where pembelian_id = '+QuotedStr(id_pembelian )+'';
                   ExecSQL;
                 end;
             end;
@@ -408,7 +430,20 @@ begin
       begin
         close;
         sql.Clear;
-        SQL.Text := 'select * from tbl_batch where obat_id = '+QuotedStr(edtIdObat.Text)+' and no_batch = '+QuotedStr(edtNoBatch.Text)+'';
+
+        if edtNoBatchLama.Text <> '' then
+          begin
+            SQL.Text := 'select * from tbl_batch where obat_id = '+QuotedStr(edtIdObat.Text)
+                    +' and no_batch = '+QuotedStr(edtNoBatchLama.Text)
+                    +' and pembelian_id = '+QuotedStr(id_pembelian)+'';
+          end
+        else
+          begin
+             SQL.Text := 'select * from tbl_batch where obat_id = '+QuotedStr(edtIdObat.Text)
+                    +' and no_batch = '+QuotedStr(edtNoBatch.Text)
+                    +' and pembelian_id = '+QuotedStr(id_pembelian)+'';
+          end;
+
         Open;
 
         if IsEmpty then
@@ -430,12 +465,12 @@ begin
                 begin
                   close;
                   sql.Clear;
-                   sql.Text := 'update tbl_batch set '
-                                + 'jumlah_awal = jumlah_awal + ' + edtJumlahBeli.Text + ', '
-                                + 'jumlah_sisa = jumlah_sisa + ' + edtJumlahBeli.Text + ', '
+                  sql.Text := 'update tbl_batch set '
+                                + 'jumlah_awal = ' + edtJumlahBeli.Text + ', '
+                                + 'jumlah_sisa = ' + edtJumlahBeli.Text + ', '
+                                + 'no_batch = ' + QuotedStr(edtNoBatch.Text) + ', '
                                 + 'nie_number = ' + QuotedStr(edtNie.Text) + ' '
-                                + 'where no_batch = ' + QuotedStr(edtNoBatch.Text)
-                                + ' and obat_id = '  + QuotedStr(edtIdObat.Text);
+                                + 'where id = ' + QuotedStr(edtIdBatch.Text) ;
                   ExecSQL;
                 end;
           end;
@@ -495,15 +530,20 @@ begin
       btnSelesai.Enabled := True;
       btnTambah.Caption := 'Batal';
       btnHapus.enabled := false;
+
+      btnBantuObat.Enabled := True;
     end
   else
     begin
       edtHarga.Enabled := True;
       edtJumlahBeli.Enabled := True;
+      edtNoBatch.Enabled := True;
+      edtNie.Enabled := True;
 
       btnSimpan.Caption := 'Simpan';
       btnHapus.Caption := 'Batal';
       status := 'edit';
+      btnBantuObat.Enabled := False;
     end;
 end;
 
@@ -521,6 +561,15 @@ begin
                   Delete;
                 end;
             end;
+
+            //hapus batch
+             with dm.qryBatchObat do
+                begin
+                  close;
+                  sql.Clear;
+                  sql.Text := 'delete from tbl_batch where id = '+QuotedStr(edtIdBatch.Text)+''; 
+                  ExecSQL;
+                end;
 
             konek(edtFaktur.Text);
             clearEntitasBarang;
@@ -550,6 +599,7 @@ begin
       btnSimpan.Caption := 'Simpan';
       btnHapus.Caption := 'Hapus[F6]'; btnHapus.Enabled := False;
       btnSelesai.Enabled := True;
+      btnBantuObat.Enabled := True;
     end;
 
 end;
@@ -625,7 +675,7 @@ var jumlahNew : Integer;
     totalNew : Real;
     id : string;
 begin
-  if key=#13 then
+{  if key=#13 then
     begin
       //edit data lewat dbgrid
       jumlahNew := dbgrd1.Fields[14].AsInteger;
@@ -649,6 +699,20 @@ begin
           ExecSQL;
         end;
 
+      //batch
+      with dm.qryBatchObat do
+        begin
+          close;
+          sql.Clear;
+          sql.Text := 'update tbl_batch set '
+                      + 'jumlah_awal = ' + QuotedStr(IntToStr(jumlahNew)) + ', '
+                      + 'jumlah_sisa = ' + QuotedStr(IntToStr(jumlahNew)) + ', '
+                      + 'no_batch = ' + QuotedStr(edtNoBatch.Text) + ', '
+                      + 'nie_number = ' + QuotedStr(edtNie.Text) + ' '
+                      + 'where id = ' + QuotedStr(edtIdBatch.Text) ;
+          ExecSQL;
+        end;
+
       konek(edtFaktur.Text);
 
       lblItem.Caption := IntToStr(hitungItem(id_pembelian));
@@ -659,7 +723,7 @@ begin
       btnHapus.enabled := false;
 
       dm.qryRelasiPembelian.Locate('id_detail_pembelian',id,[]);
-    end;
+    end;   }
 end;
 
 procedure TfPembelian.dbgrd1CellClick(Column: TColumn);
@@ -701,6 +765,7 @@ begin
   id_pembelian := 'kosong';
 
   edtNie.Clear; edtNoBatch.Clear;
+  edtNoBatchLama.Clear; edtIdBatch.Clear;
 end;
 
 end.

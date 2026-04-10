@@ -71,14 +71,15 @@ end;
 procedure TfBantuObatPenjualan.btnPilihClick(Sender: TObject);
 begin
   if dbgrd1.Fields[1].AsString = '' then Exit;
-  if dbgrd1.Fields[7].AsString = '0' then
-    begin
-      MessageDlg('Cek Ketersediaan Stok',mtInformation,[mbOK],0);
-      Exit;
-    end;
 
   if edtType.Text = 'penjualan' then
     begin
+      if dbgrd1.Fields[7].AsString = '0' then
+      begin
+        MessageDlg('Cek Ketersediaan Stok',mtInformation,[mbOK],0);
+        Exit;
+      end;
+
       Fpenjualan.edtKode.Text := dbgrd1.Fields[2].AsString;
       Fpenjualan.edtIdObat.Text := dbgrd1.Fields[1].AsString;
       Fpenjualan.edtHarga.Text := dbgrd1.Fields[4].AsString;

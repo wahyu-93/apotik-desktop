@@ -331,8 +331,8 @@ begin
   colWidth[4] := 50;   // Masuk
   colWidth[5] := 50;   // Keluar
   colWidth[6] := 55;   // Sisa Stok
-  colWidth[7] := 80;   // No Batch
-  colWidth[8] := 70;   // EXP Date
+  colWidth[7] := 90;   // No Batch
+  colWidth[8] := 60;   // EXP Date
   colWidth[9] := 40;   // Ket
   // total = 720 + offset 10 = 730
 
@@ -548,7 +548,7 @@ begin
           end;
 
         lblSatuanVal.Caption   := qry.FieldByName('satuan').AsString;
-      end
+      end;
 
     // hitung stok awal sebelum periode
     {qry.Close;
@@ -560,7 +560,8 @@ begin
       '    JOIN tbl_batch b ON b.id = pb.batch_id ' +
       '    JOIN tbl_penjualan pj ON pj.id = pb.penjualan_id ' +
       '    WHERE b.obat_id = ' + IntToStr(FObatID) +
-      '      AND DATE(pj.tgl_penjualan) < ' + QuotedStr(FormatDateTime('yyyy-mm-dd', dtpAwal.DateTime)) +
+      '      AND DATE(pj.tgl_penjualan) < ' + Qu
+      otedStr(FormatDateTime('yyyy-mm-dd', dtpAwal.DateTime)) +
       '  ), 0) AS stok_awal ' +
       'FROM tbl_detail_pembelian dp ' +
       'JOIN tbl_pembelian p ON p.id = dp.pembelian_id ' +
@@ -570,12 +571,70 @@ begin
 
     FSisaAwal              := qry.FieldByName('stok_awal').AsInteger;
     lblStokAwalVal.Caption := IntToStr(FSisaAwal);   }
+
+    {qry.Close;
+    qry.SQL.Text :=
+      'SELECT ' +
+      '  COALESCE(SUM(masuk),0) - COALESCE(SUM(keluar),0) AS stok_awal ' +
+      'FROM ( ' +
+
+      // PEMBELIAN
+      '  SELECT dp.jumlah_beli AS masuk, 0 AS keluar ' +
+      '  FROM tbl_detail_pembelian dp ' +
+      '  JOIN tbl_pembelian p ON p.id = dp.pembelian_id ' +
+      '  WHERE dp.obat_id = ' + IntToStr(FObatID) +
+      '    AND DATE(p.tgl_pembelian) >= ''2026-04-01'' ' +   // ?? filter batch mulai
+      '    AND DATE(p.tgl_pembelian) < ' +
+      QuotedStr(FormatDateTime('yyyy-mm-dd', dtpAwal.DateTime)) +
+
+      '  UNION ALL ' +
+
+      // PENJUALAN (aktif)
+      '  SELECT 0 AS masuk, pb.jumlah AS keluar ' +
+      '  FROM tbl_penjualan_batch pb ' +
+      '  JOIN tbl_batch b ON b.id = pb.batch_id ' +
+      '  JOIN tbl_penjualan pj ON pj.id = pb.penjualan_id ' +
+      '  WHERE b.obat_id = ' + IntToStr(FObatID) +
+      '    AND DATE(pj.tgl_penjualan) >= ''2026-04-01'' ' + // ?? WAJIB
+      '    AND DATE(pj.tgl_penjualan) < ' +
+      QuotedStr(FormatDateTime('yyyy-mm-dd', dtpAwal.DateTime)) +
+
+      '  UNION ALL ' +
+
+      // PENJUALAN (ARSIP)
+      '  SELECT 0 AS masuk, pb.jumlah AS keluar ' +
+      '  FROM tbl_penjualan_batch pb ' +
+      '  JOIN tbl_batch b ON b.id = pb.batch_id ' +
+      '  JOIN arsip_penjualan pj ON pj.id = pb.penjualan_id ' +
+      '  WHERE b.obat_id = ' + IntToStr(FObatID) +
+      '    AND DATE(pj.tgl_penjualan) >= ''2026-04-01'' ' + // ?? WAJIB
+      '    AND DATE(pj.tgl_penjualan) < ' +
+      QuotedStr(FormatDateTime('yyyy-mm-dd', dtpAwal.DateTime)) +
+
+      ') x';
+
+    qry.Open;
+
+    FSisaAwal := qry.FieldByName('stok_awal').AsInteger;
+    lblStokAwalVal.Caption := IntToStr(FSisaAwal); }
+
+    qry.Close;
+    qry.SQL.Text :=
+      'SELECT COALESCE(SUM(jumlah_awal),0) AS stok_awal ' + 
+      'FROM tbl_batch ' +
+      'WHERE obat_id = ' + IntToStr(FObatID) + ' ' +
+      'AND is_migrasi = 1';
+
+    qry.Open;
+
+    FSisaAwal := qry.FieldByName('stok_awal').AsInteger;
+    lblStokAwalVal.Caption := IntToStr(FSisaAwal);
   finally
     qry.Free;
   end;
 end;
 
-procedure TFKartuStok.HitungSummary;
+{procedure TFKartuStok.HitungSummary;
 var
   cds         : TClientDataSet;
   ds          : TDataSource;
@@ -615,9 +674,12 @@ begin
     cds.FieldByName('no_batch').AsString    := '-';
     cds.FieldByName('tgl_expired').AsString := '-';
     cds.FieldByName('keterangan').AsString  := 'Stok Awal';
-    cds.FieldByName('masuk').AsInteger      := FSisaAwal;
-    cds.FieldByName('keluar').AsInteger     := 0;
-    cds.FieldByName('sisa').AsInteger       := FSisaAwal;
+    //cds.FieldByName('masuk').AsInteger      := FSisaAwal;
+    //cds.FieldByName('keluar').AsInteger     := 0;
+    //cds.FieldByName('sisa').AsInteger       := FSisaAwal;
+    cds.FieldByName('masuk').AsInteger := 0;
+    cds.FieldByName('keluar').AsInteger := 0;
+    cds.FieldByName('sisa').AsInteger := FSisaAwal;
     cds.FieldByName('paraf').AsString       := '';
     cds.Post;
 
@@ -666,6 +728,133 @@ begin
     on E: Exception do
       ShowMessage('Error HitungSummary: ' + E.Message);
   end;
+end; }
+
+procedure TFKartuStok.HitungSummary;
+var
+  cds         : TClientDataSet;
+  ds          : TDataSource;
+  totalMasuk  : Integer;
+  totalKeluar : Integer;
+  sisa        : Integer;
+  noUrut      : Integer;
+  stokMigrasi : Integer;
+  qryMigrasi  : TADOQuery;
+begin
+  totalMasuk  := 0;
+  totalKeluar := 0;
+  sisa        := FSisaAwal;
+  noUrut      := 0;
+  stokMigrasi := 0;
+
+  // ?? Ambil info stok migrasi (opsional tapi penting untuk label)
+  qryMigrasi := TADOQuery.Create(nil);
+  try
+    qryMigrasi.Connection := dm.con1; // sesuaikan koneksi kamu
+    qryMigrasi.SQL.Text :=
+      'SELECT COALESCE(SUM(jumlah_sisa),0) AS stok_migrasi ' +
+      'FROM tbl_batch ' +
+      'WHERE obat_id = ' + IntToStr(FObatID) +
+      ' AND is_migrasi = 1';
+    qryMigrasi.Open;
+    stokMigrasi := qryMigrasi.FieldByName('stok_migrasi').AsInteger;
+  finally
+    qryMigrasi.Free;
+  end;
+
+  cds := TClientDataSet.Create(Self);
+  ds  := TDataSource.Create(Self);
+  try
+    cds.FieldDefs.Add('no',          ftInteger);
+    cds.FieldDefs.Add('tgl',         ftDate);
+    cds.FieldDefs.Add('no_faktur',   ftString, 50);
+    cds.FieldDefs.Add('nie',         ftString, 30);
+    cds.FieldDefs.Add('no_batch',    ftString, 50);
+    cds.FieldDefs.Add('tgl_expired', ftString, 20);
+    cds.FieldDefs.Add('keterangan',  ftString, 50);
+    cds.FieldDefs.Add('masuk',       ftInteger);
+    cds.FieldDefs.Add('keluar',      ftInteger);
+    cds.FieldDefs.Add('sisa',        ftInteger);
+    cds.FieldDefs.Add('paraf',       ftString, 30);
+    cds.CreateDataSet;
+
+    // ?? BARIS 1: STOK AWAL
+    Inc(noUrut);
+    cds.Append;
+    cds.FieldByName('no').AsInteger         := noUrut;
+    cds.FieldByName('tgl').AsDateTime       := dtpAwal.DateTime;
+    cds.FieldByName('no_faktur').AsString   := '-';
+    cds.FieldByName('nie').AsString         := '-';
+    cds.FieldByName('no_batch').AsString    := '-';
+    cds.FieldByName('tgl_expired').AsString := '-';
+
+    // ?? KETERANGAN DINAMIS
+    if stokMigrasi > 0 then
+      cds.FieldByName('keterangan').AsString := 'Stok Awal (Migrasi Batch)'
+    else
+      cds.FieldByName('keterangan').AsString := 'Stok Awal';
+
+    cds.FieldByName('masuk').AsInteger  := 0;          // ? jangan isi FSisaAwal
+    cds.FieldByName('keluar').AsInteger := 0;
+    cds.FieldByName('sisa').AsInteger   := FSisaAwal;  // ? sumber utama
+    cds.FieldByName('paraf').AsString   := '';
+    cds.Post;
+
+    // ?? TRANSAKSI
+    qryKartu.First;
+    while not qryKartu.Eof do
+    begin
+      sisa := sisa
+              + qryKartu.FieldByName('masuk').AsInteger
+              - qryKartu.FieldByName('keluar').AsInteger;
+
+      totalMasuk  := totalMasuk  + qryKartu.FieldByName('masuk').AsInteger;
+      totalKeluar := totalKeluar + qryKartu.FieldByName('keluar').AsInteger;
+
+      Inc(noUrut);
+      cds.Append;
+      cds.FieldByName('no').AsInteger          := noUrut;
+      cds.FieldByName('tgl').AsDateTime        := qryKartu.FieldByName('tgl').AsDateTime;
+      cds.FieldByName('no_faktur').AsString    := qryKartu.FieldByName('no_faktur').AsString;
+      cds.FieldByName('nie').AsString          := qryKartu.FieldByName('nie').AsString;
+      cds.FieldByName('no_batch').AsString     := qryKartu.FieldByName('no_batch').AsString;
+
+      if not qryKartu.FieldByName('tgl_expired').IsNull then
+        cds.FieldByName('tgl_expired').AsString :=
+          FormatDateTime('dd/mm/yyyy', qryKartu.FieldByName('tgl_expired').AsDateTime)
+      else
+        cds.FieldByName('tgl_expired').AsString := '-';
+
+      cds.FieldByName('keterangan').AsString   := qryKartu.FieldByName('keterangan').AsString;
+      cds.FieldByName('masuk').AsInteger       := qryKartu.FieldByName('masuk').AsInteger;
+      cds.FieldByName('keluar').AsInteger      := qryKartu.FieldByName('keluar').AsInteger;
+      cds.FieldByName('sisa').AsInteger        := sisa;
+      cds.FieldByName('paraf').AsString        := '';
+      cds.Post;
+
+      qryKartu.Next;
+    end;
+
+    ds.DataSet         := cds;
+    dbgrd1.DataSource  := ds;
+
+    FcdsGrid := cds;
+    FdsGrid  := ds;
+
+    lblMasukVal.Caption  := IntToStr(totalMasuk);
+    lblKeluarVal.Caption := IntToStr(totalKeluar);
+    lblSisaVal.Caption   := IntToStr(sisa);
+    lblStokAwalVal.Caption := IntToStr(FSisaAwal); // ?? biar jelas
+
+    lblStatus.Caption :=
+      IntToStr(noUrut - 1) + ' transaksi ditemukan | Periode: ' +
+      FormatDateTime('dd/mm/yyyy', dtpAwal.DateTime) + ' — ' +
+      FormatDateTime('dd/mm/yyyy', dtpAkhir.DateTime);
+
+  except
+    on E: Exception do
+      ShowMessage('Error HitungSummary: ' + E.Message);
+  end;
 end;
 
 procedure TfKartuStok.btnPrintClick(Sender: TObject);
@@ -690,7 +879,7 @@ begin
   end;
 end;
 
-procedure TfKartuStok.btnTampilClick(Sender: TObject);
+{procedure TfKartuStok.btnTampilClick(Sender: TObject);
 begin
   if edtObatId.Text = '' then FObatID := 0 else FObatID := StrToInt(edtObatId.Text);
 
@@ -734,6 +923,121 @@ begin
     '    AND ' + QuotedStr(FormatDateTime('yyyy-mm-dd', dtpAkhir.DateTime)) +
     ') AS kartu ' +
     'ORDER BY tgl ASC, keterangan DESC';
+  qryKartu.Open;
+
+  HitungSummary;
+
+  btnPrint.Enabled := True;
+end; }
+
+procedure TfKartuStok.btnTampilClick(Sender: TObject);
+var
+  sTglAwal  : string;
+  sTglAkhir : string;
+  sObatID   : string;
+begin
+  { -- Validasi -- }
+  if edtObatId.Text = '' then
+    FObatID := 0
+  else
+    FObatID := StrToIntDef(edtObatId.Text, 0);
+ 
+  if FObatID = 0 then
+  begin
+    MessageDlg('Pilih Obat Terlebih Dahulu.', mtInformation, [mbok],0);
+    Exit;
+  end;
+ 
+  { -- Siapkan parameter -- }
+  sObatID   := IntToStr(FObatID);
+  sTglAwal  := QuotedStr(FormatDateTime('yyyy-mm-dd', dtpAwal.DateTime));
+  sTglAkhir := QuotedStr(FormatDateTime('yyyy-mm-dd', dtpAkhir.DateTime));
+ 
+  //FSisaAwal := StrToIntDef(edtStokAwal.Text, 0);
+  lblStokAwalVal.Caption := IntToStr(FSisaAwal);
+
+  TampilInfoObat;
+ 
+  { ============================================================
+    Query kartu stok: 3 bagian UNION ALL
+    1. Pembelian (dari tbl_detail_pembelian) — selalu dari tabel aktif
+    2. Penjualan aktif (dari tbl_penjualan — data <= 1 tahun)
+    3. Penjualan arsip (dari arsip_penjualan — data > 1 tahun)
+    Semua sudah difilter obat_id dan rentang tanggal
+    ============================================================ }
+  qryKartu.Close;
+  qryKartu.SQL.Clear;
+  qryKartu.SQL.Text :=
+    'SELECT ' +
+    '  sumber, tgl, no_faktur, no_batch, tgl_expired, keterangan, masuk, keluar, nie ' +
+    'FROM ( ' +
+
+    { ================= PEMBELIAN ================= }
+    '  SELECT ' +
+    '    ''Pembelian'' AS sumber, ' +
+    '    DATE(p.tgl_pembelian) AS tgl, ' +
+    '    p.tgl_pembelian AS tgl_full, ' +
+    '    p.id AS id_transaksi, ' +  // ?? KUNCI UTAMA
+    '    p.no_faktur, ' +
+    '    b.no_batch, ' +
+    '    b.tgl_expired, ' +
+    '    ''Pembelian'' AS keterangan, ' +
+    '    dp.jumlah_beli AS masuk, ' +
+    '    0 AS keluar, ' +
+    '    b.nie_number AS nie ' +
+    '  FROM tbl_detail_pembelian dp ' +
+    '  JOIN tbl_pembelian p ON p.id = dp.pembelian_id ' +
+    '  JOIN tbl_batch b     ON b.obat_id = dp.obat_id ' +
+    '                      AND b.pembelian_id = dp.pembelian_id ' +
+    '                      AND b.is_migrasi = 0 ' +
+    '  WHERE dp.obat_id = ' + sObatID +
+    '    AND DATE(p.tgl_pembelian) BETWEEN ' + sTglAwal + ' AND ' + sTglAkhir +
+
+    '  UNION ALL ' +
+
+    { ================= PENJUALAN AKTIF ================= }
+    '  SELECT ' +
+    '    ''Aktif'' AS sumber, ' +
+    '    DATE(pj.tgl_penjualan) AS tgl, ' +
+    '    pj.tgl_penjualan AS tgl_full, ' +
+    '    pj.id AS id_transaksi, ' +  // ?? KUNCI UTAMA
+    '    pj.no_faktur, ' +
+    '    b.no_batch, ' +
+    '    b.tgl_expired, ' +
+    '    ''Penjualan'' AS keterangan, ' +
+    '    0 AS masuk, ' +
+    '    pb.jumlah AS keluar, ' +
+    '    b.nie_number AS nie ' +
+    '  FROM tbl_penjualan_batch pb ' +
+    '  JOIN tbl_batch b    ON b.id = pb.batch_id ' +
+    '  JOIN tbl_penjualan pj ON pj.id = pb.penjualan_id ' +
+    '  WHERE b.obat_id = ' + sObatID +
+    '    AND DATE(pj.tgl_penjualan) BETWEEN ' + sTglAwal + ' AND ' + sTglAkhir +
+
+    '  UNION ALL ' +
+
+    { ================= PENJUALAN ARSIP ================= }
+    '  SELECT ' +
+    '    ''Arsip'' AS sumber, ' +
+    '    DATE(pj.tgl_penjualan) AS tgl, ' +
+    '    pj.tgl_penjualan AS tgl_full, ' +
+    '    pj.id AS id_transaksi, ' +  // ?? KUNCI UTAMA
+    '    pj.no_faktur, ' +
+    '    b.no_batch, ' +
+    '    b.tgl_expired, ' +
+    '    ''Penjualan'' AS keterangan, ' +
+    '    0 AS masuk, ' +
+    '    pb.jumlah AS keluar, ' +
+    '    b.nie_number AS nie ' +
+    '  FROM tbl_penjualan_batch pb ' +
+    '  JOIN tbl_batch b           ON b.id = pb.batch_id ' +
+    '  JOIN arsip_penjualan pj    ON pj.id = pb.penjualan_id ' +
+    '  WHERE b.obat_id = ' + sObatID +
+    '    AND DATE(pj.tgl_penjualan) BETWEEN ' + sTglAwal + ' AND ' + sTglAkhir +
+
+    ') AS kartu ' +
+    'ORDER BY tgl_full ASC, id_transaksi ASC';  // ?? FINAL FIX PALING BENAR
+
   qryKartu.Open;
 
   HitungSummary;

@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 106
-  Top = 268
+  Left = 303
+  Top = 421
   Height = 537
   Width = 1702
   object XPManifest1: TXPManifest
@@ -53,7 +53,6 @@ object dm: Tdm
     Top = 144
   end
   object qrySatuan: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -74,7 +73,6 @@ object dm: Tdm
     end
   end
   object qrySupplier: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -109,7 +107,6 @@ object dm: Tdm
     Top = 208
   end
   object qryObat: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -159,7 +156,6 @@ object dm: Tdm
     Top = 272
   end
   object qryObatRelasi: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -223,7 +219,6 @@ object dm: Tdm
     end
   end
   object qryPembelian: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -233,7 +228,6 @@ object dm: Tdm
     Top = 96
   end
   object qryDetailPembelian: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -328,7 +322,6 @@ object dm: Tdm
     Top = 160
   end
   object qryListPembelian: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -425,7 +418,6 @@ object dm: Tdm
     Top = 248
   end
   object qryPenjualan: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -435,7 +427,6 @@ object dm: Tdm
     Top = 120
   end
   object qryStok: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -473,7 +464,6 @@ object dm: Tdm
     end
   end
   object qrySetHarga: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -483,7 +473,6 @@ object dm: Tdm
     Top = 192
   end
   object qryRelasiSetHarga: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -572,7 +561,6 @@ object dm: Tdm
     Top = 208
   end
   object qryRelasiStok: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -588,7 +576,6 @@ object dm: Tdm
     Top = 344
   end
   object qryPelanggan: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -611,7 +598,6 @@ object dm: Tdm
     Top = 344
   end
   object qryRelasiPenjualan: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -695,7 +681,6 @@ object dm: Tdm
     Top = 128
   end
   object qryDetailPenjualan: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -729,7 +714,6 @@ object dm: Tdm
     end
   end
   object qryLaporanPembelian: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -803,7 +787,6 @@ object dm: Tdm
     end
   end
   object qryLaporanPenjualan: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -855,7 +838,6 @@ object dm: Tdm
     end
   end
   object qryLaporanStok: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -940,7 +922,6 @@ object dm: Tdm
     end
   end
   object qryLaporanItemLaris: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -1031,7 +1012,6 @@ object dm: Tdm
     Top = 112
   end
   object qryListPenjualan: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -1098,7 +1078,6 @@ object dm: Tdm
     Top = 16
   end
   object qryRetur: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -1113,7 +1092,6 @@ object dm: Tdm
     Top = 240
   end
   object qryRelasiReturObat: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -1130,7 +1108,6 @@ object dm: Tdm
     Top = 312
   end
   object qryListRetur: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -1148,7 +1125,6 @@ object dm: Tdm
     Top = 176
   end
   object qryDetailRetur: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -1252,7 +1228,6 @@ object dm: Tdm
     Top = 248
   end
   object qryDashObat: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -1268,7 +1243,6 @@ object dm: Tdm
     Top = 136
   end
   object qryLabaPenjualan: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -1338,7 +1312,6 @@ object dm: Tdm
     Top = 72
   end
   object qryDashExp: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -1356,7 +1329,6 @@ object dm: Tdm
     Top = 256
   end
   object qryLabaPenjualanGrosir: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -1426,7 +1398,6 @@ object dm: Tdm
     Top = 64
   end
   object qryDashListObat: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -1521,7 +1492,6 @@ object dm: Tdm
     Top = 280
   end
   object qryDashListExp: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -1544,7 +1514,6 @@ object dm: Tdm
     Top = 280
   end
   object qryListDashReturPenjualan: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -1562,7 +1531,6 @@ object dm: Tdm
     Top = 312
   end
   object qryDtlRetur: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -1585,7 +1553,6 @@ object dm: Tdm
     Top = 128
   end
   object qryDetailReturTable: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -1617,7 +1584,6 @@ object dm: Tdm
     Top = 112
   end
   object qryListPembelianPending: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>
@@ -1731,7 +1697,6 @@ object dm: Tdm
     Top = 416
   end
   object qryBatchObat: TADOQuery
-    Active = True
     Connection = con1
     CursorType = ctStatic
     Parameters = <>

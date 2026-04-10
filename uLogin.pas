@@ -58,7 +58,7 @@ begin
 
   if edtPass.Text = '' then
     begin
-      MessageDlg('Passwo Belum Dimasukkan',mtInformation,[mbOK],0);
+      MessageDlg('Password Belum Dimasukkan',mtInformation,[mbOK],0);
       edtPass.SetFocus;
       Exit;
     end;
