@@ -360,6 +360,9 @@ type
     qryHapusStok: TADOQuery;
     qryBatchObat: TADOQuery;
     qryTemp: TADOQuery;
+    qryBantu2: TADOQuery;
+    qryBantu3: TADOQuery;
+    qryBatch: TADOQuery;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

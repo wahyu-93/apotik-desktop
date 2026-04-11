@@ -31,6 +31,8 @@ type
     bvl1: TBevel;
     btnSelesai: TBitBtn;
     edtIdPenjualan: TEdit;
+    mmo1: TMemo;
+    mmo2: TMemo;
     procedure btnKeluarClick(Sender: TObject);
     procedure edtFakturKeyPress(Sender: TObject; var Key: Char);
     procedure btnCariClick(Sender: TObject);
@@ -241,7 +243,9 @@ end;
 
 procedure TfReturn.btnSelesaiClick(Sender: TObject);
 var a, jmlRetur, jmlJual, stokObat : Integer;
-    obatId : string;
+    obatId, batchId, pbId, pbIdPertama, batchIdPertama : string;
+    totalJualBatch, jmlKembalikan : Integer;
+    sisaRetur, jmlBatch, stokSisa, stokPertama, jmlPertama : Integer;
 begin
   if MessageDlg('Selesaikan Transaksi',mtConfirmation,[mbyes,mbNo],0) = mryes then
     begin
@@ -301,6 +305,121 @@ begin
                       SQL.Text := 'update tbl_obat set stok = '+QuotedStr(IntToStr(stokObat+jmlRetur))+' where id = '+QuotedStr(obatId)+'';
                       ExecSQL;
                     end;
+
+                  //kembalikan stok di batch
+                  // hitung total jumlah yang dijual dari semua batch untuk obat ini
+                  with dm.qryBantu2 do
+                    begin
+                      Close;
+                      SQL.Clear;
+                      SQL.Text := 'SELECT SUM(pb.jumlah) as total ' +
+                                  'FROM tbl_penjualan_batch pb ' +
+                                  'JOIN tbl_batch b ON b.id = pb.batch_id ' +
+                                  'WHERE pb.penjualan_id = ' + QuotedStr(edtIdPenjualan.Text) +
+                                  ' AND b.obat_id = ' + QuotedStr(obatId);
+                      Open;
+                      totalJualBatch := FieldByName('total').AsInteger;
+                    end;
+
+                  sisaRetur := jmlRetur;
+
+                  with dm.qryBatch do
+                    begin
+                      Close;
+                      SQL.Clear;
+                      SQL.Text := 'SELECT pb.id as pb_id, pb.batch_id, pb.jumlah as jml_penjualan_batch, b.jumlah_sisa ' +
+                                  'FROM tbl_penjualan_batch pb ' +
+                                  'JOIN tbl_batch b ON b.id = pb.batch_id ' +
+                                  'WHERE pb.penjualan_id = ' + QuotedStr(edtIdPenjualan.Text) +
+                                  ' AND b.obat_id = ' + QuotedStr(obatId) +
+                                  ' ORDER BY b.created_at ASC';
+                      Open;
+
+                      while not Eof do
+                        begin
+                          pbId         := FieldByName('pb_id').AsString;
+                          batchId      := FieldByName('batch_id').AsString;
+                          jmlBatch     := FieldByName('jml_penjualan_batch').AsInteger;
+                          stokSisa     := FieldByName('jumlah_sisa').AsInteger;
+
+                          if sisaRetur <= 0 then Break;
+
+                          // hitung proporsional
+                          jmlKembalikan := Round(jmlRetur * (jmlBatch / totalJualBatch));
+                          if jmlKembalikan > sisaRetur then
+                            jmlKembalikan := sisaRetur;
+
+                          sisaRetur := sisaRetur - jmlKembalikan;
+
+                          // 1. update jumlah_sisa di tbl_batch (tambah stok)
+                          with dm.qryBantu3 do
+                            begin
+                              Close;
+                              SQL.Clear;
+                              SQL.Text := 'UPDATE tbl_batch SET jumlah_sisa = ' +
+                                          IntToStr(stokSisa + jmlKembalikan) +
+                                          ' WHERE id = ' + QuotedStr(batchId);
+                              ExecSQL;
+                            end;
+
+                          // 2. update jumlah di tbl_penjualan_batch (kurangi jumlah terjual)
+                          with dm.qryBantu3 do
+                            begin
+                              Close;
+                              SQL.Clear;
+                              SQL.Text := 'UPDATE tbl_penjualan_batch SET jumlah_retur = jumlah_retur + ' +
+                                           IntToStr(jmlKembalikan) +
+                                           ' WHERE id = ' + QuotedStr(pbId);
+                              ExecSQL;
+                            end;
+
+                          // update tbl_penjualan_batch (sisa pembulatan)
+                          with dm.qryBantu3 do
+                            begin
+                              Close;
+                              SQL.Clear;
+                              SQL.Text := 'UPDATE tbl_penjualan_batch SET jumlah_retur = jumlah_retur + ' +
+                                          IntToStr(sisaRetur) +
+                                          ' WHERE id = ' + QuotedStr(pbIdPertama);
+                              ExecSQL;
+                            end;
+
+                          Next;
+                        end;
+
+                      // tangani sisa retur akibat pembulatan ? masukkan ke batch pertama
+                      if sisaRetur > 0 then
+                        begin
+                          First;
+                          pbIdPertama    := FieldByName('pb_id').AsString;
+                          batchIdPertama := FieldByName('batch_id').AsString;
+                          stokPertama    := FieldByName('jumlah_sisa').AsInteger;
+                          jmlPertama     := FieldByName('jml_penjualan_batch').AsInteger;
+
+                          // update tbl_batch
+                          with dm.qryBantu3 do
+                            begin
+                              Close;
+                              SQL.Clear;
+                              SQL.Text := 'UPDATE tbl_batch SET jumlah_sisa = ' +
+                                          IntToStr(stokPertama + sisaRetur) +
+                                          ' WHERE id = ' + QuotedStr(batchIdPertama);
+                              ExecSQL;
+                            end;
+
+                          // update tbl_penjualan_batch
+                          with dm.qryBantu3 do
+                            begin
+                              Close;
+                              SQL.Clear;
+                              SQL.Text := 'UPDATE tbl_penjualan_batch SET jumlah = ' +
+                                          IntToStr(jmlPertama - sisaRetur) +
+                                          ' WHERE id = ' + QuotedStr(pbIdPertama);
+                              ExecSQL;
+                            end;
+                        end;
+                    end;
+
                 end;
 
               // update tbl_penjualan
