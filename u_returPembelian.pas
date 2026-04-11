@@ -274,7 +274,8 @@ end;
 
 procedure TfReturPembelian.btnSelesaiClick(Sender: TObject);
 var a, jmlRetur, jmlBeli, stokObat : Integer;
-    obatId : string;
+    obatId, batchId : string;
+    sisaKurang, stokSisa, dikurangi : Integer;
 begin
   if MessageDlg('Selesaikan Transaksi',mtConfirmation,[mbyes,mbNo],0) = mryes then
     begin
@@ -300,7 +301,7 @@ begin
                   obatId := dm.qryStok.fieldbyname('obat_id').AsString;
                   jmlRetur := dm.qryStok.fieldbyname('jumlah').AsInteger;
 
-                  //tabahkan stok tbl_obat
+                  //kurangi stok tbl_obat
                   with dm.qryObat do
                     begin
                       close;
@@ -315,6 +316,59 @@ begin
                       SQL.Clear;
                       SQL.Text := 'update tbl_obat set stok = '+QuotedStr(IntToStr(stokObat-jmlRetur))+' where id = '+QuotedStr(obatId)+'';
                       ExecSQL;
+                    end;
+
+                  // kurangi stok batch FIFO dari pembelian yang diretur
+                  sisaKurang := jmlRetur;
+
+                  with dm.qryBatch do
+                    begin
+                      Close;
+                      SQL.Clear;
+                      // ambil batch milik obat ini dari pembelian yg diretur, urut terlama
+                      SQL.Text := 'SELECT id, jumlah_sisa ' +
+                                  'FROM tbl_batch ' +
+                                  'WHERE obat_id = ' + QuotedStr(obatId) +
+                                  ' AND pembelian_id = (' +
+                                  '  SELECT id FROM tbl_pembelian ' +
+                                  '  WHERE no_faktur = ' + QuotedStr(edtFaktur.Text) +
+                                  '  LIMIT 1) ' +
+                                  ' AND jumlah_sisa > 0 ' +
+                                  ' AND status = 1 ' +
+                                  ' ORDER BY tgl_expired ASC, created_at ASC';
+                      Open;
+
+                      while not Eof and (sisaKurang > 0) do
+                        begin
+                          batchId   := FieldByName('id').AsString;
+                          stokSisa  := FieldByName('jumlah_sisa').AsInteger;
+                        
+                          if stokSisa >= sisaKurang then
+                            dikurangi := sisaKurang
+                          else
+                            dikurangi := stokSisa;
+
+                          sisaKurang := sisaKurang - dikurangi;
+
+                          with dm.qryBantu2 do
+                            begin
+                              Close;
+                              SQL.Clear;
+                              SQL.Text := 'UPDATE tbl_batch SET ' +
+                                'jumlah_sisa = jumlah_sisa - ' + IntToStr(dikurangi) + ', ' +
+                                'jumlah_retur_beli = jumlah_retur_beli + ' + IntToStr(dikurangi) +
+                                ' WHERE id = ' + QuotedStr(batchId);
+                              ExecSQL;
+                            end;
+
+                          Next;
+                        end;
+
+                      // jika sisa kurang masih > 0, berarti stok batch tidak cukup
+                      // ini seharusnya tidak terjadi jika validasi jumlah retur sudah benar
+                      if sisaKurang > 0 then
+                        ShowMessage('Peringatan: Stok batch tidak mencukupi untuk retur! Sisa ' +
+                                    IntToStr(sisaKurang) + ' tidak bisa dikurangi dari batch.');
                     end;
                 end;
 

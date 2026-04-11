@@ -5,7 +5,7 @@ object fKartuStok: TfKartuStok
   BorderIcons = []
   Caption = '.:: Kartu Stok ::.'
   ClientHeight = 772
-  ClientWidth = 883
+  ClientWidth = 898
   Color = clGradientActiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,7 +21,7 @@ object fKartuStok: TfKartuStok
   object img1: TImage
     Left = 0
     Top = 0
-    Width = 894
+    Width = 897
     Height = 1013
     Picture.Data = {
       0A544A504547496D6167650C670B00FFD8FFE000104A46494600010201004800
@@ -23382,13 +23382,13 @@ object fKartuStok: TfKartuStok
   object grp1: TGroupBox
     Left = 11
     Top = 4
-    Width = 862
+    Width = 878
     Height = 57
     TabOrder = 0
     object lbl1: TLabel
       Left = 8
       Top = 16
-      Width = 849
+      Width = 865
       Height = 27
       Alignment = taCenter
       AutoSize = False
@@ -23404,7 +23404,7 @@ object fKartuStok: TfKartuStok
   object pnlFilter: TPanel
     Left = 13
     Top = 68
-    Width = 860
+    Width = 876
     Height = 81
     BevelOuter = bvNone
     TabOrder = 1
@@ -23441,7 +23441,7 @@ object fKartuStok: TfKartuStok
       ParentFont = False
     end
     object lbl4: TLabel
-      Left = 632
+      Left = 640
       Top = 11
       Width = 16
       Height = 20
@@ -23506,7 +23506,7 @@ object fKartuStok: TfKartuStok
       TabOrder = 3
     end
     object dtpAkhir: TDateTimePicker
-      Left = 656
+      Left = 672
       Top = 8
       Width = 190
       Height = 28
@@ -23583,7 +23583,7 @@ object fKartuStok: TfKartuStok
   object pnlInfo: TPanel
     Left = 13
     Top = 156
-    Width = 860
+    Width = 876
     Height = 97
     BevelOuter = bvNone
     Font.Charset = ANSI_CHARSET
@@ -23751,14 +23751,14 @@ object fKartuStok: TfKartuStok
   object pnlSummary: TPanel
     Left = 13
     Top = 260
-    Width = 860
+    Width = 876
     Height = 81
     BevelOuter = bvNone
     TabOrder = 3
     object pnlPasuk: TPanel
-      Left = 16
+      Left = 8
       Top = 8
-      Width = 160
+      Width = 138
       Height = 65
       TabOrder = 0
       object lbl10: TLabel
@@ -23789,9 +23789,9 @@ object fKartuStok: TfKartuStok
       end
     end
     object pnlKeluar: TPanel
-      Left = 352
+      Left = 296
       Top = 8
-      Width = 160
+      Width = 138
       Height = 65
       TabOrder = 1
       object lbl11: TLabel
@@ -23822,9 +23822,9 @@ object fKartuStok: TfKartuStok
       end
     end
     object pnlSisa: TPanel
-      Left = 520
+      Left = 584
       Top = 8
-      Width = 160
+      Width = 138
       Height = 65
       TabOrder = 2
       object lbl13: TLabel
@@ -23855,9 +23855,9 @@ object fKartuStok: TfKartuStok
       end
     end
     object pnlFisik: TPanel
-      Left = 688
+      Left = 728
       Top = 8
-      Width = 160
+      Width = 138
       Height = 65
       TabOrder = 3
       object lbl15: TLabel
@@ -23888,17 +23888,17 @@ object fKartuStok: TfKartuStok
       end
     end
     object pnl1: TPanel
-      Left = 184
+      Left = 152
       Top = 8
-      Width = 160
+      Width = 138
       Height = 65
       TabOrder = 4
       object lbl12: TLabel
         Left = 8
         Top = 8
-        Width = 70
+        Width = 121
         Height = 20
-        Caption = 'Retur Masuk'
+        Caption = 'Total Retur Penjualan'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -15
@@ -23906,7 +23906,40 @@ object fKartuStok: TfKartuStok
         Font.Style = []
         ParentFont = False
       end
-      object lblReturVal: TLabel
+      object lblReturJualVal: TLabel
+        Left = 8
+        Top = 32
+        Width = 5
+        Height = 23
+        Caption = '-'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Arial Narrow'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+    end
+    object pnl2: TPanel
+      Left = 440
+      Top = 8
+      Width = 138
+      Height = 65
+      TabOrder = 5
+      object lbl14: TLabel
+        Left = 8
+        Top = 8
+        Width = 125
+        Height = 20
+        Caption = 'Total Retur Pembelian'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Arial Narrow'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblReturBeliVal: TLabel
         Left = 8
         Top = 32
         Width = 5
@@ -23924,7 +23957,7 @@ object fKartuStok: TfKartuStok
   object pnlStatus: TPanel
     Left = 0
     Top = 731
-    Width = 883
+    Width = 898
     Height = 41
     Align = alBottom
     TabOrder = 4
@@ -23945,7 +23978,7 @@ object fKartuStok: TfKartuStok
   object dbgrd1: TDBGrid
     Left = 13
     Top = 348
-    Width = 860
+    Width = 876
     Height = 377
     DataSource = dsKartu
     Font.Charset = ANSI_CHARSET

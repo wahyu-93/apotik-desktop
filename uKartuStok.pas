@@ -63,7 +63,10 @@ type
     qckrpQRpt: TQuickRep;
     pnl1: TPanel;
     lbl12: TLabel;
-    lblReturVal: TLabel;
+    lblReturJualVal: TLabel;
+    pnl2: TPanel;
+    lbl14: TLabel;
+    lblReturBeliVal: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btnPrintClick(Sender: TObject);
     procedure btnTampilClick(Sender: TObject);
@@ -639,19 +642,21 @@ end;
 
 procedure TFKartuStok.HitungSummary;
 var
-  cds         : TClientDataSet;
-  ds          : TDataSource;
-  totalMasuk  : Integer;
-  totalKeluar : Integer;
-  totalRetur  : Integer;
-  sisa        : Integer;
-  noUrut      : Integer;
-  stokMigrasi : Integer;
-  qryMigrasi  : TADOQuery;
+  cds              : TClientDataSet;
+  ds              : TDataSource;
+  totalMasuk      : Integer;
+  totalKeluar     : Integer;
+  totalReturJual  : Integer;
+  totalReturBeli  : Integer;
+  sisa            : Integer;
+  noUrut          : Integer;
+  stokMigrasi     : Integer;
+  qryMigrasi      : TADOQuery;
 begin
   totalMasuk  := 0;
   totalKeluar := 0;
-  totalRetur  := 0;
+  totalReturJual := 0;
+  totalReturBeli := 0;
   sisa        := FSisaAwal;
   noUrut      := 0;
   stokMigrasi := 0;
@@ -718,11 +723,15 @@ begin
               - qryKartu.FieldByName('keluar').AsInteger;
 
       if qryKartu.FieldByName('keterangan').AsString = 'Retur Penjualan' then
-        totalRetur := totalRetur + qryKartu.FieldByName('masuk').AsInteger
+        totalReturJual := totalReturJual + qryKartu.FieldByName('masuk').AsInteger
+      else if qryKartu.FieldByName('keterangan').AsString = 'Retur Pembelian' then
+        totalReturBeli := totalReturBeli + qryKartu.FieldByName('keluar').AsInteger
       else
         totalMasuk := totalMasuk + qryKartu.FieldByName('masuk').AsInteger;
 
-      totalKeluar := totalKeluar + qryKartu.FieldByName('keluar').AsInteger;
+      // keluar hanya dari penjualan
+      if qryKartu.FieldByName('keterangan').AsString <> 'Retur Pembelian' then
+        totalKeluar := totalKeluar + qryKartu.FieldByName('keluar').AsInteger;
 
       Inc(noUrut);
       cds.Append;
@@ -755,8 +764,9 @@ begin
     FdsGrid  := ds;
 
     lblMasukVal.Caption  := IntToStr(totalMasuk);
-    lblReturVal.Caption  := IntToStr(totalRetur);
     lblKeluarVal.Caption := IntToStr(totalKeluar);
+    lblReturJualVal.Caption  := IntToStr(totalReturJual);  // label baru
+    lblReturBeliVal.Caption  := IntToStr(totalReturBeli);
     lblSisaVal.Caption   := IntToStr(sisa);
     lblStokAwalVal.Caption := IntToStr(FSisaAwal); // ?? biar jelas
 
@@ -892,6 +902,7 @@ begin
     '    DATE(p.tgl_pembelian) AS tgl, ' +
     '    p.tgl_pembelian AS tgl_full, ' +
     '    p.id AS id_transaksi, ' +
+    '    1 AS urutan, ' +
     '    p.no_faktur, ' +
     '    b.no_batch, ' +
     '    b.tgl_expired, ' +
@@ -909,18 +920,46 @@ begin
 
     '  UNION ALL ' +
 
+    { ================= RETUR PEMBELIAN ================= }
+    '  SELECT ' +
+    '    ''Retur'' AS sumber, ' +
+    '    DATE(r.tgl_retur) AS tgl, ' +
+    '    r.tgl_retur AS tgl_full, ' +
+    '    r.id AS id_transaksi, ' +
+    '    2 AS urutan, ' +
+    '    r.faktur_penjualan AS no_faktur, ' +
+    '    b.no_batch, ' +
+    '    b.tgl_expired, ' +
+    '    ''Retur Pembelian'' AS keterangan, ' +
+    '    0 AS masuk, ' +
+    '    s.jumlah AS keluar, ' +
+    '    b.nie_number AS nie ' +
+    '  FROM tbl_stok s ' +
+    '  JOIN tbl_retur r ON r.faktur_penjualan = s.no_faktur ' +
+    '                   AND r.jenis_retur = ''pembelian'' ' +
+    '  JOIN tbl_batch b ON b.obat_id = s.obat_id ' +
+    '                   AND b.pembelian_id = (' +
+    '                     SELECT id FROM tbl_pembelian ' +
+    '                     WHERE no_faktur = r.faktur_penjualan LIMIT 1) ' +
+    '  WHERE s.obat_id = ' + sObatID +
+    '    AND s.keterangan = ''retur-pembelian'' ' +
+    '    AND DATE(r.tgl_retur) BETWEEN ' + sTglAwal + ' AND ' + sTglAkhir +
+
+    '  UNION ALL ' +
+
     { ================= PENJUALAN AKTIF ================= }
     '  SELECT ' +
     '    ''Aktif'' AS sumber, ' +
     '    DATE(pj.tgl_penjualan) AS tgl, ' +
     '    pj.tgl_penjualan AS tgl_full, ' +
     '    pj.id AS id_transaksi, ' +
+    '    3 AS urutan, ' +
     '    pj.no_faktur, ' +
     '    b.no_batch, ' +
     '    b.tgl_expired, ' +
     '    ''Penjualan'' AS keterangan, ' +
     '    0 AS masuk, ' +
-    '    pb.jumlah AS keluar, ' +        // tetap jumlah asli saat jual
+    '    pb.jumlah AS keluar, ' +
     '    b.nie_number AS nie ' +
     '  FROM tbl_penjualan_batch pb ' +
     '  JOIN tbl_batch b      ON b.id = pb.batch_id ' +
@@ -936,18 +975,19 @@ begin
     '    DATE(pj.tgl_penjualan) AS tgl, ' +
     '    pj.tgl_penjualan AS tgl_full, ' +
     '    pj.id AS id_transaksi, ' +
+    '    4 AS urutan, ' +
     '    pj.no_faktur, ' +
     '    b.no_batch, ' +
     '    b.tgl_expired, ' +
     '    ''Retur Penjualan'' AS keterangan, ' +
-    '    pb.jumlah_retur AS masuk, ' +   // masuk karena barang kembali
+    '    pb.jumlah_retur AS masuk, ' +
     '    0 AS keluar, ' +
     '    b.nie_number AS nie ' +
     '  FROM tbl_penjualan_batch pb ' +
     '  JOIN tbl_batch b      ON b.id = pb.batch_id ' +
     '  JOIN tbl_penjualan pj ON pj.id = pb.penjualan_id ' +
     '  WHERE b.obat_id = ' + sObatID +
-    '    AND pb.jumlah_retur > 0 ' +     // hanya tampil jika ada retur
+    '    AND pb.jumlah_retur > 0 ' +
     '    AND DATE(pj.tgl_penjualan) BETWEEN ' + sTglAwal + ' AND ' + sTglAkhir +
 
     '  UNION ALL ' +
@@ -958,6 +998,7 @@ begin
     '    DATE(pj.tgl_penjualan) AS tgl, ' +
     '    pj.tgl_penjualan AS tgl_full, ' +
     '    pj.id AS id_transaksi, ' +
+    '    3 AS urutan, ' +
     '    pj.no_faktur, ' +
     '    b.no_batch, ' +
     '    b.tgl_expired, ' +
@@ -979,6 +1020,7 @@ begin
     '    DATE(pj.tgl_penjualan) AS tgl, ' +
     '    pj.tgl_penjualan AS tgl_full, ' +
     '    pj.id AS id_transaksi, ' +
+    '    4 AS urutan, ' +
     '    pj.no_faktur, ' +
     '    b.no_batch, ' +
     '    b.tgl_expired, ' +
@@ -994,7 +1036,7 @@ begin
     '    AND DATE(pj.tgl_penjualan) BETWEEN ' + sTglAwal + ' AND ' + sTglAkhir +
 
     ') AS kartu ' +
-    'ORDER BY tgl_full ASC, id_transaksi ASC';
+    'ORDER BY tgl_full ASC, urutan ASC, id_transaksi ASC';
 
   qryKartu.Open;
 

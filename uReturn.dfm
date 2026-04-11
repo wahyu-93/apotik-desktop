@@ -24222,23 +24222,5 @@ object fReturn: TfReturn
       TabOrder = 10
       OnClick = btnSelesaiClick
     end
-    object mmo1: TMemo
-      Left = 136
-      Top = 392
-      Width = 185
-      Height = 89
-      Lines.Strings = (
-        'mmo1')
-      TabOrder = 11
-    end
-    object mmo2: TMemo
-      Left = 328
-      Top = 392
-      Width = 185
-      Height = 89
-      Lines.Strings = (
-        'mmo2')
-      TabOrder = 12
-    end
   end
 end

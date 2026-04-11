@@ -31,8 +31,6 @@ type
     bvl1: TBevel;
     btnSelesai: TBitBtn;
     edtIdPenjualan: TEdit;
-    mmo1: TMemo;
-    mmo2: TMemo;
     procedure btnKeluarClick(Sender: TObject);
     procedure edtFakturKeyPress(Sender: TObject; var Key: Char);
     procedure btnCariClick(Sender: TObject);
