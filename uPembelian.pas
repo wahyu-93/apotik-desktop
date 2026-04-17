@@ -456,6 +456,7 @@ begin
             FieldByName('tgl_expired').AsDateTime := dtpTanggalKadaluarsa.Date;
             FieldByName('jumlah_awal').AsString   := edtJumlahBeli.Text;
             FieldByName('jumlah_sisa').AsInteger  := StrToIntDef(edtJumlahBeli.Text, 0);
+            FieldByName('harga_beli').AsString    := edtHarga.Text;
             FieldByName('status').AsInteger       := 1;
             Post;
           end
@@ -469,6 +470,7 @@ begin
                                 + 'jumlah_awal = ' + edtJumlahBeli.Text + ', '
                                 + 'jumlah_sisa = ' + edtJumlahBeli.Text + ', '
                                 + 'no_batch = ' + QuotedStr(edtNoBatch.Text) + ', '
+                                + 'harga_beli = ' + QuotedStr(edtHarga.Text) + ', '
                                 + 'nie_number = ' + QuotedStr(edtNie.Text) + ' '
                                 + 'where id = ' + QuotedStr(edtIdBatch.Text) ;
                   ExecSQL;
@@ -555,21 +557,27 @@ begin
         begin
           with dm.qryDetailPembelian do
             begin
-              with dm.qryDetailPembelian do
-                begin
-                  Locate('id',edtIdPembelian.Text,[]);
-                  Delete;
-                end;
+              Locate('id',edtIdPembelian.Text,[]);
+              Delete;
             end;
 
-            //hapus batch
-             with dm.qryBatchObat do
-                begin
-                  close;
-                  sql.Clear;
-                  sql.Text := 'delete from tbl_batch where id = '+QuotedStr(edtIdBatch.Text)+''; 
-                  ExecSQL;
-                end;
+          //hapus stok
+          with dm.qryStok do
+            begin
+              close;
+              SQL.Clear;
+              SQL.Text := 'delete from tbl_stok where no_faktur = '+QuotedStr(edtFaktur.Text)+' and obat_id = '+QuotedStr(edtIdObat.Text)+'';
+              ExecSQL;
+            end;
+
+          //hapus batch
+            with dm.qryBatchObat do
+              begin
+                close;
+                sql.Clear;
+                sql.Text := 'delete from tbl_batch where id = '+QuotedStr(edtIdBatch.Text)+'';
+                ExecSQL;
+              end;
 
             konek(edtFaktur.Text);
             clearEntitasBarang;

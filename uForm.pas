@@ -22,8 +22,6 @@ type
     SettingHargaJual1: TMenuItem;
     stat1: TStatusBar;
     tmr1: TTimer;
-    grp5: TGroupBox;
-    lbl1: TLabel;
     img1: TImage;
     Pengguna1: TMenuItem;
     Apotik1: TMenuItem;
@@ -33,15 +31,6 @@ type
     LaporanPenjualan1: TMenuItem;
     LaporanStok1: TMenuItem;
     LaporanItemLaris1: TMenuItem;
-    pnl1: TPanel;
-    lblTotalPembelian: TLabel;
-    lbl2: TLabel;
-    pnl2: TPanel;
-    lbl4: TLabel;
-    lblTotalPenjualan: TLabel;
-    lblJam: TLabel;
-    lbl6: TLabel;
-    lbl3: TLabel;
     ListPembelian2: TMenuItem;
     Pembelian2: TMenuItem;
     ListPenjualan2: TMenuItem;
@@ -52,32 +41,6 @@ type
     RefreshDashboard1: TMenuItem;
     N1: TMenuItem;
     LabaPenjualan1: TMenuItem;
-    pnl3: TPanel;
-    pnl4: TPanel;
-    pnl7: TPanel;
-    lbl8: TLabel;
-    lblTotalReturPembelian: TLabel;
-    pnl8: TPanel;
-    pnl9: TPanel;
-    pnl10: TPanel;
-    lbl10: TLabel;
-    lblTtlReturPenjualan: TLabel;
-    pnl11: TPanel;
-    lbl12: TLabel;
-    lblTtlObat: TLabel;
-    pnl12: TPanel;
-    pnl5: TPanel;
-    lblTtlSupplier: TLabel;
-    lbl7: TLabel;
-    pnl6: TPanel;
-    pnl17: TPanel;
-    pnl18: TPanel;
-    lbl18: TLabel;
-    lblTtlStok: TLabel;
-    pnl19: TPanel;
-    lbl20: TLabel;
-    lblTtlExp: TLabel;
-    pnl20: TPanel;
     ReturPembelian1: TMenuItem;
     ListReturPembelian1: TMenuItem;
     ReturPembelian2: TMenuItem;
@@ -85,6 +48,27 @@ type
     BackupDatabase1: TMenuItem;
     BersihkanTabel1: TMenuItem;
     KartuStokObat1: TMenuItem;
+    KoreksStok1: TMenuItem;
+    lbl1: TLabel;
+    lbl6: TLabel;
+    lblJam: TLabel;
+    lbl5: TLabel;
+    lbl2: TLabel;
+    lblTotalPembelian: TLabel;
+    lbl4: TLabel;
+    lblTotalPenjualan: TLabel;
+    lbl8: TLabel;
+    lblTotalReturPembelian: TLabel;
+    lbl10: TLabel;
+    lblTtlReturPenjualan: TLabel;
+    lbl7: TLabel;
+    lblTtlSupplier: TLabel;
+    lbl12: TLabel;
+    lblTtlObat: TLabel;
+    lbl18: TLabel;
+    lblTtlStok: TLabel;
+    lbl20: TLabel;
+    lblTtlExp: TLabel;
     procedure Keluar1Click(Sender: TObject);
     procedure Barang1Click(Sender: TObject);
     procedure Supplier1Click(Sender: TObject);
@@ -122,6 +106,7 @@ type
     procedure BackupDatabase1Click(Sender: TObject);
     procedure BersihkanTabel1Click(Sender: TObject);
     procedure KartuStokObat1Click(Sender: TObject);
+    procedure KoreksStok1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -141,7 +126,7 @@ uses
   u_dashboardPenjualan, u_dashboardSupplier, u_dashboardObat, 
   u_dashboardObatStok, u_dashboardExp, u_dashboardReturPenjualan, 
   u_returPembelian, u_listReturPembelian, u_dashboardReturPembelian, 
-  u_laporanRetur, uBackup, ADODB, uKartuStok;
+  u_laporanRetur, uBackup, ADODB, uKartuStok, uKoreksiStok;
 
 {$R *.dfm}
 
@@ -198,10 +183,8 @@ begin
   stat1.Panels[0].Text := 'Pengguna : ' + dm.qryUser.FieldByName('nama').AsString;
   stat1.Panels[1].Text := 'Role : ' + dm.qryUser.fieldByname('role').AsString;
 
-  lbl6.Caption := 'Selamat Datang '+ dm.qryUser.fieldbyname('nama').AsString+' Di Aplikasi Kasir Apotek V.1.5';
-  lbl3.Caption := 'Anda Login Sebagai '+ dm.qryUser.fieldbyname('role').AsString;
+  lbl6.Caption := 'Selamat Datang, '+ dm.qryUser.fieldbyname('nama').AsString+' !';
   lbl1.Caption := dm.qrySetting.fieldbyname('nama_toko').AsString;
-
 
   //total penjualan
   with dm.qryTotalPenjualan do
@@ -253,7 +236,7 @@ begin
         end
       else
         begin
-          lblTtlStok.Caption := fieldbyname('jumlah').AsString;
+          lblTtlStok.Caption := FormatFloat('###,###;(###,###);###,###',fieldbyname('jumlah').AsFloat);
         end;
     end;
 
@@ -271,7 +254,7 @@ begin
           end
         else
           begin
-           lblTtlExp.Caption := IntToStr(RecordCount);
+           lblTtlExp.Caption := FormatFloat('###,###;(###,###);###,###', RecordCount);
           end;
       end;
 
@@ -285,7 +268,7 @@ begin
 
         if FieldByName('jumlah').AsInteger > 0 then
           begin
-            lblTtlObat.Caption := fieldbyname('jumlah').AsString;
+            lblTtlObat.Caption := FormatFloat('###,###;(###,###);###,###', fieldbyname('jumlah').AsFloat);
           end
         else
           begin
@@ -303,7 +286,7 @@ begin
 
         if FieldByName('jumlah').AsInteger > 0 then
           begin
-            lblTtlSupplier.Caption := fieldbyname('jumlah').AsString;
+            lblTtlSupplier.Caption := FormatFloat('###,###;(###,###);###,###',fieldbyname('jumlah').AsFloat);
           end
         else
           begin
@@ -321,7 +304,7 @@ begin
 
         if FieldByName('jumlah').AsInteger > 0then
           begin
-             lblTtlReturPenjualan.Caption :=  fieldbyname('jumlah').AsString;
+             lblTtlReturPenjualan.Caption := FormatFloat('###,###;(###,###);###,###',fieldbyname('jumlah').AsFloat);
           end
         else
           begin
@@ -339,7 +322,7 @@ begin
 
         if FieldByName('jumlah').AsInteger > 0then
           begin
-             lblTotalReturPembelian.Caption :=  fieldbyname('jumlah').AsString;
+             lblTotalReturPembelian.Caption := FormatFloat('###,###;(###,###);###,###',fieldbyname('jumlah').AsFloat);
           end
         else
           begin
@@ -361,7 +344,7 @@ end;
 procedure TFMenu.tmr2Timer(Sender: TObject);
 begin
   stat1.Panels[2].Text := 'Tanggal ' + FormatDateTime('dd-mm-yyyy',Now) + ' : ' + TimeToStr(Now);
-  lblJam.Caption := hari(Now)+', '+FormatDateTime('dd-mm-yyyy',Now) + ' - ' + TimeToStr(Now);
+  lblJam.Caption := hari(Now)+', '+FormatDateTime('dd mmmm yyyy',Now) + ' - ' + TimeToStr(Now);
 end;
 
 procedure TFMenu.LaporanPembelian1Click(Sender: TObject);
@@ -733,6 +716,11 @@ end;
 procedure TFMenu.KartuStokObat1Click(Sender: TObject);
 begin
   fKartuStok.ShowModal;
+end;
+
+procedure TFMenu.KoreksStok1Click(Sender: TObject);
+begin
+  FKoreksiStok.ShowModal;
 end;
 
 end.

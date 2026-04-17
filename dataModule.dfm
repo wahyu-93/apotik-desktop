@@ -1,9 +1,9 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 103
-  Top = 309
+  Left = 47
+  Top = 289
   Height = 537
-  Width = 1702
+  Width = 1760
   object XPManifest1: TXPManifest
     Left = 128
     Top = 32
@@ -493,7 +493,13 @@ object dm: Tdm
       FieldName = 'harga_jual'
       DisplayFormat = '#,#0;(#,#0);#,#0'
     end
-    object qryRelasiSetHargaharga_beli_terakhir: TIntegerField
+    object qryRelasiSetHargaharga_jual_grosir: TFloatField
+      FieldName = 'harga_jual_grosir'
+    end
+    object qryRelasiSetHargaqty_max_grosir: TIntegerField
+      FieldName = 'qty_max_grosir'
+    end
+    object qryRelasiSetHargaharga_beli_terakhir: TFloatField
       FieldName = 'harga_beli_terakhir'
       DisplayFormat = '#,#0;(#,#0);#,#0'
     end
@@ -539,7 +545,6 @@ object dm: Tdm
     end
     object qryRelasiSetHargatgl_exp: TDateField
       FieldName = 'tgl_exp'
-      DisplayFormat = 'dd/mm/yyyy'
     end
     object qryRelasiSetHargastatus: TStringField
       FieldName = 'status'
@@ -547,12 +552,15 @@ object dm: Tdm
     end
     object qryRelasiSetHargastok: TIntegerField
       FieldName = 'stok'
+      DisplayFormat = '#,#0;(#,#0);#,#0'
     end
-    object qryRelasiSetHargaharga_jual_grosir: TFloatField
-      FieldName = 'harga_jual_grosir'
+    object qryRelasiSetHargaprodusen: TStringField
+      FieldName = 'produsen'
+      Size = 100
     end
-    object qryRelasiSetHargaqty_max_grosir: TIntegerField
-      FieldName = 'qty_max_grosir'
+    object qryRelasiSetHargalokasi_simpan: TStringField
+      FieldName = 'lokasi_simpan'
+      Size = 50
     end
   end
   object dsRelasiSetHarga: TDataSource
@@ -842,83 +850,53 @@ object dm: Tdm
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
+      'SELECT '
+      '    a.id, '
+      '    a.nama_obat, '
+      '    b.no_batch, '
+      '    b.tgl_expired,'
+      '    c.satuan, '
+      '    CAST(b.jumlah_sisa AS SIGNED) AS jumlah_sisa, '
       
-        'select * from tbl_obat a left join tbl_satuan b on a.kode_satuan' +
-        ' = b.id left join tbl_harga_jual c on c.obat_id = a.id order by ' +
-        'a.id limit 10 offset 0')
+        '    CAST(COALESCE(NULLIF(b.harga_beli, 0), h.harga_beli_terakhir' +
+        ', 0) AS DECIMAL(18,2)) AS harga_fix'
+      'FROM tbl_obat a'
+      'INNER JOIN tbl_batch b ON a.id = b.obat_id'
+      'LEFT JOIN tbl_harga_jual h ON a.id = h.obat_id'
+      'LEFT JOIN tbl_satuan c ON a.kode_satuan = c.id'
+      'WHERE b.jumlah_sisa > 0'
+      'ORDER BY a.nama_obat ASC;')
     Left = 728
     Top = 176
     object qryLaporanStokid: TIntegerField
       FieldName = 'id'
     end
-    object qryLaporanStokkode: TStringField
-      FieldName = 'kode'
-      Size = 30
-    end
-    object qryLaporanStokbarcode: TStringField
-      FieldName = 'barcode'
-      Size = 100
-    end
     object qryLaporanStoknama_obat: TStringField
       FieldName = 'nama_obat'
       Size = 150
     end
-    object qryLaporanStokkode_jenis: TIntegerField
-      FieldName = 'kode_jenis'
+    object qryLaporanStokno_batch: TStringField
+      FieldName = 'no_batch'
+      Size = 50
     end
-    object qryLaporanStokkode_satuan: TIntegerField
-      FieldName = 'kode_satuan'
-    end
-    object qryLaporanStoktgl_obat: TDateField
-      FieldName = 'tgl_obat'
-    end
-    object qryLaporanStoktgl_exp: TDateField
-      FieldName = 'tgl_exp'
-    end
-    object qryLaporanStokstatus: TStringField
-      FieldName = 'status'
-      Size = 100
-    end
-    object qryLaporanStokstok: TIntegerField
-      FieldName = 'stok'
-    end
-    object qryLaporanStokid_1: TIntegerField
-      FieldName = 'id_1'
-    end
-    object qryLaporanStokkode_1: TStringField
-      FieldName = 'kode_1'
+    object qryLaporanStoktgl_expired: TDateField
+      FieldName = 'tgl_expired'
     end
     object qryLaporanStoksatuan: TStringField
       FieldName = 'satuan'
       Size = 100
     end
-    object qryLaporanStokid_2: TIntegerField
-      FieldName = 'id_2'
+    object qryLaporanStokjumlah_sisa: TLargeintField
+      FieldName = 'jumlah_sisa'
+      ReadOnly = True
+      DisplayFormat = '#,#0;(#,#0);#,#0'
     end
-    object qryLaporanStokobat_id: TIntegerField
-      FieldName = 'obat_id'
-    end
-    object qryLaporanStokharga_jual: TFloatField
-      FieldName = 'harga_jual'
-    end
-    object qryLaporanStokharga_beli_terakhir: TIntegerField
-      FieldName = 'harga_beli_terakhir'
-      DisplayFormat = '#,##;(#,##);#,##'
-    end
-    object qryLaporanStoksupplier: TStringField
-      FieldName = 'supplier'
-      Size = 50
-    end
-    object qryLaporanStoksatuan_1: TStringField
-      FieldName = 'satuan_1'
-      Size = 100
-    end
-    object qryLaporanStokjenis: TStringField
-      FieldName = 'jenis'
-      Size = 100
-    end
-    object qryLaporanStokcreated_at: TDateTimeField
-      FieldName = 'created_at'
+    object qryLaporanStokharga_fix: TBCDField
+      FieldName = 'harga_fix'
+      ReadOnly = True
+      DisplayFormat = '#,#0;(#,#0);#,#0'
+      Precision = 18
+      Size = 2
     end
   end
   object qryLaporanItemLaris: TADOQuery
@@ -1265,46 +1243,6 @@ object dm: Tdm
       'group by a.obat_id')
     Left = 1128
     Top = 32
-    object qryLabaPenjualankode: TStringField
-      FieldName = 'kode'
-      Size = 30
-    end
-    object qryLabaPenjualannama_obat: TStringField
-      FieldName = 'nama_obat'
-      Size = 150
-    end
-    object qryLabaPenjualanharga_beli_terakhir: TIntegerField
-      FieldName = 'harga_beli_terakhir'
-      DisplayFormat = '#,##;(#,##);#,##'
-    end
-    object qryLabaPenjualanharga_jual: TIntegerField
-      FieldName = 'harga_jual'
-      DisplayFormat = '#,##;(#,##);#,##'
-    end
-    object qryLabaPenjualanjmlItemJual: TBCDField
-      FieldName = 'jmlItemJual'
-      ReadOnly = True
-      Precision = 32
-      Size = 0
-    end
-    object qryLabaPenjualantotal_jual: TBCDField
-      FieldName = 'total_jual'
-      ReadOnly = True
-      DisplayFormat = '#,##;(#,##);#,##'
-      Precision = 32
-      Size = 0
-    end
-    object qryLabaPenjualanlaba: TBCDField
-      FieldName = 'laba'
-      ReadOnly = True
-      DisplayFormat = '#,##;(#,##);#,##'
-      Precision = 32
-      Size = 0
-    end
-    object qryLabaPenjualanjenis_harga: TStringField
-      FieldName = 'jenis_harga'
-      Size = 100
-    end
   end
   object dsLabaPenjualan: TDataSource
     DataSet = qryLabaPenjualan
@@ -1351,46 +1289,6 @@ object dm: Tdm
       'group by a.obat_id')
     Left = 1224
     Top = 16
-    object qryLabaPenjualanGrosirkode: TStringField
-      FieldName = 'kode'
-      Size = 30
-    end
-    object qryLabaPenjualanGrosirnama_obat: TStringField
-      FieldName = 'nama_obat'
-      Size = 150
-    end
-    object qryLabaPenjualanGrosirharga_beli_terakhir: TIntegerField
-      FieldName = 'harga_beli_terakhir'
-      DisplayFormat = '#,##;(#,##);#,##'
-    end
-    object qryLabaPenjualanGrosirharga_jual: TIntegerField
-      FieldName = 'harga_jual'
-      DisplayFormat = '#,##;(#,##);#,##'
-    end
-    object qryLabaPenjualanGrosirjmlItemJual: TBCDField
-      FieldName = 'jmlItemJual'
-      ReadOnly = True
-      Precision = 32
-      Size = 0
-    end
-    object qryLabaPenjualanGrosirtotal_jual: TBCDField
-      FieldName = 'total_jual'
-      ReadOnly = True
-      DisplayFormat = '#,##;(#,##);#,##'
-      Precision = 32
-      Size = 0
-    end
-    object qryLabaPenjualanGrosirlaba: TBCDField
-      FieldName = 'laba'
-      ReadOnly = True
-      DisplayFormat = '#,##;(#,##);#,##'
-      Precision = 32
-      Size = 0
-    end
-    object qryLabaPenjualanGrosirjenis_harga: TStringField
-      FieldName = 'jenis_harga'
-      Size = 100
-    end
   end
   object dsLabaPenjualanGrosir: TDataSource
     DataSet = qryLabaPenjualanGrosir
@@ -1726,7 +1624,188 @@ object dm: Tdm
   object qryBatch: TADOQuery
     Connection = con1
     Parameters = <>
-    Left = 1624
+    Left = 1664
     Top = 272
+  end
+  object qryBantu4: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 1632
+    Top = 328
+  end
+  object qryDetailBatch: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'SELECT '
+      '  a.obat_id,'
+      '  b.kode,'
+      '  b.nama_obat,'
+      ''
+      '  pb.batch_id,'
+      '  bt.no_batch,'
+      '  bt.tgl_expired,'
+      ''
+      '  pb.jumlah AS qty_batch,'
+      ''
+      '  CASE '
+      '    WHEN pb.harga_beli > 0 THEN pb.harga_beli '
+      '    ELSE c.harga_beli_terakhir '
+      '  END AS harga_beli,'
+      ''
+      '  a.harga_jual,'
+      ''
+      '  (pb.jumlah * a.harga_jual) AS total_jual,'
+      ''
+      '  (pb.jumlah * ('
+      '    a.harga_jual - '
+      '    CASE '
+      '      WHEN pb.harga_beli > 0 THEN pb.harga_beli '
+      '      ELSE c.harga_beli_terakhir '
+      '    END'
+      '  )) AS laba_batch,'
+      ''
+      '  a.jenis_harga,'
+      '  z.tgl_penjualan'
+      ''
+      'FROM tbl_penjualan_batch pb'
+      ''
+      'JOIN tbl_detail_penjualan a ON pb.detail_penjualan_id = a.id'
+      'JOIN tbl_penjualan z ON z.id = pb.penjualan_id'
+      'JOIN tbl_obat b ON a.obat_id = b.id'
+      ''
+      'LEFT JOIN tbl_batch bt ON bt.id = pb.batch_id'
+      'LEFT JOIN tbl_harga_jual c ON c.obat_id = b.id'
+      ''
+      'WHERE DATE(z.tgl_penjualan) = CURDATE()'
+      '  AND a.jenis_harga = '#39'eceran'#39
+      '  AND a.status IS NULL'
+      ''
+      'ORDER BY bt.id;')
+    Left = 1608
+    Top = 400
+    object qryDetailBatchobat_id: TIntegerField
+      FieldName = 'obat_id'
+    end
+    object qryDetailBatchkode: TStringField
+      FieldName = 'kode'
+      Size = 30
+    end
+    object qryDetailBatchnama_obat: TStringField
+      FieldName = 'nama_obat'
+      Size = 150
+    end
+    object qryDetailBatchbatch_id: TIntegerField
+      FieldName = 'batch_id'
+    end
+    object qryDetailBatchno_batch: TStringField
+      FieldName = 'no_batch'
+      Size = 50
+    end
+    object qryDetailBatchtgl_expired: TDateField
+      FieldName = 'tgl_expired'
+    end
+    object qryDetailBatchqty_batch: TIntegerField
+      FieldName = 'qty_batch'
+    end
+    object qryDetailBatchharga_beli: TFloatField
+      FieldName = 'harga_beli'
+      ReadOnly = True
+      DisplayFormat = '#,#0;(#,#0);#,#0'
+    end
+    object qryDetailBatchharga_jual: TIntegerField
+      FieldName = 'harga_jual'
+      DisplayFormat = '#,#0;(#,#0);#,#0'
+    end
+    object qryDetailBatchtotal_jual: TLargeintField
+      FieldName = 'total_jual'
+      ReadOnly = True
+      DisplayFormat = '#,#0;(#,#0);#,#0'
+    end
+    object qryDetailBatchlaba_batch: TFloatField
+      FieldName = 'laba_batch'
+      ReadOnly = True
+      DisplayFormat = '#,#0;(#,#0);#,#0'
+    end
+    object qryDetailBatchjenis_harga: TStringField
+      FieldName = 'jenis_harga'
+      Size = 100
+    end
+    object qryDetailBatchtgl_penjualan: TDateTimeField
+      FieldName = 'tgl_penjualan'
+    end
+  end
+  object dsDetailBatch: TDataSource
+    DataSet = qryDetailBatch
+    Left = 1552
+    Top = 408
+  end
+  object qryLogKoreksi: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 800
+    Top = 440
+  end
+  object dsBatchKoreksi: TDataSource
+    DataSet = qryBatchKoreksi
+    Left = 936
+    Top = 408
+  end
+  object qryBatchKoreksi: TADOQuery
+    Active = True
+    Connection = con1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'SELECT'
+      '  b.id,'
+      '  b.no_batch,'
+      '  b.tgl_expired,'
+      '  b.jumlah_sisa AS stok_sistem,'
+      '  b.jumlah_sisa AS stok_fisik,  '
+      '  0  AS selisih'
+      'FROM tbl_batch b'
+      'WHERE b.obat_id is Null'
+      '  AND b.status  = 1'
+      'ORDER BY b.tgl_expired ASC')
+    Left = 888
+    Top = 424
+    object qryBatchKoreksiid: TAutoIncField
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object qryBatchKoreksino_batch: TStringField
+      FieldName = 'no_batch'
+      Size = 50
+    end
+    object qryBatchKoreksitgl_expired: TDateField
+      FieldName = 'tgl_expired'
+    end
+    object qryBatchKoreksistok_sistem: TIntegerField
+      FieldName = 'stok_sistem'
+    end
+    object qryBatchKoreksistok_fisik: TIntegerField
+      FieldName = 'stok_fisik'
+    end
+    object qryBatchKoreksiselisih: TLargeintField
+      FieldKind = fkCalculated
+      FieldName = 'selisih'
+      ReadOnly = True
+      Calculated = True
+    end
+  end
+  object qryBatchSnap: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 1000
+    Top = 416
+  end
+  object qryPenjualanBatch: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 1112
+    Top = 424
   end
 end

@@ -49,7 +49,9 @@ uses
   u_laporanRetur in 'u_laporanRetur.pas' {fLaporanRetur},
   uBackup in 'uBackup.pas' {fbackup},
   uKartuStok in 'uKartuStok.pas' {fKartuStok},
-  UReportItemTerlaris in 'UReportItemTerlaris.pas' {QuickReportJumlahItemTerjual: TQuickRep};
+  UReportItemTerlaris in 'UReportItemTerlaris.pas' {QuickReportJumlahItemTerjual: TQuickRep},
+  uDetailObatBatch in 'uDetailObatBatch.pas' {FDetailObatBatch},
+  uKoreksiStok in 'uKoreksiStok.pas' {FKoreksiStok};
 
 {$R *.res}
 
@@ -103,5 +105,7 @@ begin
   Application.CreateForm(Tfbackup, fbackup);
   Application.CreateForm(TfKartuStok, fKartuStok);
   Application.CreateForm(TQuickReportJumlahItemTerjual, QuickReportJumlahItemTerjual);
+  Application.CreateForm(TFDetailObatBatch, FDetailObatBatch);
+  Application.CreateForm(TFKoreksiStok, FKoreksiStok);
   Application.Run;
 end.

@@ -371,17 +371,6 @@ begin
                               ExecSQL;
                             end;
 
-                          // update tbl_penjualan_batch (sisa pembulatan)
-                          with dm.qryBantu3 do
-                            begin
-                              Close;
-                              SQL.Clear;
-                              SQL.Text := 'UPDATE tbl_penjualan_batch SET jumlah_retur = jumlah_retur + ' +
-                                          IntToStr(sisaRetur) +
-                                          ' WHERE id = ' + QuotedStr(pbIdPertama);
-                              ExecSQL;
-                            end;
-
                           Next;
                         end;
 

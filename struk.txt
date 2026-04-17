@@ -4,21 +4,21 @@
            Tersedia Obat-Obatan
              Herbal dan Alkes
 ------------------------------------------
-No. Nota : PJ-1204202602267
-Tanggal  : 12/04/2026 00:11:14
+No. Nota : PJ-1704202603893
+Tanggal  : 17/04/2026 10:58:06
 Kasir    : Hamdi Farma
 Status   : Lunas
 ------------------------------------------
 Nama Barang
       QTY   Harga                Sub Total
 ------------------------------------------
- Proris syrp
-      1 X 28.000                    28.000
- Lameson 4 mg
-      1 X 50.000                    50.000
+ Scandexon
+      1 X 3.000                      3.000
+ Stop cold
+      1 X 5.000                      5.000
 ------------------------------------------
-Total   :                        Rp 78.000
-Bayar   :                        Rp 78.000
+Total   :                         Rp 8.000
+Bayar   :                         Rp 8.000
 Kembali :                              Rp 
 ------------------------------------------
  Jumlah Item : 2

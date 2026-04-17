@@ -134,7 +134,7 @@ begin
       edtBarcode.Enabled := True;
       dblkcbbJenisObat.Enabled := true;
       dblkcbbSatuanObat.Enabled := True;
-      edtStok.Enabled := True; edtStok.Text := '0';
+      edtStok.Text := '0';
 
       btnTambah.Caption := 'Batal';
       btnSimpan.Enabled := True;
@@ -297,7 +297,7 @@ begin
       edtBarcode.Enabled := True;
       dblkcbbJenisObat.Enabled := True;
       dblkcbbSatuanObat.Enabled := True;
-      edtStok.Enabled := True;
+      edtStok.Enabled := false;
 
       dbgrd1.Enabled := False; edtpencarian.Enabled := false;
 

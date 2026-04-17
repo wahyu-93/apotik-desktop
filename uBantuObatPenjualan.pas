@@ -42,9 +42,10 @@ var
 implementation
 
 uses
-  dataModule, uPenjualan, uKartuStok, DB;
+  dataModule, uPenjualan, uKartuStok, DB, uKoreksiStok;
 
 {$R *.dfm}
+
 
 procedure TfBantuObatPenjualan.konek;
 begin
@@ -86,11 +87,19 @@ begin
       Fpenjualan.btnHapus.Enabled := false;
       Fpenjualan.btnSimpan.Click;
     end
-  else
+  else if edtType.Text = 'kartuStok' then
     begin
       fKartuStok.edtObatId.Text   := dbgrd1.Fields[1].AsString;
       fKartuStok.edtNamaObat.Text := dbgrd1.Fields[3].AsString;
       fKartuStok.edtStokAwal.Text := dbgrd1.Fields[7].AsString;
+    end
+  else if edtType.Text = 'koreksiStok' then
+    begin
+      FKoreksiStok.edtKodeObat.Text := dbgrd1.Fields[2].AsString;
+      FKoreksiStok.edtIdObat.Text := dbgrd1.Fields[1].AsString;
+      FKoreksiStok.edtNamaObat.Text := dbgrd1.Fields[3].AsString;
+
+      FKoreksiStok.btnAmbilSnapshot.Click;
     end;
     
   Close;

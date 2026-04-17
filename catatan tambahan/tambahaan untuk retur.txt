@@ -1,0 +1,76 @@
+ALTER TABLE tbl_penjualan_batch 
+ADD COLUMN jumlah_retur INT NOT NULL DEFAULT 0 
+AFTER jumlah;
+
+ALTER TABLE tbl_batch 
+ADD COLUMN jumlah_retur_beli INT NOT NULL DEFAULT 0 
+AFTER jumlah_sisa;
+
+ALTER TABLE tbl_batch 
+ADD COLUMN harga_beli DOUBLE NOT NULL DEFAULT 0 
+AFTER jumlah_retur_beli;
+
+ALTER TABLE tbl_penjualan_batch 
+ADD COLUMN harga_beli DOUBLE NOT NULL DEFAULT 0 
+AFTER jumlah_retur;
+
+ALTER TABLE tbl_penjualan_batch 
+ADD detail_penjualan_id INT;
+
+CREATE INDEX idx_detail_penjualan 
+ON tbl_penjualan_batch(detail_penjualan_id);
+
+ALTER TABLE tbl_penjualan_batch 
+ADD CONSTRAINT fk_detail_penjualan
+FOREIGN KEY (detail_penjualan_id)
+REFERENCES tbl_detail_penjualan(id)
+ON DELETE CASCADE;
+
+ALTER TABLE tbl_harga_jual 
+MODIFY COLUMN harga_beli_terakhir DOUBLE;
+
+// koreksi
+
+CREATE TABLE tbl_log_koreksi (
+  id            INT PRIMARY KEY AUTO_INCREMENT,
+  no_koreksi    VARCHAR(50)  NOT NULL,           -- misal: KRK-1204202600001
+  obat_id       INT          NOT NULL,
+  batch_id      INT          NOT NULL,           -- batch yang dikoreksi
+  stok_sebelum  INT          NOT NULL,           -- jumlah_sisa sebelum koreksi
+  stok_sesudah  INT          NOT NULL,           -- jumlah_sisa setelah koreksi
+  selisih       INT          NOT NULL,           -- sesudah - sebelum (bisa minus)
+  alasan_kode   VARCHAR(50)  NOT NULL,           -- dropdown
+  alasan_detail VARCHAR(200) NULL,                -- bebas ketik
+  user_id       INT          NOT NULL,
+  created_at    TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
+
+  FOREIGN KEY (obat_id)  REFERENCES tbl_obat(id),
+  FOREIGN KEY (batch_id) REFERENCES tbl_batch(id),
+  FOREIGN KEY (user_id)  REFERENCES tbl_user(id)
+);
+
+//cek yg ada stoknya tapi belum ada di batch
+// cekdulu 
+SELECT 
+  m.id,
+  m.nama_obat,
+  m.stok AS stok_master
+FROM tbl_obat m
+LEFT JOIN tbl_batch b ON b.obat_id = m.id
+WHERE b.id IS NULL;
+
+//insert yg masih belum ada
+INSERT INTO tbl_batch (obat_id, no_batch, tgl_expired, jumlah_awal, jumlah_sisa, status, is_migrasi)
+SELECT 
+    m.id,
+    CONCAT('STOK-AWAL-', m.id),
+    m.tgl_exp,       
+    m.stok,             
+    m.stok,            
+    1,                  
+    1                  
+FROM tbl_obat m
+WHERE m.stok > 0
+  AND NOT EXISTS (
+      SELECT 1 FROM tbl_batch b WHERE b.obat_id = m.id
+  );
