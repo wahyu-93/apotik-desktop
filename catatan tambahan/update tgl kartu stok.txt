@@ -1,0 +1,92 @@
+// update tbl_obat berdasarkan kartu stok (keras baanr caranya)
+UPDATE tbl_obat o
+JOIN (
+    SELECT 
+        obat_id,
+        SUM(masuk) - SUM(keluar) AS sisa_akhir
+    FROM (
+        -- ===== PEMBELIAN =====
+        SELECT s.obat_id, s.jumlah AS masuk, 0 AS keluar
+        FROM tbl_stok s 
+        JOIN tbl_pembelian p ON p.no_faktur = s.no_faktur 
+        JOIN tbl_batch b ON b.pembelian_id = p.id AND b.obat_id = s.obat_id AND b.is_migrasi = 0 
+        WHERE s.keterangan = 'pembelian' 
+          AND DATE(s.created_at) BETWEEN '2026-04-01' AND '2026-04-16'
+
+        UNION ALL 
+
+        -- ===== RETUR PEMBELIAN =====
+        SELECT s.obat_id, 0 AS masuk, s.jumlah AS keluar
+        FROM tbl_stok s 
+        JOIN tbl_pembelian p ON p.no_faktur = s.no_faktur 
+        JOIN tbl_batch b ON b.pembelian_id = p.id AND b.obat_id = s.obat_id AND b.is_migrasi = 0 
+        WHERE s.keterangan = 'retur-pembelian' 
+          AND DATE(s.created_at) BETWEEN '2026-04-01' AND '2026-04-16'
+
+        UNION ALL 
+
+        -- ===== PENJUALAN AKTIF =====
+        SELECT s.obat_id, 0 AS masuk, s.jumlah AS keluar
+        FROM tbl_stok s 
+        JOIN tbl_penjualan pj ON pj.no_faktur = s.no_faktur 
+        JOIN tbl_penjualan_batch pb ON pb.penjualan_id = pj.id 
+        JOIN tbl_batch b ON b.id = pb.batch_id AND b.obat_id = s.obat_id 
+        WHERE s.keterangan = 'penjualan' 
+          AND DATE(s.created_at) BETWEEN '2026-04-01' AND '2026-04-16'
+
+        UNION ALL 
+
+        -- ===== RETUR PENJUALAN AKTIF =====
+        SELECT s.obat_id, pb.jumlah_retur AS masuk, 0 AS keluar
+        FROM tbl_stok s 
+        JOIN tbl_penjualan pj ON pj.no_faktur = s.no_faktur 
+        JOIN tbl_penjualan_batch pb ON pb.penjualan_id = pj.id AND pb.jumlah_retur > 0 
+        JOIN tbl_batch b ON b.id = pb.batch_id AND b.obat_id = s.obat_id 
+        WHERE s.keterangan = 'retur-penjualan' 
+          AND DATE(s.created_at) BETWEEN '2026-04-01' AND '2026-04-16'
+
+        UNION ALL 
+
+        -- ===== PENJUALAN ARSIP =====
+        SELECT s.obat_id, 0 AS masuk, s.jumlah AS keluar
+        FROM tbl_stok s 
+        JOIN arsip_penjualan pj ON pj.no_faktur = s.no_faktur 
+        JOIN tbl_penjualan_batch pb ON pb.penjualan_id = pj.id 
+        JOIN tbl_batch b ON b.id = pb.batch_id AND b.obat_id = s.obat_id 
+        WHERE s.keterangan = 'penjualan' 
+          AND DATE(s.created_at) BETWEEN '2026-04-01' AND '2026-04-16'
+
+        UNION ALL 
+
+        -- ===== RETUR PENJUALAN ARSIP =====
+        SELECT s.obat_id, pb.jumlah_retur AS masuk, 0 AS keluar
+        FROM tbl_stok s 
+        JOIN arsip_penjualan pj ON pj.no_faktur = s.no_faktur 
+        JOIN tbl_penjualan_batch pb ON pb.penjualan_id = pj.id AND pb.jumlah_retur > 0 
+        JOIN tbl_batch b ON b.id = pb.batch_id AND b.obat_id = s.obat_id 
+        WHERE s.keterangan = 'retur-penjualan' 
+          AND DATE(s.created_at) BETWEEN '2026-04-01' AND '2026-04-16'
+
+        UNION ALL 
+
+        -- ===== STOK AWAL MIGRASI =====
+        SELECT b.obat_id, b.jumlah_awal AS masuk, 0 AS keluar
+        FROM tbl_batch b 
+        WHERE b.is_migrasi = 1 
+
+        UNION ALL 
+
+        -- ===== KOREKSI STOK =====
+        SELECT 
+            s.obat_id,
+            CASE WHEN lk.selisih > 0 THEN lk.selisih ELSE 0 END AS masuk, 
+            CASE WHEN lk.selisih < 0 THEN ABS(lk.selisih) ELSE 0 END AS keluar
+        FROM tbl_stok s 
+        JOIN tbl_log_koreksi lk ON lk.no_koreksi = s.no_faktur 
+        JOIN tbl_batch b ON b.id = lk.batch_id 
+        WHERE s.keterangan = 'koreksi' 
+          AND DATE(s.created_at) BETWEEN '2026-04-01' AND '2026-04-16'
+    ) AS mutasi
+    GROUP BY obat_id
+) AS rekap ON o.id = rekap.obat_id
+SET o.stok = rekap.sisa_akhir;

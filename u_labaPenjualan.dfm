@@ -4,7 +4,7 @@ object fLabaPenjualan: TfLabaPenjualan
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Laporan Laba Penjualan ::.'
-  ClientHeight = 833
+  ClientHeight = 809
   ClientWidth = 1064
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
@@ -1338,23 +1338,8 @@ object fLabaPenjualan: TfLabaPenjualan
     Left = 8
     Top = 72
     Width = 1049
-    Height = 753
+    Height = 729
     TabOrder = 1
-    object lbl6: TLabel
-      Left = 8
-      Top = 727
-      Width = 1033
-      Height = 26
-      Alignment = taCenter
-      AutoSize = False
-      Caption = '* Double Click Obat Untuk Melihat Detail Batch)'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clBlack
-      Font.Height = -13
-      Font.Name = 'Arial Narrow'
-      Font.Style = [fsItalic]
-      ParentFont = False
-    end
     object btnKeluar: TBitBtn
       Left = 360
       Top = 80
@@ -1376,33 +1361,19 @@ object fLabaPenjualan: TfLabaPenjualan
       Width = 1033
       Height = 41
       TabOrder = 1
-      object lblJumlah: TLabel
-        Left = 776
-        Top = 7
-        Width = 249
-        Height = 26
-        Alignment = taRightJustify
-        AutoSize = False
-        Caption = '-'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clRed
-        Font.Height = -16
-        Font.Name = 'Arial Narrow'
-        Font.Style = [fsItalic]
-        ParentFont = False
-      end
       object lblTitleTotalLaba: TLabel
         Left = 8
         Top = 7
-        Width = 313
+        Width = 1017
         Height = 26
+        Alignment = taCenter
         AutoSize = False
         Caption = 'Total Laba Keseluruhan (Eceran + Grosir)'
         Font.Charset = ANSI_CHARSET
-        Font.Color = clRed
-        Font.Height = -16
+        Font.Color = clBlack
+        Font.Height = -19
         Font.Name = 'Arial Narrow'
-        Font.Style = [fsItalic]
+        Font.Style = [fsBold]
         ParentFont = False
       end
     end

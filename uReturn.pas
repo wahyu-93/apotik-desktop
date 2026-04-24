@@ -53,9 +53,97 @@ var
 implementation
 
 uses
-  dataModule, uProsesRetur, DB, StrUtils, u_confirmReturAll;
+  dataModule, uProsesRetur, DB, StrUtils, u_confirmReturAll, ADODB;
 
 {$R *.dfm}
+
+procedure InsertKartuStok(
+  Conn: TADOConnection;
+  AObatID: Integer;
+  ABatchID: Variant;
+  ANoBatch: String;
+  ATglFull: TDateTime;
+  ANoFaktur: String;
+  ATglExpired: Variant;
+  ANie: String;
+  ASumber: String;
+  AKeterangan: String;
+  AMasuk: Integer;
+  AKeluar: Integer;
+  ARefType: String;
+  ARefID: Int64
+);
+var
+  q: TADOQuery;
+  LastSaldo, NewSaldo: Integer;
+  sBatchID, sTglExp, sSQL: String;
+begin
+  // 1. Handle Batch ID
+  if VarIsNull(ABatchID) or (VarToStr(ABatchID) = '') then
+    sBatchID := 'NULL'
+  else
+    sBatchID := QuotedStr(VarToStr(ABatchID));
+
+  // 2. Handle Tgl Expired
+  if VarIsNull(ATglExpired) or (VarToStr(ATglExpired) = '') then
+    sTglExp := 'NULL'
+  else
+    sTglExp := QuotedStr(FormatDateTime('yyyy-MM-dd', ATglExpired));
+
+  q := TADOQuery.Create(nil);
+  try
+    q.Connection := Conn;
+    // PENTING: Matikan pengecekan parameter agar tanda ":" tidak dianggap parameter
+    q.ParamCheck := False; 
+
+    // 3. Ambil saldo terakhir
+    {sSQL := 'SELECT COALESCE(SUM(masuk - keluar),0) AS saldo ' +
+            'FROM tbl_kartu_stok ' +
+            'WHERE obat_id = ' + IntToStr(AObatID) + ' ' +
+            'AND (batch_id = ' + sBatchID + ' OR (' + sBatchID + ' IS NULL AND batch_id IS NULL))'; }
+
+    sSQL := 'SELECT COALESCE(SUM(masuk - keluar),0) AS saldo ' +
+            'FROM tbl_kartu_stok ' +
+            'WHERE obat_id = ' + IntToStr(AObatID);
+    
+    q.SQL.Text := sSQL;
+    q.Open;
+    LastSaldo := q.FieldByName('saldo').AsInteger;
+
+    // 4. Validasi stok
+    if (LastSaldo + AMasuk - AKeluar) < 0 then
+      raise Exception.Create('Stok batch tidak mencukupi untuk Obat ID: ' + IntToStr(AObatID));
+
+    NewSaldo := LastSaldo + AMasuk - AKeluar;
+
+    // 5. Insert kartu stok
+    q.Close;
+    q.SQL.Clear;
+    q.SQL.Add('INSERT INTO tbl_kartu_stok (');
+    q.SQL.Add('obat_id, batch_id, no_batch, tgl_full, no_faktur, tgl_expired, nie,');
+    q.SQL.Add('sumber, keterangan, masuk, keluar, saldo, ref_type, ref_id');
+    q.SQL.Add(') VALUES (');
+    q.SQL.Add(IntToStr(AObatID) + ', ');
+    q.SQL.Add(sBatchID + ', ');
+    q.SQL.Add(QuotedStr(ANoBatch) + ', ');
+    q.SQL.Add(QuotedStr(FormatDateTime('yyyy-MM-dd HH:mm:ss', ATglFull)) + ', ');
+    q.SQL.Add(QuotedStr(ANoFaktur) + ', ');
+    q.SQL.Add(sTglExp + ', ');
+    q.SQL.Add(QuotedStr(ANie) + ', ');
+    q.SQL.Add(QuotedStr(ASumber) + ', ');
+    q.SQL.Add(QuotedStr(AKeterangan) + ', ');
+    q.SQL.Add(IntToStr(AMasuk) + ', ');
+    q.SQL.Add(IntToStr(AKeluar) + ', ');
+    q.SQL.Add(IntToStr(NewSaldo) + ', ');
+    q.SQL.Add(QuotedStr(ARefType) + ', ');
+    q.SQL.Add(IntToStr(ARefID));
+    q.SQL.Add(')');
+
+    q.ExecSQL;
+  finally
+    q.Free;
+  end;
+end;
 
 procedure konek;
 begin
@@ -240,198 +328,146 @@ begin
 end;
 
 procedure TfReturn.btnSelesaiClick(Sender: TObject);
-var a, jmlRetur, jmlJual, stokObat : Integer;
-    obatId, batchId, pbId, pbIdPertama, batchIdPertama : string;
-    totalJualBatch, jmlKembalikan : Integer;
-    sisaRetur, jmlBatch, stokSisa, stokPertama, jmlPertama : Integer;
+var 
+  a, jmlRetur, jmlJual, stokObat : Integer;
+  obatId, batchId, pbId : string;
+  totalJualBatch, jmlKembalikan, sisaRetur, stokSisa : Integer;
+  qryBatchRetur: TADOQuery;
 begin
-  if MessageDlg('Selesaikan Transaksi',mtConfirmation,[mbyes,mbNo],0) = mryes then
-    begin
-      // cek data di tbl_stok sesui kode retur
+  if MessageDlg('Selesaikan Transaksi Retur Penjualan?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  begin
+    // Gunakan Transaksi untuk menjaga integritas data
+    while dm.con1.InTransaction do dm.con1.RollbackTrans;
+    dm.con1.BeginTrans;
+
+    try
+      // 1. Ambil data item yang diretur dari tabel sementara/stok
       with dm.qryStok do
+      begin
+        Close;
+        SQL.Text := 'SELECT * FROM tbl_stok WHERE no_faktur = ' + QuotedStr(edtFaktur.Text) + 
+                    ' AND keterangan = ' + QuotedStr('retur-penjualan');
+        Open;
+
+        if IsEmpty then
         begin
-          Close;
-          sql.Clear;
-          SQL.Text := 'select * from tbl_stok where no_faktur = '+QuotedStr(edtFaktur.Text)+' and keterangan = '+QuotedStr('retur-penjualan')+'';
-          Open;
-
-          if IsEmpty then
-            begin
-              MessageDlg('Transaksi Tidak Bisa Diselesaikan!',mtInformation,[mbok],0);
-              Exit;
-            end
-          else
-            begin
-              //loop
-              for a:= 1 to RecordCount do
-                begin
-                  RecNo := a;
-                  obatId := dm.qryStok.fieldbyname('obat_id').AsString;
-                  jmlRetur := dm.qryStok.fieldbyname('jumlah').AsInteger;
-
-                  //kurangkan data di detail_penjualan
-                  with dm.qryDetailPenjualan do
-                    begin
-                      Close;
-                      SQL.Clear;
-                      SQL.Text := 'select * from tbl_detail_penjualan where penjualan_id = '+QuotedStr(edtIdPenjualan.Text)+' and obat_id = '+QuotedStr(obatId)+'';
-                      Open;
-
-                      jmlJual := dm.qryDetailPenjualan.fieldbyname('jumlah_jual').AsInteger;
-
-                      //update
-                      Close;
-                      sql.Clear;
-                      sql.Text := 'update tbl_detail_penjualan set jumlah_jual = '+QuotedStr(IntToStr(jmlJual - jmlRetur))+', status = '+QuotedStr('retur')+
-                                  ' where penjualan_id = '+QuotedStr(edtIdPenjualan.Text)+' and obat_id = '+QuotedStr(obatId)+'';
-                      ExecSQL;
-                    end;
-
-                  //tabahkan stok tbl_obat
-                  with dm.qryObat do
-                    begin
-                      close;
-                      sql.Clear;
-                      SQL.Text := 'select * from tbl_obat where id = '+QuotedStr(obatId)+'';
-                      Open;
-
-                      stokObat := dm.qryObat.fieldbyname('stok').AsInteger;
-
-                      //update
-                      close;
-                      SQL.Clear;
-                      SQL.Text := 'update tbl_obat set stok = '+QuotedStr(IntToStr(stokObat+jmlRetur))+' where id = '+QuotedStr(obatId)+'';
-                      ExecSQL;
-                    end;
-
-                  //kembalikan stok di batch
-                  // hitung total jumlah yang dijual dari semua batch untuk obat ini
-                  with dm.qryBantu2 do
-                    begin
-                      Close;
-                      SQL.Clear;
-                      SQL.Text := 'SELECT SUM(pb.jumlah) as total ' +
-                                  'FROM tbl_penjualan_batch pb ' +
-                                  'JOIN tbl_batch b ON b.id = pb.batch_id ' +
-                                  'WHERE pb.penjualan_id = ' + QuotedStr(edtIdPenjualan.Text) +
-                                  ' AND b.obat_id = ' + QuotedStr(obatId);
-                      Open;
-                      totalJualBatch := FieldByName('total').AsInteger;
-                    end;
-
-                  sisaRetur := jmlRetur;
-
-                  with dm.qryBatch do
-                    begin
-                      Close;
-                      SQL.Clear;
-                      SQL.Text := 'SELECT pb.id as pb_id, pb.batch_id, pb.jumlah as jml_penjualan_batch, b.jumlah_sisa ' +
-                                  'FROM tbl_penjualan_batch pb ' +
-                                  'JOIN tbl_batch b ON b.id = pb.batch_id ' +
-                                  'WHERE pb.penjualan_id = ' + QuotedStr(edtIdPenjualan.Text) +
-                                  ' AND b.obat_id = ' + QuotedStr(obatId) +
-                                  ' ORDER BY b.created_at ASC';
-                      Open;
-
-                      while not Eof do
-                        begin
-                          pbId         := FieldByName('pb_id').AsString;
-                          batchId      := FieldByName('batch_id').AsString;
-                          jmlBatch     := FieldByName('jml_penjualan_batch').AsInteger;
-                          stokSisa     := FieldByName('jumlah_sisa').AsInteger;
-
-                          if sisaRetur <= 0 then Break;
-
-                          // hitung proporsional
-                          jmlKembalikan := Round(jmlRetur * (jmlBatch / totalJualBatch));
-                          if jmlKembalikan > sisaRetur then
-                            jmlKembalikan := sisaRetur;
-
-                          sisaRetur := sisaRetur - jmlKembalikan;
-
-                          // 1. update jumlah_sisa di tbl_batch (tambah stok)
-                          with dm.qryBantu3 do
-                            begin
-                              Close;
-                              SQL.Clear;
-                              SQL.Text := 'UPDATE tbl_batch SET jumlah_sisa = ' +
-                                          IntToStr(stokSisa + jmlKembalikan) +
-                                          ' WHERE id = ' + QuotedStr(batchId);
-                              ExecSQL;
-                            end;
-
-                          // 2. update jumlah di tbl_penjualan_batch (kurangi jumlah terjual)
-                          with dm.qryBantu3 do
-                            begin
-                              Close;
-                              SQL.Clear;
-                              SQL.Text := 'UPDATE tbl_penjualan_batch SET jumlah_retur = jumlah_retur + ' +
-                                           IntToStr(jmlKembalikan) +
-                                           ' WHERE id = ' + QuotedStr(pbId);
-                              ExecSQL;
-                            end;
-
-                          Next;
-                        end;
-
-                      // tangani sisa retur akibat pembulatan ? masukkan ke batch pertama
-                      if sisaRetur > 0 then
-                        begin
-                          First;
-                          pbIdPertama    := FieldByName('pb_id').AsString;
-                          batchIdPertama := FieldByName('batch_id').AsString;
-                          stokPertama    := FieldByName('jumlah_sisa').AsInteger;
-                          jmlPertama     := FieldByName('jml_penjualan_batch').AsInteger;
-
-                          // update tbl_batch
-                          with dm.qryBantu3 do
-                            begin
-                              Close;
-                              SQL.Clear;
-                              SQL.Text := 'UPDATE tbl_batch SET jumlah_sisa = ' +
-                                          IntToStr(stokPertama + sisaRetur) +
-                                          ' WHERE id = ' + QuotedStr(batchIdPertama);
-                              ExecSQL;
-                            end;
-
-                          // update tbl_penjualan_batch
-                          with dm.qryBantu3 do
-                            begin
-                              Close;
-                              SQL.Clear;
-                              SQL.Text := 'UPDATE tbl_penjualan_batch SET jumlah = ' +
-                                          IntToStr(jmlPertama - sisaRetur) +
-                                          ' WHERE id = ' + QuotedStr(pbIdPertama);
-                              ExecSQL;
-                            end;
-                        end;
-                    end;
-
-                end;
-
-              // update tbl_penjualan
-              with dm.qryBantu do
-                begin
-                  close;
-                  sql.Clear;
-                  SQL.Text := 'select count(penjualan_id) as jmlItem, sum(harga_jual*jumlah_jual) as total from tbl_detail_penjualan where penjualan_id = '+QuotedStr(edtIdPenjualan.Text)+'';
-                  Open;
-
-                  with dm.qryPenjualan do
-                    begin
-                      close;
-                      sql.Clear;
-                      SQL.Text := 'update tbl_penjualan set jumlah_item = '+QuotedStr(dm.qryBantu.fieldbyname('jmlItem').AsString)+', '+
-                                  'total = '+QuotedStr(dm.qryBantu.fieldbyname('total').AsString)+', status = '+QuotedStr('selesai-retur')+' where id = '+QuotedStr(edtIdPenjualan.Text)+'';
-                      ExecSQL;
-                    end;
-                end;
-
-                MessageDlg('Transaksi Berhasil Disimpan', mtInformation,[mbOK],0);
-                FormShow(Sender);
-            end;
+          dm.con1.RollbackTrans;
+          MessageDlg('Data item retur tidak ditemukan!', mtWarning, [mbOK], 0);
+          Exit;
         end;
+
+        // 2. Loop per Item Obat yang diretur
+        while not Eof do
+        begin
+          obatId := FieldByName('obat_id').AsString;
+          jmlRetur := FieldByName('jumlah').AsInteger;
+
+          // A. Update Detail Penjualan (Kurangi jumlah jual & set status)
+          dm.con1.Execute('UPDATE tbl_detail_penjualan SET jumlah_jual = jumlah_jual - ' + IntToStr(jmlRetur) + 
+                         ', status = ' + QuotedStr('retur') +
+                         ' WHERE penjualan_id = ' + QuotedStr(edtIdPenjualan.Text) + 
+                         ' AND obat_id = ' + QuotedStr(obatId));
+
+          // B. Tambah stok utama di tbl_obat
+          dm.con1.Execute('UPDATE tbl_obat SET stok = stok + ' + IntToStr(jmlRetur) + 
+                         ' WHERE id = ' + QuotedStr(obatId));
+
+          // C. Kembalikan stok ke Batch secara proporsional
+          // Hitung total terjual dari semua batch untuk obat ini dalam transaksi tsb
+          qryBatchRetur := TADOQuery.Create(nil);
+          try
+            qryBatchRetur.Connection := dm.con1;
+            qryBatchRetur.ParamCheck := False;
+            
+            qryBatchRetur.SQL.Text := 
+              'SELECT SUM(jumlah) as total FROM tbl_penjualan_batch pb ' +
+              'JOIN tbl_batch b ON b.id = pb.batch_id ' +
+              'WHERE pb.penjualan_id = ' + QuotedStr(edtIdPenjualan.Text) + 
+              ' AND b.obat_id = ' + QuotedStr(obatId);
+            qryBatchRetur.Open;
+            totalJualBatch := qryBatchRetur.FieldByName('total').AsInteger;
+            
+            sisaRetur := jmlRetur;
+
+            // Ambil detail batch yang terjual
+            qryBatchRetur.Close;
+            qryBatchRetur.SQL.Text := 
+              'SELECT pb.id as pb_id, pb.batch_id, pb.jumlah as jml_batch, b.no_batch, b.tgl_expired, b.nie_number, b.jumlah_sisa ' +
+              'FROM tbl_penjualan_batch pb ' +
+              'JOIN tbl_batch b ON b.id = pb.batch_id ' +
+              'WHERE pb.penjualan_id = ' + QuotedStr(edtIdPenjualan.Text) + 
+              ' AND b.obat_id = ' + QuotedStr(obatId) + ' ORDER BY b.created_at ASC';
+            qryBatchRetur.Open;
+
+            while (not qryBatchRetur.Eof) and (sisaRetur > 0) do
+            begin
+              pbId := qryBatchRetur.FieldByName('pb_id').AsString;
+              batchId := qryBatchRetur.FieldByName('batch_id').AsString;
+              
+              // Hitung jumlah yang dikembalikan ke batch ini (proporsional)
+              if qryBatchRetur.RecordCount = 1 then
+                jmlKembalikan := sisaRetur
+              else
+                jmlKembalikan := Round(jmlRetur * (qryBatchRetur.FieldByName('jml_batch').AsInteger / totalJualBatch));
+
+              if jmlKembalikan > sisaRetur then jmlKembalikan := sisaRetur;
+
+              // Update tbl_batch (tambah sisa stok)
+              dm.con1.Execute('UPDATE tbl_batch SET jumlah_sisa = jumlah_sisa + ' + IntToStr(jmlKembalikan) + 
+                             ' WHERE id = ' + QuotedStr(batchId));
+
+              // Update tbl_penjualan_batch (catat jumlah retur)
+              dm.con1.Execute('UPDATE tbl_penjualan_batch SET jumlah_retur = jumlah_retur + ' + IntToStr(jmlKembalikan) + 
+                             ' WHERE id = ' + QuotedStr(pbId));
+
+              // D. INSERT KARTU STOK (Sebagai barang MASUK)
+              InsertKartuStok(
+                dm.con1,
+                StrToInt(obatId),
+                StrToInt(batchId),
+                qryBatchRetur.FieldByName('no_batch').AsString,
+                Now,
+                edtFaktur.Text,
+                qryBatchRetur.FieldByName('tgl_expired').Value,
+                qryBatchRetur.FieldByName('nie_number').AsString,
+                'Retur_Penjualan',
+                'Barang kembali dari konsumen (Faktur Jual: ' + edtFaktur.Text + ')',
+                jmlKembalikan,  // Masuk
+                0,              // Keluar
+                'retur_jual',
+                StrToInt(edtIdPenjualan.Text)
+              );
+
+              sisaRetur := sisaRetur - jmlKembalikan;
+              qryBatchRetur.Next;
+            end;
+          finally
+            qryBatchRetur.Free;
+          end;
+
+          Next;
+        end;
+      end;
+
+      // 3. Update Header Penjualan (Total Harga & Item setelah retur)
+      dm.con1.Execute('UPDATE tbl_penjualan p ' +
+                     'SET p.jumlah_item = (SELECT COUNT(id) FROM tbl_detail_penjualan WHERE penjualan_id = p.id), ' +
+                     'p.total = (SELECT SUM(harga_jual * jumlah_jual) FROM tbl_detail_penjualan WHERE penjualan_id = p.id), ' +
+                     'p.status = ' + QuotedStr('selesai-retur') + 
+                     ' WHERE p.id = ' + QuotedStr(edtIdPenjualan.Text));
+
+      dm.con1.CommitTrans;
+      MessageDlg('Transaksi Retur Penjualan Berhasil Disimpan', mtInformation, [mbOK], 0);
+      FormShow(Sender);
+
+    except
+      on E: Exception do
+      begin
+        if dm.con1.InTransaction then dm.con1.RollbackTrans;
+        MessageDlg('Kesalahan: ' + E.Message, mtError, [mbOK], 0);
+      end;
     end;
+  end;
 end;
 
 procedure TfReturn.btnRetualAllClick(Sender: TObject);

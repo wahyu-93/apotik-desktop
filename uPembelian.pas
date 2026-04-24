@@ -89,6 +89,94 @@ uses
 
 {$R *.dfm}
 
+procedure InsertKartuStok(
+  Conn: TADOConnection;
+  AObatID: Integer;
+  ABatchID: Variant;
+  ANoBatch: String;
+  ATglFull: TDateTime;
+  ANoFaktur: String;
+  ATglExpired: Variant;
+  ANie: String;
+  ASumber: String;
+  AKeterangan: String;
+  AMasuk: Integer;
+  AKeluar: Integer;
+  ARefType: String;
+  ARefID: Int64
+);
+var
+  q: TADOQuery;
+  LastSaldo, NewSaldo: Integer;
+  sBatchID, sTglExp, sSQL: String;
+begin
+  // 1. Handle Batch ID
+  if VarIsNull(ABatchID) or (VarToStr(ABatchID) = '') then
+    sBatchID := 'NULL'
+  else
+    sBatchID := QuotedStr(VarToStr(ABatchID));
+
+  // 2. Handle Tgl Expired
+  if VarIsNull(ATglExpired) or (VarToStr(ATglExpired) = '') then
+    sTglExp := 'NULL'
+  else
+    sTglExp := QuotedStr(FormatDateTime('yyyy-MM-dd', ATglExpired));
+
+  q := TADOQuery.Create(nil);
+  try
+    q.Connection := Conn;
+    // PENTING: Matikan pengecekan parameter agar tanda ":" tidak dianggap parameter
+    q.ParamCheck := False; 
+
+    // 3. Ambil saldo terakhir
+    {sSQL := 'SELECT COALESCE(SUM(masuk - keluar),0) AS saldo ' +
+            'FROM tbl_kartu_stok ' +
+            'WHERE obat_id = ' + IntToStr(AObatID) + ' ' +
+            'AND (batch_id = ' + sBatchID + ' OR (' + sBatchID + ' IS NULL AND batch_id IS NULL))';}
+
+     sSQL := 'SELECT COALESCE(SUM(masuk - keluar),0) AS saldo ' +
+            'FROM tbl_kartu_stok ' +
+            'WHERE obat_id = ' + IntToStr(AObatID);
+    
+    q.SQL.Text := sSQL;
+    q.Open;
+    LastSaldo := q.FieldByName('saldo').AsInteger;
+
+    // 4. Validasi stok
+    if (LastSaldo + AMasuk - AKeluar) < 0 then
+      raise Exception.Create('Stok batch tidak mencukupi untuk Obat ID: ' + IntToStr(AObatID));
+
+    NewSaldo := LastSaldo + AMasuk - AKeluar;
+
+    // 5. Insert kartu stok
+    q.Close;
+    q.SQL.Clear;
+    q.SQL.Add('INSERT INTO tbl_kartu_stok (');
+    q.SQL.Add('obat_id, batch_id, no_batch, tgl_full, no_faktur, tgl_expired, nie,');
+    q.SQL.Add('sumber, keterangan, masuk, keluar, saldo, ref_type, ref_id');
+    q.SQL.Add(') VALUES (');
+    q.SQL.Add(IntToStr(AObatID) + ', ');
+    q.SQL.Add(sBatchID + ', ');
+    q.SQL.Add(QuotedStr(ANoBatch) + ', ');
+    q.SQL.Add(QuotedStr(FormatDateTime('yyyy-MM-dd HH:mm:ss', ATglFull)) + ', ');
+    q.SQL.Add(QuotedStr(ANoFaktur) + ', ');
+    q.SQL.Add(sTglExp + ', ');
+    q.SQL.Add(QuotedStr(ANie) + ', ');
+    q.SQL.Add(QuotedStr(ASumber) + ', ');
+    q.SQL.Add(QuotedStr(AKeterangan) + ', ');
+    q.SQL.Add(IntToStr(AMasuk) + ', ');
+    q.SQL.Add(IntToStr(AKeluar) + ', ');
+    q.SQL.Add(IntToStr(NewSaldo) + ', ');
+    q.SQL.Add(QuotedStr(ARefType) + ', ');
+    q.SQL.Add(IntToStr(ARefID));
+    q.SQL.Add(')');
+
+    q.ExecSQL;
+  finally
+    q.Free;
+  end;
+end;
+
 function hitungItem(id_pembelian : string) : Integer;
 begin
   with dm.qryDetailPembelian do
@@ -627,55 +715,91 @@ end;
 procedure TfPembelian.btnSelesaiClick(Sender: TObject);
 var
   jumlahItem, total : string;
-  a : integer;
+  qryBatchBeli: TADOQuery;
 begin
-  if MessageDlg('Apakah Transaksi Akan Diselesaikan ?',mtConfirmation,[mbYes,mbno],0)=mryes then
-    begin
-      MessageDlg('Transaki Berhasil Disimpan', mtInformation, [mbok],0);
+  if MessageDlg('Apakah Transaksi Akan Diselesaikan ?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  begin
+    // Pastikan koneksi bersih dari transaksi menggantung
+    while dm.con1.InTransaction do dm.con1.RollbackTrans;
 
+    dm.con1.BeginTrans;
+    try
       jumlahItem := IntToStr(hitungItem(id_pembelian));
       total := FloatToStr(hitungTotal(id_pembelian));
 
+      // 1. Update Tabel Pembelian Utama
       with dm.qryPembelian do
+      begin
+        Close;
+        SQL.Clear;
+        SQL.Text := 'UPDATE tbl_pembelian SET ' +
+                    'jumlah_item = ' + QuotedStr(jumlahItem) + ', ' +
+                    'total = ' + QuotedStr(total) + ', ' +
+                    'status = ' + QuotedStr('pending') + ' ' + // Menambahkan update status
+                    'WHERE no_faktur = ' + QuotedStr(edtFaktur.Text);
+        ExecSQL;
+      end;
+
+      // 2. Update Stok di Tabel Obat (Berdasarkan data di tbl_batch)
+      qryBatchBeli := TADOQuery.Create(nil);
+      try
+        qryBatchBeli.Connection := dm.con1;
+        // Nonaktifkan ParamCheck untuk menghindari error 'Parameter object is improperly defined'
+        qryBatchBeli.ParamCheck := False; 
+        
+        // Ambil data langsung dari tbl_batch karena ada kolom pembelian_id
+        qryBatchBeli.SQL.Text := 
+          'SELECT obat_id, id as batch_id, no_batch, tgl_expired, nie_number, jumlah_awal ' +
+          'FROM tbl_batch WHERE pembelian_id = ' + QuotedStr(id_pembelian);
+        qryBatchBeli.Open;
+
+        if qryBatchBeli.IsEmpty then
+           raise Exception.Create('Data Batch tidak ditemukan untuk pembelian ini!');
+
+        while not qryBatchBeli.Eof do
         begin
-          close;
-          sql.Clear;
-          sql.Text := 'update tbl_pembelian set jumlah_item = '+QuotedStr(jumlahItem)+', total = '+QuotedStr(total)+' where no_faktur = '+QuotedStr(edtFaktur.Text)+'';
-          ExecSQL;
+          // A. Update stok global di tbl_obat
+          dm.con1.Execute('UPDATE tbl_obat SET stok = stok + ' + qryBatchBeli.FieldByName('jumlah_awal').AsString + 
+                         ' WHERE id = ' + qryBatchBeli.FieldByName('obat_id').AsString);
+
+          // B. Insert ke Kartu Stok
+          InsertKartuStok(
+            dm.con1,
+            qryBatchBeli.FieldByName('obat_id').AsInteger,
+            qryBatchBeli.FieldByName('batch_id').AsInteger, // Ini adalah id dari tbl_batch
+            qryBatchBeli.FieldByName('no_batch').AsString,
+            Now,
+            edtFaktur.Text,
+            qryBatchBeli.FieldByName('tgl_expired').Value,
+            qryBatchBeli.FieldByName('nie_number').AsString,
+            'Pembelian',
+            'Penerimaan barang (Faktur: ' + edtFaktur.Text + ')',
+            qryBatchBeli.FieldByName('jumlah_awal').AsInteger, // Masuk
+            0,                                                // Keluar
+            'pembelian',
+            StrToInt(id_pembelian)
+          );
+          
+          qryBatchBeli.Next;
         end;
+      finally
+        qryBatchBeli.Free;
+      end;
 
-      with dm.qryDetailPembelian do
-        begin
-          Close;
-          SQL.Clear;
-          SQL.Text := 'select * from tbl_detail_pembelian where pembelian_id = '+QuotedStr(id_pembelian)+'';
-          Open;
+      dm.con1.CommitTrans;
+      MessageDlg('Transaksi Pembelian Berhasil Disimpan!', mtInformation, [mbOK], 0);
 
-          for a:=1 to RecordCount do
-            begin
-              RecNo := a;
-
-              with dm.qryObat do
-                begin
-                  close;
-                  SQL.Clear;
-                  SQL.Text := 'select * from tbl_obat';
-                  Open;
-                  
-                  if locate('id',dm.qryDetailPembelian.fieldbyname('obat_id').AsString,[]) then
-                    begin
-                      Edit;
-                      FieldByName('stok').AsInteger := fieldbyname('stok').AsInteger + dm.qryDetailPembelian.fieldbyname('jumlah_beli').AsInteger;
-                      Post;
-                    end;
-                end;
-
-              Next;
-            end;
-        end;
-
-      FormShow(Sender);
+    except
+      on E: Exception do
+      begin
+        if dm.con1.InTransaction then dm.con1.RollbackTrans;
+        MessageDlg('Gagal Simpan Pembelian: ' + E.Message, mtError, [mbOK], 0);
+        Exit;
+      end;
     end;
+
+    FormShow(Sender);
+  end;
 end;
 
 procedure TfPembelian.dbgrd1KeyPress(Sender: TObject; var Key: Char);

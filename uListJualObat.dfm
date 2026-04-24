@@ -1,10 +1,10 @@
 object fLaporanPenjualan: TfLaporanPenjualan
-  Left = 203
-  Top = 150
+  Left = 325
+  Top = 120
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Laporan Penjualan Item ::.'
-  ClientHeight = 753
+  ClientHeight = 764
   ClientWidth = 1067
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
@@ -1338,11 +1338,11 @@ object fLaporanPenjualan: TfLaporanPenjualan
     Left = 8
     Top = 72
     Width = 1049
-    Height = 673
+    Height = 681
     TabOrder = 1
     object btnKeluar: TBitBtn
       Left = 952
-      Top = 632
+      Top = 640
       Width = 89
       Height = 33
       Caption = 'Keluar'
@@ -1632,19 +1632,19 @@ object fLaporanPenjualan: TfLaporanPenjualan
       Left = 8
       Top = 592
       Width = 1033
-      Height = 33
+      Height = 41
       TabOrder = 8
       object lblJumlah: TLabel
         Left = 8
         Top = 7
         Width = 1017
-        Height = 18
+        Height = 26
         Alignment = taCenter
         AutoSize = False
         Caption = 'Laporan Stok Item'
         Font.Charset = ANSI_CHARSET
-        Font.Color = clRed
-        Font.Height = -16
+        Font.Color = clBlack
+        Font.Height = -19
         Font.Name = 'Arial Narrow'
         Font.Style = [fsItalic]
         ParentFont = False

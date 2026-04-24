@@ -4,7 +4,7 @@ object fLaporanRetur: TfLaporanRetur
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Laporan Retur ::.'
-  ClientHeight = 777
+  ClientHeight = 787
   ClientWidth = 1067
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
@@ -1338,11 +1338,11 @@ object fLaporanRetur: TfLaporanRetur
     Left = 8
     Top = 72
     Width = 1049
-    Height = 697
+    Height = 705
     TabOrder = 1
     object btnKeluar: TBitBtn
       Left = 952
-      Top = 656
+      Top = 664
       Width = 89
       Height = 33
       Caption = 'Keluar'
@@ -1477,19 +1477,19 @@ object fLaporanRetur: TfLaporanRetur
       Left = 8
       Top = 616
       Width = 1033
-      Height = 33
+      Height = 41
       TabOrder = 7
       object lblJumlah: TLabel
         Left = 8
         Top = 7
         Width = 1017
-        Height = 18
+        Height = 26
         Alignment = taCenter
         AutoSize = False
         Caption = 'Laporan Stok Item'
         Font.Charset = ANSI_CHARSET
-        Font.Color = clRed
-        Font.Height = -16
+        Font.Color = clBlack
+        Font.Height = -19
         Font.Name = 'Arial Narrow'
         Font.Style = [fsItalic]
         ParentFont = False

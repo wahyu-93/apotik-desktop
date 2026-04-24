@@ -54,6 +54,8 @@ type
     btnSelesai: TBitBtn;
     lbl12: TLabel;
     edtSelisih: TEdit;
+    lbl13: TLabel;
+    lbl14: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btnTambahClick(Sender: TObject);
     procedure btnCariObatClick(Sender: TObject);
@@ -88,9 +90,97 @@ var
 implementation
 
 uses
-  dataModule, uBantuObatPenjualan, StrUtils;
+  dataModule, uBantuObatPenjualan, StrUtils, ADODB, Math;
 
 {$R *.dfm}
+
+procedure InsertKartuStok(
+  Conn: TADOConnection;
+  AObatID: Integer;
+  ABatchID: Variant;
+  ANoBatch: String;
+  ATglFull: TDateTime;
+  ANoFaktur: String;
+  ATglExpired: Variant;
+  ANie: String;
+  ASumber: String;
+  AKeterangan: String;
+  AMasuk: Integer;
+  AKeluar: Integer;
+  ARefType: String;
+  ARefID: Int64
+);
+var
+  q: TADOQuery;
+  LastSaldo, NewSaldo: Integer;
+  sBatchID, sTglExp, sSQL: String;
+begin
+  // 1. Handle Batch ID
+  if VarIsNull(ABatchID) or (VarToStr(ABatchID) = '') then
+    sBatchID := 'NULL'
+  else
+    sBatchID := QuotedStr(VarToStr(ABatchID));
+
+  // 2. Handle Tgl Expired
+  if VarIsNull(ATglExpired) or (VarToStr(ATglExpired) = '') then
+    sTglExp := 'NULL'
+  else
+    sTglExp := QuotedStr(FormatDateTime('yyyy-MM-dd', ATglExpired));
+
+  q := TADOQuery.Create(nil);
+  try
+    q.Connection := Conn;
+    // PENTING: Matikan pengecekan parameter agar tanda ":" tidak dianggap parameter
+    q.ParamCheck := False; 
+
+    // 3. Ambil saldo terakhir
+    {sSQL := 'SELECT COALESCE(SUM(masuk - keluar),0) AS saldo ' +
+            'FROM tbl_kartu_stok ' +
+            'WHERE obat_id = ' + IntToStr(AObatID) + ' ' +
+            'AND (batch_id = ' + sBatchID + ' OR (' + sBatchID + ' IS NULL AND batch_id IS NULL))'; }
+
+    sSQL := 'SELECT COALESCE(SUM(masuk - keluar),0) AS saldo ' +
+            'FROM tbl_kartu_stok ' +
+            'WHERE obat_id = ' + IntToStr(AObatID);
+    
+    q.SQL.Text := sSQL;
+    q.Open;
+    LastSaldo := q.FieldByName('saldo').AsInteger;
+
+    // 4. Validasi stok
+    if (LastSaldo + AMasuk - AKeluar) < 0 then
+      raise Exception.Create('Stok batch tidak mencukupi untuk Obat ID: ' + IntToStr(AObatID));
+
+    NewSaldo := LastSaldo + AMasuk - AKeluar;
+
+    // 5. Insert kartu stok
+    q.Close;
+    q.SQL.Clear;
+    q.SQL.Add('INSERT INTO tbl_kartu_stok (');
+    q.SQL.Add('obat_id, batch_id, no_batch, tgl_full, no_faktur, tgl_expired, nie,');
+    q.SQL.Add('sumber, keterangan, masuk, keluar, saldo, ref_type, ref_id');
+    q.SQL.Add(') VALUES (');
+    q.SQL.Add(IntToStr(AObatID) + ', ');
+    q.SQL.Add(sBatchID + ', ');
+    q.SQL.Add(QuotedStr(ANoBatch) + ', ');
+    q.SQL.Add(QuotedStr(FormatDateTime('yyyy-MM-dd HH:mm:ss', ATglFull)) + ', ');
+    q.SQL.Add(QuotedStr(ANoFaktur) + ', ');
+    q.SQL.Add(sTglExp + ', ');
+    q.SQL.Add(QuotedStr(ANie) + ', ');
+    q.SQL.Add(QuotedStr(ASumber) + ', ');
+    q.SQL.Add(QuotedStr(AKeterangan) + ', ');
+    q.SQL.Add(IntToStr(AMasuk) + ', ');
+    q.SQL.Add(IntToStr(AKeluar) + ', ');
+    q.SQL.Add(IntToStr(NewSaldo) + ', ');
+    q.SQL.Add(QuotedStr(ARefType) + ', ');
+    q.SQL.Add(IntToStr(ARefID));
+    q.SQL.Add(')');
+
+    q.ExecSQL;
+  finally
+    q.Free;
+  end;
+end;
 
 procedure konek;
 begin
@@ -132,7 +222,7 @@ begin
   dm.qryBatchSnap.First;
   while not dm.qryBatchSnap.EOF do
     begin
-      Inc(FJumlahBatch);
+      Inc(FJumlahBatch);                        
       SetLength(FSnapshot, FJumlahBatch);
       i := FJumlahBatch - 1;
 
@@ -323,6 +413,8 @@ begin
   cbbAlasan.Enabled := true;
   mmoAlasan.Enabled := false;
   btnSelesai.Enabled := True;
+  btnTambah.Enabled := false;
+  btnCariObat.Enabled := False;
 
   MessageDlg('Jumlah Fisik berhasiil di Update',mtInformation, [mbok],0);
 end;
@@ -339,30 +431,29 @@ end;
 
 procedure TFKoreksiStok.btnSelesaiClick(Sender: TObject);
 var
-  i            : Integer;
-  alasan, alasanKeterangan : string;
+  i: Integer;
+  alasan, alasanKeterangan: string;
   iStokSekarang: Integer;
-  iSelisih     : Integer;
+  iSelisih: Integer;
   bAdaPerubahan: Boolean;
 begin
+  // 1. VALIDASI INPUT
   if cbbAlasan.Text = '' then
-    begin
-      MessageDlg('Alasan Belum Dipilih', mtInformation, [mbok],0);
-      cbbAlasan.Enabled := True;
-      cbbAlasan.SetFocus;
-      Exit;
-    end;
+  begin
+    MessageDlg('Alasan Belum Dipilih', mtInformation, [mbOK], 0);
+    cbbAlasan.SetFocus;
+    Exit;
+  end;
 
-  if cbbAlasan.ItemIndex = 4 then
-    begin
-      if mmoAlasan.Text = '' then
-        begin
-          MessageDlg('Keterangan Belum Diisi', mtInformation, [mbok],0);
-          mmoAlasan.SetFocus;
-          Exit;
-        end;
-    end;
+  if (cbbAlasan.ItemIndex = 4) and (Trim(mmoAlasan.Text) = '') then
+  begin
+    MessageDlg('Keterangan Belum Diisi untuk alasan Lainnya', mtInformation, [mbOK], 0);
+    mmoAlasan.Enabled := True;
+    mmoAlasan.SetFocus;
+    Exit;
+  end;
 
+  // Penentuan kode alasan untuk database
   case cbbAlasan.ItemIndex of
     0: alasan := 'stock_opname';
     1: alasan := 'obat_rusak';
@@ -376,20 +467,16 @@ begin
   else
     alasanKeterangan := QuotedStr(mmoAlasan.Text);
 
-  // Cek apakah ada batch yang berubah
+  // 2. CEK APAKAH ADA PERUBAHAN (SNAPSHOT VS DATABASE TERBARU)
   bAdaPerubahan := False;
   for i := 0 to FJumlahBatch - 1 do
   begin
     dm.qryTemp.Close;
-    dm.qryTemp.SQL.Clear;
-    dm.qryTemp.SQL.Text :=
-      'SELECT jumlah_sisa FROM tbl_batch WHERE id = ' +
-      IntToStr(FSnapshot[i].BatchID);
+    dm.qryTemp.SQL.Text := 'SELECT jumlah_sisa FROM tbl_batch WHERE id = ' + 
+                           IntToStr(FSnapshot[i].BatchID);
     dm.qryTemp.Open;
 
-    iStokSekarang := dm.qryTemp.FieldByName('jumlah_sisa').AsInteger;
-
-    if iStokSekarang <> FSnapshot[i].StokAwal then
+    if dm.qryTemp.FieldByName('jumlah_sisa').AsInteger <> FSnapshot[i].StokAwal then
     begin
       bAdaPerubahan := True;
       Break;
@@ -398,85 +485,83 @@ begin
 
   if not bAdaPerubahan then
   begin
-    ShowMessage('Tidak ada perubahan stok yang perlu disimpan');
+    ShowMessage('Tidak ada perubahan stok yang perlu disimpan (Stok fisik sama dengan sistem)');
     Exit;
   end;
 
+  // 3. PROSES SIMPAN (TRANSACTION)
   dm.con1.BeginTrans;
   try
-    // Loop semua batch, yang berubah saja diproses
     for i := 0 to FJumlahBatch - 1 do
     begin
+      // Ambil data batch terbaru dari database (karena sudah diupdate btnUpdateFisik)
       dm.qryTemp.Close;
-      dm.qryTemp.SQL.Clear;
-      dm.qryTemp.SQL.Text :=
-        'SELECT jumlah_sisa FROM tbl_batch WHERE id = ' +
-        IntToStr(FSnapshot[i].BatchID);
+      dm.qryTemp.SQL.Text := 'SELECT * FROM tbl_batch WHERE id = ' + 
+                             IntToStr(FSnapshot[i].BatchID);
       dm.qryTemp.Open;
 
       iStokSekarang := dm.qryTemp.FieldByName('jumlah_sisa').AsInteger;
-
       iSelisih      := iStokSekarang - FSnapshot[i].StokAwal;
 
-      if iSelisih = 0 then Continue; // skip yang tidak berubah
+      // Lewati jika batch ini tidak ada perubahan
+      if iSelisih = 0 then Continue;
 
-      // INSERT tbl_log_koreksi
-      dm.qryLogKoreksi.Close;
-      dm.qryLogKoreksi.SQL.Clear;
-      dm.qryLogKoreksi.SQL.Text :=
-        'INSERT INTO tbl_log_koreksi ' +
-        '  (no_koreksi, obat_id, batch_id, stok_sebelum, stok_sesudah, ' +
-        '   selisih, alasan_kode, alasan_detail, user_id) ' +
-        'VALUES (' +
-        '  ' + QuotedStr(edtNoKoreksi.Text) + ', ' +
-        '  ' + IntToStr(FObatID) + ', ' +
-        '  ' + IntToStr(FSnapshot[i].BatchID) + ', ' +
-        '  ' + IntToStr(FSnapshot[i].StokAwal) + ', ' +
-        '  ' + IntToStr(iStokSekarang) + ', ' +
-        '  ' + IntToStr(iSelisih) + ', ' +
-        '  ' + QuotedStr(alasan) + ', ' +
-        '  ' + alasanKeterangan + ', ' +
-        '  ' + dm.qryUser.fieldbyname('id').AsString + ')';
-      dm.qryLogKoreksi.ExecSQL;
+      // A. INSERT ke tbl_log_koreksi (Audit Trail)
+      dm.con1.Execute(
+        'INSERT INTO tbl_log_koreksi (no_koreksi, obat_id, batch_id, stok_sebelum, ' +
+        'stok_sesudah, selisih, alasan_kode, alasan_detail, user_id) ' +
+        'VALUES (' + 
+        QuotedStr(edtNoKoreksi.Text) + ', ' +
+        IntToStr(FObatID) + ', ' +
+        IntToStr(FSnapshot[i].BatchID) + ', ' +
+        IntToStr(FSnapshot[i].StokAwal) + ', ' +
+        IntToStr(iStokSekarang) + ', ' +
+        IntToStr(iSelisih) + ', ' +
+        QuotedStr(alasan) + ', ' +
+        alasanKeterangan + ', ' +
+        dm.qryUser.FieldByName('id').AsString + ')'
+      );
+
+      // B. INSERT ke KARTU STOK (tbl_stok) via prosedur global
+      // Jika selisih > 0 (stok bertambah) -> Masuk. Jika < 0 (stok berkurang) -> Keluar.
+      InsertKartuStok(
+        dm.con1,
+        FObatID,
+        FSnapshot[i].BatchID,
+        dm.qryTemp.FieldByName('no_batch').AsString,
+        Now,
+        edtNoKoreksi.Text,
+        dm.qryTemp.FieldByName('tgl_expired').Value,
+        dm.qryTemp.FieldByName('nie_number').AsString,
+        'Koreksi',
+        'Alasan: ' + cbbAlasan.Text + ' (' + mmoAlasan.Text + ')',
+        IfThen(iSelisih > 0, Abs(iSelisih), 0), // Kolom Masuk
+        IfThen(iSelisih < 0, Abs(iSelisih), 0), // Kolom Keluar
+        'koreksi',
+        0 // Tidak ada ID pembelian/penjualan terkait
+      );
     end;
 
-    // INSERT tbl_stok sekali untuk kartu stok
-    dm.qryLogKoreksi.Close;
-    dm.qryLogKoreksi.SQL.Clear;
-    dm.qryLogKoreksi.SQL.Text :=
-      'INSERT INTO tbl_stok ' +
-      '  (no_faktur, obat_id, jumlah, harga, keterangan) ' +
-      'VALUES (' +
-      '  ' + QuotedStr(edtNoKoreksi.Text) + ', ' +
-      '  ' + IntToStr(FObatID) + ', ' +
-      '  0, 0, ''koreksi'')';
-    dm.qryLogKoreksi.ExecSQL;
-
-    // Trigger otomatis update tbl_obat.stok
-    // Update stok master otomatis (ganti trigger MySQL)
-    dm.qryLogKoreksi.Close;
-    dm.qryLogKoreksi.SQL.Clear;
-    dm.qryLogKoreksi.SQL.Text :=
-      'UPDATE tbl_obat ' +
-      'SET stok = ( ' +
-      '  SELECT COALESCE(SUM(jumlah_sisa), 0) ' +
-      '  FROM tbl_batch ' +
-      '  WHERE obat_id = ' + IntToStr(FObatID) +
-      '    AND status = 1 ' +
-      ') ' +
-      'WHERE id = ' + IntToStr(FObatID);
-    dm.qryLogKoreksi.ExecSQL;
+    // 4. UPDATE MASTER STOK (tbl_obat)
+    // Memastikan total stok di tabel obat sinkron dengan jumlah seluruh batch aktif
+    dm.con1.Execute(
+      'UPDATE tbl_obat SET stok = (' +
+      '  SELECT COALESCE(SUM(jumlah_sisa), 0) FROM tbl_batch ' +
+      '  WHERE obat_id = ' + IntToStr(FObatID) + ' AND status = 1' +
+      ') WHERE id = ' + IntToStr(FObatID)
+    );
 
     dm.con1.CommitTrans;
-    MessageDlg('Koreksi stok berhasil disimpan!',mtInformation,[mbok],0);
+    MessageDlg('Koreksi stok berhasil disimpan dan Kartu Stok diperbarui!', mtInformation, [mbOK], 0);
 
-    // Reset form
+    // Reset Form ke kondisi awal
     FormCreate(Sender);
+
   except
     on E: Exception do
     begin
-      dm.con1.RollbackTrans;
-      ShowMessage('Gagal menyimpan: ' + E.Message);
+      if dm.con1.InTransaction then dm.con1.RollbackTrans;
+      MessageDlg('Gagal menyimpan koreksi: ' + E.Message, mtError, [mbOK], 0);
     end;
   end;
 end;

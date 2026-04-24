@@ -1377,16 +1377,16 @@ object FKoreksiStok: TFKoreksiStok
     object lbl5: TLabel
       Left = 16
       Top = 192
-      Width = 447
+      Width = 479
       Height = 20
       Caption = 
         'Daftar batch - isi kolom "stok fisik" sesuai dengan hitungan rak' +
         ' / fisik realnya'
       Font.Charset = ANSI_CHARSET
-      Font.Color = clRed
+      Font.Color = clBlack
       Font.Height = -16
       Font.Name = 'Arial Narrow'
-      Font.Style = [fsItalic]
+      Font.Style = [fsBold, fsItalic]
       ParentFont = False
     end
     object lbl7: TLabel
@@ -1439,6 +1439,34 @@ object FKoreksiStok: TFKoreksiStok
       Font.Height = -16
       Font.Name = 'Arial Narrow'
       Font.Style = []
+      ParentFont = False
+    end
+    object lbl13: TLabel
+      Left = 352
+      Top = 610
+      Width = 407
+      Height = 20
+      Caption = 
+        'Perhatian, Obat yang sudah diupdate stoknya, tidak bisa dibatalk' +
+        'an'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial Narrow'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lbl14: TLabel
+      Left = 352
+      Top = 632
+      Width = 312
+      Height = 20
+      Caption = 'Selesaikan jika sudah mulai melakukan update stok'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial Narrow'
+      Font.Style = [fsBold]
       ParentFont = False
     end
     object btnKeluar: TBitBtn
@@ -1765,7 +1793,7 @@ object FKoreksiStok: TFKoreksiStok
     end
     object pnl4: TPanel
       Left = 8
-      Top = 656
+      Top = 664
       Width = 1025
       Height = 41
       Color = clGradientInactiveCaption

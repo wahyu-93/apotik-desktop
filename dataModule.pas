@@ -362,6 +362,7 @@ type
     qryLaporanStokjumlah_sisa: TLargeintField;
     qryLaporanStokharga_fix: TBCDField;
     qryPenjualanBatch: TADOQuery;
+    qryBantu1: TADOQuery;
     procedure qryJenisketeranganGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
     procedure qrySupplieralamat_supplierGetText(Sender: TField;

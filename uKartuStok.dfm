@@ -1,11 +1,11 @@
 object fKartuStok: TfKartuStok
-  Left = 230
-  Top = 117
+  Left = 380
+  Top = 188
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Kartu Stok ::.'
   ClientHeight = 772
-  ClientWidth = 898
+  ClientWidth = 902
   Color = clGradientActiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -1575,8 +1575,9 @@ object fKartuStok: TfKartuStok
     object lblNIEVal: TLabel
       Left = 208
       Top = 40
-      Width = 5
-      Height = 23
+      Width = 193
+      Height = 49
+      AutoSize = False
       Caption = '-'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -1584,9 +1585,10 @@ object fKartuStok: TfKartuStok
       Font.Name = 'Arial Narrow'
       Font.Style = [fsBold]
       ParentFont = False
+      WordWrap = True
     end
     object lbl7: TLabel
-      Left = 392
+      Left = 416
       Top = 16
       Width = 53
       Height = 20
@@ -1599,10 +1601,10 @@ object fKartuStok: TfKartuStok
       ParentFont = False
     end
     object lblProdusenVal: TLabel
-      Left = 392
+      Left = 416
       Top = 40
-      Width = 5
-      Height = 23
+      Width = 161
+      Height = 49
       Caption = '-'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -1610,9 +1612,10 @@ object fKartuStok: TfKartuStok
       Font.Name = 'Arial Narrow'
       Font.Style = [fsBold]
       ParentFont = False
+      WordWrap = True
     end
     object lbl8: TLabel
-      Left = 544
+      Left = 592
       Top = 16
       Width = 39
       Height = 20
@@ -1625,10 +1628,10 @@ object fKartuStok: TfKartuStok
       ParentFont = False
     end
     object lblSatuanVal: TLabel
-      Left = 544
+      Left = 592
       Top = 40
-      Width = 5
-      Height = 23
+      Width = 113
+      Height = 49
       Caption = '-'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -1636,9 +1639,10 @@ object fKartuStok: TfKartuStok
       Font.Name = 'Arial Narrow'
       Font.Style = [fsBold]
       ParentFont = False
+      WordWrap = True
     end
     object lbl9: TLabel
-      Left = 672
+      Left = 720
       Top = 16
       Width = 99
       Height = 20
@@ -1651,7 +1655,7 @@ object fKartuStok: TfKartuStok
       ParentFont = False
     end
     object lblStokAwalVal: TLabel
-      Left = 672
+      Left = 720
       Top = 40
       Width = 5
       Height = 23
@@ -1670,19 +1674,19 @@ object fKartuStok: TfKartuStok
       Height = 80
     end
     object bvl3: TBevel
-      Left = 384
+      Left = 408
       Top = 10
       Width = 2
       Height = 80
     end
     object bvl4: TBevel
-      Left = 536
+      Left = 584
       Top = 10
       Width = 2
       Height = 80
     end
     object bvl5: TBevel
-      Left = 664
+      Left = 712
       Top = 10
       Width = 2
       Height = 80
@@ -1897,7 +1901,7 @@ object fKartuStok: TfKartuStok
   object pnlStatus: TPanel
     Left = 0
     Top = 731
-    Width = 898
+    Width = 902
     Height = 41
     Align = alBottom
     TabOrder = 4

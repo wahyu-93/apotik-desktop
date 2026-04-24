@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Left = 47
-  Top = 289
+  Left = 178
+  Top = 273
   Height = 537
   Width = 1760
   object XPManifest1: TXPManifest
@@ -1806,6 +1806,12 @@ object dm: Tdm
     Connection = con1
     Parameters = <>
     Left = 1112
+    Top = 424
+  end
+  object qryBantu1: TADOQuery
+    Connection = con1
+    Parameters = <>
+    Left = 1200
     Top = 424
   end
 end

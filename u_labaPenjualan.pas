@@ -14,7 +14,6 @@ type
     grp2: TGroupBox;
     btnKeluar: TBitBtn;
     pnl1: TPanel;
-    lblJumlah: TLabel;
     rbTanggal: TRadioButton;
     rbBulan: TRadioButton;
     dtp1: TDateTimePicker;
@@ -45,7 +44,6 @@ type
     lbl9: TLabel;
     lblLabaGrosir: TLabel;
     lblTitleTotalLaba: TLabel;
-    lbl6: TLabel;
     procedure btnKeluarClick(Sender: TObject);
     procedure btnLapClick(Sender: TObject);
     procedure cbbBulanKeyPress(Sender: TObject; var Key: Char);
@@ -247,226 +245,99 @@ begin
 end;
 
 procedure TfLabaPenjualan.btnLapClick(Sender: TObject);
-var labaEceran, labaGrosir, totalLaba : Real;
-    totalPendapatanEceran     : Real;
-    totalHPPEceran            : Real;
-    totalPendapatanGrosir     : Real;
-    totalHPPGrosir            : Real;
+var 
+  labaEceran, labaGrosir, totalLaba : Real;
+  totalPendapatanEceran, totalHPPEceran : Real;
+  totalPendapatanGrosir, totalHPPGrosir : Real;
+  filterWaktu: string;
 begin
-  if (rbTanggal.Checked = false) and (rbBulan.Checked = False) then
+  if (not rbTanggal.Checked) and (not rbBulan.Checked) then
+  begin
+    MessageDlg('Jenis Laporan Belum Dipilih', mtInformation, [mbOK], 0);
+    Exit;
+  end;
+
+  // 1. Tentukan Filter Waktu
+  if rbTanggal.Checked then
+    filterWaktu := 'DATE(z.tgl_bayar) = ' + QuotedStr(FormatDateTime('yyyy-mm-dd', dtp1.Date))
+  else if rbBulan.Checked then
+  begin
+    if cbbTahun.Text = '' then
     begin
-      MessageDlg('Jenis Laporan Belum Dipilih',mtInformation, [mbOK], 0);
+      MessageDlg('Tahun Wajib Diisi', mtInformation, [mbOK], 0);
       Exit;
     end;
+    
+    if cbbBulan.Text <> '-' then
+      filterWaktu := 'MONTH(z.tgl_bayar) = ' + IntToStr(cbbBulan.ItemIndex) + 
+                     ' AND YEAR(z.tgl_bayar) = ' + cbbTahun.Text
+    else
+      filterWaktu := 'YEAR(z.tgl_bayar) = ' + cbbTahun.Text;
+  end;
 
-  if rbTanggal.Checked = True then
-    begin
-      query :=
-        'SELECT a.obat_id, b.kode, b.nama_obat, ' +
-        'COALESCE(ROUND(SUM(pb.jumlah * CASE WHEN pb.harga_beli > 0 THEN pb.harga_beli ELSE c.harga_beli_terakhir END) / NULLIF(SUM(pb.jumlah), 0)), MAX(c.harga_beli_terakhir)) AS harga_beli_terakhir, ' +
-        'a.harga_jual, ' +
-        'COALESCE(SUM(pb.jumlah), SUM(a.jumlah_jual)) AS jmlItemJual, ' +
-        'COALESCE(SUM(pb.jumlah * a.harga_jual), SUM(a.jumlah_jual * a.harga_jual)) AS total_jual, ' +
-        'SUM((a.harga_jual - CASE WHEN pb.harga_beli > 0 THEN pb.harga_beli ELSE c.harga_beli_terakhir END) * COALESCE(pb.jumlah, a.jumlah_jual)) AS laba, ' +
-        'a.jenis_harga ' +
-        'FROM tbl_penjualan z ' +
-        'LEFT JOIN tbl_detail_penjualan a ON z.id = a.penjualan_id ' +
-        'LEFT JOIN tbl_obat b ON a.obat_id = b.id ' +
-        'LEFT JOIN tbl_harga_jual c ON c.obat_id = b.id ' +
-        'LEFT JOIN tbl_penjualan_batch pb ON pb.penjualan_id = z.id ' +
-        '  AND pb.batch_id IN (SELECT id FROM tbl_batch WHERE obat_id = a.obat_id) ' +
-        'WHERE DATE(z.tgl_penjualan) = ' + QuotedStr(FormatDateTime('yyyy-mm-dd', dtp1.Date)) +
-        '  AND a.jenis_harga = ' + QuotedStr('eceran') +
-        '  AND a.status IS NULL ' +
-        'GROUP BY a.obat_id, a.jenis_harga, b.kode, b.nama_obat, a.harga_jual';
+  // 2. Query List Detail (Eceran)
+  query := 
+    'SELECT b.kode, b.nama_obat, a.harga_jual, ' +
+    'COALESCE(c.harga_beli_terakhir, 0) AS modal_satuan, ' +
+    'SUM(a.jumlah_jual) AS qty_terjual, ' +
+    'SUM(a.jumlah_jual * a.harga_jual) AS total_jual, ' +
+    'SUM(a.jumlah_jual * (a.harga_jual - COALESCE(c.harga_beli_terakhir, 0))) AS laba ' +
+    'FROM tbl_penjualan z ' +
+    'INNER JOIN tbl_detail_penjualan a ON z.id = a.penjualan_id ' +
+    'LEFT JOIN tbl_obat b ON a.obat_id = b.id ' +
+    'LEFT JOIN tbl_harga_jual c ON a.obat_id = c.obat_id ' +
+    'WHERE ' + filterWaktu + 
+    '  AND z.status = ' + QuotedStr('selesai') +
+    '  AND a.jenis_harga = ' + QuotedStr('eceran') +
+    '  AND (a.status IS NULL OR a.status <> ' + QuotedStr('batal') + ') ' +
+    'GROUP BY b.kode, b.nama_obat, a.harga_jual, c.harga_beli_terakhir ' +
+    'ORDER BY b.nama_obat ASC';
 
-      queryGrosir :=
-        'SELECT a.obat_id, b.kode, b.nama_obat, ' +
-        'COALESCE(ROUND(SUM(pb.jumlah * CASE WHEN pb.harga_beli > 0 THEN pb.harga_beli ELSE c.harga_beli_terakhir END) / NULLIF(SUM(pb.jumlah), 0)), MAX(c.harga_beli_terakhir)) AS harga_beli_terakhir, ' +
-        'a.harga_jual, ' +
-        'COALESCE(SUM(pb.jumlah), SUM(a.jumlah_jual)) AS jmlItemJual, ' +
-        'COALESCE(SUM(pb.jumlah * a.harga_jual), SUM(a.jumlah_jual * a.harga_jual)) AS total_jual, ' +
-        'SUM((a.harga_jual - CASE WHEN pb.harga_beli > 0 THEN pb.harga_beli ELSE c.harga_beli_terakhir END) * COALESCE(pb.jumlah, a.jumlah_jual)) AS laba, ' +
-        'a.jenis_harga ' +
-        'FROM tbl_penjualan z ' +
-        'LEFT JOIN tbl_detail_penjualan a ON z.id = a.penjualan_id ' +
-        'LEFT JOIN tbl_obat b ON a.obat_id = b.id ' +
-        'LEFT JOIN tbl_harga_jual c ON c.obat_id = b.id ' +
-        'LEFT JOIN tbl_penjualan_batch pb ON pb.penjualan_id = z.id ' +
-        '  AND pb.batch_id IN (SELECT id FROM tbl_batch WHERE obat_id = a.obat_id) ' +
-        'WHERE DATE(z.tgl_penjualan) = ' + QuotedStr(FormatDateTime('yyyy-mm-dd', dtp1.Date)) +
-        '  AND a.jenis_harga = ' + QuotedStr('grosir') +
-        '  AND a.status IS NULL ' +
-        'GROUP BY a.obat_id, a.jenis_harga, b.kode, b.nama_obat, a.harga_jual';
-    end
-    else if rbBulan.Checked = True then
-    begin
-      if cbbTahun.Text = '' then
-        begin
-          MessageDlg('Tahun Wajib Diisi', mtInformation, [mbOK], 0);
-          Exit;
-        end;
+  // Query List Detail (Grosir)
+  queryGrosir := StringReplace(query, QuotedStr('eceran'), QuotedStr('grosir'), [rfReplaceAll]);
 
-      if cbbBulan.Text <> '-' then
-        begin
-          query :=
-            'SELECT a.obat_id, b.kode, b.nama_obat, ' +
-            'COALESCE(ROUND(SUM(pb.jumlah * CASE WHEN pb.harga_beli > 0 THEN pb.harga_beli ELSE c.harga_beli_terakhir END) / NULLIF(SUM(pb.jumlah), 0)), MAX(c.harga_beli_terakhir)) AS harga_beli_terakhir, ' +
-            'a.harga_jual, ' +
-            'COALESCE(SUM(pb.jumlah), SUM(a.jumlah_jual)) AS jmlItemJual, ' +
-            'COALESCE(SUM(pb.jumlah * a.harga_jual), SUM(a.jumlah_jual * a.harga_jual)) AS total_jual, ' +
-            'SUM((a.harga_jual - CASE WHEN pb.harga_beli > 0 THEN pb.harga_beli ELSE c.harga_beli_terakhir END) * COALESCE(pb.jumlah, a.jumlah_jual)) AS laba, ' +
-            'a.jenis_harga ' +
-            'FROM tbl_penjualan z ' +
-            'LEFT JOIN tbl_detail_penjualan a ON z.id = a.penjualan_id ' +
-            'LEFT JOIN tbl_obat b ON a.obat_id = b.id ' +
-            'LEFT JOIN tbl_harga_jual c ON c.obat_id = b.id ' +
-            'LEFT JOIN tbl_penjualan_batch pb ON pb.penjualan_id = z.id ' +
-            '  AND pb.batch_id IN (SELECT id FROM tbl_batch WHERE obat_id = a.obat_id) ' +
-            'WHERE MONTH(z.tgl_penjualan) = ' + IntToStr(cbbBulan.ItemIndex) +
-            '  AND YEAR(z.tgl_penjualan) = ' + cbbTahun.Text +
-            '  AND a.jenis_harga = ' + QuotedStr('eceran') +
-            '  AND a.status IS NULL ' +
-            'GROUP BY a.obat_id, a.jenis_harga, b.kode, b.nama_obat, a.harga_jual';
-
-          queryGrosir :=
-            'SELECT a.obat_id, b.kode, b.nama_obat, ' +
-            'COALESCE(ROUND(SUM(pb.jumlah * CASE WHEN pb.harga_beli > 0 THEN pb.harga_beli ELSE c.harga_beli_terakhir END) / NULLIF(SUM(pb.jumlah), 0)), MAX(c.harga_beli_terakhir)) AS harga_beli_terakhir, ' +
-            'a.harga_jual, ' +
-            'COALESCE(SUM(pb.jumlah), SUM(a.jumlah_jual)) AS jmlItemJual, ' +
-            'COALESCE(SUM(pb.jumlah * a.harga_jual), SUM(a.jumlah_jual * a.harga_jual)) AS total_jual, ' +
-            'SUM((a.harga_jual - CASE WHEN pb.harga_beli > 0 THEN pb.harga_beli ELSE c.harga_beli_terakhir END) * COALESCE(pb.jumlah, a.jumlah_jual)) AS laba, ' +
-            'a.jenis_harga ' +
-            'FROM tbl_penjualan z ' +
-            'LEFT JOIN tbl_detail_penjualan a ON z.id = a.penjualan_id ' +
-            'LEFT JOIN tbl_obat b ON a.obat_id = b.id ' +
-            'LEFT JOIN tbl_harga_jual c ON c.obat_id = b.id ' +
-            'LEFT JOIN tbl_penjualan_batch pb ON pb.penjualan_id = z.id ' +
-            '  AND pb.batch_id IN (SELECT id FROM tbl_batch WHERE obat_id = a.obat_id) ' +
-            'WHERE MONTH(z.tgl_penjualan) = ' + IntToStr(cbbBulan.ItemIndex) +
-            '  AND YEAR(z.tgl_penjualan) = ' + cbbTahun.Text +
-            '  AND a.jenis_harga = ' + QuotedStr('grosir') +
-            '  AND a.status IS NULL ' +
-            'GROUP BY a.obat_id, a.jenis_harga, b.kode, b.nama_obat, a.harga_jual';
-        end
-      else
-        begin
-          query :=
-            'SELECT a.obat_id, b.kode, b.nama_obat, ' +
-            'COALESCE(ROUND(SUM(pb.jumlah * CASE WHEN pb.harga_beli > 0 THEN pb.harga_beli ELSE c.harga_beli_terakhir END) / NULLIF(SUM(pb.jumlah), 0)), MAX(c.harga_beli_terakhir)) AS harga_beli_terakhir, ' +
-            'a.harga_jual, ' +
-            'COALESCE(SUM(pb.jumlah), SUM(a.jumlah_jual)) AS jmlItemJual, ' +
-            'COALESCE(SUM(pb.jumlah * a.harga_jual), SUM(a.jumlah_jual * a.harga_jual)) AS total_jual, ' +
-            'SUM((a.harga_jual - CASE WHEN pb.harga_beli > 0 THEN pb.harga_beli ELSE c.harga_beli_terakhir END) * COALESCE(pb.jumlah, a.jumlah_jual)) AS laba, ' +
-            'a.jenis_harga ' +
-            'FROM tbl_penjualan z ' +
-            'LEFT JOIN tbl_detail_penjualan a ON z.id = a.penjualan_id ' +
-            'LEFT JOIN tbl_obat b ON a.obat_id = b.id ' +
-            'LEFT JOIN tbl_harga_jual c ON c.obat_id = b.id ' +
-            'LEFT JOIN tbl_penjualan_batch pb ON pb.penjualan_id = z.id ' +
-            '  AND pb.batch_id IN (SELECT id FROM tbl_batch WHERE obat_id = a.obat_id) ' +
-            'WHERE YEAR(z.tgl_penjualan) = ' + QuotedStr(cbbTahun.Text) +
-            '  AND a.jenis_harga = ' + QuotedStr('eceran') +
-            '  AND a.status IS NULL ' +
-            'GROUP BY a.obat_id, a.jenis_harga, b.kode, b.nama_obat, a.harga_jual';
-
-          queryGrosir :=
-            'SELECT a.obat_id, b.kode, b.nama_obat, ' +
-            'COALESCE(ROUND(SUM(pb.jumlah * CASE WHEN pb.harga_beli > 0 THEN pb.harga_beli ELSE c.harga_beli_terakhir END) / NULLIF(SUM(pb.jumlah), 0)), MAX(c.harga_beli_terakhir)) AS harga_beli_terakhir, ' +
-            'a.harga_jual, ' +
-            'COALESCE(SUM(pb.jumlah), SUM(a.jumlah_jual)) AS jmlItemJual, ' +
-            'COALESCE(SUM(pb.jumlah * a.harga_jual), SUM(a.jumlah_jual * a.harga_jual)) AS total_jual, ' +
-            'SUM((a.harga_jual - CASE WHEN pb.harga_beli > 0 THEN pb.harga_beli ELSE c.harga_beli_terakhir END) * COALESCE(pb.jumlah, a.jumlah_jual)) AS laba, ' +
-            'a.jenis_harga ' +
-            'FROM tbl_penjualan z ' +
-            'LEFT JOIN tbl_detail_penjualan a ON z.id = a.penjualan_id ' +
-            'LEFT JOIN tbl_obat b ON a.obat_id = b.id ' +
-            'LEFT JOIN tbl_harga_jual c ON c.obat_id = b.id ' +
-            'LEFT JOIN tbl_penjualan_batch pb ON pb.penjualan_id = z.id ' +
-            '  AND pb.batch_id IN (SELECT id FROM tbl_batch WHERE obat_id = a.obat_id) ' +
-            'WHERE YEAR(z.tgl_penjualan) = ' + QuotedStr(cbbTahun.Text) +
-            '  AND a.jenis_harga = ' + QuotedStr('grosir') +
-            '  AND a.status IS NULL ' +
-            'GROUP BY a.obat_id, a.jenis_harga, b.kode, b.nama_obat, a.harga_jual';
-        end;
-    end;
-
+  // 3. Eksekusi & Hitung Total Eceran dari List
+  labaEceran := 0; totalPendapatanEceran := 0;
   with dm.qryLabaPenjualan do
+  begin
+    Close; SQL.Text := query; Open;
+    while not Eof do
     begin
-      close;
-      SQL.Clear;
-      sql.Text := query;
-      Open;
-
-      labaEceran            := 0;
-      totalPendapatanEceran := 0;
-      totalHPPEceran        := 0;
-
-      if not IsEmpty then
-        begin
-          First;
-          while not Eof do
-            begin
-              labaEceran            := labaEceran + FieldByName('laba').AsFloat;
-              totalPendapatanEceran := totalPendapatanEceran + FieldByName('total_jual').AsFloat;
-              totalHPPEceran        := totalHPPEceran + (FieldByName('total_jual').AsFloat - FieldByName('laba').AsFloat);
-              Next;
-            end;
-        end;
+      labaEceran := labaEceran + FieldByName('laba').AsFloat;
+      totalPendapatanEceran := totalPendapatanEceran + FieldByName('total_jual').AsFloat;
+      Next;
     end;
+  end;
 
+  // 4. Eksekusi & Hitung Total Grosir dari List
+  labaGrosir := 0; totalPendapatanGrosir := 0;
   with dm.qryLabaPenjualanGrosir do
+  begin
+    Close; SQL.Text := queryGrosir; Open;
+    while not Eof do
     begin
-      close;
-      SQL.Clear;
-      sql.Text := queryGrosir;
-      Open;
-
-      labaGrosir            := 0;
-      totalPendapatanGrosir := 0;
-      totalHPPGrosir        := 0;
-
-      if not IsEmpty then
-        begin
-          First;
-          while not Eof do
-            begin
-              labaGrosir            := labaGrosir + FieldByName('laba').AsFloat;
-              totalPendapatanGrosir := totalPendapatanGrosir + FieldByName('total_jual').AsFloat;
-              totalHPPGrosir        := totalHPPGrosir + (FieldByName('total_jual').AsFloat - FieldByName('laba').AsFloat);
-              Next;
-            end;
-        end;
+      labaGrosir := labaGrosir + FieldByName('laba').AsFloat;
+      totalPendapatanGrosir := totalPendapatanGrosir + FieldByName('total_jual').AsFloat;
+      Next;
     end;
+  end;
 
+  // 5. Update UI
   totalLaba := labaEceran + labaGrosir;
+  totalHPPEceran := totalPendapatanEceran - labaEceran;
+  totalHPPGrosir := totalPendapatanGrosir - labaGrosir;
 
-  if (totalPendapatanEceran <= 0) and (totalPendapatanGrosir <= 0) then
-    begin
-      MessageDlg('Data Tidak Ditemukan', mtInformation, [mbOK], 0);
-      lblPendapatanEceran.Caption := '-';
-      lblHPPEceran.Caption        := '-';
-      lblLabaEceran.Caption       := '-';
-      lblPendapatanGrosir.Caption := '-';
-      lblHPPGrosir.Caption        := '-';
-      lblLabaGrosir.Caption       := '-';
-      lblJumlah.Caption           := '-';
-      Exit;
-    end;
+  lblPendapatanEceran.Caption := FormatFloat('Rp ###,###,###', totalPendapatanEceran);
+  lblHPPEceran.Caption        := FormatFloat('Rp ###,###,###', totalHPPEceran);
+  lblLabaEceran.Caption       := FormatFloat('Rp ###,###,###', labaEceran);
 
-  // update label eceran
-  lblPendapatanEceran.Caption := FormatFloat('Rp. ###,###,###', totalPendapatanEceran);
-  lblHPPEceran.Caption        := FormatFloat('Rp. ###,###,###', totalHPPEceran);
-  lblLabaEceran.Caption       := FormatFloat('Rp. ###,###,###', labaEceran);
+  lblPendapatanGrosir.Caption := FormatFloat('Rp ###,###,###', totalPendapatanGrosir);
+  lblHPPGrosir.Caption        := FormatFloat('Rp ###,###,###', totalHPPGrosir);
+  lblLabaGrosir.Caption       := FormatFloat('Rp ###,###,###', labaGrosir);
 
-  // update label grosir
-  lblPendapatanGrosir.Caption := FormatFloat('Rp. ###,###,###', totalPendapatanGrosir);
-  lblHPPGrosir.Caption        := FormatFloat('Rp. ###,###,###', totalHPPGrosir);
-  lblLabaGrosir.Caption       := FormatFloat('Rp. ###,###,###', labaGrosir);
-
-  // total keseluruhan
-  lblTitleTotalLaba.Caption := 'Total Laba Keseluruhan (Eceran + Grosir)';
-  lblJumlah.Caption := 'Total Laba : ' + FormatFloat('Rp. ###,###,###', totalLaba);
+  lblTitleTotalLaba.Caption := 'GRAND TOTAL (ECERAN + GROSIR) >> HPP : ' + FormatFloat('Rp ###,###,###', totalHPPEceran+totalHPPGrosir) +
+                                ' - Pendapatan  : ' + FormatFloat('Rp ###,###,###', totalPendapatanEceran+totalPendapatanGrosir) +
+                                ' = Total Laba : ' + FormatFloat('Rp ###,###,###', totalLaba);
 end;
 
 procedure TfLabaPenjualan.cbbBulanKeyPress(Sender: TObject; var Key: Char);
@@ -514,23 +385,20 @@ begin
   konek;
   konekGrosir;
 
-  lblJumlah.Caption := '-';
-
   lblPendapatanEceran.Caption := '-';
   lblHPPEceran.Caption        := '-';
   lblLabaEceran.Caption       := '-';
   lblPendapatanGrosir.Caption := '-';
   lblHPPGrosir.Caption        := '-';
   lblLabaGrosir.Caption       := '-';
-  lblJumlah.Caption           := '-';
 
   lblTitleTotalLaba.Caption := '-';
 end;
 
 procedure TfLabaPenjualan.dbgrd1DblClick(Sender: TObject);
 begin
-  if dm.qryLabaPenjualan.IsEmpty then Exit;
-  BukaDetail('eceran');
+  //if dm.qryLabaPenjualan.IsEmpty then Exit;
+  //BukaDetail('eceran');
 end;
 
 procedure TfLabaPenjualan.BukaDetail(jenisHarga: string);
@@ -565,8 +433,8 @@ end;
 
 procedure TfLabaPenjualan.dbgrd2DblClick(Sender: TObject);
 begin
-  if dm.qryLabaPenjualanGrosir.IsEmpty then Exit;
-  BukaDetail('grosir');
+  //if dm.qryLabaPenjualanGrosir.IsEmpty then Exit;
+  //BukaDetail('grosir');
 end;
 
 end.

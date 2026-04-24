@@ -61,6 +61,94 @@ uses
 
 {$R *.dfm}
 
+procedure InsertKartuStok(
+  Conn: TADOConnection;
+  AObatID: Integer;
+  ABatchID: Variant;
+  ANoBatch: String;
+  ATglFull: TDateTime;
+  ANoFaktur: String;
+  ATglExpired: Variant;
+  ANie: String;
+  ASumber: String;
+  AKeterangan: String;
+  AMasuk: Integer;
+  AKeluar: Integer;
+  ARefType: String;
+  ARefID: Int64
+);
+var
+  q: TADOQuery;
+  LastSaldo, NewSaldo: Integer;
+  sBatchID, sTglExp, sSQL: String;
+begin
+  // 1. Handle Batch ID
+  if VarIsNull(ABatchID) or (VarToStr(ABatchID) = '') then
+    sBatchID := 'NULL'
+  else
+    sBatchID := QuotedStr(VarToStr(ABatchID));
+
+  // 2. Handle Tgl Expired
+  if VarIsNull(ATglExpired) or (VarToStr(ATglExpired) = '') then
+    sTglExp := 'NULL'
+  else
+    sTglExp := QuotedStr(FormatDateTime('yyyy-MM-dd', ATglExpired));
+
+  q := TADOQuery.Create(nil);
+  try
+    q.Connection := Conn;
+    // PENTING: Matikan pengecekan parameter agar tanda ":" tidak dianggap parameter
+    q.ParamCheck := False; 
+
+    // 3. Ambil saldo terakhir
+    {sSQL := 'SELECT COALESCE(SUM(masuk - keluar),0) AS saldo ' +
+            'FROM tbl_kartu_stok ' +
+            'WHERE obat_id = ' + IntToStr(AObatID) + ' ' +
+            'AND (batch_id = ' + sBatchID + ' OR (' + sBatchID + ' IS NULL AND batch_id IS NULL))'; }
+
+    sSQL := 'SELECT COALESCE(SUM(masuk - keluar),0) AS saldo ' +
+            'FROM tbl_kartu_stok ' +
+            'WHERE obat_id = ' + IntToStr(AObatID);
+    
+    q.SQL.Text := sSQL;
+    q.Open;
+    LastSaldo := q.FieldByName('saldo').AsInteger;
+
+    // 4. Validasi stok
+    if (LastSaldo + AMasuk - AKeluar) < 0 then
+      raise Exception.Create('Stok batch tidak mencukupi untuk Obat ID: ' + IntToStr(AObatID));
+
+    NewSaldo := LastSaldo + AMasuk - AKeluar;
+
+    // 5. Insert kartu stok
+    q.Close;
+    q.SQL.Clear;
+    q.SQL.Add('INSERT INTO tbl_kartu_stok (');
+    q.SQL.Add('obat_id, batch_id, no_batch, tgl_full, no_faktur, tgl_expired, nie,');
+    q.SQL.Add('sumber, keterangan, masuk, keluar, saldo, ref_type, ref_id');
+    q.SQL.Add(') VALUES (');
+    q.SQL.Add(IntToStr(AObatID) + ', ');
+    q.SQL.Add(sBatchID + ', ');
+    q.SQL.Add(QuotedStr(ANoBatch) + ', ');
+    q.SQL.Add(QuotedStr(FormatDateTime('yyyy-MM-dd HH:mm:ss', ATglFull)) + ', ');
+    q.SQL.Add(QuotedStr(ANoFaktur) + ', ');
+    q.SQL.Add(sTglExp + ', ');
+    q.SQL.Add(QuotedStr(ANie) + ', ');
+    q.SQL.Add(QuotedStr(ASumber) + ', ');
+    q.SQL.Add(QuotedStr(AKeterangan) + ', ');
+    q.SQL.Add(IntToStr(AMasuk) + ', ');
+    q.SQL.Add(IntToStr(AKeluar) + ', ');
+    q.SQL.Add(IntToStr(NewSaldo) + ', ');
+    q.SQL.Add(QuotedStr(ARefType) + ', ');
+    q.SQL.Add(IntToStr(ARefID));
+    q.SQL.Add(')');
+
+    q.ExecSQL;
+  finally
+    q.Free;
+  end;
+end;
+
 procedure konek;
 begin
  with dm.qryRelasiPembelian do
@@ -273,110 +361,117 @@ begin
 end;
 
 procedure TfReturPembelian.btnSelesaiClick(Sender: TObject);
-var a, jmlRetur, jmlBeli, stokObat : Integer;
-    obatId, batchId : string;
-    sisaKurang, stokSisa, dikurangi : Integer;
+var 
+  a, jmlRetur, stokObat : Integer;
+  obatId, batchId : string;
+  sisaKurang, stokSisa, dikurangi : Integer;
+  qryBatchRetur: TADOQuery;
 begin
-  if MessageDlg('Selesaikan Transaksi',mtConfirmation,[mbyes,mbNo],0) = mryes then
-    begin
-      // cek data di tbl_stok sesui kode retur
+  if MessageDlg('Selesaikan Transaksi Retur?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  begin
+    // Gunakan Transaksi agar jika stok batch tidak cukup, semua batal (Rollback)
+    while dm.con1.InTransaction do dm.con1.RollbackTrans;
+    dm.con1.BeginTrans;
+
+    try
+      // 1. Ambil data item yang akan diretur (dari tabel sementara/stok)
       with dm.qryStok do
+      begin
+        Close;
+        SQL.Text := 'SELECT * FROM tbl_stok WHERE no_faktur = ' + QuotedStr(edtFaktur.Text) + 
+                    ' AND keterangan = ' + QuotedStr('retur-pembelian');
+        Open;
+
+        if IsEmpty then
         begin
-          Close;
-          sql.Clear;
-          SQL.Text := 'select * from tbl_stok where no_faktur = '+QuotedStr(edtFaktur.Text)+' and keterangan = '+QuotedStr('retur-pembelian')+'';
-          Open;
-
-          if IsEmpty then
-            begin
-              MessageDlg('Transaksi Tidak Bisa Diselesaikan!',mtInformation,[mbok],0);
-              Exit;
-            end
-          else
-            begin
-              //loop
-              for a:= 1 to RecordCount do
-                begin
-                  RecNo := a;
-                  obatId := dm.qryStok.fieldbyname('obat_id').AsString;
-                  jmlRetur := dm.qryStok.fieldbyname('jumlah').AsInteger;
-
-                  //kurangi stok tbl_obat
-                  with dm.qryObat do
-                    begin
-                      close;
-                      sql.Clear;
-                      SQL.Text := 'select * from tbl_obat where id = '+QuotedStr(obatId)+'';
-                      Open;
-
-                      stokObat := dm.qryObat.fieldbyname('stok').AsInteger;
-
-                      //update
-                      close;
-                      SQL.Clear;
-                      SQL.Text := 'update tbl_obat set stok = '+QuotedStr(IntToStr(stokObat-jmlRetur))+' where id = '+QuotedStr(obatId)+'';
-                      ExecSQL;
-                    end;
-
-                  // kurangi stok batch FIFO dari pembelian yang diretur
-                  sisaKurang := jmlRetur;
-
-                  with dm.qryBatch do
-                    begin
-                      Close;
-                      SQL.Clear;
-                      // ambil batch milik obat ini dari pembelian yg diretur, urut terlama
-                      SQL.Text := 'SELECT id, jumlah_sisa ' +
-                                  'FROM tbl_batch ' +
-                                  'WHERE obat_id = ' + QuotedStr(obatId) +
-                                  ' AND pembelian_id = (' +
-                                  '  SELECT id FROM tbl_pembelian ' +
-                                  '  WHERE no_faktur = ' + QuotedStr(edtFaktur.Text) +
-                                  '  LIMIT 1) ' +
-                                  ' AND jumlah_sisa > 0 ' +
-                                  ' AND status = 1 ' +
-                                  ' ORDER BY tgl_expired ASC, created_at ASC';
-                      Open;
-
-                      while not Eof and (sisaKurang > 0) do
-                        begin
-                          batchId   := FieldByName('id').AsString;
-                          stokSisa  := FieldByName('jumlah_sisa').AsInteger;
-                        
-                          if stokSisa >= sisaKurang then
-                            dikurangi := sisaKurang
-                          else
-                            dikurangi := stokSisa;
-
-                          sisaKurang := sisaKurang - dikurangi;
-
-                          with dm.qryBantu2 do
-                            begin
-                              Close;
-                              SQL.Clear;
-                              SQL.Text := 'UPDATE tbl_batch SET ' +
-                                'jumlah_sisa = jumlah_sisa - ' + IntToStr(dikurangi) + ', ' +
-                                'jumlah_retur_beli = jumlah_retur_beli + ' + IntToStr(dikurangi) +
-                                ' WHERE id = ' + QuotedStr(batchId);
-                              ExecSQL;
-                            end;
-
-                          Next;
-                        end;
-
-                      // jika sisa kurang masih > 0, berarti stok batch tidak cukup
-                      // ini seharusnya tidak terjadi jika validasi jumlah retur sudah benar
-                      if sisaKurang > 0 then
-                        ShowMessage('Peringatan: Stok batch tidak mencukupi untuk retur! Sisa ' +
-                                    IntToStr(sisaKurang) + ' tidak bisa dikurangi dari batch.');
-                    end;
-                end;
-
-                MessageDlg('Transaksi Berhasil Disimpan', mtInformation,[mbOK],0);
-                FormShow(Sender);
-            end;
+          dm.con1.RollbackTrans;
+          MessageDlg('Data item retur tidak ditemukan!', mtWarning, [mbOK], 0);
+          Exit;
         end;
+
+        // 2. Loop per Item Obat yang diretur
+        while not Eof do
+        begin
+          obatId := FieldByName('obat_id').AsString;
+          jmlRetur := FieldByName('jumlah').AsInteger;
+
+          // A. Kurangi stok utama di tbl_obat
+          dm.con1.Execute('UPDATE tbl_obat SET stok = stok - ' + IntToStr(jmlRetur) + 
+                         ' WHERE id = ' + QuotedStr(obatId));
+
+          // B. Cari Batch dari Pembelian asal (FIFO)
+          sisaKurang := jmlRetur;
+          qryBatchRetur := TADOQuery.Create(nil);
+          try
+            qryBatchRetur.Connection := dm.con1;
+            qryBatchRetur.ParamCheck := False;
+            qryBatchRetur.SQL.Text := 
+              'SELECT b.* FROM tbl_batch b ' +
+              'JOIN tbl_pembelian p ON p.id = b.pembelian_id ' +
+              'WHERE b.obat_id = ' + QuotedStr(obatId) +
+              ' AND p.no_faktur = ' + QuotedStr(edtFaktur.Text) + // Faktur Pembelian Asal
+              ' AND b.jumlah_sisa > 0 ' +
+              ' ORDER BY b.tgl_expired ASC, b.created_at ASC';
+            qryBatchRetur.Open;
+
+            while (not qryBatchRetur.Eof) and (sisaKurang > 0) do
+            begin
+              stokSisa := qryBatchRetur.FieldByName('jumlah_sisa').AsInteger;
+              
+              if stokSisa >= sisaKurang then dikurangi := sisaKurang
+              else dikurangi := stokSisa;
+
+              // Update tbl_batch
+              dm.con1.Execute('UPDATE tbl_batch SET ' +
+                'jumlah_sisa = jumlah_sisa - ' + IntToStr(dikurangi) + ', ' +
+                'jumlah_retur_beli = jumlah_retur_beli + ' + IntToStr(dikurangi) +
+                ' WHERE id = ' + qryBatchRetur.FieldByName('id').AsString);
+
+              // C. INSERT KARTU STOK (Sebagai barang KELUAR)
+              InsertKartuStok(
+                dm.con1,
+                qryBatchRetur.FieldByName('obat_id').AsInteger,
+                qryBatchRetur.FieldByName('id').AsInteger,
+                qryBatchRetur.FieldByName('no_batch').AsString,
+                Now,
+                edtFaktur.Text, // No Faktur Retur/Pembelian
+                qryBatchRetur.FieldByName('tgl_expired').Value,
+                qryBatchRetur.FieldByName('nie_number').AsString,
+                'Retur_Pembelian',
+                'Pengembalian ke supplier (Faktur: ' + edtFaktur.Text + ')',
+                0,             // Masuk
+                dikurangi,      // Keluar (Jumlah yang diretur)
+                'retur_beli',
+                qryBatchRetur.FieldByName('pembelian_id').AsInteger
+              );
+
+              sisaKurang := sisaKurang - dikurangi;
+              qryBatchRetur.Next;
+            end;
+
+            if sisaKurang > 0 then
+              raise Exception.Create('Gagal! Stok batch untuk Obat ID ' + obatId + ' tidak cukup untuk diretur.');
+
+          finally
+            qryBatchRetur.Free;
+          end;
+
+          Next;
+        end;
+      end;
+
+      dm.con1.CommitTrans;
+      MessageDlg('Retur Pembelian Berhasil Disimpan', mtInformation, [mbOK], 0);
+      FormShow(Sender);
+
+    except
+      on E: Exception do
+      begin
+        if dm.con1.InTransaction then dm.con1.RollbackTrans;
+        MessageDlg('Kesalahan: ' + E.Message, mtError, [mbOK], 0);
+      end;
     end;
+  end;
 end;
 
 procedure TfReturPembelian.btnRetualAllClick(Sender: TObject);

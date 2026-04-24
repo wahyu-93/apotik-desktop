@@ -21,6 +21,7 @@ type
     btnLap: TBitBtn;
     dbgrdItemLaris: TDBGrid;
     btnPreview: TBitBtn;
+    mmo1: TMemo;
     procedure btnKeluarClick(Sender: TObject);
     procedure rbBulanClick(Sender: TObject);
     procedure rbTanggalClick(Sender: TObject);
@@ -260,6 +261,8 @@ begin
     SQL.Clear;
     SQL.Text := sQuery;
     Open;
+
+    mmo1.Text := sQuery;
  
     if IsEmpty then
     begin

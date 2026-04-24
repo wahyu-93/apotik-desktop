@@ -4,7 +4,7 @@ object fLaporanPembelian: TfLaporanPembelian
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Laporan Pembelian Iem ::.'
-  ClientHeight = 753
+  ClientHeight = 761
   ClientWidth = 1134
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
@@ -1338,11 +1338,11 @@ object fLaporanPembelian: TfLaporanPembelian
     Left = 8
     Top = 72
     Width = 1121
-    Height = 673
+    Height = 681
     TabOrder = 1
     object btnKeluar: TBitBtn
       Left = 1024
-      Top = 632
+      Top = 640
       Width = 89
       Height = 33
       Caption = 'Keluar'
@@ -1754,19 +1754,19 @@ object fLaporanPembelian: TfLaporanPembelian
       Left = 8
       Top = 592
       Width = 1105
-      Height = 33
+      Height = 41
       TabOrder = 8
       object lblJumlah: TLabel
         Left = 8
         Top = 7
         Width = 1089
-        Height = 18
+        Height = 26
         Alignment = taCenter
         AutoSize = False
         Caption = 'Laporan Stok Item'
         Font.Charset = ANSI_CHARSET
-        Font.Color = clRed
-        Font.Height = -16
+        Font.Color = clBlack
+        Font.Height = -19
         Font.Name = 'Arial Narrow'
         Font.Style = [fsItalic]
         ParentFont = False

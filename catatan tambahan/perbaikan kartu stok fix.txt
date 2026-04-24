@@ -1,0 +1,85 @@
+table karu stok
+
+CREATE TABLE tbl_kartu_stok (
+    id          BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    obat_id     INT UNSIGNED NOT NULL,
+    batch_id    INT NULL,  
+    no_batch    VARCHAR(30) NULL,
+    tgl_full    DATETIME NOT NULL,
+    tgl         DATE GENERATED ALWAYS AS (DATE(tgl_full)) STORED,
+    no_faktur   VARCHAR(50),
+    tgl_expired DATE,
+    nie         VARCHAR(50),
+    sumber      ENUM('Pembelian','Retur_Penjualan','Retur_Pembelian','Penjualan','Arsip','Migrasi','Koreksi') NOT NULL,
+    keterangan  VARCHAR(255),
+    masuk       INT DEFAULT 0,
+    keluar      INT DEFAULT 0,
+    saldo       INT DEFAULT 0,
+    ref_type    VARCHAR(50),
+    ref_id      BIGINT,
+    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    INDEX idx_obat_tgl       (obat_id, tgl_full),
+    INDEX idx_batch          (batch_id),
+    INDEX idx_obat_batch     (obat_id, batch_id, tgl_full),
+    INDEX idx_sumber_tgl     (sumber, tgl_full),
+
+    FOREIGN KEY (batch_id) REFERENCES tbl_batch(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
+);
+
+
+sebelum yg diatas dieksekusi, bawah ini dulu jalankan
+
+//
+SELECT 
+    o.id, 
+    o.nama_obat, 
+    o.stok AS stok_master, 
+    (SELECT SUM(jumlah_sisa) FROM tbl_batch b WHERE b.obat_id = o.id AND b.status = 1) AS total_batch
+FROM tbl_obat o
+HAVING stok_master <> total_batch;
+
+//
+UPDATE tbl_obat o
+SET o.stok = (
+    SELECT COALESCE(SUM(b.jumlah_sisa), 0)
+    FROM tbl_batch b
+    WHERE b.obat_id = o.id AND b.status = 1
+);
+
+//
+INSERT INTO tbl_kartu_stok (
+    obat_id, 
+    batch_id, 
+    no_batch, 
+    tgl_full, 
+    tgl_expired, 
+    nie, 
+    sumber, 
+    keterangan, 
+    masuk, 
+    keluar, 
+    saldo, 
+    ref_type, 
+    ref_id, 
+    created_at
+)
+SELECT 
+    obat_id, 
+    id AS batch_id, 
+    no_batch, 
+    created_at AS tgl_full, -- Menggunakan waktu pembuatan batch sebagai tgl transaksi
+    tgl_expired, 
+    nie_number AS nie, 
+    'Migrasi' AS sumber, -- Menandai sebagai data awal/migrasi
+    'Saldo awal dari data batch' AS keterangan, 
+    jumlah_sisa AS masuk, 
+    0 AS keluar, 
+    jumlah_sisa AS saldo, 
+    'tbl_batch' AS ref_type, 
+    id AS ref_id, 
+    NOW() AS created_at
+FROM tbl_batch
+WHERE jumlah_sisa > 0;

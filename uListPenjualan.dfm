@@ -1,6 +1,6 @@
 object fListPenjualan: TfListPenjualan
-  Left = 615
-  Top = 115
+  Left = 272
+  Top = 120
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form List Penjualan ::.'

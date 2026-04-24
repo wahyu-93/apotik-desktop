@@ -1,0 +1,360 @@
+procedure TFpenjualan.btnSimpanClick(Sender: TObject);
+var jmlEdit : string;
+begin
+  if btnSimpan.Caption = 'Simpan' then
+    begin
+      if status = 'tambah' then
+        begin
+          // simpan ke table pembelian
+          with dm.qryPenjualan do
+          begin
+            close;
+            SQL.Clear;
+            SQL.Text := 'select * from tbl_penjualan where no_faktur like ''%'+FormatDateTime('mmyyyy',Now)+'%''';
+            Open;
+
+            if IsEmpty then
+              begin
+                kode := '00001';
+              end
+            else
+              begin
+                Last;
+                kode := RightStr(fieldbyname('no_faktur').Text,5);
+                kode := IntToStr(StrToInt(kode) + 1);
+              end;
+          end;
+
+          edtFaktur.Text := 'PJ-'+FormatDateTime('ddmmyyyy',Now) + FormatFloat('00000',StrToInt(kode));
+          with dm.qryPenjualan do
+            begin
+              Append;
+              FieldByName('no_faktur').AsString := edtFaktur.Text;
+              FieldByName('tgl_penjualan').AsDateTime := dtpTanggalBeli.DateTime;
+              FieldByName('id_pelanggan').AsString := dblkcbbPelanggan.KeyValue;
+              FieldByName('jumlah_item').AsString := '0';
+              FieldByName('total').AsString := '0';
+              FieldByName('user_id').AsString := dm.qryUser.fieldbyname('id').AsString;
+              FieldByName('status').AsString := 'pending';
+              Post;
+            end;
+
+            status := 'tambahLagi';
+        end;
+
+      if dm.qryPenjualan.Locate('no_faktur',edtFaktur.Text,[]) then id_penjualan := dm.qryPenjualan.fieldbyname('id').AsString;
+
+      //simpan ke tabel detail penjualan
+      with dm.qryDetailPenjualan do
+        begin
+          close;
+          sql.Clear;
+          SQL.Text := 'select * from tbl_detail_penjualan where obat_id = '+QuotedStr(edtIdObat.Text)+' and penjualan_id = '+QuotedStr(id_penjualan)+'';
+          Open;
+
+          if IsEmpty then
+            begin
+              jmlEdit := '1';
+              Append;
+              FieldByName('penjualan_id').AsString := id_penjualan;
+              FieldByName('obat_id').AsString := edtIdObat.Text;
+              FieldByName('jumlah_jual').AsString := '1';
+              FieldByName('harga_jual').AsString := edtHarga.Text;
+              Post;
+
+              // ambil id yang baru diinsert
+              with dm.qryBantu4 do
+                begin
+                  close;
+                  sql.Clear;
+                  SQL.Text := 'SELECT id FROM tbl_detail_penjualan WHERE obat_id = '+QuotedStr(edtIdObat.Text)+
+                              ' AND penjualan_id = '+QuotedStr(id_penjualan)+'';
+                  Open;
+
+                  detail_penjualan_id := FieldByName('id').AsString;  // simpan id
+                end;
+            end
+          else
+            begin
+              detail_penjualan_id := FieldByName('id').AsString;
+              
+              jmlEdit := IntToStr(1 + fieldbyname('jumlah_jual').AsInteger);
+              with dm.qryDetailPenjualan do
+                begin
+                  close;
+                  sql.Clear;
+                  SQL.Text := 'update tbl_detail_penjualan set jumlah_jual = '+QuotedStr(jmlEdit)+
+                              ' where obat_id = '+QuotedStr(edtIdObat.Text)+' and penjualan_id = '+QuotedStr(id_penjualan)+'';
+                  ExecSQL;
+                end;
+
+              status := 'tambahLagi';
+            end;
+        end;
+
+      //stok
+      with dm.qryStok do
+        begin
+          close;
+          sql.Clear;
+          SQL.Text := 'select * from tbl_stok where obat_id = '+QuotedStr(edtIdObat.Text)+' and no_faktur = '+QuotedStr(edtFaktur.Text)+'';
+          Open;
+
+          if IsEmpty then
+            begin
+              Append;
+              FieldByName('no_faktur').AsString  := edtFaktur.Text;
+              FieldByName('obat_id').AsString    := edtIdObat.Text;
+              FieldByName('jumlah').AsString     := '1';
+              FieldByName('harga').AsString      := edtHarga.Text;
+              FieldByName('keterangan').AsString := 'penjualan';
+              Post;
+            end
+          else
+            begin
+              jmlEdit := IntToStr(1 + dm.qryStok.fieldbyname('jumlah').AsInteger);
+
+              close;
+              sql.Clear;
+              SQL.Text := 'update tbl_stok set jumlah = '+QuotedStr(jmlEdit)+' where no_faktur = '+QuotedStr(edtFaktur.Text)+' and obat_id = '+QuotedStr(edtIdObat.Text)+'';
+              ExecSQL; 
+            end;      
+        end;
+
+      // ================================================================
+      // BATCH FIFO — ditambahkan setelah proses stok lama selesai
+      // Kalau batch belum ada untuk obat ini, otomatis skip
+      // Tidak mempengaruhi transaksi kasir sama sekali
+      // ================================================================
+      //ShowMessage('kode obat : ' + dm.qrystok.FieldByName('obat_id').AsString + 'No Faktur : ' + dm.qrystok.FieldByName('no_faktur').AsString + 'Stok : ' + jmlEdit);
+
+      AdjustBatchFIFO(
+        StrToInt(edtIdObat.Text),    // obat_id
+        StrToInt(jmlEdit),         // per klik Simpan selalu 1 unit
+        StrToInt(id_penjualan),      // id penjualan yang baru disimpan
+        StrToInt(detail_penjualan_id) // detail id penjualan
+      );
+
+      konek(edtFaktur.Text);
+      lblItem.Caption := IntToStr(hitungItem(id_penjualan));
+      lblTotalHarga.Caption := FormatFloat('Rp. ###,###,###', hitungTotal(id_penjualan));
+
+      btnSelesai.Enabled := True;
+      btnTambah.Caption := 'Batal';
+      btnHapus.enabled := false;
+
+      dtpTanggalBeli.Enabled := false;
+      dblkcbbPelanggan.Enabled := false;
+    end
+  else
+    begin
+      edtHarga.Enabled := True;
+
+      btnSimpan.Caption := 'Simpan';
+      btnHapus.Caption := 'Batal[F1]';
+      status := 'edit';
+    end;  
+end;
+
+
+procedure TFpenjualan.AdjustBatchFIFO(ObatID, JumlahBaru, PenjualanID, DetailPenjualanID: Integer);
+var
+  qryCek    : TADOQuery;
+  qryBatch  : TADOQuery;
+  qryUpdate : TADOQuery;
+  qryLog    : TADOQuery;
+  JumlahLama, Delta, SisaKurangi, Ambil, BatchID, SisaBatch: Integer;
+  HargaBeli : Double;  // tambah ini
+begin
+  qryCek    := TADOQuery.Create(nil);
+  qryBatch  := TADOQuery.Create(nil);
+  qryUpdate := TADOQuery.Create(nil);
+  qryLog    := TADOQuery.Create(nil);
+
+  try
+    qryCek.Connection    := dm.con1;
+    qryBatch.Connection  := dm.con1;
+    qryUpdate.Connection := dm.con1;
+    qryLog.Connection    := dm.con1;
+
+    // cek sudah berapa yang tercatat untuk penjualan + obat ini
+    qryCek.SQL.Text :=
+      'SELECT COALESCE(SUM(pb.jumlah), 0) AS total_tercatat ' +
+      'FROM tbl_penjualan_batch pb ' +
+      'JOIN tbl_batch b ON b.id = pb.batch_id ' +
+      'WHERE pb.penjualan_id = ' + IntToStr(PenjualanID) +
+      '  AND b.obat_id = ' + IntToStr(ObatID);
+    qryCek.Open;
+    JumlahLama := qryCek.FieldByName('total_tercatat').AsInteger;
+
+    Delta := JumlahBaru - JumlahLama;
+
+    // tidak ada perubahan, skip
+    if Delta = 0 then Exit;
+
+    if Delta > 0 then
+    begin
+      // jumlah bertambah — kurangi batch sejumlah delta
+      SisaKurangi := Delta;
+
+      // tambah harga_beli di SELECT
+      qryBatch.SQL.Text :=
+        'SELECT id, jumlah_sisa, harga_beli FROM tbl_batch ' +
+        'WHERE obat_id = ' + IntToStr(ObatID) +
+        '  AND jumlah_sisa > 0 ' +
+        '  AND status = 1 ' +
+        'ORDER BY tgl_expired ASC';
+      qryBatch.Open;
+
+      if qryBatch.IsEmpty then Exit;
+
+      while (not qryBatch.Eof) and (SisaKurangi > 0) do
+        begin
+          BatchID   := qryBatch.FieldByName('id').AsInteger;
+          SisaBatch := qryBatch.FieldByName('jumlah_sisa').AsInteger;
+          HargaBeli := qryBatch.FieldByName('harga_beli').AsFloat;  // ambil harga beli batch
+
+          if SisaBatch >= SisaKurangi then
+            Ambil := SisaKurangi
+          else
+            Ambil := SisaBatch;
+
+          // kurangi jumlah_sisa
+          qryUpdate.SQL.Text :=
+            'UPDATE tbl_batch SET jumlah_sisa = jumlah_sisa - ' + IntToStr(Ambil) +
+            ' WHERE id = ' + IntToStr(BatchID);
+          qryUpdate.ExecSQL;
+
+          // status otomatis menyesuaikan sisa
+          qryUpdate.SQL.Text :=
+            'UPDATE tbl_batch SET status = CASE WHEN jumlah_sisa = 0 THEN 0 ELSE 1 END' +
+            ' WHERE id = ' + IntToStr(BatchID);
+          qryUpdate.ExecSQL;
+
+          // cek sudah ada atau belum di tbl_penjualan_batch
+          qryLog.SQL.Text :=
+            'SELECT id FROM tbl_penjualan_batch ' +
+            'WHERE penjualan_id = ' + IntToStr(PenjualanID) +
+            '  AND batch_id = ' + IntToStr(BatchID);
+          qryLog.Open;
+                
+          if qryLog.IsEmpty then
+          begin
+            // INSERT — simpan harga_beli dari batch
+            qryLog.Close;
+            qryLog.SQL.Text :=
+              'INSERT INTO tbl_penjualan_batch ' +
+              '(penjualan_id, detail_penjualan_id, batch_id, jumlah, harga_beli, is_estimasi, created_at) VALUES (' +
+              IntToStr(PenjualanID) + ', ' +
+              IntToStr(DetailPenjualanID) + ', ' +
+              IntToStr(BatchID)     + ', ' +
+              IntToStr(Ambil)       + ', ' +
+              FloatToStr(HargaBeli) + ', 1, NOW())';
+              qryLog.ExecSQL;
+          end
+          else
+          begin
+            // UPDATE — harga_beli tidak diupdate, hanya tambah jumlah
+            qryLog.Close;
+            qryLog.SQL.Text :=
+              'UPDATE tbl_penjualan_batch ' +
+              'SET jumlah = jumlah + ' + IntToStr(Ambil) +
+              ' WHERE penjualan_id = ' + IntToStr(PenjualanID) +
+              '   AND batch_id = ' + IntToStr(BatchID);
+            qryLog.ExecSQL;
+          end;
+          qryLog.Close;
+
+          SisaKurangi := SisaKurangi - Ambil;
+          qryBatch.Next;
+        end;
+    end
+    else
+      begin
+        // jumlah berkurang — kembalikan batch sejumlah abs(delta)
+        KembalikanBatchSebagian(ObatID, Abs(Delta), PenjualanID);
+      end;
+
+  except
+    // ditelan
+  end;
+
+  qryCek.Free;
+  qryBatch.Free;
+  qryUpdate.Free;
+  qryLog.Free;
+end;
+
+procedure TFpenjualan.dbgrd1KeyPress(Sender: TObject; var Key: Char);
+var jumlahNew : Integer;
+    totalNew, hargaJual : Real;
+    id,catatan,jenisHarga : string;
+begin
+  if key=#13 then
+    begin
+      //edit data lewat dbgrid
+      jumlahNew := dbgrd1.Fields[3].AsInteger;
+      catatan := dbgrd1.Fields[16].AsString;
+      id := dbgrd1.Fields[5].AsString;
+      jenisHarga := 'eceran';
+
+      //jika jumlah jual melebihi stok
+
+
+      // jika lebih dari jumlah max grosir gunakan harga grosir
+      with dm.qryHarga do
+        begin
+          close;
+          sql.Clear;
+          sql.Text := 'select * from tbl_harga_jual where obat_id = '+QuotedStr(dbgrd1.Fields[6].AsString)+'';
+          Open;
+
+          hargaJual := dm.qryHarga.fieldbyname('harga_jual').AsFloat;
+
+          if dm.qryHarga.FieldByName('qty_max_grosir').AsInteger <> 0 then
+            begin
+              if jumlahNew >= dm.qryHarga.FieldByName('qty_max_grosir').AsInteger then
+                begin
+                  hargaJual := dm.qryHarga.fieldbyname('harga_jual_grosir').AsFloat;
+                  jenisHarga := 'grosir';
+                end
+            end
+        end;
+
+      with dm.qryDetailPenjualan do
+        begin
+          close;
+          sql.Clear;
+          SQL.Text := 'update tbl_detail_penjualan set jumlah_jual = '+QuotedStr(IntToStr(jumlahNew))+', harga_jual = '+QuotedStr(FloatToStr(hargaJual))+', catatan = '+QuotedStr(catatan)+
+                      ', jenis_harga='+QuotedStr(jenisHarga)+' where obat_id = '+QuotedStr(dbgrd1.Fields[6].AsString)+' and penjualan_id = '+QuotedStr(dbgrd1.Fields[0].AsString)+'';
+          ExecSQL;
+        end;
+
+      // stok
+      with dm.qryStok do
+        begin
+          close;
+          sql.Clear;
+          SQL.Text := 'update tbl_stok set jumlah = '+QuotedStr(IntToStr(jumlahNew))+' where obat_id = '+QuotedStr(dbgrd1.Fields[6].AsString)+' and no_faktur = '+QuotedStr(dbgrd1.Fields[1].AsString)+'';
+          ExecSQL;
+        end;
+
+      AdjustBatchFIFO(
+        StrToInt(edtIdObat.Text),   // obat_id
+        jumlahNew,                  // per klik Simpan selalu 1 unit
+        StrToInt(id_penjualan),      // id penjualan yang baru disimpan
+        StrToInt(detail_penjualan_id)
+      );
+
+      konek(edtFaktur.Text);
+
+      lblItem.Caption := IntToStr(hitungItem(id_penjualan));
+      lblTotalHarga.Caption := FormatFloat('Rp. ###,###,###', hitungTotal(id_penjualan));
+
+      btnSelesai.Enabled := True;
+      btnTambah.Caption := 'Batal';
+      btnHapus.enabled := false;
+
+      dm.qryRelasiPenjualan.Locate('id_detail_penjualan',id,[]);
+    end;
+end;

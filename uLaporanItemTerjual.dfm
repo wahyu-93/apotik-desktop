@@ -4,7 +4,7 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Laporan Jumlah Item Terjual ::.'
-  ClientHeight = 760
+  ClientHeight = 751
   ClientWidth = 1070
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
@@ -1568,6 +1568,7 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = 250
           Visible = True
         end
         item
@@ -1592,6 +1593,7 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = 250
           Visible = True
         end
         item
@@ -1692,6 +1694,7 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
+          Width = 250
           Visible = True
         end
         item
@@ -1705,7 +1708,7 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
           Title.Font.Height = -15
           Title.Font.Name = 'Arial'
           Title.Font.Style = []
-          Width = 124
+          Width = 250
           Visible = True
         end>
     end
@@ -1723,6 +1726,15 @@ object fLaporanJumlahItemTerjual: TfLaporanJumlahItemTerjual
       ParentFont = False
       TabOrder = 8
       OnClick = btnPreviewClick
+    end
+    object mmo1: TMemo
+      Left = 120
+      Top = 312
+      Width = 689
+      Height = 241
+      Lines.Strings = (
+        'mmo1')
+      TabOrder = 9
     end
   end
 end

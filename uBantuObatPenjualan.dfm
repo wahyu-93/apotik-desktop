@@ -1,6 +1,6 @@
 object fBantuObatPenjualan: TfBantuObatPenjualan
-  Left = 687
-  Top = 245
+  Left = 485
+  Top = 224
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form List Obat ::.'
@@ -1321,9 +1321,9 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
     Height = 545
     TabOrder = 0
     object dbgrd1: TDBGrid
-      Left = 16
+      Left = 8
       Top = 16
-      Width = 953
+      Width = 969
       Height = 449
       DataSource = dm.dsRelasiSetHarga
       Font.Charset = ANSI_CHARSET
@@ -1646,9 +1646,9 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
         end>
     end
     object edtpencarian: TEdit
-      Left = 16
+      Left = 8
       Top = 472
-      Width = 953
+      Width = 969
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -1662,7 +1662,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
       OnKeyUp = edtpencarianKeyUp
     end
     object btnPilih: TBitBtn
-      Left = 784
+      Left = 792
       Top = 504
       Width = 89
       Height = 33
@@ -1677,7 +1677,7 @@ object fBantuObatPenjualan: TfBantuObatPenjualan
       OnClick = btnPilihClick
     end
     object btnKeluar: TBitBtn
-      Left = 880
+      Left = 888
       Top = 504
       Width = 89
       Height = 33

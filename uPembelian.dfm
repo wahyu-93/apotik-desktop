@@ -1,6 +1,6 @@
 object fPembelian: TfPembelian
-  Left = 225
-  Top = 129
+  Left = 232
+  Top = 174
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Form Pembelian ::.'

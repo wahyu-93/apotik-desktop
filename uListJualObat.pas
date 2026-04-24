@@ -139,7 +139,7 @@ begin
     if cbbBulan.Text <> '-' then
       whereClause :=
         'month(tbl_penjualan.tgl_penjualan) = ' +
-        IntToStr(cbbBulan.ItemIndex + 1) +
+        IntToStr(cbbBulan.ItemIndex) +
         ' and ' + whereClause;
   end;
 
@@ -149,7 +149,7 @@ begin
     'left join tbl_pelanggan on tbl_penjualan.id_pelanggan = tbl_pelanggan.id ' +
     'where ' + whereClause +
     ' order by tbl_penjualan.id asc';
-
+  
   // Query total — MySQL yang hitung, bukan loop Delphi
   queryTotal :=
     'select count(*) as jumlah, coalesce(sum(total), 0) as grand_total ' +

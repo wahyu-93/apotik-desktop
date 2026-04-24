@@ -4,7 +4,7 @@ object fLaporanStok: TfLaporanStok
   AutoScroll = False
   BorderIcons = []
   Caption = '.:: Laporan Stok Item ::.'
-  ClientHeight = 654
+  ClientHeight = 666
   ClientWidth = 1137
   Color = clGradientInactiveCaption
   Font.Charset = DEFAULT_CHARSET
@@ -1338,11 +1338,11 @@ object fLaporanStok: TfLaporanStok
     Left = 8
     Top = 72
     Width = 1121
-    Height = 577
+    Height = 585
     TabOrder = 1
     object btnKeluar: TBitBtn
       Left = 1024
-      Top = 536
+      Top = 544
       Width = 89
       Height = 33
       Caption = 'Keluar'
@@ -1357,9 +1357,9 @@ object fLaporanStok: TfLaporanStok
     end
     object dbgrdStok: TDBGrid
       Left = 8
-      Top = 24
-      Width = 1097
-      Height = 465
+      Top = 16
+      Width = 1105
+      Height = 473
       DataSource = dm.dsLaporanStok
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -1499,19 +1499,19 @@ object fLaporanStok: TfLaporanStok
       Left = 8
       Top = 496
       Width = 1105
-      Height = 33
+      Height = 41
       TabOrder = 2
       object lblJumlah: TLabel
         Left = 8
         Top = 7
         Width = 1089
-        Height = 18
+        Height = 26
         Alignment = taCenter
         AutoSize = False
         Caption = 'Laporan Stok Item'
         Font.Charset = ANSI_CHARSET
-        Font.Color = clRed
-        Font.Height = -16
+        Font.Color = clBlack
+        Font.Height = -19
         Font.Name = 'Arial Narrow'
         Font.Style = [fsItalic]
         ParentFont = False

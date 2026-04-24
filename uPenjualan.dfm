@@ -1901,8 +1901,8 @@ object Fpenjualan: TFpenjualan
         Caption = '999999'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -35
-        Font.Name = 'Arial Narrow'
+        Font.Height = -24
+        Font.Name = 'Comic Sans MS'
         Font.Style = [fsItalic]
         ParentFont = False
         WordWrap = True
@@ -1931,9 +1931,9 @@ object Fpenjualan: TFpenjualan
         Caption = 'Rp. 200.000.000'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -64
-        Font.Name = 'Arial Narrow'
-        Font.Style = [fsItalic]
+        Font.Height = -48
+        Font.Name = 'Comic Sans MS'
+        Font.Style = []
         ParentFont = False
       end
     end

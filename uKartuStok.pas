@@ -93,6 +93,7 @@ type
     procedure BuildPrintQuery;
     procedure LoadInfoObat(idObat: Integer);
     procedure DetailBeforePrint(Sender: TQRCustomBand; var PrintBand: Boolean);
+    function GetSaldoAwal(AObatID: string; ATglMulai: TDateTime): Integer;
   public
     { Public declarations }
   end;
@@ -106,6 +107,32 @@ uses
   dataModule, uBantuObatPenjualan, uSatuan;
 
 {$R *.dfm}
+
+function TFKartuStok.GetSaldoAwal(AObatID: string; ATglMulai: TDateTime): Integer;
+var
+  qry: TADOQuery;
+  sTgl: string;
+begin
+  Result := 0;
+  sTgl := FormatDateTime('yyyy-mm-dd', ATglMulai);
+  
+  qry := TADOQuery.Create(nil);
+  try
+    qry.Connection := dm.con1;
+    qry.SQL.Clear;
+    qry.SQL.Add('SELECT SUM(masuk) - SUM(keluar) as saldo_awal');
+    qry.SQL.Add('FROM tbl_kartu_stok');
+    // Menggunakan QuotedStr untuk keamanan string dan format tanggal
+    qry.SQL.Add('WHERE obat_id = ' + QuotedStr(AObatID));
+    qry.SQL.Add('AND tgl < ' + QuotedStr(sTgl));
+    qry.Open;
+
+    if not qry.FieldByName('saldo_awal').IsNull then
+      Result := qry.FieldByName('saldo_awal').AsInteger;
+  finally
+    qry.Free;
+  end;
+end;
 
 procedure TFKartuStok.LoadInfoObat(idObat: Integer);
 begin
@@ -127,32 +154,30 @@ end;
 
 procedure TFKartuStok.BuildPrintQuery;
 var
-  sisa      : Integer;
-  noUrut    : Integer;
-  masuk     : Integer;
-  keluar    : Integer;
-  tglExp    : string;
+  tglExp : string;
 begin
-  // ?? VALIDASI WAJIB
+  // 1. VALIDASI WAJIB
   if not Assigned(FcdsGrid) then
     raise Exception.Create('Data belum ditampilkan (FcdsGrid kosong)');
 
   if FcdsGrid.IsEmpty then
     raise Exception.Create('Data kosong, tidak bisa print');
 
-  // buat query print kalau belum ada
+  // Inisialisasi FqryPrint jika belum ada
   if not Assigned(FqryPrint) then
   begin
     FqryPrint := TADOQuery.Create(Self);
     FqryPrint.Connection := dm.con1;
   end;
 
-  // hapus temp table
+  // 2. RE-CREATE TEMPORARY TABLE
   FqryPrint.Close;
+  FqryPrint.SQL.Clear;
+  // Menggunakan semicolon (;) jika MySQL mengizinkan multiple statement, 
+  // tapi paling aman satu per satu ExecSQL
   FqryPrint.SQL.Text := 'DROP TEMPORARY TABLE IF EXISTS tmp_kartu_stok';
   FqryPrint.ExecSQL;
 
-  // buat temp table
   FqryPrint.SQL.Text :=
     'CREATE TEMPORARY TABLE tmp_kartu_stok (' +
     '  no INT, tgl DATE, no_faktur VARCHAR(50), ' +
@@ -162,42 +187,38 @@ begin
     ')';
   FqryPrint.ExecSQL;
 
-  // isi data
-  sisa   := FSisaAwal;
-  noUrut := 0;
+  // 3. ISI DATA DARI CDS KE TEMP TABLE
+  FcdsGrid.DisableControls; // Mempercepat proses loop
+  try
+    FcdsGrid.First;
+    while not FcdsGrid.Eof do
+    begin
+      // Ambil tgl_expired langsung dari string CDS karena sudah diformat di HitungSummary
+      tglExp := FcdsGrid.FieldByName('tgl_expired').AsString;
 
-  FcdsGrid.First;
-  while not FcdsGrid.Eof do
-  begin
-    noUrut := FcdsGrid.FieldByName('no').AsInteger;
-    masuk  := FcdsGrid.FieldByName('masuk').AsInteger;
-    keluar := FcdsGrid.FieldByName('keluar').AsInteger;
-    sisa   := FcdsGrid.FieldByName('sisa').AsInteger;
+      FqryPrint.SQL.Clear;
+      FqryPrint.SQL.Add('INSERT INTO tmp_kartu_stok VALUES (');
+      FqryPrint.SQL.Add(IntToStr(FcdsGrid.FieldByName('no').AsInteger) + ', ');
+      FqryPrint.SQL.Add(QuotedStr(FormatDateTime('yyyy-mm-dd', FcdsGrid.FieldByName('tgl').AsDateTime)) + ', ');
+      FqryPrint.SQL.Add(QuotedStr(FcdsGrid.FieldByName('no_faktur').AsString) + ', ');
+      FqryPrint.SQL.Add(QuotedStr(FcdsGrid.FieldByName('no_batch').AsString) + ', ');
+      FqryPrint.SQL.Add(QuotedStr(tglExp) + ', ');
+      FqryPrint.SQL.Add(QuotedStr(FcdsGrid.FieldByName('keterangan').AsString) + ', ');
+      FqryPrint.SQL.Add(IntToStr(FcdsGrid.FieldByName('masuk').AsInteger) + ', ');
+      FqryPrint.SQL.Add(IntToStr(FcdsGrid.FieldByName('keluar').AsInteger) + ', ');
+      FqryPrint.SQL.Add(IntToStr(FcdsGrid.FieldByName('sisa').AsInteger) + ', ');
+      FqryPrint.SQL.Add(QuotedStr(FcdsGrid.FieldByName('nie').AsString) + ')');
+      FqryPrint.ExecSQL;
 
-    if FcdsGrid.FieldByName('tgl_expired').AsString = '-' then
-      tglExp := '-'
-    else
-      tglExp := FormatDateTime('dd-mm-yyyy', FcdsGrid.FieldByName('tgl_expired').AsDateTime);
-
-    FqryPrint.SQL.Text :=
-      'INSERT INTO tmp_kartu_stok VALUES (' +
-      IntToStr(noUrut) + ', ' +
-      QuotedStr(FormatDateTime('yyyy-mm-dd', FcdsGrid.FieldByName('tgl').AsDateTime)) + ', ' +
-      QuotedStr(FcdsGrid.FieldByName('no_faktur').AsString) + ', ' +
-      QuotedStr(FcdsGrid.FieldByName('no_batch').AsString) + ', ' +
-      QuotedStr(tglExp) + ', ' +
-      QuotedStr(FcdsGrid.FieldByName('keterangan').AsString) + ', ' +
-      IntToStr(masuk) + ', ' +
-      IntToStr(keluar) + ', ' +
-      IntToStr(sisa) + ', '+
-      QuotedStr(FcdsGrid.FieldByName('nie').AsString) + ')';
-    FqryPrint.ExecSQL;
-
-    FcdsGrid.Next;
+      FcdsGrid.Next;
+    end;
+  finally
+    FcdsGrid.EnableControls;
   end;
 
-  // buka hasil
-  FqryPrint.SQL.Text := 'SELECT * FROM tmp_kartu_stok ORDER BY no';
+  // 4. BUKA HASIL AKHIR
+  FqryPrint.Close;
+  FqryPrint.SQL.Text := 'SELECT * FROM tmp_kartu_stok ORDER BY no ASC';
   FqryPrint.Open;
 end;
 
@@ -393,7 +414,7 @@ begin
     FlblD[i].Parent := bandDetail;
     FlblD[i].SetBounds(colLeft[i], 2, colWidth[i], 24);
     FlblD[i].Alignment := taCenter;
-    FlblD[i].Font.Size := 8;
+    FlblD[i].Font.Size := 7;
     FlblD[i].Font.Name := 'Arial';  // fix: tadinya lbl.Font.Name (salah variable)
   end;
 
@@ -402,6 +423,18 @@ begin
   FlblD[1].Left      := colLeft[1] + 3;
   FlblD[1].Width     := colWidth[1] - 6;
   FlblD[1].AutoSize  := False;
+
+  // kolom 3 - nie
+  FlblD[3].Alignment := taLeftJustify;
+  FlblD[3].Left      := colLeft[3] + 3;
+  FlblD[3].Width     := colWidth[3] - 6;
+  FlblD[3].AutoSize  := False;
+
+  // kolom 7 - batch
+  FlblD[7].Alignment := taLeftJustify;
+  FlblD[7].Left      := colLeft[7] + 3;
+  FlblD[7].Width     := colWidth[7] - 6;
+  FlblD[7].AutoSize  := False;
 
   bandDetail.BeforePrint := DetailBeforePrint;
 end;
@@ -426,36 +459,44 @@ begin
   masuk  := FqryPrint.FieldByName('masuk').AsInteger;
 
   FlblD[0].Caption := FormatDateTime('dd-mm-yyyy', FqryPrint.FieldByName('tgl').AsDateTime);
+  FlblD[0].Font.Size := 7;
 
   // potong teks supaya tidak kepotong saat cetak
   fullText := FqryPrint.FieldByName('no_faktur').AsString + '/' +
               FqryPrint.FieldByName('keterangan').AsString;
   FlblD[1].Caption := fullText;
-  FlblD[1].Font.Size := 7;
+  FlblD[1].Font.Size := 7;       
 
   if FqryPrint.FieldByName('keterangan').AsString = 'Stok Awal' then
     FlblD[2].Caption := '-'
   else
     FlblD[2].Caption := '';
+  FlblD[2].Font.Size := 7;
 
   FlblD[3].Caption := FqryPrint.FieldByName('nie').AsString;
+  FlblD[3].Font.Size := 7;
 
   if masuk > 0 then
     FlblD[4].Caption := FormatFloat('#,##0', FqryPrint.FieldByName('masuk').AsFloat, fs)
   else
     FlblD[4].Caption := '-';
+  FlblD[4].Font.Size := 7;
 
   if keluar > 0 then
     FlblD[5].Caption := FormatFloat('#,##0', FqryPrint.FieldByName('keluar').AsFloat, fs)
   else
     FlblD[5].Caption := '-';
+  FlblD[5].Font.Size := 7;
 
   FlblD[6].Caption := FormatFloat('#,##0', FqryPrint.FieldByName('sisa').AsFloat, fs);
+  FlblD[6].Font.Size := 7;
 
   FlblD[7].Caption := FqryPrint.FieldByName('no_batch').AsString;
   FlblD[7].Font.Size := 7;
 
   FlblD[8].Caption := FqryPrint.FieldByName('tgl_expired').AsString;
+  FlblD[8].Font.Size := 7;
+
   FlblD[9].Caption := '';
 end;
 
@@ -541,28 +582,31 @@ end;
 
 procedure TFKartuStok.HitungSummary;
 var
-  cds              : TClientDataSet;
+  cds             : TClientDataSet;
   ds              : TDataSource;
-  totalMasuk      : Integer;
-  totalKeluar     : Integer;
-  totalReturJual  : Integer;
-  totalReturBeli  : Integer;
-  sisa            : Integer;
+  tMasuk, tKeluar : Integer;
+  tReturJual      : Integer;
+  tReturBeli      : Integer;
+  runningSisa     : Integer;
   noUrut          : Integer;
-  stokMigrasi     : Integer;
-  qryMigrasi      : TADOQuery;
+  vObatID         : string;
 begin
-  totalMasuk  := 0;
-  totalKeluar := 0;
-  totalReturJual := 0;
-  totalReturBeli := 0;
-  sisa        := 0;
-  noUrut      := 0;
-  stokMigrasi := 0;
+  // 1. Inisialisasi Variabel
+  tMasuk := 0; tKeluar := 0;
+  tReturJual := 0; tReturBeli := 0;
+  noUrut := 0;
+  
+  // Ambil ID Obat dari input (asumsi ada edit/combo untuk pilih obat)
+  vObatID := edtObatID.Text; 
+
+  // 2. Ambil Stok Awal sebelum periode filter
+  FSisaAwal := GetSaldoAwal(vObatID, dtpAwal.Date);
+  runningSisa := FSisaAwal;
 
   cds := TClientDataSet.Create(Self);
   ds  := TDataSource.Create(Self);
   try
+    // Setup Struktur Kolom Memory Table
     cds.FieldDefs.Add('no',          ftInteger);
     cds.FieldDefs.Add('tgl',         ftDate);
     cds.FieldDefs.Add('no_faktur',   ftString, 50);
@@ -573,69 +617,71 @@ begin
     cds.FieldDefs.Add('masuk',       ftInteger);
     cds.FieldDefs.Add('keluar',      ftInteger);
     cds.FieldDefs.Add('sisa',        ftInteger);
-    cds.FieldDefs.Add('paraf',       ftString, 30);
     cds.CreateDataSet;
 
-    // ?? TRANSAKSI
+    // 3. Proses Data dari Query Utama (qryKartu)
     qryKartu.First;
     while not qryKartu.Eof do
     begin
-      sisa := sisa
-              + qryKartu.FieldByName('masuk').AsInteger
-              - qryKartu.FieldByName('keluar').AsInteger;
+      // Identifikasi Tipe Transaksi untuk Label Summary
+      // Sesuaikan string 'pembelian', 'penjualan' dsb dengan isi field ref_type Anda
+      if qryKartu.FieldByName('ref_type').AsString = 'pembelian' then
+        tMasuk := tMasuk + qryKartu.FieldByName('masuk').AsInteger
+      else if qryKartu.FieldByName('ref_type').AsString = 'penjualan' then
+        tKeluar := tKeluar + qryKartu.FieldByName('keluar').AsInteger
+      else if qryKartu.FieldByName('ref_type').AsString = 'retur_jual' then
+        tReturJual := tReturJual + qryKartu.FieldByName('masuk').AsInteger
+      else if qryKartu.FieldByName('ref_type').AsString = 'retur_beli' then
+        tReturBeli := tReturBeli + qryKartu.FieldByName('keluar').AsInteger
+      else if qryKartu.FieldByName('ref_type').AsString = 'migrasi' then
+        tMasuk := tMasuk + qryKartu.FieldByName('masuk').AsInteger;
 
-      if qryKartu.FieldByName('keterangan').AsString = 'Retur Penjualan' then
-        totalReturJual := totalReturJual + qryKartu.FieldByName('masuk').AsInteger
-      else if qryKartu.FieldByName('keterangan').AsString = 'Retur Pembelian' then
-        totalReturBeli := totalReturBeli + qryKartu.FieldByName('keluar').AsInteger
-      else
-        totalMasuk := totalMasuk + qryKartu.FieldByName('masuk').AsInteger;
+      // Hitung Saldo Berjalan (Running Balance)
+      runningSisa := runningSisa + qryKartu.FieldByName('masuk').AsInteger - qryKartu.FieldByName('keluar').AsInteger;
 
-      // keluar hanya dari penjualan
-      if qryKartu.FieldByName('keterangan').AsString <> 'Retur Pembelian' then
-        totalKeluar := totalKeluar + qryKartu.FieldByName('keluar').AsInteger;
-
+      // Tambah Baris ke Grid
       Inc(noUrut);
       cds.Append;
-      cds.FieldByName('no').AsInteger          := noUrut;
-      cds.FieldByName('tgl').AsDateTime        := qryKartu.FieldByName('tgl').AsDateTime;
-      cds.FieldByName('no_faktur').AsString    := qryKartu.FieldByName('no_faktur').AsString;
-      cds.FieldByName('nie').AsString          := qryKartu.FieldByName('nie').AsString;
-      cds.FieldByName('no_batch').AsString     := qryKartu.FieldByName('no_batch').AsString;
-
+      cds.FieldByName('no').AsInteger        := noUrut;
+      cds.FieldByName('tgl').AsDateTime      := qryKartu.FieldByName('tgl').AsDateTime;
+      cds.FieldByName('no_faktur').AsString  := qryKartu.FieldByName('no_faktur').AsString;
+      cds.FieldByName('nie').AsString        := qryKartu.FieldByName('nie').AsString;
+      cds.FieldByName('no_batch').AsString   := qryKartu.FieldByName('no_batch').AsString;
+      
       if not qryKartu.FieldByName('tgl_expired').IsNull then
-        cds.FieldByName('tgl_expired').AsString :=
-          FormatDateTime('dd/mm/yyyy', qryKartu.FieldByName('tgl_expired').AsDateTime)
+        cds.FieldByName('tgl_expired').AsString := FormatDateTime('dd/mm/yyyy', qryKartu.FieldByName('tgl_expired').AsDateTime)
       else
         cds.FieldByName('tgl_expired').AsString := '-';
 
-      cds.FieldByName('keterangan').AsString   := qryKartu.FieldByName('keterangan').AsString;
-      cds.FieldByName('masuk').AsInteger       := qryKartu.FieldByName('masuk').AsInteger;
-      cds.FieldByName('keluar').AsInteger      := qryKartu.FieldByName('keluar').AsInteger;
-      cds.FieldByName('sisa').AsInteger        := sisa;
-      cds.FieldByName('paraf').AsString        := '';
+      // Gunakan sumber/keterangan dari DB, atau ref_type yang diproses
+      cds.FieldByName('keterangan').AsString := qryKartu.FieldByName('sumber').AsString;
+      cds.FieldByName('masuk').AsInteger      := qryKartu.FieldByName('masuk').AsInteger;
+      cds.FieldByName('keluar').AsInteger     := qryKartu.FieldByName('keluar').AsInteger;
+      cds.FieldByName('sisa').AsInteger       := runningSisa; 
       cds.Post;
 
       qryKartu.Next;
     end;
 
-    ds.DataSet         := cds;
-    dbgrd1.DataSource  := ds;
-
-    FcdsGrid := cds;
+    // 4. Update UI Grid
+    ds.DataSet := cds;
+    dbgrd1.DataSource := ds;
+    
+    // Simpan reference agar bisa diprint atau di-export
+    FcdsGrid := cds; 
     FdsGrid  := ds;
 
-    lblMasukVal.Caption  := IntToStr(totalMasuk);
-    lblKeluarVal.Caption := IntToStr(totalKeluar);
-    lblReturJualVal.Caption  := IntToStr(totalReturJual);  // label baru
-    lblReturBeliVal.Caption  := IntToStr(totalReturBeli);
-    lblSisaVal.Caption   := IntToStr(sisa);
-    lblStokAwalVal.Caption := IntToStr(FSisaAwal); // ?? biar jelas
+    // 5. Update Label Summary
+    lblStokAwalVal.Caption  := IntToStr(FSisaAwal);
+    lblMasukVal.Caption     := IntToStr(tMasuk);
+    lblKeluarVal.Caption    := IntToStr(tKeluar);
+    lblReturJualVal.Caption := IntToStr(tReturJual);
+    lblReturBeliVal.Caption := IntToStr(tReturBeli);
+    lblSisaVal.Caption      := IntToStr(runningSisa); // Sisa akhir periode
 
-    lblStatus.Caption :=
-      IntToStr(noUrut - 1) + ' transaksi ditemukan | Periode: ' +
-      FormatDateTime('dd/mm/yyyy', dtpAwal.DateTime) + ' — ' +
-      FormatDateTime('dd/mm/yyyy', dtpAkhir.DateTime);
+    lblStatus.Caption := Format('%d transaksi ditemukan | Periode: %s s/d %s', 
+                         [noUrut, FormatDateTime('dd/mm/yyyy', dtpAwal.Date), 
+                         FormatDateTime('dd/mm/yyyy', dtpAkhir.Date)]);
 
   except
     on E: Exception do
@@ -692,208 +738,13 @@ begin
   lblStokAwalVal.Caption := IntToStr(FSisaAwal);
 
   TampilInfoObat;
- 
-  { ============================================================
-    Query kartu stok: 3 bagian UNION ALL
-    1. Pembelian (dari tbl_detail_pembelian) — selalu dari tabel aktif
-    2. Penjualan aktif (dari tbl_penjualan — data <= 1 tahun)
-    3. Penjualan arsip (dari arsip_penjualan — data > 1 tahun)
-    Semua sudah difilter obat_id dan rentang tanggal
-    ============================================================ }
 
   qryKartu.Close;
   qryKartu.SQL.Clear;
-
-  qryKartu.SQL.Text :=
-    'SELECT ' +
-    ' sumber, tgl, no_faktur, no_batch, tgl_expired, ' +
-    ' keterangan, masuk, keluar, nie ' +
-    'FROM ( ' +
-
-    // ===== PEMBELIAN =====
-    ' SELECT ' +
-    ' ''Pembelian'' AS sumber, ' +
-    ' DATE(s.created_at) AS tgl, ' +
-    ' s.created_at AS tgl_full, ' +
-    ' s.no_faktur, ' +
-    ' b.no_batch, ' +
-    ' b.tgl_expired, ' +
-    ' ''Pembelian'' AS keterangan, ' +
-    ' s.jumlah AS masuk, ' +
-    ' 0 AS keluar, ' +
-    ' b.nie_number AS nie ' +
-    ' FROM tbl_stok s ' +
-    ' JOIN tbl_pembelian p ON p.no_faktur = s.no_faktur ' +
-    ' JOIN tbl_detail_pembelian dp ON dp.pembelian_id = p.id ' +
-    ' AND dp.obat_id = s.obat_id ' +
-    ' JOIN tbl_batch b ON b.pembelian_id = p.id ' +
-    ' AND b.obat_id = s.obat_id ' +
-    ' AND b.is_migrasi = 0 ' +
-    ' WHERE s.obat_id = ' + sObatID +
-    ' AND s.keterangan = ''pembelian'' ' +
-    ' AND DATE(s.created_at) BETWEEN ' + sTglAwal + ' AND ' + sTglAkhir +
-
-    ' UNION ALL ' +
-
-    // ===== RETUR PEMBELIAN =====
-    ' SELECT ' +
-    ' ''Retur'' AS sumber, ' +
-    ' DATE(s.created_at) AS tgl, ' +
-    ' s.created_at AS tgl_full, ' +
-    ' s.no_faktur, ' +
-    ' b.no_batch, ' +
-    ' b.tgl_expired, ' +
-    ' ''Retur Pembelian'' AS keterangan, ' +
-    ' 0 AS masuk, ' +
-    ' s.jumlah AS keluar, ' +
-    ' b.nie_number AS nie ' +
-    ' FROM tbl_stok s ' +
-    ' JOIN tbl_pembelian p ON p.no_faktur = s.no_faktur ' +
-    ' JOIN tbl_batch b ON b.pembelian_id = p.id ' +
-    ' AND b.obat_id = s.obat_id ' +
-    ' AND b.is_migrasi = 0 ' +
-    ' WHERE s.obat_id = ' + sObatID +
-    ' AND s.keterangan = ''retur-pembelian'' ' +
-    ' AND DATE(s.created_at) BETWEEN ' + sTglAwal + ' AND ' + sTglAkhir +
-
-    ' UNION ALL ' +
-
-    // ===== PENJUALAN AKTIF =====
-    ' SELECT ' +
-    ' ''Penjualan'' AS sumber, ' +
-    ' DATE(s.created_at) AS tgl, ' +
-    ' s.created_at AS tgl_full, ' +
-    ' s.no_faktur, ' +
-    ' b.no_batch, ' +
-    ' b.tgl_expired, ' +
-    ' ''Penjualan'' AS keterangan, ' +
-    ' 0 AS masuk, ' +
-    ' s.jumlah AS keluar, ' +
-    ' b.nie_number AS nie ' +
-    ' FROM tbl_stok s ' +
-    ' JOIN tbl_penjualan pj ON pj.no_faktur = s.no_faktur ' +
-    ' JOIN tbl_penjualan_batch pb ON pb.penjualan_id = pj.id ' +
-    ' JOIN tbl_batch b ON b.id = pb.batch_id ' +
-    ' AND b.obat_id = s.obat_id ' +
-    ' WHERE s.obat_id = ' + sObatID +
-    ' AND s.keterangan = ''penjualan'' ' +
-    ' AND DATE(s.created_at) BETWEEN ' + sTglAwal + ' AND ' + sTglAkhir +
-
-    ' UNION ALL ' +
-
-    // ===== RETUR PENJUALAN AKTIF =====
-    ' SELECT ' +
-    ' ''Retur'' AS sumber, ' +
-    ' DATE(s.created_at) AS tgl, ' +
-    ' s.created_at AS tgl_full, ' +
-    ' s.no_faktur, ' +
-    ' b.no_batch, ' +
-    ' b.tgl_expired, ' +
-    ' ''Retur Penjualan'' AS keterangan, ' +
-    ' pb.jumlah_retur AS masuk, ' +
-    ' 0 AS keluar, ' +
-    ' b.nie_number AS nie ' +
-    ' FROM tbl_stok s ' +
-    ' JOIN tbl_penjualan pj ON pj.no_faktur = s.no_faktur ' +
-    ' JOIN tbl_penjualan_batch pb ON pb.penjualan_id = pj.id ' +
-    ' AND pb.jumlah_retur > 0 ' +
-    ' JOIN tbl_batch b ON b.id = pb.batch_id ' +
-    ' AND b.obat_id = s.obat_id ' +
-    ' WHERE s.obat_id = ' + sObatID +
-    ' AND s.keterangan = ''retur-penjualan'' ' +
-    ' AND DATE(s.created_at) BETWEEN ' + sTglAwal + ' AND ' + sTglAkhir +
-
-    ' UNION ALL ' +
-
-    // ===== PENJUALAN ARSIP =====
-    ' SELECT ' +
-    ' ''Arsip'' AS sumber, ' +
-    ' DATE(s.created_at) AS tgl, ' +
-    ' s.created_at AS tgl_full, ' +
-    ' s.no_faktur, ' +
-    ' b.no_batch, ' +
-    ' b.tgl_expired, ' +
-    ' ''Penjualan'' AS keterangan, ' +
-    ' 0 AS masuk, ' +
-    ' s.jumlah AS keluar, ' +
-    ' b.nie_number AS nie ' +
-    ' FROM tbl_stok s ' +
-    ' JOIN arsip_penjualan pj ON pj.no_faktur = s.no_faktur ' +
-    ' JOIN tbl_penjualan_batch pb ON pb.penjualan_id = pj.id ' +
-    ' JOIN tbl_batch b ON b.id = pb.batch_id ' +
-    ' AND b.obat_id = s.obat_id ' +
-    ' WHERE s.obat_id = ' + sObatID +
-    ' AND s.keterangan = ''penjualan'' ' +
-    ' AND DATE(s.created_at) BETWEEN ' + sTglAwal + ' AND ' + sTglAkhir +
-
-    ' UNION ALL ' +
-
-    // ===== RETUR PENJUALAN ARSIP =====
-    ' SELECT ' +
-    ' ''Arsip'' AS sumber, ' +
-    ' DATE(s.created_at) AS tgl, ' +
-    ' s.created_at AS tgl_full, ' +
-    ' s.no_faktur, ' +
-    ' b.no_batch, ' +
-    ' b.tgl_expired, ' +
-    ' ''Retur Penjualan'' AS keterangan, ' +
-    ' pb.jumlah_retur AS masuk, ' +
-    ' 0 AS keluar, ' +
-    ' b.nie_number AS nie ' +
-    ' FROM tbl_stok s ' +
-    ' JOIN arsip_penjualan pj ON pj.no_faktur = s.no_faktur ' +
-    ' JOIN tbl_penjualan_batch pb ON pb.penjualan_id = pj.id ' +
-    ' AND pb.jumlah_retur > 0 ' +
-    ' JOIN tbl_batch b ON b.id = pb.batch_id ' +
-    ' AND b.obat_id = s.obat_id ' +
-    ' WHERE s.obat_id = ' + sObatID +
-    ' AND s.keterangan = ''retur-penjualan'' ' +
-    ' AND DATE(s.created_at) BETWEEN ' + sTglAwal + ' AND ' + sTglAkhir +
-
-    ' UNION ALL ' +
-
-    // ===== STOK AWAL MIGRASI =====
-    ' SELECT ' +
-    ' ''Migrasi'' AS sumber, ' +
-    ' DATE(b.created_at) AS tgl, ' +
-    ' b.created_at AS tgl_full, ' +
-    ' b.no_batch AS no_faktur, ' +
-    ' b.no_batch, ' +
-    ' b.tgl_expired, ' +
-    ' ''Stok Awal'' AS keterangan, ' +
-    ' b.jumlah_awal AS masuk, ' +
-    ' 0 AS keluar, ' +
-    ' b.nie_number AS nie ' +
-    ' FROM tbl_batch b ' +
-    ' WHERE b.obat_id = ' + sObatID +
-    ' AND b.is_migrasi = 1 ' +
-
-    ' UNION ALL ' +
-
-    // ===== KOREKSI STOK =====
-    ' SELECT ' +
-    ' ''Koreksi'' AS sumber, ' +
-    ' DATE(s.created_at) AS tgl, ' +
-    ' s.created_at AS tgl_full, ' +
-    ' s.no_faktur, ' +
-    ' b.no_batch, ' +
-    ' b.tgl_expired, ' +
-    ' CONCAT(''Koreksi: '', COALESCE(lk.alasan_detail, lk.alasan_kode)) AS keterangan, ' +
-    ' CASE WHEN lk.selisih > 0 THEN lk.selisih ELSE 0 END AS masuk, ' +
-    ' CASE WHEN lk.selisih < 0 THEN ABS(lk.selisih) ELSE 0 END AS keluar, ' +
-    ' b.nie_number AS nie ' +
-    ' FROM tbl_stok s ' +
-    ' JOIN tbl_log_koreksi lk ON lk.no_koreksi = s.no_faktur ' +
-    ' JOIN tbl_batch b ON b.id = lk.batch_id ' +
-    ' WHERE s.obat_id = ' + sObatID +
-    ' AND s.keterangan = ''koreksi'' ' +
-    ' AND DATE(s.created_at) BETWEEN ' + sTglAwal + ' AND ' + sTglAkhir +
-
-  ') AS kartu ' +
-  'ORDER BY tgl_full ASC';
-
+  qryKartu.SQL.Text := 'SELECT * FROM tbl_kartu_stok WHERE obat_id = '+sObatID
+                       +' AND DATE(tgl_full) BETWEEN ' + sTglAwal + ' AND ' + sTglAkhir
+                       +' ORDER BY created_at ASC ';
   qryKartu.Open;
-
 
   HitungSummary;
 

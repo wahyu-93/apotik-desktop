@@ -4,24 +4,26 @@
            Tersedia Obat-Obatan
              Herbal dan Alkes
 ------------------------------------------
-No. Nota : PJ-1704202603893
-Tanggal  : 17/04/2026 10:58:06
+No. Nota : PJ-2104202604611
+Tanggal  : 21/04/2026 18:13:16
 Kasir    : Hamdi Farma
 Status   : Lunas
 ------------------------------------------
 Nama Barang
       QTY   Harga                Sub Total
 ------------------------------------------
- Scandexon
-      1 X 3.000                      3.000
- Stop cold
-      1 X 5.000                      5.000
+ Madu As Salamah
+      3 X 55.000                   165.000
+ Needle 24 G
+      1 X 500                          500
+ Antangin JRG Cair
+      1 X 3.500                      3.500
 ------------------------------------------
-Total   :                         Rp 8.000
-Bayar   :                         Rp 8.000
+Total   :                       Rp 169.000
+Bayar   :                       Rp 169.000
 Kembali :                              Rp 
 ------------------------------------------
- Jumlah Item : 2
+ Jumlah Item : 3
 ------------------------------------------
                Terima Kasih
           Berelaan Jual Seadanya
